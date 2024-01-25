@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -16,7 +16,10 @@ import { alertActions } from "../../../app/store";
 import { getSuppliers } from "../../../features/suppliers/suppliersSlice";
 import { getTaxes } from "../../../features/tax/taxSlice";
 import { getIngredients } from "../../../features/ingredients/ingredientsSlice";
+//import Selector from "../../../components/common/Selector";
+import FormikSelect from "../../../components/common/FormikSelect";
 import Selector from "../../../components/common/Selector";
+import CustomSelect from "../../../components/common/CustomSelect";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -28,7 +31,7 @@ const CustomInputComponent = ({
   </div>
 );
 
-const ErrorMessage2 = ({ name }) => (
+const ErrorMessage2 = (name) => (
   <Field
     name={name}
     render={({ form }) => {
@@ -99,20 +102,24 @@ const NewPurchaseOrder = () => {
   const { taxes } = useSelector((state) => state.taxes);
   const { ingredients } = useSelector((state) => state.ingredients);
 
+  var newArray = suppliers.map(function (obj) {
+    return { value: obj.id, label: obj.name };
+  });
+
   useEffect(() => {
     dispatch(getIngredients());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getTaxes());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     dispatch(getSuppliers());
-  }, [dispatch]);
+  }, []);
 
   const handleSubmit = async (formValue) => {
-    const { email, password } = formValue;
+    //const { email, password } = formValue;
 
     dispatch(alertActions.clear());
 
@@ -165,7 +172,7 @@ const NewPurchaseOrder = () => {
           </Link>
           {"/"}
           <h3 className="text-lg font-bold text-gray-700">
-            Add Purchase Order
+            Add Purchase Orderdlkldkk
           </h3>
         </div>
       </div>
@@ -175,7 +182,7 @@ const NewPurchaseOrder = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, values, formik }) => (
+          {({ errors, touched, values, setFieldValue }) => (
             <Form>
               <div className="flex flex-col">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -183,40 +190,17 @@ const NewPurchaseOrder = () => {
                     <label className="block text-nelsa_primary font-semibold">
                       Vendor
                     </label>
-                    {/* <Field
-                      as="select"
-                      name="supplier_id"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.supplier_id && touched.supplier_id
-                          ? "border-red-500"
-                          : ""
-                      } focus:border-blue-950`}
-                    >
-                      <option value="">Select Option</option>
-                      {suppliers.map((supplier) => (
-                        <option key={supplier.id} value={supplier.id}>
-                          {supplier.supplier_code} - {supplier.name}
-                        </option>
-                      ))}
-                    </Field> */}
-                    <Field
-                      component={Selector}
-                      formik={formik}
-                      name="supplier_id"
+
+                    <CustomSelect
+                      options={newArray}
                       value={values.supplier_id}
-                    ></Field>
-                    {/* <Field name="supplier_id">
-                      {({ field }) => (
-                        <Selector
-                          {...field}
-                          color={
-                            errors.supplier_id && touched.supplier_id
-                              ? "failure"
-                              : ""
-                          }
-                        ></Selector>
-                      )}
-                    </Field> */}
+                      onChange={(value) =>
+                        setFieldValue("supplier_id", value.value)
+                      }
+                    />
+
+                    {/* <Selector options={newArray} value={values.supplier_id} /> */}
+                    {/* <FormikSelect name="supplier_id" options={newArray} /> */}
                     <ErrorMessage
                       name="supplier_id"
                       component="div"

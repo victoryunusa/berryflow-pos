@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
+import PropTypes from "prop-types";
 import * as HeIcons from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
-const Selector = (props) => {
+const Selector = ({ options, value, onChange }) => {
   const { countries } = useSelector((state) => state.countries);
 
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
+
+  const selectedItem = options.find((o) => o.value === value);
+  const label = selectedItem?.label ?? "Select Option...";
 
   return (
     <div className="w-full relative z-50">
@@ -38,28 +41,36 @@ const Selector = (props) => {
             className="placeholder:text-neutral-400 p-2 outline-none w-full"
           />
         </div>
-        {countries?.map((country) => (
+        {options?.map((option) => (
           <li
-            key={country?.id}
+            key={option?.value}
             className={`p-2 text-sm hover:bg-nelsa_primary hover:text-white ${
-              country?.name?.toLowerCase().startsWith(inputValue)
+              option?.label?.toLowerCase().startsWith(inputValue)
                 ? "block"
                 : "hidden"
             }`}
             onClick={() => {
-              if (country?.name?.toLowerCase() !== selected.toLowerCase()) {
-                setSelected(country?.name);
+              if (option?.label?.toLowerCase() !== selected.toLowerCase()) {
+                setSelected(option?.label);
 
                 setOpen(false);
               }
             }}
+            onChange={(selected) => onChange(selected)}
           >
-            {country?.name}
+            {option?.label}
           </li>
         ))}
       </ul>
     </div>
   );
+};
+
+Selector.propTypes = {
+  options: PropTypes.array.isRequired,
+  value: PropTypes.any,
+  onChange: PropTypes.func,
+  // ...
 };
 
 export default Selector;

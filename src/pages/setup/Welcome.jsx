@@ -34,6 +34,9 @@ const Welcome = () => {
   const initialValues = {
     business_name: "",
     url: "",
+    address: "",
+    email: "",
+    phone: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -141,6 +144,44 @@ const Welcome = () => {
                   className="text-red-500 text-sm"
                 />
               </div>
+              <div className="mt-4">
+                <label className="block text-nelsa_primary text-sm font-semibold">
+                  Business Email
+                </label>
+                <Field
+                  type="text"
+                  placeholder="Business email address"
+                  autoComplete="off"
+                  name="email"
+                  className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                    errors.email && touched.email ? "border-red-500" : ""
+                  } focus:border-blue-950`}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-nelsa_primary text-sm font-semibold">
+                  Business Phone
+                </label>
+                <Field
+                  type="text"
+                  placeholder="Business phone number"
+                  autoComplete="off"
+                  name="phone"
+                  className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                    errors.phone && touched.phone ? "border-red-500" : ""
+                  } focus:border-blue-950`}
+                />
+                <ErrorMessage
+                  name="phone"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
               {/* <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
                   Business Location
@@ -191,30 +232,28 @@ const Welcome = () => {
                   className="text-red-500 text-sm"
                 />
               </div> */}
-              {/* <div className="mt-4">
+              <div className="mt-4">
                 <div className="">
                   <label className="block text-nelsa_primary font-semibold">
-                    Business Description
+                    Address
                   </label>
 
                   <Field
-                    name="description"
+                    name="address"
                     className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm font-normal rounded-md focus:outline-none ${
-                      errors.description && touched.description
-                        ? "border-red-500"
-                        : ""
+                      errors.address && touched.address ? "border-red-500" : ""
                     } focus:border-blue-950`}
                     component={CustomInputComponent}
-                    placeholder="Business Description"
+                    placeholder="Address"
                   />
 
                   <ErrorMessage
-                    name="description"
+                    name="address"
                     component="div"
                     className="text-red-500 text-sm"
                   />
                 </div>
-              </div> */}
+              </div>
 
               {/* <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
