@@ -55,11 +55,10 @@ const Staff = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white p-5 rounded-lg text-xs">
+      <div className="bg-white border p-5 rounded-lg text-xs">
         <DataTable
           value={users}
           stripedRows
-          size="small"
           tableStyle={{ minWidth: "50rem" }}
           className="text-sm font-manrope rounded-lg"
         >

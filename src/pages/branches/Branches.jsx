@@ -93,7 +93,7 @@ const Branches = () => {
                   </button>
                 </Link>
               </div>
-              <div className="bg-white rounded-lg text-xs">
+              <div className="bg-white border p-5 rounded-lg text-xs">
                 <DataTable
                   value={branches}
                   stripedRows

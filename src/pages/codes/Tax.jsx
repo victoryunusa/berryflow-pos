@@ -47,7 +47,7 @@ const Tax = () => {
             </button>
           </div>
         </div>
-        <div className="bg-white p-5 rounded-lg text-xs">
+        <div className="bg-white border p-5 rounded-lg text-xs">
           <DataTable
             value={taxes}
             stripedRows

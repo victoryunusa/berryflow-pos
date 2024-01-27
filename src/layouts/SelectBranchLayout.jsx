@@ -15,7 +15,7 @@ const SelectBranchLayout = () => {
   }, [navigate, user.vendor_id]);
 
   return (
-    <div className="min-h-screen font-manrope antialiased flex items-center justify-center p-5 bg-white text-gray-800 overflow-x-0">
+    <div className="min-h-screen font-manrope flex items-center justify-center p-5 bg-white text-gray-800 overflow-x-0">
       <Outlet />
     </div>
   );

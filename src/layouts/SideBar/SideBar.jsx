@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import * as HeIcons from "react-icons/fa6";
 import { useMediaQuery } from "react-responsive";
 import logo from "../../assets/images/Nelsa_logo1.svg";
-import { NavLink, useLocation, useRoutes } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import { subMenusList } from "./SidebarData";
 
-const SideBar = ({ isOpen }) => {
+const SideBar = () => {
   let isTabletMid = useMediaQuery({ query: "(max-width: 768px)" });
   const [open, setOpen] = useState(isTabletMid ? false : true);
   const sidebarRef = useRef();
@@ -58,9 +58,9 @@ const SideBar = ({ isOpen }) => {
         },
       };
 
-  const onClick = () => {
-    //setIsOpen(!isOpen);
-  };
+  // const onClick = () => {
+  //   //setIsOpen(!isOpen);
+  // };
 
   return (
     <>
@@ -171,8 +171,13 @@ const SideBar = ({ isOpen }) => {
           )}
         </div>
       </motion.div>
-      <div className="md:hidden m-6 w-5 h-5" onClick={() => setOpen(true)}>
-        <HeIcons.FaBars size={25} />
+      <div>
+        <div
+          className="md:hidden m-6 w-5 z-[999]"
+          onClick={() => setOpen(true)}
+        >
+          <HeIcons.FaBars size={25} />
+        </div>
       </div>
     </>
   );

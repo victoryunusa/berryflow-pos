@@ -1,19 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "primereact/chart";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import * as HeIcons from "react-icons/fa6";
-import * as TbIcons from "react-icons/tb";
-import { Outlet, NavLink, Link, useNavigate, Navigate } from "react-router-dom";
-import { alertActions } from "../app/store";
-import { reset } from "../features/auth/authSlice";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { user, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  );
+  const { user } = useSelector((state) => state.user);
 
   const { countries } = useSelector((state) => state.countries);
   const { branches } = useSelector((state) => state.branches);
@@ -25,44 +14,6 @@ const Dashboard = () => {
   const currency = countries?.find(
     (country) => country.id === activeBranch?.currency_id
   );
-
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
-
-  useEffect(() => {
-    const data = {
-      labels: ["Q1", "Q2", "Q3", "Q4"],
-      datasets: [
-        {
-          label: "Sales",
-          data: [540, 325, 702, 620],
-          backgroundColor: [
-            "rgba(255, 159, 64, 0.2)",
-            "rgba(75, 192, 192, 0.2)",
-            "rgba(54, 162, 235, 0.2)",
-            "rgba(153, 102, 255, 0.2)",
-          ],
-          borderColor: [
-            "rgb(255, 159, 64)",
-            "rgb(75, 192, 192)",
-            "rgb(54, 162, 235)",
-            "rgb(153, 102, 255)",
-          ],
-          borderWidth: 1,
-        },
-      ],
-    };
-    const options = {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    };
-
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
 
   return (
     <div className="flex flex-col space-y-12">
@@ -82,8 +33,8 @@ const Dashboard = () => {
             </h3>
           </button>
         </div>
-        <div className="flex md:flex-row flex-col gap-10 mt-4">
-          <div className="md:w-2/5 w-full p-5 rounded-xl bg-nelsa_primary ">
+        <div className="flex md:flex-row flex-col gap-5 mt-2">
+          {/* <div className="md:w-2/5 w-full p-5 rounded-xl bg-nelsa_primary ">
             <div className="flex flex-row justify-between items-center">
               <div className="w-full">
                 <span className="flex flex-row justify-between">
@@ -118,106 +69,123 @@ const Dashboard = () => {
                 Withdraw
               </button>
             </div>
+          </div> */}
+          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center gap-3">
+                <span className="w-10 h-10 bg-nelsa_primary/15 text-nelsa_primary rounded-md p-3">
+                  <HeIcons.FaWallet />
+                </span>
+                <p className="text-sm antialiased">Total Revenue</p>
+              </div>
+              <div>
+                <span>
+                  <HeIcons.FaEllipsisVertical />
+                </span>
+              </div>
+            </div>
+            <div className="">
+              <h2 className="font-normal text-3xl text-gray-800">
+                {currency?.currency_symbol}200,000.00
+              </h2>
+              <span>
+                <p className="text-xs antialiased">
+                  10% change from last month
+                </p>
+              </span>
+            </div>
           </div>
-          <div className=" w-3/5 p-4 rounded-xl border-[0.1rem] border-gray-100  bg-white flex flex-row justify-between space-x-1 items-center"></div>
+          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center gap-3">
+                <span className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-md p-3">
+                  <HeIcons.FaBookmark />
+                </span>
+                <p className="text-sm antialiased">Total Order</p>
+              </div>
+              <div>
+                <span>
+                  <HeIcons.FaEllipsisVertical />
+                </span>
+              </div>
+            </div>
+            <div className="">
+              <h2 className="font-normal text-3xl text-gray-800">1024</h2>
+              <span>
+                <p className="text-xs">10% change from last month</p>
+              </span>
+            </div>
+          </div>
+          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center gap-3">
+                <span className="w-10 h-10 bg-blue-50 text-blue-600 rounded-md p-3">
+                  <HeIcons.FaChartPie />
+                </span>
+                <p className="text-sm antialiased">Average Sale</p>
+              </div>
+              <div>
+                <span>
+                  <HeIcons.FaEllipsisVertical />
+                </span>
+              </div>
+            </div>
+            <div className="">
+              <h2 className="font-normal text-3xl text-gray-800">
+                {currency?.currency_symbol}700.00
+              </h2>
+              <span>
+                <p className="text-xs">10% change from last month</p>
+              </span>
+            </div>
+          </div>
+          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-row items-center gap-3">
+                <span className="w-10 h-10 bg-green-100 text-green-600 rounded-md p-3">
+                  <HeIcons.FaAward />
+                </span>
+                <p className="text-sm antialiased">Total Discount</p>
+              </div>
+              <div>
+                <span>
+                  <HeIcons.FaEllipsisVertical />
+                </span>
+              </div>
+            </div>
+            <div className="">
+              <h2 className="font-normal text-3xl text-gray-800">
+                {currency?.currency_symbol}200.00
+              </h2>
+              <span>
+                <p className="text-xs">10% change from last month</p>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div className="">
-        <div className="">
-          <h3 className="text-lg font-bold text-gray-700">Other Statistics</h3>
-        </div>
-        <div className="flex md:flex-row flex-col gap-5 mt-4">
-          <div className="md:w-2/4 w-full p-4 rounded-xl border-[0.1rem] border-gray-100  bg-white flex flex-row justify-between space-x-1 items-center">
-            <span className=" px-5">
-              <p className="text-sm text-gray-400">Total Sales</p>
-              <h1 className="text-2xl text-gray-700 font-bold mt-1">{200}</h1>
-            </span>
-            <span className="bg-white border border-zinc-100 rounded-lg flex items-center w-10 h-10 justify-center">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.0002 10.9692V13.0292C22.0002 13.5792 21.5602 14.0292 21.0002 14.0492H19.0402C17.9602 14.0492 16.9702 13.2592 16.8802 12.1792C16.8202 11.5492 17.0602 10.9592 17.4802 10.5492C17.8502 10.1692 18.3602 9.94922 18.9202 9.94922H21.0002C21.5602 9.96922 22.0002 10.4192 22.0002 10.9692Z"
-                  fill="#1A5AFF"
-                />
-                <path
-                  d="M20.47 15.55H19.04C17.14 15.55 15.54 14.12 15.38 12.3C15.29 11.26 15.67 10.22 16.43 9.48C17.07 8.82 17.96 8.45 18.92 8.45H20.47C20.76 8.45 21 8.21 20.97 7.92C20.75 5.49 19.14 3.83 16.75 3.55C16.51 3.51 16.26 3.5 16 3.5H7C6.72 3.5 6.45 3.52 6.19 3.56C3.64 3.88 2 5.78 2 8.5V15.5C2 18.26 4.24 20.5 7 20.5H16C18.8 20.5 20.73 18.75 20.97 16.08C21 15.79 20.76 15.55 20.47 15.55ZM13 9.75H7C6.59 9.75 6.25 9.41 6.25 9C6.25 8.59 6.59 8.25 7 8.25H13C13.41 8.25 13.75 8.59 13.75 9C13.75 9.41 13.41 9.75 13 9.75Z"
-                  fill="#1A5AFF"
-                />
-              </svg>
-            </span>
+        <div className="flex md:flex-row flex-col gap-5">
+          <div className="md:w-2/3 w-full p-4 rounded-lg border bg-white flex flex-row justify-between">
+            <div className="w-full">
+              <span className="flex flex-row justify-between items-center">
+                <p className="text-sm text-gray-900 font-semibold">
+                  Total Sales
+                </p>
+                <HeIcons.FaEllipsisVertical />
+              </span>
+            </div>
           </div>
-          <div className="md:w-1/4 w-full p-4 rounded-xl border-[0.1rem] border-gray-100  bg-white flex flex-row justify-between space-x-1 items-center">
-            <span className=" px-5">
-              <p className="text-sm text-gray-400">Total POS Sale Value</p>
-              <h1 className="text-2xl text-gray-700 font-bold mt-1">20,000</h1>
-            </span>
-            <span className="bg-white border border-zinc-100 rounded-lg flex items-center w-10 h-10 justify-center">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.0002 10.9692V13.0292C22.0002 13.5792 21.5602 14.0292 21.0002 14.0492H19.0402C17.9602 14.0492 16.9702 13.2592 16.8802 12.1792C16.8202 11.5492 17.0602 10.9592 17.4802 10.5492C17.8502 10.1692 18.3602 9.94922 18.9202 9.94922H21.0002C21.5602 9.96922 22.0002 10.4192 22.0002 10.9692Z"
-                  fill="#1A5AFF"
-                />
-                <path
-                  d="M20.47 15.55H19.04C17.14 15.55 15.54 14.12 15.38 12.3C15.29 11.26 15.67 10.22 16.43 9.48C17.07 8.82 17.96 8.45 18.92 8.45H20.47C20.76 8.45 21 8.21 20.97 7.92C20.75 5.49 19.14 3.83 16.75 3.55C16.51 3.51 16.26 3.5 16 3.5H7C6.72 3.5 6.45 3.52 6.19 3.56C3.64 3.88 2 5.78 2 8.5V15.5C2 18.26 4.24 20.5 7 20.5H16C18.8 20.5 20.73 18.75 20.97 16.08C21 15.79 20.76 15.55 20.47 15.55ZM13 9.75H7C6.59 9.75 6.25 9.41 6.25 9C6.25 8.59 6.59 8.25 7 8.25H13C13.41 8.25 13.75 8.59 13.75 9C13.75 9.41 13.41 9.75 13 9.75Z"
-                  fill="#1A5AFF"
-                />
-              </svg>
-            </span>
-          </div>
-          <div className="md:w-1/4 w-full p-4 rounded-xl border-[0.1rem] border-gray-100  bg-white flex flex-row justify-between space-x-1 items-center">
-            <span className=" px-5">
-              <p className="text-sm text-gray-400">Total Revenue</p>
-              <h1 className="text-2xl text-gray-700 font-bold mt-1">20,000</h1>
-            </span>
-            <span className="bg-white border border-zinc-100 rounded-lg flex items-center w-10 h-10 justify-center">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.0002 10.9692V13.0292C22.0002 13.5792 21.5602 14.0292 21.0002 14.0492H19.0402C17.9602 14.0492 16.9702 13.2592 16.8802 12.1792C16.8202 11.5492 17.0602 10.9592 17.4802 10.5492C17.8502 10.1692 18.3602 9.94922 18.9202 9.94922H21.0002C21.5602 9.96922 22.0002 10.4192 22.0002 10.9692Z"
-                  fill="#1A5AFF"
-                />
-                <path
-                  d="M20.47 15.55H19.04C17.14 15.55 15.54 14.12 15.38 12.3C15.29 11.26 15.67 10.22 16.43 9.48C17.07 8.82 17.96 8.45 18.92 8.45H20.47C20.76 8.45 21 8.21 20.97 7.92C20.75 5.49 19.14 3.83 16.75 3.55C16.51 3.51 16.26 3.5 16 3.5H7C6.72 3.5 6.45 3.52 6.19 3.56C3.64 3.88 2 5.78 2 8.5V15.5C2 18.26 4.24 20.5 7 20.5H16C18.8 20.5 20.73 18.75 20.97 16.08C21 15.79 20.76 15.55 20.47 15.55ZM13 9.75H7C6.59 9.75 6.25 9.41 6.25 9C6.25 8.59 6.59 8.25 7 8.25H13C13.41 8.25 13.75 8.59 13.75 9C13.75 9.41 13.41 9.75 13 9.75Z"
-                  fill="#1A5AFF"
-                />
-              </svg>
-            </span>
-          </div>
-          <div className="md:w-1/4 w-full p-4 rounded-xl border-[0.1rem] border-gray-100  bg-white flex flex-row justify-between space-x-1 items-center">
-            <span className=" px-5">
-              <p className="text-sm text-gray-400">Net Profit</p>
-              <h1 className="text-2xl text-gray-700 font-bold mt-1">20,000</h1>
-            </span>
-            <span className="bg-white border border-zinc-100 rounded-lg flex items-center w-10 h-10 justify-center">
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M22.0002 10.9692V13.0292C22.0002 13.5792 21.5602 14.0292 21.0002 14.0492H19.0402C17.9602 14.0492 16.9702 13.2592 16.8802 12.1792C16.8202 11.5492 17.0602 10.9592 17.4802 10.5492C17.8502 10.1692 18.3602 9.94922 18.9202 9.94922H21.0002C21.5602 9.96922 22.0002 10.4192 22.0002 10.9692Z"
-                  fill="#1A5AFF"
-                />
-                <path
-                  d="M20.47 15.55H19.04C17.14 15.55 15.54 14.12 15.38 12.3C15.29 11.26 15.67 10.22 16.43 9.48C17.07 8.82 17.96 8.45 18.92 8.45H20.47C20.76 8.45 21 8.21 20.97 7.92C20.75 5.49 19.14 3.83 16.75 3.55C16.51 3.51 16.26 3.5 16 3.5H7C6.72 3.5 6.45 3.52 6.19 3.56C3.64 3.88 2 5.78 2 8.5V15.5C2 18.26 4.24 20.5 7 20.5H16C18.8 20.5 20.73 18.75 20.97 16.08C21 15.79 20.76 15.55 20.47 15.55ZM13 9.75H7C6.59 9.75 6.25 9.41 6.25 9C6.25 8.59 6.59 8.25 7 8.25H13C13.41 8.25 13.75 8.59 13.75 9C13.75 9.41 13.41 9.75 13 9.75Z"
-                  fill="#1A5AFF"
-                />
-              </svg>
-            </span>
+
+          <div className="md:w-1/3 w-full p-4 rounded-lg border bg-white flex flex-row justify-between">
+            <div className="w-full">
+              <span className="flex flex-row justify-between items-center">
+                <p className="text-sm text-gray-900 font-semibold">
+                  Net Profit
+                </p>
+                <HeIcons.FaEllipsisVertical />
+              </span>
+            </div>
           </div>
         </div>
         {/* <div className="card">

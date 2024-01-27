@@ -19,3 +19,14 @@
 .activeLinkSub {
   @apply flex gap-3 p-2.5 items-center bg-white text-nelsa_primary rounded-lg md:cursor-pointer cursor-default transition duration-300;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

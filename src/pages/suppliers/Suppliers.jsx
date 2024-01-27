@@ -19,6 +19,7 @@ import {
   reset,
 } from "../../features/suppliers/suppliersSlice";
 import { prettyDate } from "../../functions/functions";
+import AddSupplier from "../../components/modals/AddSupplier";
 
 // const suppliers = [
 //   {
@@ -43,9 +44,7 @@ const CustomInputComponent = ({
 
 const Suppliers = () => {
   const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
@@ -56,61 +55,6 @@ const Suppliers = () => {
   useEffect(() => {
     dispatch(getSuppliers());
   }, []);
-
-  const initialValues = {
-    email: "",
-    supplier_name: "",
-    phone: "",
-    address: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    supplier_name: Yup.string().required("Supplier name is required!"),
-    address: Yup.string().required("This field is required!"),
-    phone: Yup.string()
-      .required("This field is required!")
-      .max(11, "Phone number cannot be more than 11 characters"),
-    email: Yup.string()
-      .required("This field is required!")
-      .email("Please enter a valid email"),
-  });
-
-  const handleSubmit = async (formValue) => {
-    const { supplier_name, address, phone, email } = formValue;
-    console.log(formValue);
-    dispatch(alertActions.clear());
-    try {
-      setLoading(true);
-
-      await dispatch(
-        addSupplier({
-          supplier_name,
-          address,
-          phone,
-          email,
-          logged_user_store_id: user.id,
-          vendor_id: user.vendor_id,
-          branch_id: user.branch_id,
-        })
-      ).unwrap();
-      //localStorage.setItem("email", JSON.stringify(email));
-
-      dispatch(
-        alertActions.success({
-          message: "Supplier successfully added.",
-          showAfterRedirect: true,
-        })
-      );
-      // navigate("/suppliers");
-      // window.location.reload(true);
-      dispatch(getSuppliers());
-      setLoading(false);
-      setVisible(false);
-    } catch (error) {
-      dispatch(alertActions.error(error));
-      setLoading(false);
-    }
-  };
 
   const toast = useRef(null);
 
@@ -280,241 +224,79 @@ const Suppliers = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex flex-row justify-between items-center">
-        <div className="">
-          <h3 className="text-lg font-bold text-gray-700">Suppliers</h3>
-        </div>
-        <div>
-          <button
-            onClick={() => setVisible(true)}
-            className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
-          >
-            Add
-          </button>
-
-          <Toast ref={toast} />
-          <ConfirmDialog />
-
-          <Dialog
-            header="Add New Supplier"
-            visible={visible}
-            style={{ width: "40vw" }}
-            onHide={() => setVisible(false)}
-            className="font-manrope"
-            breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-          >
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
+    <>
+      <div className="flex flex-col space-y-5">
+        <div className="flex flex-row justify-between items-center">
+          <div className="">
+            <h3 className="text-lg font-bold text-gray-700">Suppliers</h3>
+          </div>
+          <div>
+            <button
+              onClick={() => setVisible(true)}
+              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
             >
-              {({ errors, touched }) => (
-                <Form className="p-5 w-full">
-                  <div className="mt-4">
-                    <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                      Supplier Name
-                    </label>
-                    <Field
-                      type="text"
-                      placeholder="Enter supplier name"
-                      name="supplier_name"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.supplier_name && touched.supplier_name
-                          ? "border-red-500"
-                          : ""
-                      } focus:border-blue-950`}
-                    />
-                    <ErrorMessage
-                      name="supplier_name"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                      Contact Number
-                    </label>
-                    <Field
-                      type="text"
-                      placeholder="Enter contact number"
-                      name="phone"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.phone && touched.phone ? "border-red-500" : ""
-                      } focus:border-blue-950`}
-                    />
-                    <ErrorMessage
-                      name="phone"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                      Email Address
-                    </label>
-                    <Field
-                      type="text"
-                      id="email"
-                      placeholder="Email"
-                      autoComplete="off"
-                      name="email"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.email && touched.email ? "border-red-500" : ""
-                      } focus:border-blue-950`}
-                    />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="mt-4">
-                    <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                      Address
-                    </label>
-                    {/* <Field
-                      type="password"
-                      placeholder="Password"
-                      autoComplete="off"
-                      name="password"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.password && touched.password
-                          ? "border-red-500"
-                          : ""
-                      } focus:border-blue-950`}
-                    /> */}
-                    <Field
-                      name="address"
-                      className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                        errors.address && touched.address
-                          ? "border-red-500"
-                          : ""
-                      } focus:border-blue-950`}
-                      component={CustomInputComponent}
-                      placeholder="Address"
-                    />
+              Add New
+            </button>
+          </div>
+        </div>
 
-                    <ErrorMessage
-                      name="address"
-                      component="div"
-                      className="text-red-500 text-sm"
-                    />
-                    <div className="flex flex-row justify-start my-4">
-                      {/* <div className="flex items-center mb-4">
-                    <input
-                      id="default-checkbox"
-                      type="checkbox"
-                      value=""
-                      required
-                      className="w-4 h-4 text-nelsa_dark_blue checked:bg-nelsa_dark_blue bg-gray-100 rounded-lg border-gray-300"
-                    />
-                    <label className="ml-2 text-sm text-neutral-500">
-                      I agree to terms and conditions
-                    </label>
-                  </div>
-                   <Link
-                    to="/auth/forgot-password"
-                    className="text-sm text-zinc-700 hover:text-zinc-900"
-                  >
-                    Forgot your password?
-                  </Link> */}
-                    </div>
-                  </div>
-                  <div className="flex items-baseline justify-between">
-                    {loading ? (
-                      <button
-                        type="submit"
-                        className="w-full px-4 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
-                        disabled={loading}
-                      >
-                        <span
-                          className="mr-5 inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                          role="status"
-                        >
-                          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                            Loading...
-                          </span>
-                        </span>
-                        Loading...
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
-                      >
-                        Submit
-                      </button>
-                    )}
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </Dialog>
+        <div className="bg-white border p-5 rounded-lg text-xs">
+          <DataTable
+            value={suppliers}
+            stripedRows
+            paginator
+            rows={10}
+            tableStyle={{ minWidth: "50rem" }}
+            className="text-sm font-manrope"
+          >
+            <Column
+              field="name"
+              className="w-1/4"
+              sortable
+              header="Supplier Name"
+            ></Column>
+            <Column
+              field="supplier_code"
+              sortable
+              header="Supplier Code"
+            ></Column>
+
+            <Column
+              field="created_at"
+              dataType="date"
+              sortable
+              header="Created On"
+              body={dateBodyTemplate}
+            ></Column>
+            <Column
+              field="updated_at"
+              dataType="date"
+              sortable
+              header="Updated On"
+              body={dateBodyTemplate}
+            ></Column>
+            <Column
+              field="status"
+              sortable
+              header="Status"
+              body={statusBodyTemplate}
+            ></Column>
+            <Column
+              field="created_user.full_name"
+              sortable
+              header="Created By"
+            ></Column>
+            <Column
+              body={actionBodyTemplate}
+              className="w-1/12"
+              exportable={false}
+              header="Action"
+            ></Column>
+          </DataTable>
         </div>
       </div>
-      {/* <div>
-        <span>
-          <h1 className="text-2xl font-bold">Create Your First Perk</h1>
-          <p className="underline cursor-pointer">Click here to create one</p>
-        </span>
-      </div> */}
-      <div className="bg-white p-3 md:p-8 rounded-lg text-xs">
-        <DataTable
-          value={suppliers}
-          stripedRows
-          paginator
-          rows={10}
-          size="small"
-          tableStyle={{ minWidth: "50rem" }}
-          className="text-sm font-manrope"
-        >
-          <Column
-            field="name"
-            className="w-1/4"
-            sortable
-            header="Supplier Name"
-          ></Column>
-          <Column
-            field="supplier_code"
-            sortable
-            header="Supplier Code"
-          ></Column>
-
-          <Column
-            field="created_at"
-            dataType="date"
-            sortable
-            header="Created On"
-            body={dateBodyTemplate}
-          ></Column>
-          <Column
-            field="updated_at"
-            dataType="date"
-            sortable
-            header="Updated On"
-            body={dateBodyTemplate}
-          ></Column>
-          <Column
-            field="status"
-            sortable
-            header="Status"
-            body={statusBodyTemplate}
-          ></Column>
-          <Column
-            field="created_user.full_name"
-            sortable
-            header="Created By"
-          ></Column>
-          <Column
-            body={actionBodyTemplate}
-            className="w-1/12"
-            exportable={false}
-            header="Action"
-          ></Column>
-        </DataTable>
-      </div>
-    </div>
+      {visible && <AddSupplier setOpenSupplier={setVisible} />}
+    </>
   );
 };
 

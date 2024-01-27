@@ -1,20 +1,17 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, NavLink, Link, useNavigate, Navigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { alertActions } from "../app/store";
 
 import * as HeIcons from "react-icons/fa6";
 
-import logo from "../assets/images/Nelsa_logo1.svg";
-import avatar from "../assets/images/avatar.jpeg";
 import { logout, reset, selectBranch } from "../features/auth/authSlice";
-import profile from "../assets/images/profile.png";
 import SideBar from "./SideBar/SideBar";
 import { Avatar } from "primereact/avatar";
 import { getProfile, reset as profileReset } from "../features/user/userSlice";
 import { getBranches } from "../features/branch/branchSlice";
 
-const MainLayout = ({ children }) => {
+const MainLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -102,7 +99,7 @@ const MainLayout = ({ children }) => {
     "text-zinc-400 hover:text-nelsa_primary p-2 cursor-pointer hover:bg-zinc-100 rounded-md";
 
   return (
-    <div className="flex gap-0 font-manrope bg-white text-gray-500 font-semibold overflow-x-0">
+    <div className="flex gap-0 font-manrope bg-white text-gray-500 overflow-x-0">
       <SideBar isOpen={isOpen} />
 
       <main className="w-full flex-1 bg-gray-100 mx-auto overflow-x-hidden overflow-y-scroll min-h-screen">

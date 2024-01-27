@@ -4,9 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import AddTable from "../../components/modals/AddTable";
-import QRCode from "react-qr-code";
+
 import AddDiscount from "../../components/modals/AddDiscount";
 import { getDiscountCodes } from "../../features/discount/discountSlice";
 
@@ -23,37 +21,16 @@ const actionBodyTemplate = (rowData) => {
   );
 };
 
-const areaBodyTemplate = (rowData) => {
-  return (
-    <div className="flex flex-row items-center justify-center space-x-3">
-      {rowData.name}
-    </div>
-  );
-};
-
 const DiscountCodes = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [openAdd, setOpenAdd] = useState(false);
-  const { discounts, message, isError } = useSelector(
-    (state) => state.discounts
-  );
+  const { discounts, message } = useSelector((state) => state.discounts);
 
   useEffect(() => {
     dispatch(getDiscountCodes());
   }, [message]);
-
-  const imageBodyTemplate = (product) => {
-    return (
-      <QRCode
-        size={5}
-        style={{ height: "auto", maxWidth: "50%", width: "50%" }}
-        value={product.slug}
-        viewBox={`0 0 50 50`}
-      />
-    );
-  };
 
   return (
     <>
@@ -71,14 +48,14 @@ const DiscountCodes = () => {
             </button>
           </div>
         </div>
-        <div className="bg-white p-5 rounded-lg text-xs">
+        <div className="bg-white border p-5 rounded-lg text-xs">
           <DataTable
             value={discounts}
             stripedRows
             tableStyle={{ minWidth: "50rem" }}
             className="text-sm font-manrope rounded-lg"
           >
-            <Column field="label" header="Lable"></Column>
+            <Column field="label" header="Label"></Column>
             <Column field="discount_code" header="Discount Code"></Column>
             <Column field="discount_percentage" header="Percentage"></Column>
             <Column field="status" header="Status"></Column>

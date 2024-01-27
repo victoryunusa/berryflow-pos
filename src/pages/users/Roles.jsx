@@ -1,7 +1,7 @@
-import React from "react";
+import { useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
+import AddRole from "../../components/modals/AddRole";
 
 const roles = [
   {
@@ -29,41 +29,47 @@ const actionBodyTemplate = (rowData) => {
 };
 
 const Roles = () => {
+  const [visible, setVisible] = useState(false);
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex flex-row justify-between items-center">
-        <div className="">
-          <h3 className="text-lg font-bold text-gray-700">Role</h3>
+    <>
+      <div className="flex flex-col space-y-5">
+        <div className="flex flex-row justify-between items-center">
+          <div className="">
+            <h3 className="text-lg font-bold text-gray-700">Role</h3>
+          </div>
+          <div>
+            <button
+              onClick={() => setVisible(true)}
+              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+            >
+              Add New
+            </button>
+          </div>
         </div>
-        <div>
-          <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
-            New Role
-          </button>
+        <div className="bg-white border p-5 rounded-lg text-xs">
+          <DataTable
+            value={roles}
+            stripedRows
+            tableStyle={{ minWidth: "50rem" }}
+            className="text-sm font-manrope rounded-lg"
+          >
+            <Column field="code" sortable header="Role Code"></Column>
+            <Column field="name" sortable header="Name"></Column>
+            <Column field="status" sortable header="Status"></Column>
+            <Column field="created_on" sortable header="Created On"></Column>
+            <Column field="updated_on" sortable header="Updated On"></Column>
+            <Column field="created_by" sortable header="Created By"></Column>
+            <Column
+              body={actionBodyTemplate}
+              className="w-1/12"
+              exportable={false}
+              header="Action"
+            ></Column>
+          </DataTable>
         </div>
       </div>
-      <div className="bg-white p-5 rounded-lg text-xs">
-        <DataTable
-          value={roles}
-          stripedRows
-          size="small"
-          tableStyle={{ minWidth: "50rem" }}
-          className="text-sm font-manrope rounded-lg"
-        >
-          <Column field="code" header="Role Code"></Column>
-          <Column field="name" header="Name"></Column>
-          <Column field="status" header="Status"></Column>
-          <Column field="created_on" header="Created On"></Column>
-          <Column field="updated_on" header="Updated On"></Column>
-          <Column field="created_by" header="Created By"></Column>
-          <Column
-            body={actionBodyTemplate}
-            className="w-1/12"
-            exportable={false}
-            header="Action"
-          ></Column>
-        </DataTable>
-      </div>
-    </div>
+      {visible && <AddRole setOpenRole={setVisible} />}
+    </>
   );
 };
 

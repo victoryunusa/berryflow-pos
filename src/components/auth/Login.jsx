@@ -129,7 +129,7 @@ const Login = () => {
               {loading ? (
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 mt-4 font-bold bg-[#414141] text-[#ffffff] rounded-md flex items-center justify-center"
+                  className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
                   disabled={loading}
                 >
                   <span
