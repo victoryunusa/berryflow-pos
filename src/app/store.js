@@ -17,6 +17,7 @@ import billingTypesReducer from "../features/master_actions/billingTypeSlice";
 import invoicePrintTypesReducer from "../features/master_actions/invoicePrintTypeSlice";
 import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
+import rolesReducer from "../features/role/roleSlice";
 
 export * from "../features/alert/alertSlice";
 
@@ -40,5 +41,6 @@ export const store = configureStore({
     branches: branchesReducer,
     vendor: vendorReducer,
     purchase_order_items: purchaseOrderItemsReducer,
+    roles: rolesReducer,
   },
 });

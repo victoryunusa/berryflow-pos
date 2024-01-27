@@ -5,11 +5,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
 
-import Selector from "../common/Selector";
-import {
-  addCategory,
-  getCategories,
-} from "../../features/category/categoriesSlice";
+import { addRole, getRoles } from "../../features/role/roleSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -27,50 +23,37 @@ const AddRole = (props) => {
 
   const dispatch = useDispatch();
 
-  var options = [
-    { value: 1, label: "Yes" },
-    { value: 0, label: "No" },
-  ];
-
   const initialValues = {
-    label: "",
-    category_name: "",
-    display_on_pos_screen: "",
-    display_on_qr_menu: "",
+    name: "",
     description: "",
   };
 
   const validationSchema = Yup.object().shape({
-    label: Yup.string().required("Category name is required!"),
-    display_on_pos_screen: Yup.string().required("This field is required!"),
-    display_on_qr_menu: Yup.string().required("This field is required!"),
+    name: Yup.string().required("Role name is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { label, description, display_on_pos_screen, display_on_qr_menu } =
-      formValue;
+    const { name, description } = formValue;
     console.log(formValue);
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addCategory({
-          label,
+        addRole({
+          name,
           description,
-          display_on_pos_screen,
-          display_on_qr_menu,
         })
       ).unwrap();
 
       dispatch(
         alertActions.success({
-          message: "Category successfully added.",
+          message: "Role successfully added.",
           showAfterRedirect: true,
         })
       );
 
-      dispatch(getCategories());
+      dispatch(getRoles());
       setLoading(false);
       setOpenRole(false);
     } catch (error) {
@@ -109,62 +92,29 @@ const AddRole = (props) => {
                       validationSchema={validationSchema}
                       onSubmit={handleSubmit}
                     >
-                      {({ values, errors, touched, setFieldValue }) => (
+                      {({ errors, touched }) => (
                         <Form className="w-full">
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Category Name
+                              Role Name
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter Category name"
-                              name="label"
-                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.label && touched.label
+                              placeholder="Enter Role name"
+                              name="name"
+                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
+                                errors.name && touched.name
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="label"
+                              name="name"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Show on POS Screen
-                            </label>
-                            <Selector
-                              options={options}
-                              value={values.display_on_pos_screen}
-                              setFieldValue={setFieldValue}
-                              name="display_on_pos_screen"
-                            />
 
-                            <ErrorMessage
-                              name="display_on_pos_screen"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Show on QR Menu
-                            </label>
-                            <Selector
-                              options={options}
-                              value={values.display_on_qr_menu}
-                              setFieldValue={setFieldValue}
-                              name="display_on_qr_menu"
-                            />
-
-                            <ErrorMessage
-                              name="display_on_qr_menu"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
                               Description
@@ -172,7 +122,7 @@ const AddRole = (props) => {
 
                             <Field
                               name="description"
-                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
                                 errors.description && touched.description
                                   ? "border-red-500"
                                   : ""
@@ -191,7 +141,7 @@ const AddRole = (props) => {
                             {loading ? (
                               <button
                                 type="submit"
-                                className="w-full px-4 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
+                                className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
                                 disabled={loading}
                               >
                                 <span

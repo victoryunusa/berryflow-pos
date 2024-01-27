@@ -1,19 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import AddRole from "../../components/modals/AddRole";
-
-const roles = [
-  {
-    name: "Admin",
-    code: "102",
-    role: "Admin",
-    status: "Active",
-    created_on: "2015-12-09",
-    updated_on: "2015-12-09",
-    created_by: "Victor Yunusa",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { getRoles } from "../../features/role/roleSlice";
 
 const actionBodyTemplate = (rowData) => {
   return (
@@ -29,7 +19,14 @@ const actionBodyTemplate = (rowData) => {
 };
 
 const Roles = () => {
+  const dispatch = useDispatch();
+
   const [visible, setVisible] = useState(false);
+  const { roles } = useSelector((state) => state.roles);
+
+  useEffect(() => {
+    dispatch(getRoles());
+  }, []);
   return (
     <>
       <div className="flex flex-col space-y-5">

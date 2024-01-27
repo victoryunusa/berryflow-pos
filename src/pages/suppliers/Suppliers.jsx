@@ -250,15 +250,15 @@ const Suppliers = () => {
             className="text-sm font-manrope"
           >
             <Column
+              field="supplier_code"
+              sortable
+              header="Supplier Code"
+            ></Column>
+            <Column
               field="name"
               className="w-1/4"
               sortable
               header="Supplier Name"
-            ></Column>
-            <Column
-              field="supplier_code"
-              sortable
-              header="Supplier Code"
             ></Column>
 
             <Column
