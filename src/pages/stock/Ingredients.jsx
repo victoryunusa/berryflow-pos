@@ -122,7 +122,6 @@ const Ingredients = () => {
           <DataTable
             value={ingredients}
             stripedRows
-            size="small"
             tableStyle={{ minWidth: "50rem" }}
             className="text-sm font-manrope rounded-lg"
           >

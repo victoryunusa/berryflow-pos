@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
-
-import { addRole, getRoles } from "../../features/role/roleSlice";
+import {
+  addIngredient,
+  getIngredients,
+} from "../../features/ingredients/ingredientsSlice";
+import Selector from "../common/Selector";
+import {
+  addMeasurementUnit,
+  getMeasurementUnits,
+} from "../../features/units/unitsSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -17,48 +24,46 @@ const CustomInputComponent = ({
   </div>
 );
 
-const AddRole = (props) => {
-  const { setOpenRole } = props;
+const AddMeasurementUnit = (props) => {
+  const { setOpenUnit } = props;
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
   const initialValues = {
-    name: "",
-    code: "",
-    description: "",
+    label: "",
+    unit_code: "",
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Role name is required!"),
-    code: Yup.string().required("Role code is required!"),
+    label: Yup.string().required("Unit name is required!"),
+    unit_code: Yup.string().required("This field is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { name, description, code } = formValue;
-
+    const { label, unit_code } = formValue;
+    console.log(formValue);
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addRole({
-          name,
-          description,
-          code,
+        addMeasurementUnit({
+          label,
+          unit_code,
         })
       ).unwrap();
 
       dispatch(
         alertActions.success({
-          message: "Role successfully added.",
+          message: "Measurement successfully added.",
           showAfterRedirect: true,
         })
       );
 
-      dispatch(getRoles());
+      dispatch(getMeasurementUnits());
       setLoading(false);
-      setOpenRole(false);
+      setOpenUnit(false);
     } catch (error) {
       dispatch(alertActions.error(error));
       setLoading(false);
@@ -69,21 +74,18 @@ const AddRole = (props) => {
     return createPortal(
       <>
         <div className="fixed inset-0 z-[999] overflow-y-auto">
-          <div
-            className="fixed inset-0 w-full h-full bg-black opacity-40"
-            onClick={() => setOpenRole(false)}
-          ></div>
+          <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
           <div className="flex items-center min-h-screen px-4 py-4">
-            <div className="relative w-full max-w-xl p-7 md:p-10 mx-auto bg-white rounded-md shadow-lg font-manrope">
+            <div className="relative w-full max-w-xl p-5 md:p-10 mx-auto bg-white rounded-md shadow-lg font-manrope">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
                     <h3 className="text-lg font-bold text-nelsa_primary">
-                      Add Role
+                      Add Meausrement Unit
                     </h3>
                     <h4
                       className="text-lg font-medium text-gray-500 hover:cursor-pointer"
-                      onClick={() => setOpenRole(false)}
+                      onClick={() => setOpenUnit(false)}
                     >
                       X
                     </h4>
@@ -97,71 +99,48 @@ const AddRole = (props) => {
                     >
                       {({ errors, touched }) => (
                         <Form className="w-full">
-                          <div className="">
+                          <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Role Name
+                              Unit Name
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter Role name"
-                              name="name"
-                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
-                                errors.name && touched.name
+                              placeholder="Enter Unit Name"
+                              name="label"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.label && touched.label
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="name"
+                              name="label"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
-
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Role Code
+                              Unit Code
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter Role code"
-                              name="code"
-                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
-                                errors.code && touched.code
+                              placeholder="Enter Unit Code"
+                              name="unit_code"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.unit_code && touched.unit_code
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="code"
+                              name="unit_code"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
 
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Description
-                            </label>
-
-                            <Field
-                              name="description"
-                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
-                                errors.description && touched.description
-                                  ? "border-red-500"
-                                  : ""
-                              } focus:border-blue-950`}
-                              component={CustomInputComponent}
-                              placeholder="Description"
-                            />
-
-                            <ErrorMessage
-                              name="description"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                          <div className="flex items-baseline justify-between">
+                          <div className="flex items-baseline justify-between mt-5">
                             {loading ? (
                               <button
                                 type="submit"
@@ -204,4 +183,4 @@ const AddRole = (props) => {
   }
 };
 
-export default AddRole;
+export default AddMeasurementUnit;

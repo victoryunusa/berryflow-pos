@@ -9,7 +9,7 @@ const BillingCounterDashboard = () => {
         </div>
       </div>
       <div className="flex flex-row w-full">
-        <div className="flex flex-col w-1/3 bg-white border rounded-md p-5">
+        <div className="flex flex-col w-full md:w-1/3 bg-white border rounded-md p-5">
           <div className="flex flex-row justify-between">
             <h2 className="text-md text-gray-700 font-bold">
               B0001 - Counter Name

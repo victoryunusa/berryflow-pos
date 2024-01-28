@@ -9,7 +9,7 @@ import {
   getIngredients,
 } from "../../features/ingredients/ingredientsSlice";
 import Selector from "../common/Selector";
-import AddMeasurementUnit from "./AddMeasurementUnit";
+import AddRole from "./AddRole";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -21,17 +21,17 @@ const CustomInputComponent = ({
   </div>
 );
 
-const AddIngredient = (props) => {
-  const { setOpenIngredient } = props;
+const AddUser = (props) => {
+  const { setOpenUser } = props;
   const [loading, setLoading] = useState(false);
-  const [openUnit, setOpenUnit] = useState(false);
+  const [openRole, setOpenRole] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { units } = useSelector((state) => state.units);
+  const { roles } = useSelector((state) => state.roles);
 
-  var newArray = units.map(function (obj) {
-    return { value: obj.id, label: obj.unit_code + " - " + obj.label };
+  var newArray = roles.map(function (obj) {
+    return { value: obj.slug, label: obj.name };
   });
 
   const initialValues = {
@@ -82,7 +82,7 @@ const AddIngredient = (props) => {
 
       dispatch(getIngredients());
       setLoading(false);
-      setOpenIngredient(false);
+      setOpenUser(false);
     } catch (error) {
       dispatch(alertActions.error(error));
       setLoading(false);
@@ -100,11 +100,11 @@ const AddIngredient = (props) => {
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
                     <h3 className="text-lg font-bold text-nelsa_primary">
-                      Add Ingredient
+                      Add User
                     </h3>
                     <h4
                       className="text-lg font-medium text-gray-500 hover:cursor-pointer"
-                      onClick={() => setOpenIngredient(false)}
+                      onClick={() => setOpenUser(false)}
                     >
                       X
                     </h4>
@@ -226,9 +226,9 @@ const AddIngredient = (props) => {
 
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold mb-1">
-                              Measurement Unit
+                              Role
                               <span
-                                onClick={() => setOpenUnit(true)}
+                                onClick={() => setOpenRole(true)}
                                 className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
                               >
                                 Add new
@@ -298,7 +298,7 @@ const AddIngredient = (props) => {
             </div>
           </div>
         </div>
-        {openUnit && <AddMeasurementUnit setOpenUnit={setOpenUnit} />}
+        {openRole && <AddRole setOpenRole={setOpenRole} />}
       </>,
       document.body
     );
@@ -307,4 +307,4 @@ const AddIngredient = (props) => {
   }
 };
 
-export default AddIngredient;
+export default AddUser;

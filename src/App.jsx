@@ -389,7 +389,7 @@ function App() {
             }
           />
           <Route
-            path="stock/new_purchase_order"
+            path="stock/purchase_orders/add"
             element={
               <Protected>
                 <NewPurchaseOrder />

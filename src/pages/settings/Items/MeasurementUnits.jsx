@@ -19,6 +19,7 @@ import {
   getMeasurementUnits,
 } from "../../../features/units/unitsSlice";
 import { alertActions } from "../../../app/store";
+import AddMeasurementUnit from "../../../components/modals/AddMeasurementUnit";
 
 const MeasurementUnits = () => {
   const [visible, setVisible] = useState(false);
@@ -121,146 +122,60 @@ const MeasurementUnits = () => {
   };
 
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex flex-row justify-between items-center">
-        <div className="">
-          <h3 className="text-lg font-bold text-gray-700">
-            Settings/Measurements
-          </h3>
+    <>
+      <div className="flex flex-col space-y-5">
+        <div className="flex flex-row justify-between items-center">
+          <div className="">
+            <h3 className="text-lg font-bold text-gray-700">
+              Settings/Measurements
+            </h3>
+          </div>
         </div>
-      </div>
-      <div className="flex flex-row space-x-5">
-        {/* <div className="w-1/4 p-5 bg-white rounded-lg">
+        <div className="flex flex-row space-x-5">
+          {/* <div className="w-1/4 p-5 bg-white rounded-lg">
           <Sidebar />
         </div> */}
-        <div className="w-full p-10 bg-white rounded-lg">
-          <div className="flex flex-col space-y-5">
-            <div className="flex flex-row justify-end items-center">
-              <div>
-                <button
-                  onClick={() => setVisible(true)}
-                  className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
-                >
-                  Add new
-                </button>
-                <Toast ref={toast} />
-                <ConfirmDialog />
-
-                <Dialog
-                  header="Add Measurement Unit"
-                  visible={visible}
-                  style={{ width: "40vw" }}
-                  onHide={() => setVisible(false)}
-                  className="font-manrope "
-                  breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-                >
-                  <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={handleSubmit}
+          <div className="w-full p-10 bg-white rounded-lg">
+            <div className="flex flex-col space-y-5">
+              <div className="flex flex-row justify-end items-center">
+                <div>
+                  <button
+                    onClick={() => setVisible(true)}
+                    className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
                   >
-                    {({ errors, touched }) => (
-                      <Form className="p-5 w-full">
-                        <div className="mt-4">
-                          <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                            Unit Name
-                          </label>
-                          <Field
-                            type="text"
-                            placeholder="Enter Unit Name"
-                            name="label"
-                            className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                              errors.label && touched.label
-                                ? "border-red-500"
-                                : ""
-                            } focus:border-blue-950`}
-                          />
-                          <ErrorMessage
-                            name="label"
-                            component="div"
-                            className="text-red-500 text-sm"
-                          />
-                        </div>
-                        <div className="mt-4">
-                          <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                            Unit Code
-                          </label>
-                          <Field
-                            type="text"
-                            placeholder="Enter Unit Code"
-                            name="unit_code"
-                            className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                              errors.unit_code && touched.unit_code
-                                ? "border-red-500"
-                                : ""
-                            } focus:border-blue-950`}
-                          />
-                          <ErrorMessage
-                            name="unit_code"
-                            component="div"
-                            className="text-red-500 text-sm"
-                          />
-                        </div>
-
-                        <div className="flex items-baseline justify-between mt-5">
-                          {loading ? (
-                            <button
-                              type="submit"
-                              className="w-full px-4 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
-                              disabled={loading}
-                            >
-                              <span
-                                className="mr-5 inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                                role="status"
-                              >
-                                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                                  Loading...
-                                </span>
-                              </span>
-                              Loading...
-                            </button>
-                          ) : (
-                            <button
-                              type="submit"
-                              className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
-                            >
-                              Submit
-                            </button>
-                          )}
-                        </div>
-                      </Form>
-                    )}
-                  </Formik>
-                </Dialog>
+                    Add new
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="bg-white rounded-lg text-xs">
-              <DataTable
-                value={units}
-                stripedRows
-                size="small"
-                tableStyle={{ minWidth: "50rem" }}
-                className="text-sm font-manrope rounded-lg"
-              >
-                <Column field="label" header="Name"></Column>
-                <Column field="unit_code" header="Code"></Column>
-                <Column
-                  field="status"
-                  body={statusBodyTemplate}
-                  header="Status"
-                ></Column>
-                <Column
-                  body={actionBodyTemplate}
-                  className="w-1/12"
-                  exportable={false}
-                  header="Action"
-                ></Column>
-              </DataTable>
+              <div className="bg-white rounded-lg text-xs">
+                <DataTable
+                  value={units}
+                  stripedRows
+                  size="small"
+                  tableStyle={{ minWidth: "50rem" }}
+                  className="text-sm font-manrope rounded-lg"
+                >
+                  <Column field="label" header="Name"></Column>
+                  <Column field="unit_code" header="Code"></Column>
+                  <Column
+                    field="status"
+                    body={statusBodyTemplate}
+                    header="Status"
+                  ></Column>
+                  <Column
+                    body={actionBodyTemplate}
+                    className="w-1/12"
+                    exportable={false}
+                    header="Action"
+                  ></Column>
+                </DataTable>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      {visible && <AddMeasurementUnit setOpenUnit={setVisible} />}
+    </>
   );
 };
 

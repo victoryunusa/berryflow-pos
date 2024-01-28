@@ -37,17 +37,16 @@ const PurchaseOrders = () => {
         <div className="">
           <h3 className="text-lg font-bold text-gray-700">Purchase Orders</h3>
         </div>
-        <Link to="/stock/new_purchase_order">
+        <Link to="/stock/purchase_orders/add">
           <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
             Add New
           </button>
         </Link>
       </div>
-      <div className="bg-white p-5 rounded-lg text-xs">
+      <div className="bg-white border p-5 rounded-lg text-xs">
         <DataTable
           value={customers}
           stripedRows
-          size="small"
           tableStyle={{ minWidth: "50rem" }}
           className="text-sm font-manrope rounded-lg"
         >
@@ -58,8 +57,6 @@ const PurchaseOrders = () => {
           <Column field="email" header="Order Due Date"></Column>
           <Column field="phone" header="Amount"></Column>
           <Column field="status" header="Status"></Column>
-          <Column field="created_on" header="Created On"></Column>
-          <Column field="updated_on" header="Updated On"></Column>
           <Column field="created_by" header="Created By"></Column>
           <Column
             body={actionBodyTemplate}

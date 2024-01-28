@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { getSuppliers } from "../../../features/suppliers/suppliersSlice";
@@ -17,6 +17,7 @@ import {
   removeOrderItem,
 } from "../../../features/purchase/purchaseCartSlice";
 import AddIngredient from "../../../components/modals/AddIngredient";
+import AddTax from "../../../components/modals/AddTax";
 
 const CustomInputComponent = ({ field, ...props }) => (
   <div>
@@ -63,8 +64,8 @@ const NewPurchaseOrder = () => {
 
   const [loading, setLoading] = useState(false);
   const [openIngredient, setOpenIngredient] = useState(false);
+  const [openTax, setOpenTax] = useState(false);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { suppliers } = useSelector((state) => state.suppliers);
@@ -78,7 +79,7 @@ const NewPurchaseOrder = () => {
   var newCurrencies = currencies.map(function (obj) {
     return {
       value: obj.id,
-      label: obj.currency_code + " - " + obj.currency_name,
+      label: obj.name + " - " + obj.currency_symbol,
     };
   });
 
@@ -173,7 +174,7 @@ const NewPurchaseOrder = () => {
             </h3>
           </div>
         </div>
-        <div className="bg-white p-10 rounded-lg text-sm">
+        <div className="bg-white p-10 rounded-lg text-sm border">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -308,6 +309,12 @@ const NewPurchaseOrder = () => {
                     <div className="flex flex-col">
                       <label className="block text-nelsa_primary font-semibold mb-1">
                         Tax Option
+                        <span
+                          onClick={() => setOpenTax(true)}
+                          className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                        >
+                          Add new
+                        </span>
                       </label>
                       <Selector
                         options={newTaxes}
@@ -594,7 +601,7 @@ const NewPurchaseOrder = () => {
                     {loading ? (
                       <button
                         type="submit"
-                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold bg-[#4b4d51] text-[#ffffff] rounded-md flex items-center justify-center"
+                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold  bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
                         disabled={loading}
                       >
                         <span
@@ -628,6 +635,8 @@ const NewPurchaseOrder = () => {
           setOpenIngredient={setOpenIngredient}
         />
       )}
+
+      {openTax && <AddTax setOpenAdd={setOpenTax} />}
     </>
   );
 };
