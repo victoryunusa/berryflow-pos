@@ -170,7 +170,7 @@ const Dashboard = () => {
             <div className="w-full">
               <span className="flex flex-row justify-between items-center">
                 <p className="text-sm text-gray-900 font-semibold">
-                  Total Sales
+                  Sales Overview
                 </p>
                 <HeIcons.FaEllipsisVertical />
               </span>
@@ -180,9 +180,7 @@ const Dashboard = () => {
           <div className="md:w-1/3 w-full p-4 rounded-lg border bg-white flex flex-row justify-between">
             <div className="w-full">
               <span className="flex flex-row justify-between items-center">
-                <p className="text-sm text-gray-900 font-semibold">
-                  Net Profit
-                </p>
+                <p className="text-sm text-gray-900 font-semibold">Payment</p>
                 <HeIcons.FaEllipsisVertical />
               </span>
             </div>

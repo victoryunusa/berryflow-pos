@@ -4,12 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
-import {
-  addIngredient,
-  getIngredients,
-} from "../../features/ingredients/ingredientsSlice";
 import Selector from "../common/Selector";
 import AddRole from "./AddRole";
+import { addUser, getUsers } from "../../features/users/usersSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -30,57 +27,70 @@ const AddUser = (props) => {
 
   const { roles } = useSelector((state) => state.roles);
 
+  const { branches } = useSelector((state) => state.branches);
+
   var newArray = roles.map(function (obj) {
     return { value: obj.slug, label: obj.name };
   });
 
   const initialValues = {
-    name: "",
-    cost: "",
-    price: "",
-    unit: "",
-    quantity: "",
-    alert_quantity: "",
-    description: "",
+    first_name: "",
+    last_name: "",
+    user_code: "",
+    role: "",
+    phone: "",
+    email: "",
+    password: "",
+    user_stores: [],
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Ingredient name is required!"),
-    cost: Yup.string().required("This field is required!"),
-    price: Yup.string().required("This field is required!"),
-    unit: Yup.string().required("This field is required!"),
-    quantity: Yup.string().required("This field is required!"),
-    alert_quantity: Yup.string().required("This field is required!"),
+    first_name: Yup.string().required("This field is required!"),
+    last_name: Yup.string().required("This field is required!"),
+    role: Yup.string().required("This field is required!"),
+    phone: Yup.string().required("This field is required!"),
+    email: Yup.string().required("This field is required!"),
+    password: Yup.string().required("This field is required!"),
+    user_stores: Yup.array().required("This field is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { name, cost, quantity, description, price, unit, alert_quantity } =
-      formValue;
+    const {
+      first_name,
+      last_name,
+      user_code,
+      role,
+      phone,
+      email,
+      password,
+      user_stores,
+    } = formValue;
     console.log(formValue);
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addIngredient({
-          name,
-          cost,
-          quantity,
-          alert_quantity,
-          description,
-          price,
-          unit,
+        addUser({
+          first_name,
+          last_name,
+          user_code,
+          role,
+          phone,
+          email,
+          password,
+          user_stores,
         })
       ).unwrap();
 
       dispatch(
         alertActions.success({
-          message: "Ingredient successfully added.",
+          message: "User successfully added.",
           showAfterRedirect: true,
         })
       );
 
-      dispatch(getIngredients());
+      dispatch(getUsers());
       setLoading(false);
       setOpenUser(false);
     } catch (error) {
@@ -118,110 +128,129 @@ const AddUser = (props) => {
                     >
                       {({ values, errors, touched, setFieldValue }) => (
                         <Form className="w-full">
+                          <div className="mt-4 flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                First Name
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder="Enter First Name"
+                                name="first_name"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.first_name && touched.first_name
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                              />
+                              <ErrorMessage
+                                name="first_name"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                Last Name
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder="Enter Last Name"
+                                name="last_name"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.last_name && touched.last_name
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                              />
+                              <ErrorMessage
+                                name="last_name"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                          </div>
+                          <div className="mt-4 flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                Email
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder="Enter Email"
+                                name="email"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.email && touched.email
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                              />
+                              <ErrorMessage
+                                name="email"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                Phone
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder="Enter Phone"
+                                name="phone"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.phone && touched.phone
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                              />
+                              <ErrorMessage
+                                name="phone"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                          </div>
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Ingredient Name
+                              Password
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter ingredient name"
-                              name="name"
+                              placeholder="Enter Password"
+                              name="password"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.name && touched.name
+                                errors.password && touched.password
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="name"
+                              name="password"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
-                          <div className="mt-4 flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Cost
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="cost"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.cost && touched.cost
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="cost"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Price
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="price"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.price && touched.price
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="price"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
-                          </div>
-                          <div className="mt-4 flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Available Quantity
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="quantity"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.quantity && touched.quantity
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="quantity"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Low Quantity alert
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="alert_quantity"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.alert_quantity &&
-                                  touched.alert_quantity
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="alert_quantity"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
+                          <div className="mt-4">
+                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                              User Code
+                            </label>
+                            <Field
+                              type="text"
+                              placeholder="Enter Phone"
+                              name="user_code"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.user_code && touched.user_code
+                                  ? "border-red-500"
+                                  : ""
+                              } focus:border-blue-950`}
+                            />
+                            <ErrorMessage
+                              name="user_code"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
                           </div>
 
                           <div className="mt-4">
@@ -236,38 +265,40 @@ const AddUser = (props) => {
                             </label>
                             <Selector
                               options={newArray}
-                              value={values.unit}
+                              value={values.role}
                               setFieldValue={setFieldValue}
-                              name="unit"
+                              name="role"
                             />
 
                             <ErrorMessage
-                              name="unit"
+                              name="role"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Description
-                            </label>
 
-                            <Field
-                              name="description"
-                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.description && touched.description
-                                  ? "border-red-500"
-                                  : ""
-                              } focus:border-blue-950`}
-                              component={CustomInputComponent}
-                              placeholder="Description"
+                          <div className="mt-4 flex flex-col">
+                            {branches.map((branch) => (
+                              <label key={branch.slug}>
+                                <Field
+                                  type="checkbox"
+                                  name="user_stores"
+                                  value={branch.slug}
+                                />
+                                {branch.store_code + ", " + branch.name}
+                              </label>
+                            ))}
+                            <ErrorMessage
+                              name="user_stores"
+                              component="div"
+                              className="text-red-500 text-sm"
                             />
                           </div>
                           <div className="flex items-baseline justify-between">
                             {loading ? (
                               <button
                                 type="submit"
-                                className="w-full px-4 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
+                                className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
                                 disabled={loading}
                               >
                                 <span

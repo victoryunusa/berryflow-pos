@@ -127,51 +127,39 @@ const MeasurementUnits = () => {
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">
-              Settings/Measurements
+              Measurement Units
             </h3>
           </div>
-        </div>
-        <div className="flex flex-row space-x-5">
-          {/* <div className="w-1/4 p-5 bg-white rounded-lg">
-          <Sidebar />
-        </div> */}
-          <div className="w-full p-10 bg-white rounded-lg">
-            <div className="flex flex-col space-y-5">
-              <div className="flex flex-row justify-end items-center">
-                <div>
-                  <button
-                    onClick={() => setVisible(true)}
-                    className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
-                  >
-                    Add new
-                  </button>
-                </div>
-              </div>
-              <div className="bg-white rounded-lg text-xs">
-                <DataTable
-                  value={units}
-                  stripedRows
-                  size="small"
-                  tableStyle={{ minWidth: "50rem" }}
-                  className="text-sm font-manrope rounded-lg"
-                >
-                  <Column field="label" header="Name"></Column>
-                  <Column field="unit_code" header="Code"></Column>
-                  <Column
-                    field="status"
-                    body={statusBodyTemplate}
-                    header="Status"
-                  ></Column>
-                  <Column
-                    body={actionBodyTemplate}
-                    className="w-1/12"
-                    exportable={false}
-                    header="Action"
-                  ></Column>
-                </DataTable>
-              </div>
-            </div>
+          <div>
+            <button
+              onClick={() => setVisible(true)}
+              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+            >
+              Add New
+            </button>
           </div>
+        </div>
+        <div className="w-full border p-5 bg-white rounded-lg">
+          <DataTable
+            value={units}
+            stripedRows
+            tableStyle={{ minWidth: "50rem" }}
+            className="text-sm font-manrope rounded-lg"
+          >
+            <Column field="label" header="Name"></Column>
+            <Column field="unit_code" header="Code"></Column>
+            <Column
+              field="status"
+              body={statusBodyTemplate}
+              header="Status"
+            ></Column>
+            <Column
+              body={actionBodyTemplate}
+              className="w-1/12"
+              exportable={false}
+              header="Action"
+            ></Column>
+          </DataTable>
         </div>
       </div>
       {visible && <AddMeasurementUnit setOpenUnit={setVisible} />}

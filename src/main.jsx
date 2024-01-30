@@ -25,6 +25,7 @@ import { getProfile } from "./features/user/userSlice";
 import { getBranches } from "./features/branch/branchSlice";
 import { getBillingTypes } from "./features/master_actions/billingTypeSlice";
 import { getInvoicePrintTypes } from "./features/master_actions/invoicePrintTypeSlice";
+import { getRoles } from "./features/role/roleSlice";
 
 document.title = "Berryflow - Africa's leading B2B Spend Management platform";
 
@@ -41,6 +42,7 @@ store.dispatch(getTaxes());
 store.dispatch(getDiscountCodes());
 store.dispatch(getProfile());
 store.dispatch(getBranches());
+store.dispatch(getRoles());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

@@ -31,9 +31,9 @@ const addUser = async ({ token, formData }) => {
   //return response.data.products;
 };
 
-const roleService = {
+const usersService = {
   addUser,
   getUsers,
 };
 
-export default roleService;
+export default usersService;

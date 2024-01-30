@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import userService from "../user/userService";
+import usersService from "./usersService";
 
 const initialState = {
   users: [],
@@ -16,7 +16,7 @@ export const getUsers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await userService.getUsers(token);
+      return await usersService.getUsers(token);
     } catch (error) {
       const message =
         (error.response &&
@@ -34,7 +34,7 @@ export const addUser = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await userService.addUser({ token, formData });
+      return await usersService.addUser({ token, formData });
     } catch (error) {
       const message =
         (error.response &&

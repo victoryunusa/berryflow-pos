@@ -1,23 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import * as HeIcons from "react-icons/fa6";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Tag } from "primereact/tag";
-import { Toast } from "primereact/toast";
 
-import { Dialog } from "primereact/dialog";
-import { alertActions } from "../../app/store";
-import {
-  addSupplier,
-  getSuppliers,
-  reset,
-} from "../../features/suppliers/suppliersSlice";
+import { getSuppliers } from "../../features/suppliers/suppliersSlice";
 import { prettyDate } from "../../functions/functions";
 import AddSupplier from "../../components/modals/AddSupplier";
 

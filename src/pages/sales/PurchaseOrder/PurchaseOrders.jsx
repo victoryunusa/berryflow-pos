@@ -4,18 +4,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Link } from "react-router-dom";
 
-const customers = [
-  {
-    name: "David Yunusa",
-    code: "AGR100992",
-    email: "david@getnelsa.com",
-    phone: "0807998866",
-    status: "Active",
-    created_on: "2015-12-09",
-    updated_on: "2015-12-09",
-    created_by: "Victor Yunusa",
-  },
-];
+const customers = [];
 
 const actionBodyTemplate = (rowData) => {
   return (

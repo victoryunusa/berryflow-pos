@@ -12,7 +12,7 @@ export default {
         //manrope: ["Plus Jakarta Sans", "sans-serif"],
       },
       colors: {
-        nelsa_primary: "#0A4542",
+        nelsa_primary: "#002626",
         h28_light_green: "#EBF5FF",
         h28_light_green_2: "#44C3D2",
         h28_light_green_3: "#EBF5FF",
