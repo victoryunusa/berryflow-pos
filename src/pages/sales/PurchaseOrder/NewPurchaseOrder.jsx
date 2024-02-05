@@ -13,11 +13,20 @@ import {
   clearOrderItems,
   decreaseOrderItem,
   getOrderItemTotals,
+  updateUnitPrice,
   getOrderItems,
   removeOrderItem,
+  updateDiscountPrice,
+  updateQuantity,
 } from "../../../features/purchase/purchaseCartSlice";
+import {
+  addPurchaseOrder,
+  getPurchaseOrders,
+} from "../../../features/purchase/purchaseOrderSlice";
 import AddIngredient from "../../../components/modals/AddIngredient";
 import AddTax from "../../../components/modals/AddTax";
+import AddSupplier from "../../../components/modals/AddSupplier";
+import { alertActions } from "../../../app/store";
 
 const CustomInputComponent = ({ field, ...props }) => (
   <div>
@@ -26,6 +35,8 @@ const CustomInputComponent = ({ field, ...props }) => (
 );
 
 const NewPurchaseOrder = () => {
+  let dollarUSLocale = Intl.NumberFormat("en-US");
+
   const initialValues = {
     supplier_id: "",
     po_number: "",
@@ -36,35 +47,26 @@ const NewPurchaseOrder = () => {
     tax_option: "",
     terms: "",
     update_stock: "",
-    ingredients: [""],
-    shipping_charges: "",
-    parking_charges: "",
+    shipping_charge: "",
+    packing_charge: "",
     total: "",
+    tax_type: "",
   };
 
   // Set initial values
   const validationSchema = Yup.object().shape({
-    supplier_id: Yup.number().required("This field is required!"),
+    supplier_id: Yup.string().required("This field is required!"),
     po_number: Yup.string().required("This field is required!"),
     po_reference: Yup.string().required("This field is required!"),
     po_order_date: Yup.string().required("This field is required!"),
     po_due_date: Yup.string().required("This field is required!"),
     supplier_currency: Yup.string().required("This field is required!"),
-    ingredients: Yup.array()
-      .of(
-        Yup.object().shape({
-          ingredient_id: Yup.string().required("Required"),
-          quantity: Yup.string().required("Required"), // these constraints take precedence
-          unit_price: Yup.string().required("Required"),
-          amount: Yup.string().required("Required"), // these constraints take precedence
-        })
-      )
-      .required("Must have components"),
   });
 
   const [loading, setLoading] = useState(false);
   const [openIngredient, setOpenIngredient] = useState(false);
   const [openTax, setOpenTax] = useState(false);
+  const [openVendor, setOpenVendor] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -93,12 +95,12 @@ const NewPurchaseOrder = () => {
   const { ingredients } = useSelector((state) => state.ingredients);
 
   var newArray = suppliers.map(function (obj) {
-    return { value: obj.id, label: obj.name };
+    return { value: obj.slug, label: obj.name };
   });
 
   const cartItems = useSelector(getOrderItems);
 
-  const { purchase_order_items } = useSelector(
+  const { orderItemsTotalAmount } = useSelector(
     (state) => state.purchase_order_items
   );
 
@@ -136,25 +138,68 @@ const NewPurchaseOrder = () => {
     dispatch(removeOrderItem(cartItem));
   };
 
+  const handleChangeUnitPrice = ({ id, value }) => {
+    dispatch(updateUnitPrice({ id, unit_price: value }));
+  };
+
+  const handleChangeDiscountPrice = ({ id, value }) => {
+    dispatch(updateDiscountPrice({ id, discount_price: value }));
+  };
+
+  const handleChangeQuantity = ({ id, value }) => {
+    dispatch(updateQuantity({ id, new_quantity: value }));
+  };
+
   const handleSubmit = async (formValue) => {
-    //const { email, password } = formValue;
+    const {
+      supplier_id,
+      po_number,
+      po_reference,
+      po_order_date,
+      po_due_date,
+      supplier_currency,
+      tax_option,
+      update_stock,
+      shipping_charge,
+      packing_charge,
+    } = formValue;
 
-    console.log(formValue);
+    dispatch(alertActions.clear());
+    try {
+      setLoading(true);
 
-    // dispatch(alertActions.clear());
+      await dispatch(
+        addPurchaseOrder({
+          supplier_id: supplier_id,
+          po_number: po_number,
+          po_reference: po_reference,
+          order_date: po_order_date,
+          order_due_date: po_due_date,
+          supplier_currency: supplier_currency,
+          tax_option: tax_option,
+          update_stock: update_stock,
+          shipping_charge: shipping_charge,
+          packing_charge: packing_charge,
+          products: cartItems,
+          tax_type: "",
+        })
+      ).unwrap();
+      //localStorage.setItem("email", JSON.stringify(email));
 
-    // try {
-    //   setLoading(true);
-
-    //   //await dispatch(login({ email, password })).unwrap();
-    //   //localStorage.setItem("email", JSON.stringify(email));
-    //   navigate("/");
-
-    //   setLoading(false);
-    // } catch (error) {
-    //   dispatch(alertActions.error(error));
-    //   setLoading(false);
-    // }
+      dispatch(
+        alertActions.success({
+          message: "Purchase Order successfully added.",
+          showAfterRedirect: true,
+        })
+      );
+      // navigate("/suppliers");
+      window.location.reload(true);
+      dispatch(getPurchaseOrders());
+      setLoading(false);
+    } catch (error) {
+      dispatch(alertActions.error(error));
+      setLoading(false);
+    }
   };
 
   return (
@@ -185,8 +230,14 @@ const NewPurchaseOrder = () => {
                 <div className="flex flex-col">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-nelsa_primary font-semibold mb-1">
                         Vendor
+                        <span
+                          onClick={() => setOpenVendor(true)}
+                          className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                        >
+                          Add new
+                        </span>
                       </label>
 
                       <Selector
@@ -194,6 +245,8 @@ const NewPurchaseOrder = () => {
                         value={values.supplier_id}
                         setFieldValue={setFieldValue}
                         name="supplier_id"
+                        errors={errors}
+                        touched={touched}
                       />
                       <ErrorMessage
                         name="supplier_id"
@@ -396,7 +449,7 @@ const NewPurchaseOrder = () => {
                               <td scope="col" className="px-6 py-3">
                                 <div className="flex items-center">
                                   <button
-                                    className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                    className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                     type="button"
                                     onClick={() => {
                                       handleDecreaseCart(cartItem);
@@ -425,13 +478,19 @@ const NewPurchaseOrder = () => {
                                     <input
                                       type="number"
                                       value={cartItem.cartQuantity}
-                                      className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1"
+                                      onChange={(e) =>
+                                        handleChangeQuantity({
+                                          id: cartItem.id,
+                                          value: e.target.value,
+                                        })
+                                      }
+                                      className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
                                       placeholder="1"
                                       required
                                     />
                                   </div>
                                   <button
-                                    className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                    className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                     type="button"
                                     onClick={() => {
                                       handleAddToCart(cartItem);
@@ -459,29 +518,46 @@ const NewPurchaseOrder = () => {
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">
-                                <div>
+                                <div className="flex flex-row items-center gap-2">
                                   <input
                                     type="number"
                                     value={cartItem.cartUnitPrice}
-                                    className="bg-gray-50 w-44 text-left border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1"
-                                    placeholder="1"
-                                    required
+                                    onChange={(e) =>
+                                      handleChangeUnitPrice({
+                                        id: cartItem.id,
+                                        value: e.target.value,
+                                      })
+                                    }
+                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
                                   />
+                                  /{cartItem.unit.unit_code}
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">
                                 <div>
                                   <input
                                     type="number"
-                                    value=""
-                                    className="bg-gray-50 w-44 text-left border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1"
-                                    placeholder="1"
-                                    required
+                                    onChange={(e) =>
+                                      handleChangeDiscountPrice({
+                                        id: cartItem.id,
+                                        value: e.target.value,
+                                      })
+                                    }
+                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
                                   />
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">
-                                {cartItem.price * cartItem.cartQuantity}
+                                {dollarUSLocale.format(
+                                  Math.round(
+                                    cartItem.cartUnitPrice *
+                                      cartItem.cartQuantity -
+                                      (cartItem.cartUnitPrice *
+                                        cartItem.cartQuantity *
+                                        cartItem.cartDiscountPrice) /
+                                        100
+                                  )
+                                )}
                               </td>
                               <td>
                                 <button
@@ -513,16 +589,15 @@ const NewPurchaseOrder = () => {
                           <Field
                             type="number"
                             autoComplete="off"
-                            name="shipping_charges"
+                            name="shipping_charge"
                             className={`w-full px-4 py-3 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                              errors.shipping_charges &&
-                              touched.shipping_charges
+                              errors.shipping_charge && touched.shipping_charge
                                 ? "border-red-500"
                                 : ""
                             } focus:border-blue-950`}
                           />
                           <ErrorMessage
-                            name="shipping_charges"
+                            name="shipping_charge"
                             component="div"
                             className="text-red-500 text-sm"
                           />
@@ -530,21 +605,21 @@ const NewPurchaseOrder = () => {
                       </div>
                       <div className="flex flex-row w-full items-center gap-3">
                         <label className="flex justify-end w-1/2 text-nelsa_primary font-semibold">
-                          Parking Charges
+                          Packing Charges
                         </label>
                         <div className="flex flex-col w-1/2">
                           <Field
                             type="number"
                             autoComplete="off"
-                            name="parking_charges"
+                            name="packing_charge"
                             className={`w-full px-4 py-3 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                              errors.parking_charges && touched.parking_charges
+                              errors.packing_charge && touched.packing_charge
                                 ? "border-red-500"
                                 : ""
                             } focus:border-blue-950`}
                           />
                           <ErrorMessage
-                            name="parking_charges"
+                            name="packing_charge"
                             component="div"
                             className="text-red-500 text-sm"
                           />
@@ -559,6 +634,11 @@ const NewPurchaseOrder = () => {
                             type="text"
                             autoComplete="off"
                             name="total"
+                            value={
+                              orderItemsTotalAmount +
+                              values.shipping_charge +
+                              values.packing_charge
+                            }
                             disabled
                             className={`w-full px-4 py-3 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                               errors.total && touched.total
@@ -637,6 +717,7 @@ const NewPurchaseOrder = () => {
       )}
 
       {openTax && <AddTax setOpenAdd={setOpenTax} />}
+      {openVendor && <AddSupplier setOpenSupplier={setOpenVendor} />}
     </>
   );
 };

@@ -18,12 +18,13 @@ export const purchaseCartSlice = createSlice({
       );
 
       if (itemIndex >= 0) {
-        state.purchaseOrderItems[itemIndex].cartQuantity += 1;
+        state.purchaseOrderItems[itemIndex].cartQuantity++;
       } else {
         const tempProduct = {
           ...action.payload,
           cartQuantity: 1,
           cartUnitPrice: action.payload.price,
+          cartDiscountPrice: 0,
         };
         state.purchaseOrderItems.push(tempProduct);
       }
@@ -62,6 +63,60 @@ export const purchaseCartSlice = createSlice({
         JSON.stringify(state.purchaseOrderItems)
       );
     },
+    updateQuantity(state, action) {
+      //state.cartItems.push(action.payload);
+      const itemIndex = state.purchaseOrderItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (itemIndex >= 0) {
+        state.purchaseOrderItems[itemIndex].cartQuantity =
+          action.payload.new_quantity;
+      } else {
+        console.log("Item is not in cart");
+      }
+      //const pseudoId = new Date().getTime();
+      localStorage.setItem(
+        "purchaseOrderItems",
+        JSON.stringify(state.purchaseOrderItems)
+      );
+    },
+    updateUnitPrice(state, action) {
+      //state.cartItems.push(action.payload);
+      const itemIndex = state.purchaseOrderItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (itemIndex >= 0) {
+        state.purchaseOrderItems[itemIndex].cartUnitPrice =
+          action.payload.unit_price;
+      } else {
+        console.log("Item is not in cart");
+      }
+      //const pseudoId = new Date().getTime();
+      localStorage.setItem(
+        "purchaseOrderItems",
+        JSON.stringify(state.purchaseOrderItems)
+      );
+    },
+    updateDiscountPrice(state, action) {
+      //state.cartItems.push(action.payload);
+      const itemIndex = state.purchaseOrderItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (itemIndex >= 0) {
+        state.purchaseOrderItems[itemIndex].cartDiscountPrice =
+          action.payload.discount_price;
+      } else {
+        console.log("Item is not in cart");
+      }
+      //const pseudoId = new Date().getTime();
+      localStorage.setItem(
+        "purchaseOrderItems",
+        JSON.stringify(state.purchaseOrderItems)
+      );
+    },
     clearOrderItems(state) {
       state.purchaseOrderItems = [];
       localStorage.setItem(
@@ -70,24 +125,29 @@ export const purchaseCartSlice = createSlice({
       );
     },
     getOrderItemTotals(state) {
-      let { total, quantity } = state.purchaseOrderItems.reduce(
+      let { total, quantity, discount } = state.purchaseOrderItems.reduce(
         (cartTotal, cartItem) => {
-          const { price, cartQuantity } = cartItem;
-          const itemTotal = price * cartQuantity;
+          const { cartUnitPrice, cartQuantity, cartDiscountPrice } = cartItem;
+          const itemTotal =
+            cartUnitPrice * cartQuantity -
+            (cartDiscountPrice * cartUnitPrice * cartQuantity) / 100;
 
           cartTotal.total += itemTotal;
           cartTotal.quantity += cartQuantity;
+          cartTotal.discount += cartDiscountPrice;
 
           return cartTotal;
         },
         {
           total: 0,
           quantity: 0,
+          discount: 0,
         }
       );
 
       state.orderItemsTotalQunatity = quantity;
       state.orderItemsTotalAmount = total;
+      state.orderItemsTotalDiscount = discount;
     },
   },
   extraReducers: () => {},
@@ -103,5 +163,8 @@ export const {
   decreaseOrderItem,
   clearOrderItems,
   getOrderItemTotals,
+  updateQuantity,
+  updateUnitPrice,
+  updateDiscountPrice,
 } = purchaseCartSlice.actions;
 export default purchaseCartSlice.reducer;

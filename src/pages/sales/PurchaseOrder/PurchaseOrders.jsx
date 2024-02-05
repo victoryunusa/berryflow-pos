@@ -1,12 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
 import * as HeIcons from "react-icons/fa6";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Link } from "react-router-dom";
-
-const customers = [];
+import { useDispatch, useSelector } from "react-redux";
+import { getPurchaseOrders } from "../../../features/purchase/purchaseOrderSlice";
 
 const actionBodyTemplate = (rowData) => {
+  console.log(rowData);
   return (
     <div className="flex flex-row space-x-3">
       <button className="bg-blue-600 p-2 text-xs text-white rounded-md">
@@ -20,6 +21,14 @@ const actionBodyTemplate = (rowData) => {
 };
 
 const PurchaseOrders = () => {
+  const dispatch = useDispatch();
+
+  const { purchase_orders } = useSelector((state) => state.purchase_orders);
+
+  useEffect(() => {
+    dispatch(getPurchaseOrders());
+  }, [dispatch]);
+
   return (
     <div className="flex flex-col space-y-5">
       <div className="flex flex-row justify-between items-center">
@@ -34,19 +43,19 @@ const PurchaseOrders = () => {
       </div>
       <div className="bg-white border p-5 rounded-lg text-xs">
         <DataTable
-          value={customers}
+          value={purchase_orders}
           stripedRows
           tableStyle={{ minWidth: "50rem" }}
           className="text-sm font-manrope rounded-lg"
         >
-          <Column field="name" header="PO Number"></Column>
-          <Column field="email" header="PO Reference"></Column>
-          <Column field="phone" header="Supplier"></Column>
-          <Column field="name" header="Order Date"></Column>
-          <Column field="email" header="Order Due Date"></Column>
-          <Column field="phone" header="Amount"></Column>
-          <Column field="status" header="Status"></Column>
-          <Column field="created_by" header="Created By"></Column>
+          <Column field="po_number" header="PO Number"></Column>
+          <Column field="po_reference" header="PO Reference"></Column>
+          <Column field="supplier.name" header="Supplier"></Column>
+          <Column field="order_date_raw" header="Order Date"></Column>
+          <Column field="order_due_date_raw" header="Order Due Date"></Column>
+          <Column field="total_order_amount" header="Amount"></Column>
+          <Column field="status.label" header="Status"></Column>
+          <Column field="created_by.full_name" header="Created By"></Column>
           <Column
             body={actionBodyTemplate}
             className="w-1/12"

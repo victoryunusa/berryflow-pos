@@ -48,7 +48,7 @@ const OrderSelect = ({ options, handleAddToCart }) => {
               setOpen(false);
             }}
           >
-            {option?.name}
+            {option?.name + " / " + option?.unit?.unit_code}
           </li>
         ))}
       </ul>

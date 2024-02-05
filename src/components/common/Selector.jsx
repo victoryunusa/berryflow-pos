@@ -14,7 +14,7 @@ const Selector = ({ options, name, onChange, setFieldValue }) => {
     <div className="w-full relative z-5">
       <div
         onClick={() => setOpen(!open)}
-        className="flex w-full border bg-white p-3 items-center cursor-pointer justify-between rounded-md"
+        className={`flex w-full border bg-white p-3 items-center cursor-pointer justify-between rounded-md `}
       >
         <p className="text-sm text-gray-600">
           {selected
@@ -68,6 +68,8 @@ const Selector = ({ options, name, onChange, setFieldValue }) => {
 Selector.propTypes = {
   options: PropTypes.array.isRequired,
   name: PropTypes.any,
+  errors: PropTypes.any,
+  touched: PropTypes.any,
   onChange: PropTypes.func,
   setFieldValue: PropTypes.func,
 };

@@ -19,6 +19,7 @@ import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
 import rolesReducer from "../features/role/roleSlice";
 import usersReducer from "../features/users/usersSlice";
+import purchaseOrderReducer from "../features/purchase/purchaseOrderSlice";
 
 export * from "../features/alert/alertSlice";
 
@@ -44,5 +45,6 @@ export const store = configureStore({
     purchase_order_items: purchaseOrderItemsReducer,
     roles: rolesReducer,
     users: usersReducer,
+    purchase_orders: purchaseOrderReducer,
   },
 });
