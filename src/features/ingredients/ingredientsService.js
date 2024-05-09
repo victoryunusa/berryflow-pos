@@ -26,6 +26,8 @@ const addIngredient = async ({ token, formData }) => {
     },
   };
 
+  console.log(formData);
+
   await axios.post(`${BaseUrl}/ingredients/store`, formData, config);
 
   //return response.data.products;

@@ -2,12 +2,14 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import * as HeIcons from "react-icons/fa6";
 
-const Selector = ({ options, name, onChange, setFieldValue }) => {
+const Selector = ({ options, name, value, onChange, setFieldValue }) => {
+  const selectedItem = options.find((o) => o.value === value);
   const [inputValue, setInputValue] = useState("");
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(
+    selectedItem ? selectedItem.value : ""
+  );
   const [open, setOpen] = useState(false);
 
-  //const selectedItem = options.find((o) => o.value === value);
   //const label = selectedItem?.label ?? "Select Option...";
 
   return (
@@ -68,6 +70,7 @@ const Selector = ({ options, name, onChange, setFieldValue }) => {
 Selector.propTypes = {
   options: PropTypes.array.isRequired,
   name: PropTypes.any,
+  value: PropTypes.any,
   errors: PropTypes.any,
   touched: PropTypes.any,
   onChange: PropTypes.func,

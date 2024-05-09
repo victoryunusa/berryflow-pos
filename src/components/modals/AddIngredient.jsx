@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -10,6 +10,8 @@ import {
 } from "../../features/ingredients/ingredientsSlice";
 import Selector from "../common/Selector";
 import AddMeasurementUnit from "./AddMeasurementUnit";
+import { getCategories } from "../../features/category/categoriesSlice";
+import AddCategory from "./AddCategory";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -25,37 +27,69 @@ const AddIngredient = (props) => {
   const { setOpenIngredient } = props;
   const [loading, setLoading] = useState(false);
   const [openUnit, setOpenUnit] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
 
   const dispatch = useDispatch();
 
   const { units } = useSelector((state) => state.units);
 
+  const { categories } = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  var options = [
+    { value: "From Transactions", label: "From Transactions" },
+    { value: "Fixed", label: "Fixed" },
+  ];
+
   var newArray = units.map(function (obj) {
     return { value: obj.id, label: obj.unit_code + " - " + obj.label };
+  });
+
+  var newCategories = categories.map(function (obj) {
+    return { value: obj.id, label: obj.label };
   });
 
   const initialValues = {
     name: "",
     cost: "",
-    price: "",
-    unit: "",
+    storage_unit: "",
+    ingredient_unit: "",
+    storage_to_ingredient: "",
     quantity: "",
     alert_quantity: "",
-    description: "",
+    category: "",
+    ingredient_code: "",
+    par_level: "",
+    costing_method: "From Transactions",
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Ingredient name is required!"),
-    cost: Yup.string().required("This field is required!"),
-    price: Yup.string().required("This field is required!"),
-    unit: Yup.string().required("This field is required!"),
-    quantity: Yup.string().required("This field is required!"),
+    name: Yup.string().required("Item name is required!"),
+    ingredient_code: Yup.string().required("This field is required!"),
+    ingredient_unit: Yup.string().required("This field is required!"),
+    storage_to_ingredient: Yup.string().required("This field is required!"),
+    storage_unit: Yup.string().required("This field is required!"),
     alert_quantity: Yup.string().required("This field is required!"),
+    costing_method: Yup.string().required("This field is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { name, cost, quantity, description, price, unit, alert_quantity } =
-      formValue;
+    const {
+      name,
+      cost,
+      quantity,
+      storage_unit,
+      ingredient_unit,
+      storage_to_ingredient,
+      alert_quantity,
+      category,
+      ingredient_code,
+      par_level,
+      costing_method,
+    } = formValue;
     console.log(formValue);
     dispatch(alertActions.clear());
     try {
@@ -66,10 +100,14 @@ const AddIngredient = (props) => {
           name,
           cost,
           quantity,
+          storage_unit,
+          ingredient_unit,
+          storage_to_ingredient,
           alert_quantity,
-          description,
-          price,
-          unit,
+          category,
+          ingredient_code,
+          par_level,
+          costing_method,
         })
       ).unwrap();
 
@@ -100,7 +138,7 @@ const AddIngredient = (props) => {
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
                     <h3 className="text-lg font-bold text-nelsa_primary">
-                      Add Ingredient
+                      Create Item
                     </h3>
                     <h4
                       className="text-lg font-medium text-gray-500 hover:cursor-pointer"
@@ -119,18 +157,18 @@ const AddIngredient = (props) => {
                       {({ values, errors, touched, setFieldValue }) => (
                         <Form className="w-full">
                           <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Ingredient Name
+                            <label className="block text-nelsa_gray_3 text-sm font-semibold">
+                              Name
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter ingredient name"
+                              placeholder=""
                               name="name"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                                 errors.name && touched.name
                                   ? "border-red-500"
                                   : ""
-                              } focus:border-blue-950`}
+                              } focus:nelsa_gray_3`}
                             />
                             <ErrorMessage
                               name="name"
@@ -138,48 +176,50 @@ const AddIngredient = (props) => {
                               className="text-red-500 text-sm"
                             />
                           </div>
-                          <div className="mt-4 flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Cost
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="cost"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.cost && touched.cost
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="cost"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
-                            <div className="w-1/2">
-                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                                Price
-                              </label>
-                              <Field
-                                type="text"
-                                placeholder="Enter ingredient name"
-                                name="price"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                  errors.price && touched.price
-                                    ? "border-red-500"
-                                    : ""
-                                } focus:border-blue-950`}
-                              />
-                              <ErrorMessage
-                                name="price"
-                                component="div"
-                                className="text-red-500 text-sm"
-                              />
-                            </div>
+                          <div className="mt-4">
+                            <label className="block text-nelsa_gray_3 text-sm font-semibold">
+                              SKU
+                            </label>
+                            <Field
+                              type="text"
+                              placeholder=""
+                              name="ingredient_code"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.ingredient_code &&
+                                touched.ingredient_code
+                                  ? "border-red-500"
+                                  : ""
+                              } focus:nelsa_gray_3`}
+                            />
+                            <ErrorMessage
+                              name="ingredient_code"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
                           </div>
+                          <div className="mt-4">
+                            <label className="block text-nelsa_gray_3 text-sm font-semibold">
+                              Category
+                              <span
+                                onClick={() => setOpenCategory(true)}
+                                className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                              >
+                                Add new
+                              </span>
+                            </label>
+                            <Selector
+                              options={newCategories}
+                              value={values.category}
+                              setFieldValue={setFieldValue}
+                              name="category"
+                            />
+                            <ErrorMessage
+                              name="category"
+                              component="div"
+                              className="text-red-500 text-sm"
+                            />
+                          </div>
+
                           <div className="mt-4 flex flex-row space-x-3">
                             <div className="w-1/2">
                               <label className="block text-nelsa_dark_blue text-sm font-semibold">
@@ -187,7 +227,7 @@ const AddIngredient = (props) => {
                               </label>
                               <Field
                                 type="text"
-                                placeholder="Enter ingredient name"
+                                placeholder=""
                                 name="quantity"
                                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                                   errors.quantity && touched.quantity
@@ -207,7 +247,7 @@ const AddIngredient = (props) => {
                               </label>
                               <Field
                                 type="text"
-                                placeholder="Enter ingredient name"
+                                placeholder=""
                                 name="alert_quantity"
                                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                                   errors.alert_quantity &&
@@ -223,31 +263,98 @@ const AddIngredient = (props) => {
                               />
                             </div>
                           </div>
+                          <div className="mt-4 flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold mb-1">
+                                Storage Unit
+                                <span
+                                  onClick={() => setOpenUnit(true)}
+                                  className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                                >
+                                  Add new
+                                </span>
+                              </label>
+                              <Selector
+                                options={newArray}
+                                value={values.storage_unit}
+                                setFieldValue={setFieldValue}
+                                name="storage_unit"
+                              />
 
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold mb-1">
-                              Measurement Unit
-                              <span
-                                onClick={() => setOpenUnit(true)}
-                                className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
-                              >
-                                Add new
-                              </span>
-                            </label>
-                            <Selector
-                              options={newArray}
-                              value={values.unit}
-                              setFieldValue={setFieldValue}
-                              name="unit"
-                            />
+                              <ErrorMessage
+                                name="storage_unit"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold mb-1">
+                                Ingredient Unit
+                                <span
+                                  onClick={() => setOpenUnit(true)}
+                                  className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                                >
+                                  Add
+                                </span>
+                              </label>
+                              <Selector
+                                options={newArray}
+                                value={values.ingredient_unit}
+                                setFieldValue={setFieldValue}
+                                name="ingredient_unit"
+                              />
 
-                            <ErrorMessage
-                              name="unit"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
+                              <ErrorMessage
+                                name="ingredient_unit"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
                           </div>
-                          <div className="mt-4">
+                          <div className="mt-4 flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_gray_3 text-sm font-semibold">
+                                Storage to Ingredient
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder=""
+                                name="storage_to_ingredient"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.storage_to_ingredient &&
+                                  touched.storage_to_ingredient
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:nelsa_gray_3`}
+                              />
+                              <ErrorMessage
+                                name="storage_to_ingredient"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                Par Level
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder=""
+                                name="par_level"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.cost && touched.par_level
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                              />
+                              <ErrorMessage
+                                name="par_level"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                          </div>
+                          {/* <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
                               Description
                             </label>
@@ -262,8 +369,51 @@ const AddIngredient = (props) => {
                               component={CustomInputComponent}
                               placeholder="Description"
                             />
+                          </div> */}
+                          <div className="mt-4 flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_gray_3 text-sm font-semibold mb-1">
+                                Costing Method
+                              </label>
+                              <Selector
+                                options={options}
+                                value={values.costing_method}
+                                setFieldValue={setFieldValue}
+                                name="costing_method"
+                              />
+                              <ErrorMessage
+                                name="costing_method"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+                                Cost
+                              </label>
+                              <Field
+                                type="text"
+                                placeholder=""
+                                name="cost"
+                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                  errors.cost && touched.cost
+                                    ? "border-red-500"
+                                    : ""
+                                } focus:border-blue-950`}
+                                disabled={
+                                  values.costing_method == "From Transactions"
+                                    ? true
+                                    : false
+                                }
+                              />
+                              <ErrorMessage
+                                name="cost"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
                           </div>
-                          <div className="flex items-baseline justify-between">
+                          <div className="flex items-baseline justify-between mt-5">
                             {loading ? (
                               <button
                                 type="submit"
@@ -299,6 +449,7 @@ const AddIngredient = (props) => {
           </div>
         </div>
         {openUnit && <AddMeasurementUnit setOpenUnit={setOpenUnit} />}
+        {openCategory && <AddCategory setOpenCategory={setOpenCategory} />}
       </>,
       document.body
     );

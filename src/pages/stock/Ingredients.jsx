@@ -107,7 +107,7 @@ const Ingredients = () => {
       <div className="flex flex-col space-y-5">
         <div className="flex flex-row justify-between items-center">
           <div className="">
-            <h3 className="text-lg font-bold text-gray-700">Ingredients</h3>
+            <h3 className="text-lg font-bold text-gray-700">Items</h3>
           </div>
           <div>
             <button
@@ -132,8 +132,21 @@ const Ingredients = () => {
               header="Name"
             ></Column>
             <Column field="cost" sortable header="Cost"></Column>
-            <Column field="price" sortable header="Price"></Column>
-            <Column field="unit.label" sortable header="Unit"></Column>
+            <Column
+              field="costing_method"
+              sortable
+              header="Costing Method"
+            ></Column>
+            <Column
+              field="storage_unit.label"
+              sortable
+              header="Storage Unit"
+            ></Column>
+            <Column
+              field="ingredient_unit.label"
+              sortable
+              header="Ingredient Unit"
+            ></Column>
             <Column
               field="quantity"
               sortable

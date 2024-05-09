@@ -14,8 +14,8 @@ import SelectBranchLayout from "./layouts/SelectBranchLayout";
 import SelectBranch from "./pages/SelectBranch";
 import Suppliers from "./pages/suppliers/Suppliers";
 import PurchaseOrders from "./pages/sales/PurchaseOrder/PurchaseOrders";
-import Quotations from "./pages/sales/Quotations";
-import DigitalMenuOrders from "./pages/sales/DigitalMenuOrders";
+//import Quotations from "./pages/sales/Quotations";
+//import DigitalMenuOrders from "./pages/sales/DigitalMenuOrders";
 import Orders from "./pages/sales/Orders";
 import Accounts from "./pages/business_account/Accounts";
 import Notifications from "./pages/Notifications";
@@ -98,16 +98,25 @@ function App() {
             }
           />
           <Route
-            path="/settings"
+            path="customers"
+            element={
+              <Protected>
+                <Customers />
+              </Protected>
+            }
+          />
+          {/* Settings related routes */}
+          <Route
+            path="/manage"
             element={
               <Protected>
                 <Settings />
               </Protected>
             }
           />
-          {/* Tax related routes */}
+
           <Route
-            path="settings/tax"
+            path="manage/tax"
             element={
               <Protected>
                 <Tax />
@@ -115,7 +124,49 @@ function App() {
             }
           />
           <Route
-            path="/settings/measurement_units"
+            path="manage/users"
+            element={
+              <Protected>
+                <Staff />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="manage/roles"
+            element={
+              <Protected>
+                <Roles />
+              </Protected>
+            }
+          />
+          <Route
+            path="manage/permissions"
+            element={
+              <Protected>
+                <Permissions />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="manage/discount"
+            element={
+              <Protected>
+                <DiscountCodes />
+              </Protected>
+            }
+          />
+          <Route
+            path="manage/coupon"
+            element={
+              <Protected>
+                <Coupon />
+              </Protected>
+            }
+          />
+          <Route
+            path="/manage/measurement_units"
             element={
               <Protected>
                 <MeasurementUnits />
@@ -124,7 +175,7 @@ function App() {
           />
 
           <Route
-            path="/settings/branches"
+            path="/manage/branches"
             element={
               <Protected>
                 <Branches />
@@ -133,7 +184,7 @@ function App() {
           />
 
           <Route
-            path="/settings/branches/add"
+            path="/manage/branches/add"
             element={
               <Protected>
                 <AddBranch />
@@ -142,7 +193,7 @@ function App() {
           />
 
           <Route
-            path="/settings/company"
+            path="/manage/company"
             element={
               <Protected>
                 <Company />
@@ -151,7 +202,7 @@ function App() {
           />
 
           <Route
-            path="/settings/site"
+            path="/manage/site"
             element={
               <Protected>
                 <Site />
@@ -159,7 +210,7 @@ function App() {
             }
           />
           <Route
-            path="/settings/printers"
+            path="/manage/printers"
             element={
               <Protected>
                 <Printers />
@@ -167,7 +218,7 @@ function App() {
             }
           />
           <Route
-            path="/settings/billing_counters"
+            path="/manage/billing_counters"
             element={
               <Protected>
                 <BillingCounters />
@@ -176,7 +227,7 @@ function App() {
           />
 
           <Route
-            path="/settings/payment_methods"
+            path="/manage/payment_methods"
             element={
               <Protected>
                 <PaymentMethods />
@@ -185,7 +236,7 @@ function App() {
           />
 
           <Route
-            path="/settings/kitchen_displays"
+            path="/manage/kitchen_displays"
             element={
               <Protected>
                 <Company />
@@ -194,7 +245,7 @@ function App() {
           />
 
           <Route
-            path="/sales/invoices"
+            path="/manage/invoices"
             element={
               <Protected>
                 <Invoice />
@@ -217,14 +268,7 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="/suppliers"
-            element={
-              <Protected>
-                <Suppliers />
-              </Protected>
-            }
-          />
+
           <Route
             path="/payments/acounts"
             element={
@@ -258,9 +302,9 @@ function App() {
             }
           />
 
-          {/* Sales related routes */}
+          {/* Orders related routes */}
           <Route
-            path="sales/orders"
+            path="orders"
             element={
               <Protected>
                 <Orders />
@@ -268,72 +312,22 @@ function App() {
             }
           />
 
-          <Route
+          {/* <Route
             path="sales/quotations"
             element={
               <Protected>
                 <Quotations />
               </Protected>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="sales/digital_menu_orders"
             element={
               <Protected>
                 <DigitalMenuOrders />
               </Protected>
             }
-          />
-          {/* User related routes */}
-          <Route
-            path="users/staff"
-            element={
-              <Protected>
-                <Staff />
-              </Protected>
-            }
-          />
-          <Route
-            path="users/customers"
-            element={
-              <Protected>
-                <Customers />
-              </Protected>
-            }
-          />
-          <Route
-            path="users/roles"
-            element={
-              <Protected>
-                <Roles />
-              </Protected>
-            }
-          />
-          <Route
-            path="users/permissions"
-            element={
-              <Protected>
-                <Permissions />
-              </Protected>
-            }
-          />
-
-          <Route
-            path="codes/discount"
-            element={
-              <Protected>
-                <DiscountCodes />
-              </Protected>
-            }
-          />
-          <Route
-            path="codes/coupon"
-            element={
-              <Protected>
-                <Coupon />
-              </Protected>
-            }
-          />
+          /> */}
 
           {/*Menu Related routes */}
           <Route
@@ -369,10 +363,19 @@ function App() {
             }
           />
 
-          {/* Stock related routes */}
+          {/* Inventory related routes */}
 
           <Route
-            path="stock/ingredients"
+            path="inventory/suppliers"
+            element={
+              <Protected>
+                <Suppliers />
+              </Protected>
+            }
+          />
+
+          <Route
+            path="inventory/items"
             element={
               <Protected>
                 <Ingredients />
@@ -381,7 +384,7 @@ function App() {
           />
 
           <Route
-            path="stock/purchase_orders"
+            path="inventory/purchase_orders"
             element={
               <Protected>
                 <PurchaseOrders />
@@ -389,7 +392,7 @@ function App() {
             }
           />
           <Route
-            path="stock/purchase_orders/add"
+            path="inventory/purchase_orders/add"
             element={
               <Protected>
                 <NewPurchaseOrder />
@@ -398,7 +401,7 @@ function App() {
           />
 
           <Route
-            path="stock/transfer"
+            path="inventory/transfer"
             element={
               <Protected>
                 <StockTransfer />
@@ -406,7 +409,7 @@ function App() {
             }
           />
           <Route
-            path="stock/return"
+            path="inventory/return"
             element={
               <Protected>
                 <StockReturn />
@@ -414,7 +417,7 @@ function App() {
             }
           />
           <Route
-            path="stock/product_label"
+            path="inventory/product_label"
             element={
               <Protected>
                 <ProductLabel />
@@ -422,7 +425,7 @@ function App() {
             }
           />
           <Route
-            path="stock/addon_groups"
+            path="inventory/addon_groups"
             element={
               <Protected>
                 <AddOnGroups />

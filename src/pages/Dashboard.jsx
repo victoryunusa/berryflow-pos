@@ -18,19 +18,15 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col space-y-12">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row w-[30rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
+        <div className="flex flex-row w-[20rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
           <button className="bg-white px-3 py-2 rounded-lg cursor-pointer">
-            <h3 className="text-sm font-semibold text-gray-700">Overview</h3>
+            <h3 className="text-sm font-semibold text-gray-700">General</h3>
           </button>
           <button className="p-2 rounded-lg cursor-pointer">
-            <h3 className="text-sm font-semibold text-gray-500">
-              Cashflow Report
-            </h3>
+            <h3 className="text-sm font-semibold text-gray-500">Branches</h3>
           </button>
           <button className=" p-2 rounded-lg cursor-pointer">
-            <h3 className="text-sm font-semibold text-gray-500">
-              Customers Report
-            </h3>
+            <h3 className="text-sm font-semibold text-gray-500">Inventory</h3>
           </button>
         </div>
         <div className="flex md:flex-row flex-col gap-5 mt-2">

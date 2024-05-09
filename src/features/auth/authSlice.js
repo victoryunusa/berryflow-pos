@@ -143,7 +143,7 @@ export const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.token = null;
@@ -157,7 +157,7 @@ export const authSlice = createSlice({
       .addCase(registerBusiness.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registerBusiness.fulfilled, (state, action) => {
+      .addCase(registerBusiness.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.token = null;
@@ -185,7 +185,7 @@ export const authSlice = createSlice({
       .addCase(verify.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(verify.fulfilled, (state, action) => {
+      .addCase(verify.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.token = null;

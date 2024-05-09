@@ -2,30 +2,30 @@ import * as HeIcons from "react-icons/fa6";
 import * as Icon from "react-icons/si";
 
 export const subMenusList = [
-  {
-    name: "Sales",
-    path: "/sales",
-    icon: <HeIcons.FaCartShopping size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Orders",
-        path: "/sales/orders",
-      },
-      {
-        title: "Digital Menu Orders",
-        path: "/sales/digital_menu_orders",
-      },
+  // {
+  //   name: "Sales",
+  //   path: "/sales",
+  //   icon: <HeIcons.FaCartShopping size={16} className="min-w-max" />,
+  //   subNav: [
+  //     {
+  //       title: "Orders",
+  //       path: "/sales/orders",
+  //     },
+  //     {
+  //       title: "Digital Menu Orders",
+  //       path: "/sales/digital_menu_orders",
+  //     },
 
-      // {
-      //   title: "Invoices",
-      //   path: "/sales/invoices",
-      // },
-      // {
-      //   title: "Quotations",
-      //   path: "/sales/quotations",
-      // },
-    ],
-  },
+  //     // {
+  //     //   title: "Invoices",
+  //     //   path: "/sales/invoices",
+  //     // },
+  //     // {
+  //     //   title: "Quotations",
+  //     //   path: "/sales/quotations",
+  //     // },
+  //   ],
+  // },
   {
     name: "Payments",
     path: "/payments",
@@ -51,40 +51,21 @@ export const subMenusList = [
     ],
   },
   {
-    name: "People",
-    path: "/users",
-    icon: <HeIcons.FaUsersGear size={16} className="min-w-max" />,
+    name: "Inventory",
+    path: "/inventory",
+    icon: <HeIcons.FaBagShopping size={16} className="min-w-max" />,
     subNav: [
       {
-        title: "Staff",
-        path: "/users/staff",
+        title: "Suppliers",
+        path: "/inventory/suppliers",
       },
       {
-        title: "Customers",
-        path: "/users/customers",
+        title: "Items",
+        path: "/inventory/items",
       },
       {
-        title: "Roles",
-        path: "/users/roles",
-      },
-      {
-        title: "Permissions",
-        path: "/users/permissions",
-      },
-    ],
-  },
-  {
-    name: "Marketing",
-    path: "/codes",
-    icon: <HeIcons.FaPercent size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Discount",
-        path: "/codes/discount",
-      },
-      {
-        title: "Coupon",
-        path: "/codes/coupon",
+        title: "Purchase Orders",
+        path: "/inventory/purchase_orders",
       },
     ],
   },
@@ -107,33 +88,6 @@ export const subMenusList = [
         title: "Add-on Groups",
         path: "/menu/addon_groups",
       },
-    ],
-  },
-  {
-    name: "Purchases",
-    path: "/stock",
-    icon: <HeIcons.FaBowlFood size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Ingredients",
-        path: "/stock/ingredients",
-      },
-      {
-        title: "Purchase Orders",
-        path: "/stock/purchase_orders",
-      },
-      // {
-      //   title: "Stock Transfer",
-      //   path: "/stock/transfer",
-      // },
-      // {
-      //   title: "Stock Return",
-      //   path: "/stock/return",
-      // },
-      // {
-      //   title: "Product Label",
-      //   path: "/stock/product_label",
-      // },
     ],
   },
 
@@ -211,45 +165,65 @@ export const subMenusList = [
     ],
   },
   {
-    name: "Settings",
-    path: "/settings",
+    name: "Manage",
+    path: "/manage",
     icon: <HeIcons.FaGear size={16} className="min-w-max" />,
     subNav: [
+      // {
+      //   title: "Company",
+      //   path: "/manage/company",
+      // },
+      // {
+      //   title: "Site",
+      //   path: "/manage/site",
+      // },
       {
-        title: "Company",
-        path: "/settings/company",
+        title: "Users",
+        path: "/manage/users",
       },
       {
-        title: "Site",
-        path: "/settings/site",
+        title: "Roles",
+        path: "/manage/roles",
       },
+      // {
+      //   title: "Permissions",
+      //   path: "/manage/permissions",
+      // },
       {
         title: "Branches",
-        path: "/settings/branches",
+        path: "/manage/branches",
+      },
+      {
+        title: "Discount",
+        path: "/manage/discount",
+      },
+      {
+        title: "Coupon",
+        path: "/manage/coupon",
       },
       {
         title: "Taxes",
-        path: "/settings/tax",
+        path: "/manage/tax",
       },
       {
         title: "Billing Counters",
-        path: "/settings/billing_counters",
+        path: "/manage/billing_counters",
       },
       {
         title: "Measurement Units",
-        path: "/settings/measurement_units",
+        path: "/manage/measurement_units",
       },
       {
         title: "Payment Methods",
-        path: "/settings/payment_methods",
+        path: "/manage/payment_methods",
       },
       {
         title: "Printers",
-        path: "/settings/printers",
+        path: "/manage/printers",
       },
       {
         title: "Kitchen Displays",
-        path: "/settings/kitchen_displays",
+        path: "/manage/kitchen_displays",
       },
     ],
   },

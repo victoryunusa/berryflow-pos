@@ -113,13 +113,24 @@ const SideBar = () => {
             </li>
             <li>
               <NavLink
-                to="/suppliers"
+                to="/orders"
                 className={({ isActive }) =>
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.FaTruckMoving size={16} className="min-w-max" />
-                Vendors
+                <HeIcons.FaCartShopping size={16} className="min-w-max" />
+                Orders
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/customers"
+                className={({ isActive }) =>
+                  isActive ? "activeLink" : "normalLink"
+                }
+              >
+                <HeIcons.FaUsers size={16} className="min-w-max" />
+                Customers
               </NavLink>
             </li>
             {(open || isTabletMid) && (

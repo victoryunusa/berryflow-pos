@@ -97,7 +97,7 @@ const Branch = () => {
 
       await dispatch(addBranch(formValue)).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
-      navigate("/settings/branches");
+      navigate("/");
 
       setLoading(false);
     } catch (error) {

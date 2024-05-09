@@ -35,7 +35,7 @@ const PurchaseOrders = () => {
         <div className="">
           <h3 className="text-lg font-bold text-gray-700">Purchase Orders</h3>
         </div>
-        <Link to="/stock/purchase_orders/add">
+        <Link to="/inventory/purchase_orders/add">
           <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
             Add New
           </button>
