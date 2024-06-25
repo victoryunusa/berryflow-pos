@@ -28,3 +28,21 @@ export function prettyDate(date) {
   const newDate = new Date(date);
   return newDate.toUTCString();
 }
+
+export const removeUnderscoreAndCapitalize = (inputString) => {
+  const words = inputString.split("_");
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+
+  return capitalizedWords.join(" ");
+};
+
+export const checkPermission = (authUserPermissions, permission) => {
+  if (authUserPermissions !== false)
+    if (authUserPermissions.includes(permission)) {
+      return true;
+    } else {
+      return false;
+    }
+};

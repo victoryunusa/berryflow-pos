@@ -82,12 +82,10 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-normal text-3xl text-gray-800">
-                {currency?.currency_symbol}200,000.00
+                {currency?.currency_symbol}0.00
               </h2>
               <span>
-                <p className="text-xs antialiased">
-                  10% change from last month
-                </p>
+                <p className="text-xs antialiased">0% change from last month</p>
               </span>
             </div>
           </div>
@@ -106,9 +104,9 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h2 className="font-normal text-3xl text-gray-800">1024</h2>
+              <h2 className="font-normal text-3xl text-gray-800">0</h2>
               <span>
-                <p className="text-xs">10% change from last month</p>
+                <p className="text-xs">0% change from last month</p>
               </span>
             </div>
           </div>
@@ -128,10 +126,10 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-normal text-3xl text-gray-800">
-                {currency?.currency_symbol}700.00
+                {currency?.currency_symbol}0.00
               </h2>
               <span>
-                <p className="text-xs">10% change from last month</p>
+                <p className="text-xs">0% change from last month</p>
               </span>
             </div>
           </div>
@@ -151,10 +149,10 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-normal text-3xl text-gray-800">
-                {currency?.currency_symbol}200.00
+                {currency?.currency_symbol}0.00
               </h2>
               <span>
-                <p className="text-xs">10% change from last month</p>
+                <p className="text-xs">0% change from last month</p>
               </span>
             </div>
           </div>

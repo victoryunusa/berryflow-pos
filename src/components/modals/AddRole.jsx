@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
 
 import { addRole, getRoles } from "../../features/role/roleSlice";
+import { useEffect } from "react";
+import { getModules } from "../../features/master_actions/modulesSlice";
+import { removeUnderscoreAndCapitalize } from "../../functions/functions";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -23,19 +26,23 @@ const AddRole = (props) => {
 
   const dispatch = useDispatch();
 
+  const { modules } = useSelector((state) => state.modules);
+
+  useEffect(() => {
+    dispatch(getModules());
+  }, [dispatch]);
+
   const initialValues = {
     name: "",
-    code: "",
-    description: "",
+    permissions: [],
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Role name is required!"),
-    code: Yup.string().required("Role code is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { name, description, code } = formValue;
+    const { name, permissions } = formValue;
 
     dispatch(alertActions.clear());
     try {
@@ -44,8 +51,7 @@ const AddRole = (props) => {
       await dispatch(
         addRole({
           name,
-          description,
-          code,
+          permissions,
         })
       ).unwrap();
 
@@ -65,6 +71,10 @@ const AddRole = (props) => {
     }
   };
 
+  const separateValues = (value) => {
+    return value.split(",");
+  };
+
   if (typeof document !== "undefined") {
     return createPortal(
       <>
@@ -73,20 +83,14 @@ const AddRole = (props) => {
             className="fixed inset-0 w-full h-full bg-black opacity-40"
             onClick={() => setOpenRole(false)}
           ></div>
-          <div className="flex items-center min-h-screen px-4 py-4">
-            <div className="relative w-full max-w-xl p-7 md:p-10 mx-auto bg-white rounded-md shadow-lg font-manrope">
+          <div className="flex items-center min-h-screen px-2 py-2">
+            <div className="relative w-full max-w-xl p-6 md:p-6 mx-auto bg-white rounded-md shadow-lg font-manrope">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
                     <h3 className="text-lg font-bold text-nelsa_primary">
                       Add Role
                     </h3>
-                    <h4
-                      className="text-lg font-medium text-gray-500 hover:cursor-pointer"
-                      onClick={() => setOpenRole(false)}
-                    >
-                      X
-                    </h4>
                   </div>
 
                   <div className="mt-5 flex flex-col justify-center items-center">
@@ -118,49 +122,38 @@ const AddRole = (props) => {
                             />
                           </div>
 
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Role Code
-                            </label>
-                            <Field
-                              type="text"
-                              placeholder="Enter Role code"
-                              name="code"
-                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
-                                errors.code && touched.code
-                                  ? "border-red-500"
-                                  : ""
-                              } focus:border-blue-950`}
-                            />
-                            <ErrorMessage
-                              name="code"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
+                          <div className="mt-4 h-96 overflow-y-scroll w-full bg-neutral-50 rounded-lg p-2">
+                            {modules?.map((module) => {
+                              return (
+                                <div
+                                  key={module.id}
+                                  className="flex flex-col w-full mb-5 text-neutral-700 text-md font-semibold"
+                                >
+                                  {removeUnderscoreAndCapitalize(module.name)}
+                                  <div className="flex flex-wrap w-full gap-5 ">
+                                    {separateValues(module.actions).map(
+                                      (action, index) => (
+                                        <label
+                                          key={index}
+                                          className="flex gap-2 text-sm mt-1 text-neutral-500 font-normal"
+                                        >
+                                          <Field
+                                            type="checkbox"
+                                            name="permissions"
+                                            value={module.name + "|" + action}
+                                          />
+                                          {removeUnderscoreAndCapitalize(
+                                            action
+                                          )}
+                                        </label>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            })}
                           </div>
 
-                          <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Description
-                            </label>
-
-                            <Field
-                              name="description"
-                              className={`w-full px-4 py-3 mt-1 border text-gray-500 text-sm rounded-md focus:outline-none ${
-                                errors.description && touched.description
-                                  ? "border-red-500"
-                                  : ""
-                              } focus:border-blue-950`}
-                              component={CustomInputComponent}
-                              placeholder="Description"
-                            />
-
-                            <ErrorMessage
-                              name="description"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
                           <div className="flex items-baseline justify-between">
                             {loading ? (
                               <button

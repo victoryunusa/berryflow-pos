@@ -65,6 +65,8 @@ import AddBranch from "./pages/branches/AddBranch";
 import WelcomeLayout from "./layouts/WelcomeLayout";
 import Welcome from "./pages/setup/Welcome";
 import Branch from "./pages/setup/Branch";
+import PaymentGateway from "./pages/setup/PaymentGateway";
+import ViewPurchaseOrder from "./pages/sales/PurchaseOrder/ViewPurchaseOrder";
 
 function App() {
   return (
@@ -401,6 +403,15 @@ function App() {
           />
 
           <Route
+            path="inventory/purchase_orders/:id"
+            element={
+              <Protected>
+                <ViewPurchaseOrder />
+              </Protected>
+            }
+          />
+
+          <Route
             path="inventory/transfer"
             element={
               <Protected>
@@ -517,7 +528,7 @@ function App() {
             }
           />
           <Route
-            path="table/area"
+            path="table/section"
             element={
               <Protected>
                 <Area />
@@ -567,6 +578,14 @@ function App() {
             element={
               <Protected>
                 <Branch />
+              </Protected>
+            }
+          />
+          <Route
+            path="/setup/payment"
+            element={
+              <Protected>
+                <PaymentGateway />
               </Protected>
             }
           />

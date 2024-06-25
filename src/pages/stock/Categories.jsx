@@ -156,7 +156,6 @@ const Categories = () => {
               body={statusBodyTemplate}
               header="Status"
             ></Column>
-            <Column field="created_by" header="Created By"></Column>
             <Column
               body={actionBodyTemplate}
               className="w-1/12"

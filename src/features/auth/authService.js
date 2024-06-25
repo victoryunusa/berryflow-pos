@@ -62,10 +62,10 @@ const verify = async (userData) => {
     userData,
     headers
   );
-  // if (response.data) {
-  //   localStorage.setItem("user", JSON.stringify(response.data));
-  // }
-  return response.data;
+  if (response.data) {
+    localStorage.setItem("token", JSON.stringify(response.data.token));
+  }
+  return response.data.token;
 };
 
 const accountActivate = async (userData) => {

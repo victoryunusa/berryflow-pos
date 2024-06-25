@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
+//import { Button } from "primereact/button";
 import AddTable from "../../components/modals/AddTable";
 import QRCode from "react-qr-code";
 import { getTables } from "../../features/table/tableSlice";
@@ -31,22 +31,23 @@ const areaBodyTemplate = (rowData) => {
 };
 
 const Tables = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [openAdd, setOpenAdd] = useState(false);
-  const { tables, message, isError } = useSelector((state) => state.tables);
+  const { tables, message } = useSelector((state) => state.tables);
 
   useEffect(() => {
     dispatch(getTables());
-  }, [message]);
+  }, [dispatch, message]);
 
   const imageBodyTemplate = (product) => {
+    const url = `https://getnelsa.com/${product.slug}`;
     return (
       <QRCode
         size={5}
         style={{ height: "auto", maxWidth: "50%", width: "50%" }}
-        value={product.slug}
+        value={url}
         viewBox={`0 0 50 50`}
       />
     );
@@ -79,7 +80,10 @@ const Tables = () => {
             <Column field="table_name" header="Name"></Column>
             <Column field="table_number" header="Number"></Column>
             <Column field="no_of_occupants" header="Seats"></Column>
-            <Column field="floor_plan.name" header="Area (Floor Plan)"></Column>
+            <Column
+              field="floor_plan.name"
+              header="Section (Floor Plan)"
+            ></Column>
             <Column field="status" header="Status"></Column>
             <Column field="created_by" header="Created By"></Column>
             <Column

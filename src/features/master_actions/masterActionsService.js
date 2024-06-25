@@ -28,9 +28,16 @@ const getInvoicePrintTypes = async () => {
   return response.data.invoice_print_types;
 };
 
+const getModules = async () => {
+  const response = await axios.get(`${BaseUrl}/master/get_modules`, headers);
+  localStorage.setItem("modules", JSON.stringify(response.data.modules));
+  return response.data.modules;
+};
+
 const masterActionsService = {
   getBillingTypes,
   getInvoicePrintTypes,
+  getModules,
 };
 
 export default masterActionsService;

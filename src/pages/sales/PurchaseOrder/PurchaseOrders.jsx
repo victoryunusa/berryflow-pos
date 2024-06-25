@@ -10,11 +10,11 @@ const actionBodyTemplate = (rowData) => {
   console.log(rowData);
   return (
     <div className="flex flex-row space-x-3">
-      <button className="bg-blue-600 p-2 text-xs text-white rounded-md">
-        <HeIcons.FaSquarePen size={12} />
+      <button className="bg-sky-400 p-2 text-xs text-white rounded-md">
+        <HeIcons.FaEye size={12} />
       </button>
-      <button className="bg-red-600 p-2 text-xs text-white rounded-md">
-        <HeIcons.FaTrash size={12} />
+      <button className="bg-blue-500 p-2 text-xs text-white rounded-md">
+        <HeIcons.FaPen size={12} />
       </button>
     </div>
   );

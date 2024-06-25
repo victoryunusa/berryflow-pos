@@ -116,8 +116,8 @@ export const subMenusList = [
     icon: <Icon.SiTablecheck size={16} className="min-w-max" />,
     subNav: [
       {
-        title: "Area (Floor Plan)",
-        path: "/table/area",
+        title: "Section (Floor Plan)",
+        path: "/table/section",
       },
       {
         title: "Tables",

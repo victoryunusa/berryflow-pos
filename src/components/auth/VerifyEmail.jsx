@@ -34,7 +34,7 @@ const VerifyEmail = () => {
 
       await dispatch(verify(userData)).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
-      navigate("/auth/login");
+      navigate("/");
       dispatch(
         alertActions.success({
           message: "Verification was successful",

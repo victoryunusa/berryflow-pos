@@ -26,12 +26,16 @@ import { getBranches } from "./features/branch/branchSlice";
 import { getBillingTypes } from "./features/master_actions/billingTypeSlice";
 import { getInvoicePrintTypes } from "./features/master_actions/invoicePrintTypeSlice";
 import { getRoles } from "./features/role/roleSlice";
+import { getPermissions } from "./features/permissions/permissionsSlice";
+import { getPaymentMethods } from "./features/payment_method/paymentMethodSlice";
+import { getModules } from "./features/master_actions/modulesSlice";
 
 document.title = "Berryflow - Africa's leading B2B Spend Management platform";
 
 store.dispatch(getCountries());
 store.dispatch(getBillingTypes());
 store.dispatch(getInvoicePrintTypes());
+store.dispatch(getModules());
 store.dispatch(getStates());
 store.dispatch(getSuppliers());
 store.dispatch(getCategories());
@@ -43,6 +47,8 @@ store.dispatch(getDiscountCodes());
 store.dispatch(getProfile());
 store.dispatch(getBranches());
 store.dispatch(getRoles());
+store.dispatch(getPermissions());
+store.dispatch(getPaymentMethods());
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

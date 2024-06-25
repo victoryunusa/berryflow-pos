@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import AddCustomer from "../../components/modals/AddCustomer";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomers } from "../../features/customer/customerSlice";
 
-const customers = [
-  {
-    name: "David Yunusa",
-    code: "AGR100992",
-    email: "david@getnelsa.com",
-    phone: "0807998866",
-    status: "Active",
-    created_on: "2015-12-09",
-    updated_on: "2015-12-09",
-    created_by: "Victor Yunusa",
-  },
-];
+// const customers = [
+//   {
+//     name: "David Yunusa",
+//     code: "AGR100992",
+//     email: "david@getnelsa.com",
+//     phone: "0807998866",
+//     status: "Active",
+//     created_on: "2015-12-09",
+//     updated_on: "2015-12-09",
+//     created_by: "Victor Yunusa",
+//   },
+// ];
 
 const actionBodyTemplate = (rowData) => {
   return (
@@ -30,41 +33,50 @@ const actionBodyTemplate = (rowData) => {
 };
 
 const Customers = () => {
+  const [visible, setVisible] = useState(false);
+  const { customers } = useSelector((state) => state.customers);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCustomers());
+  }, []);
   return (
-    <div className="flex flex-col space-y-5">
-      <div className="flex flex-row justify-between items-center">
-        <div className="">
-          <h3 className="text-lg font-bold text-gray-700">Customers</h3>
+    <>
+      <div className="flex flex-col space-y-5">
+        <div className="flex flex-row justify-between items-center">
+          <div className="">
+            <h3 className="text-lg font-bold text-gray-700">Customers</h3>
+          </div>
+          <div>
+            <button
+              onClick={() => setVisible(true)}
+              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+            >
+              Add New
+            </button>
+          </div>
         </div>
-        <div>
-          <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
-            New Customer
-          </button>
+        <div className="bg-white border p-5 rounded-lg text-xs">
+          <DataTable
+            value={customers}
+            stripedRows
+            tableStyle={{ minWidth: "50rem" }}
+            className="text-sm font-manrope rounded-lg"
+          >
+            <Column field="name" header="Name"></Column>
+            <Column field="email" header="Email"></Column>
+            <Column field="phone" header="Phone No"></Column>
+            <Column field="status" header="Status"></Column>
+            <Column
+              body={actionBodyTemplate}
+              className="w-1/12"
+              exportable={false}
+              header="Action"
+            ></Column>
+          </DataTable>
         </div>
       </div>
-      <div className="bg-white border p-5 rounded-lg text-xs">
-        <DataTable
-          value={customers}
-          stripedRows
-          tableStyle={{ minWidth: "50rem" }}
-          className="text-sm font-manrope rounded-lg"
-        >
-          <Column field="name" header="Name"></Column>
-          <Column field="email" header="Email"></Column>
-          <Column field="phone" header="Phone No"></Column>
-          <Column field="status" header="Status"></Column>
-          <Column field="created_on" header="Created On"></Column>
-          <Column field="updated_on" header="Updated On"></Column>
-          <Column field="created_by" header="Created By"></Column>
-          <Column
-            body={actionBodyTemplate}
-            className="w-1/12"
-            exportable={false}
-            header="Action"
-          ></Column>
-        </DataTable>
-      </div>
-    </div>
+      {visible && <AddCustomer setOpenCustomer={setVisible} />}
+    </>
   );
 };
 

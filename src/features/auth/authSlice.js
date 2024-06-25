@@ -185,10 +185,10 @@ export const authSlice = createSlice({
       .addCase(verify.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(verify.fulfilled, (state) => {
+      .addCase(verify.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.token = null;
+        state.token = action.payload;
       })
       .addCase(verify.rejected, (state, action) => {
         state.isLoading = false;

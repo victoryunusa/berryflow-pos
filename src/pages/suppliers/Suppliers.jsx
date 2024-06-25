@@ -241,6 +241,7 @@ const Suppliers = () => {
           >
             <Column
               field="supplier_code"
+              className="w-1/6"
               sortable
               header="Supplier Code"
             ></Column>
@@ -250,31 +251,23 @@ const Suppliers = () => {
               sortable
               header="Supplier Name"
             ></Column>
-
             <Column
-              field="created_at"
-              dataType="date"
+              field="phone"
+              className="w-1/6"
               sortable
-              header="Created On"
-              body={dateBodyTemplate}
+              header="Phone Number"
             ></Column>
             <Column
-              field="updated_at"
-              dataType="date"
+              field="email"
+              className="w-1/6"
               sortable
-              header="Updated On"
-              body={dateBodyTemplate}
+              header="Email"
             ></Column>
             <Column
               field="status"
               sortable
               header="Status"
               body={statusBodyTemplate}
-            ></Column>
-            <Column
-              field="created_user.full_name"
-              sortable
-              header="Created By"
             ></Column>
             <Column
               body={actionBodyTemplate}

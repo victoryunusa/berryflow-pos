@@ -14,7 +14,7 @@ const OrderSelect = ({ options, handleAddToCart }) => {
     <div className="w-full relative z-10">
       <div
         onClick={() => setOpen(!open)}
-        className="flex w-full border bg-white p-3 items-center cursor-pointer justify-between rounded-md"
+        className="flex w-full border bg-white px-3 py-2 items-center cursor-pointer justify-between rounded-md"
       >
         <p>Select one</p>
         <HeIcons.FaChevronDown size={10} />
@@ -48,7 +48,7 @@ const OrderSelect = ({ options, handleAddToCart }) => {
               setOpen(false);
             }}
           >
-            {option?.name + " / " + option?.unit?.unit_code}
+            {option?.name}
           </li>
         ))}
       </ul>

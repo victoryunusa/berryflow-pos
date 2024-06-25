@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { alertActions } from "../../app/store";
 import { register } from "../../features/auth/authSlice";
 import { saveBusiness } from "../../features/vendor/vendorSlice";
+import Selector from "../../components/common/Selector";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -19,6 +20,14 @@ const CustomInputComponent = ({
 
 const Welcome = () => {
   const { countries } = useSelector((state) => state.countries);
+
+  var newArray = countries.map(function (obj) {
+    return { value: obj.id, label: obj.name };
+  });
+
+  var newArray2 = countries.map(function (obj) {
+    return { value: obj.dial_code, label: obj.dial_code };
+  });
 
   const [countryId, setCountryId] = useState(158);
   const [isOpenCountriesList, setIsOpenCountriesList] = useState(false);
@@ -37,11 +46,16 @@ const Welcome = () => {
     address: "",
     email: "",
     phone: "",
+    country_id: "",
+    dial_code: "+234",
   };
 
   const validationSchema = Yup.object().shape({
     business_name: Yup.string().required("This field is required!"),
     url: Yup.string().required("This field is required!"),
+    dial_code: Yup.string().required("This field is required!"),
+    phone: Yup.string().required("This field is required!"),
+    country_id: Yup.string().required("This field is required!"),
   });
 
   const [loading, setLoading] = useState(false);
@@ -55,7 +69,7 @@ const Welcome = () => {
   };
 
   const handleSubmit = async (formValue) => {
-    const { business_name, url } = formValue;
+    const { business_name, url, dial_code, phone, country_id } = formValue;
     dispatch(alertActions.clear());
     try {
       setLoading(true);
@@ -64,6 +78,8 @@ const Welcome = () => {
         saveBusiness({
           business_name,
           url,
+          phone: dial_code + phone,
+          country_id,
         })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
@@ -84,23 +100,23 @@ const Welcome = () => {
     <div className="flex flex-col">
       <div className="flex flex-col items-center">
         <h3 className="text-2xl font-bold text-nelsa_primary">
-          Tell us about your company
+          Tell us about your organisation
         </h3>
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm text-neutral-500 mt-2">
           Takes approximately 5 minutes.
         </p>
       </div>
-      <div className="bg-white p-8  md:m-5 rounded-md w-full md:w-[25rem]">
+      <div className="bg-white p-8  md:m-5 rounded-md w-full md:w-[30rem]">
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({ values, errors, touched, setFieldValue }) => (
             <Form>
               <div className="">
                 <label className="block text-nelsa_primary text-sm font-semibold">
-                  Business Name
+                  Organisation name<span className="text-red-600">*</span>
                 </label>
                 <Field
                   type="text"
@@ -121,8 +137,12 @@ const Welcome = () => {
               </div>
               <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
-                  Ordering Page Url
+                  Store link<span className="text-red-600">*</span>
                 </label>
+                <p className="text-[0.7rem] text-neutral-500">
+                  This will be the link to your store. You can change to custom
+                  domain later.
+                </p>
                 <div className="flex flex-row items-center">
                   <Field
                     type="text"
@@ -144,69 +164,60 @@ const Welcome = () => {
                   className="text-red-500 text-sm"
                 />
               </div>
+
               <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
-                  Business Email
+                  WhatsApp number<span className="text-red-600">*</span>
                 </label>
-                <Field
-                  type="text"
-                  placeholder="Business email address"
-                  autoComplete="off"
-                  name="email"
-                  className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                    errors.email && touched.email ? "border-red-500" : ""
-                  } focus:border-blue-950`}
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
+                <div className="flex flex-row mt-1 gap-2">
+                  <div className="w-1/3">
+                    <Selector
+                      options={newArray2}
+                      value={values.dial_code}
+                      setFieldValue={setFieldValue}
+                      name="dial_code"
+                    />
+                    <ErrorMessage
+                      name="dial_code"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                  <div className="w-full flex flex-col">
+                    <Field
+                      type="text"
+                      placeholder=""
+                      autoComplete="off"
+                      name="phone"
+                      className={`w-full px-4 py-3 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                        errors.phone && touched.phone ? "border-red-500" : ""
+                      } focus:border-blue-950`}
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="div"
+                      className="text-red-500 text-sm"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
-                  Business Phone
-                </label>
-                <Field
-                  type="text"
-                  placeholder="Business phone number"
-                  autoComplete="off"
-                  name="phone"
-                  className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                    errors.phone && touched.phone ? "border-red-500" : ""
-                  } focus:border-blue-950`}
-                />
-                <ErrorMessage
-                  name="phone"
-                  component="div"
-                  className="text-red-500 text-sm"
-                />
-              </div>
-              {/* <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
                   Business Location
                 </label>
-                <Field
-                  as="select"
-                  name="country"
-                  className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                    errors.country && touched.country ? "border-red-500" : ""
-                  } focus:border-blue-950`}
-                >
-                  <option value="">Select Country</option>
-                  {countries.map((country) => (
-                    <option key={country.id} value={country.id}>
-                      {country.name}
-                    </option>
-                  ))}
-                </Field>
+                <Selector
+                  options={newArray}
+                  value={values.country_id}
+                  setFieldValue={setFieldValue}
+                  name="country_id"
+                />
 
                 <ErrorMessage
-                  name="country"
+                  name="country_id"
                   component="div"
                   className="text-red-500 text-sm"
                 />
-              </div> */}
+              </div>
               {/* <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
                   Currency
@@ -232,7 +243,7 @@ const Welcome = () => {
                   className="text-red-500 text-sm"
                 />
               </div> */}
-              <div className="mt-4">
+              {/* <div className="mt-4">
                 <div className="">
                   <label className="block text-nelsa_primary font-semibold">
                     Address
@@ -253,7 +264,7 @@ const Welcome = () => {
                     className="text-red-500 text-sm"
                   />
                 </div>
-              </div>
+              </div> */}
 
               {/* <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
@@ -297,7 +308,7 @@ const Welcome = () => {
                     type="submit"
                     className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
                   >
-                    Save
+                    Next
                   </button>
                 )}
               </div>

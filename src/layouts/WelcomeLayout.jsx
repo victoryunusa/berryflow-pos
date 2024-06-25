@@ -19,10 +19,12 @@ const WelcomeLayout = () => {
     <div className="flex-1 bg-gray-100 font-manrope">
       <div className="flex flex-row">
         <div className="flex-1 flex-col justify-center sm:text-left">
-          <div className="bg-white p-4 md:p-5 rounded-lg w-full">
+          <div className="bg-white px-5 py-2 md:py-2 rounded-lg w-full">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="">
-                <h3 className="text-2xl font-bold text-nelsa_primary">Nelsa</h3>
+                <h3 className="text-xl font-bold text-nelsa_primary">
+                  CaterOS
+                </h3>
               </div>
               <div>
                 <button

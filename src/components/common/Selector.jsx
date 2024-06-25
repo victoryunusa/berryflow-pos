@@ -16,14 +16,14 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
     <div className="w-full relative z-5">
       <div
         onClick={() => setOpen(!open)}
-        className={`flex w-full border bg-white p-3 items-center cursor-pointer justify-between rounded-md `}
+        className={`flex w-full border bg-white px-3 py-2 items-center cursor-pointer justify-between rounded-md `}
       >
-        <p className="text-sm text-gray-600">
+        <p className="text-xs text-gray-500">
           {selected
             ? selected?.length > 25
               ? selected?.substring(0, 25)
               : selected
-            : "Choose option"}
+            : "Select option"}
         </p>
         <HeIcons.FaChevronDown size={10} />
       </div>
@@ -32,30 +32,32 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
           open ? "max-h-60 border" : "h-0"
         }`}
       >
-        <div className="flex flex-row items-center px-2 sticky top-0 bg-white">
+        <div className="flex flex-row items-center px-2 sticky top-0 bg-white text-xs">
           <HeIcons.FaMagnifyingGlass className="text-neutral-400" />
           <input
             type="text"
             placeholder="Search..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value.toLowerCase())}
-            className="placeholder:text-gray-400 text-gray-500 p-2 outline-none w-full"
+            className="placeholder:text-neutral-400 text-neutral-500 p-2 outline-none w-full"
           />
         </div>
         {options?.map((option) => (
           <li
             key={option?.value}
-            className={`p-2 text-sm text-gray-700 hover:bg-nelsa_primary hover:text-white cursor-pointer ${
-              option?.label?.toLowerCase().startsWith(inputValue)
+            className={`p-2 text-xs text-gray-700 hover:bg-yellow-100 hover:text-yellow-700 cursor-pointer ${
+              option?.label?.toLowerCase().includes(inputValue)
                 ? "block"
                 : "hidden"
+            } ${
+              option?.label?.toLowerCase() == selected.toLowerCase()
+                ? "font-bold"
+                : ""
             }`}
             onClick={() => {
-              if (option?.label?.toLowerCase() !== selected.toLowerCase()) {
-                setSelected(option?.label);
-                setFieldValue(name, option?.value);
-                setOpen(false);
-              }
+              setSelected(option?.label);
+              setFieldValue(name, option?.value);
+              setOpen(false);
             }}
             onChange={(selected) => onChange(selected)}
           >

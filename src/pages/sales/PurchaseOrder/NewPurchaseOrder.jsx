@@ -530,7 +530,7 @@ const NewPurchaseOrder = () => {
                                     }
                                     className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
                                   />
-                                  /{cartItem.unit.unit_code}
+                                  /{cartItem.storage_unit.unit_code}
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">

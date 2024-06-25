@@ -1,15 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
-
-import Selector from "../common/Selector";
+import { addArea, getAreas } from "../../features/area/areaSlice";
 import {
-  addCategory,
-  getCategories,
-} from "../../features/category/categoriesSlice";
+  addCustomer,
+  getCustomers,
+} from "../../features/customer/customerSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -21,58 +21,48 @@ const CustomInputComponent = ({
   </div>
 );
 
-const AddCategory = (props) => {
-  const { setOpenCategory } = props;
+const AddCustomer = (props) => {
+  const { setOpenCustomer } = props;
+  const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  var options = [
-    { value: 1, label: "Yes" },
-    { value: 0, label: "No" },
-  ];
-
   const initialValues = {
-    label: "",
-    category_name: "",
-    display_on_pos_screen: "",
-    display_on_qr_menu: "",
-    description: "",
+    name: "",
+    email: "",
+    phone: "",
+    note: "",
   };
 
   const validationSchema = Yup.object().shape({
-    label: Yup.string().required("Category name is required!"),
-    display_on_pos_screen: Yup.string().required("This field is required!"),
-    display_on_qr_menu: Yup.string().required("This field is required!"),
+    name: Yup.string().required("Customer name is required!"),
+    phone: Yup.string().required("Phone number is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { label, description, display_on_pos_screen, display_on_qr_menu } =
-      formValue;
+    const { name, phone, email, note } = formValue;
 
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
-      await dispatch(
-        addCategory({
-          label,
-          description,
-          display_on_pos_screen,
-          display_on_qr_menu,
-        })
-      ).unwrap();
+      await dispatch(addCustomer({ name, phone, email, note })).unwrap();
+      //localStorage.setItem("email", JSON.stringify(email));
 
       dispatch(
         alertActions.success({
-          message: "Category successfully added.",
+          message: "Customer successfully added.",
           showAfterRedirect: true,
         })
       );
-
-      dispatch(getCategories());
+      // navigate("/suppliers");
+      // window.location.reload(true);
+      dispatch(getCustomers());
       setLoading(false);
-      setOpenCategory(false);
+      setVisible(false);
+      setOpenCustomer(false);
     } catch (error) {
       dispatch(alertActions.error(error));
       setLoading(false);
@@ -89,12 +79,10 @@ const AddCategory = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-bold text-nelsa_primary">
-                      Add Category
-                    </h3>
+                    <h3 className="text-lg font-bold">Create customer</h3>
                     <h4
                       className="text-lg font-medium text-gray-500 hover:cursor-pointer"
-                      onClick={() => setOpenCategory(false)}
+                      onClick={() => setOpenCustomer(false)}
                     >
                       X
                     </h4>
@@ -106,84 +94,81 @@ const AddCategory = (props) => {
                       validationSchema={validationSchema}
                       onSubmit={handleSubmit}
                     >
-                      {({ values, errors, touched, setFieldValue }) => (
+                      {({ errors, touched }) => (
                         <Form className="w-full">
                           <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Category Name
+                            <label className="block text-nelsa_primary text-sm font-semibold">
+                              Name
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter Category name"
-                              name="label"
+                              name="name"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.label && touched.label
+                                errors.name && touched.name
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="label"
+                              name="name"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Show on POS Screen
+                            <label className="block text-nelsa_primary text-sm font-semibold">
+                              Phone Number
                             </label>
-                            <Selector
-                              options={options}
-                              value={values.display_on_pos_screen}
-                              setFieldValue={setFieldValue}
-                              name="display_on_pos_screen"
+                            <Field
+                              type="text"
+                              name="phone"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.phone && touched.phone
+                                  ? "border-red-500"
+                                  : ""
+                              } focus:border-blue-950`}
                             />
-
                             <ErrorMessage
-                              name="display_on_pos_screen"
+                              name="phone"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Show on QR Menu
+                            <label className="block text-nelsa_primary text-sm font-semibold">
+                              Email
                             </label>
-                            <Selector
-                              options={options}
-                              value={values.display_on_qr_menu}
-                              setFieldValue={setFieldValue}
-                              name="display_on_qr_menu"
+                            <Field
+                              type="text"
+                              name="email"
+                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
+                                errors.email && touched.email
+                                  ? "border-red-500"
+                                  : ""
+                              } focus:border-blue-950`}
                             />
-
                             <ErrorMessage
-                              name="display_on_qr_menu"
+                              name="email"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                           <div className="mt-4">
                             <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                              Description
+                              Note
                             </label>
 
                             <Field
-                              name="description"
+                              name="note"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.description && touched.description
+                                errors.note && touched.note
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                               component={CustomInputComponent}
-                              placeholder="Description"
-                            />
-
-                            <ErrorMessage
-                              name="description"
-                              component="div"
-                              className="text-red-500 text-sm"
                             />
                           </div>
+
                           <div className="flex items-baseline justify-between">
                             {loading ? (
                               <button
@@ -227,4 +212,4 @@ const AddCategory = (props) => {
   }
 };
 
-export default AddCategory;
+export default AddCustomer;

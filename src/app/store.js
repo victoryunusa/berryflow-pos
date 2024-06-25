@@ -20,6 +20,10 @@ import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
 import rolesReducer from "../features/role/roleSlice";
 import usersReducer from "../features/users/usersSlice";
 import purchaseOrderReducer from "../features/purchase/purchaseOrderSlice";
+import customersReducer from "../features/customer/customerSlice";
+import permissionsReducer from "../features/permissions/permissionsSlice";
+import paymentMethodReducer from "../features/payment_method/paymentMethodSlice";
+import modulesReducer from "../features/master_actions/modulesSlice";
 
 export * from "../features/alert/alertSlice";
 
@@ -46,5 +50,9 @@ export const store = configureStore({
     roles: rolesReducer,
     users: usersReducer,
     purchase_orders: purchaseOrderReducer,
+    customers: customersReducer,
+    permissionsList: permissionsReducer,
+    payment_methods: paymentMethodReducer,
+    modules: modulesReducer,
   },
 });
