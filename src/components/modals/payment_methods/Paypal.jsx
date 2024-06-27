@@ -224,11 +224,11 @@ const Paypal = ({ setOpen }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-nelsa_primary/60 text-[#ffffff] rounded-lg flex items-center justify-center gap-3"
                                   disabled={loading}
                                 >
                                   <span
-                                    className="mr-5 inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                    className="inline-block h-3 w-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                                     role="status"
                                   >
                                     <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">

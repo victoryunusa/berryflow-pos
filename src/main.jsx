@@ -30,7 +30,7 @@ import { getPermissions } from "./features/permissions/permissionsSlice";
 import { getPaymentMethods } from "./features/payment_method/paymentMethodSlice";
 import { getModules } from "./features/master_actions/modulesSlice";
 
-document.title = "Berryflow - Africa's leading B2B Spend Management platform";
+document.title = "CaterOS - Be the restuarant your customers love";
 
 store.dispatch(getCountries());
 store.dispatch(getBillingTypes());
