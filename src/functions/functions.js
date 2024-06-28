@@ -1,3 +1,6 @@
+import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export const formatCardNumber = (value) => {
   const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
   const matches = val.match(/\d{4,16}/g);
@@ -45,4 +48,8 @@ export const checkPermission = (authUserPermissions, permission) => {
     } else {
       return false;
     }
+};
+
+export const cn = (...inputs) => {
+  return twMerge(clsx(inputs));
 };

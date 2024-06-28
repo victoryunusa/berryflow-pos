@@ -35,7 +35,7 @@ const SubMenu = ({ data }) => {
                 height: 0,
               }
         }
-        className="flex h-0 flex-col pl-12 text-[0.8rem] font-normal overflow-hidden"
+        className="flex h-0 flex-col pl-7 text-[0.8rem] font-normal overflow-hidden"
       >
         {data.subNav.map((submenu) => (
           <li key={submenu.title} className="">

@@ -9,10 +9,10 @@ export default {
         pally: ["Pally", "sans-serif"],
         quicksand: ["Quicksand", "sans-serif"],
         manrope: ["Manrope", "sans-serif"],
-        //manrope: ["Plus Jakarta Sans", "sans-serif"],
+        cabin: ["Cabin", "sans-serif"],
       },
       colors: {
-        nelsa_primary: "#0E4749",
+        nelsa_primary: "#242424",
         h28_light_green: "#EBF5FF",
         h28_light_green_2: "#44C3D2",
         h28_light_green_3: "#EBF5FF",

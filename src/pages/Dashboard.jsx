@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col space-y-12">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row w-[20rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
+        <div className="flex flex-row w-full md:w-[20rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
           <button className="bg-white px-3 py-2 rounded-lg cursor-pointer">
             <h3 className="text-sm font-semibold text-gray-700">General</h3>
           </button>
@@ -66,7 +66,7 @@ const Dashboard = () => {
               </button>
             </div>
           </div> */}
-          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+          <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
                 <span className="w-10 h-10 bg-nelsa_primary/15 text-nelsa_primary rounded-md p-3">
@@ -89,7 +89,7 @@ const Dashboard = () => {
               </span>
             </div>
           </div>
-          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+          <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
                 <span className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-md p-3">
@@ -110,7 +110,7 @@ const Dashboard = () => {
               </span>
             </div>
           </div>
-          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+          <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
                 <span className="w-10 h-10 bg-blue-50 text-blue-600 rounded-md p-3">
@@ -133,7 +133,7 @@ const Dashboard = () => {
               </span>
             </div>
           </div>
-          <div className=" w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
+          <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
                 <span className="w-10 h-10 bg-green-100 text-green-600 rounded-md p-3">
