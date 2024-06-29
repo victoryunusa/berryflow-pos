@@ -67,6 +67,8 @@ import Welcome from "./pages/setup/Welcome";
 import Branch from "./pages/setup/Branch";
 import PaymentGateway from "./pages/setup/PaymentGateway";
 import ViewPurchaseOrder from "./pages/sales/PurchaseOrder/ViewPurchaseOrder";
+import PosLayout from "./layouts/PosLayout";
+import MainScreen from "./pages/pos/MainScreen";
 
 function App() {
   return (
@@ -589,6 +591,11 @@ function App() {
               </Protected>
             }
           />
+        </Route>
+
+        {/* Pos Routes */}
+        <Route element={<PosLayout />}>
+          <Route path="/pos/" element={<MainScreen />} />
         </Route>
 
         <Route element={<AuthLayout />}>

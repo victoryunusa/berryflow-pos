@@ -75,14 +75,19 @@ const SideNav = () => {
           </ul>
         </div>
         <div className="flex-1 fixed bottom-0 bg-nelsa_primary w-64 h-1/2 text-sm z-50 shadow-lg  max-h-48 my-auto  whitespace-pre  font-medium  ">
-          <div className="flex p-4 border-y justify-between">
+          <div className="flex p-4 border-y border-neutral-700 items-center justify-between">
             <div>
               <p className="text-ms text-white font-semibold">Spark</p>
               <small>No-cost $0/month</small>
             </div>
-            <p className="text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl w-1/3">
-              Upgrade
-            </p>
+            <div>
+              <button
+                type="button"
+                className="flex items-center text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl"
+              >
+                Upgrade
+              </button>
+            </div>
           </div>
         </div>
       </div>
