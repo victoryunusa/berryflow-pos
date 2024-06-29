@@ -1,10 +1,11 @@
 import React from "react";
+import CartItem from "./CartItem";
 
 const Cart = () => {
   let dollarUSLocale = Intl.NumberFormat("en-US");
   return (
     <>
-      <div className="m-2 md:m-5 p-2.5 bg-zinc-100 rounded-xl mt-5 overflow-y-auto h-64">
+      <div className="m-2 md:m-5 p-2.5 bg-zinc-100 rounded-xl mt-5 overflow-y-auto h-96">
         {/* {cartItems.length >= 1 ? (
       cartItems.map((cartItem) => (
         <CartItem cartItem={cartItem} key={cartItem.id} />
@@ -14,6 +15,7 @@ const Cart = () => {
         <p>Please add items to your cart</p>
       </div>
     )} */}
+        <CartItem />
       </div>
       <div className="px-5 mt-5">
         <div className="py-4 px-3 rounded-xl border">

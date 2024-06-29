@@ -15,13 +15,13 @@ const Product = () => {
 
   return (
     <div className=" flex flex-col bg-white shadow-md border rounded-lg justify-between">
-      <div className="flex items-center justify-center">
+      {/* <div className="flex items-center justify-center">
         <img
           src={"http://localhost:8888/nelsa-api/storage/app/public/product/"}
           className="h-20 w-20 object-fit rounded-lg"
           alt={"product.name"}
         />
-      </div>
+      </div> */}
 
       <div className="p-3">
         <div className="flex flex-col">
@@ -30,12 +30,8 @@ const Product = () => {
           </div>
         </div>
         <div className="flex flex-row justify-between items-center mb-2">
-          <span className="self-end font-bold text-sm text-black">
-            ₦ {dollarUSLocale.format(Math.round(100000))}/
-            <span className="font-bold text-xs text-neutral-500">
-              {"product.capacity"}
-              {"product.unit"}
-            </span>
+          <span className="self-end font-bold text-xs text-black">
+            ₦ {dollarUSLocale.format(Math.round(100000))}
           </span>
         </div>
         <div className="w-full">

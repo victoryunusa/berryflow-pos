@@ -84,18 +84,15 @@ const Header = () => {
     "text-zinc-400 hover:text-nelsa_primary p-2 cursor-pointer hover:bg-zinc-100 rounded-md";
   return (
     <div
-      className={cn(
-        `sticky inset-x-0 top-0 z-30 w-full transition-all border-b border-gray-200`,
-        {
-          "border-b border-gray-200 bg-white/75 backdrop-blur-lg": scrolled,
-        }
-      )}
+      className={cn(`sticky inset-x-0 top-0 z-30 w-full transition-all py-2`, {
+        "border-b border-gray-200 bg-white/75 backdrop-blur-lg": scrolled,
+      })}
     >
-      <div className="flex h-[47px] items-center justify-between px-5 md:px-10 my-3">
+      <div className="flex h-[47px] items-center justify-between px-5 md:px-10 ">
         <div className="flex items-center space-x-4">
           <Link
             href="/"
-            className="flex flex-row space-x-3 items-center justify-center md:hidden"
+            className="flex flex-row space-x-3 items-center justify-center"
           >
             <span className="">
               <img className="w-5" src={logo} alt="CaterOS" />

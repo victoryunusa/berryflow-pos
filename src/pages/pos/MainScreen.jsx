@@ -5,7 +5,7 @@ import Product from "../../components/pos/Product";
 const MainScreen = () => {
   return (
     <div className="w-full">
-      <div className="flex md:flex-row flex-col gap-5 border bg-white rounded-xl p-2.5 w-full">
+      <div className="flex md:flex-row flex-col gap-5 bg-white p-2.5 w-full">
         <div className="w-full lg:w-3/5 min-h-screen">
           <div className="flex flex-row justify-between items-center px-5 mt-5">
             <div className="">
@@ -39,10 +39,52 @@ const MainScreen = () => {
             ))} */}
           </div>
 
-          <div className="md:m-5 grid grid-cols-2 md:grid-cols-4 bg-zinc-100 p-3 gap-3 px-5 mt-2.5 overflow-y-auto rounded-xl h-4/6 md:h-2/6">
+          <div className="md:m-5 grid grid-cols-4 md:grid-cols-8 bg-zinc-100 p-3 gap-3 px-5 mt-2.5 overflow-y-auto rounded-xl h-4/6 md:h-3/6">
             {/* {products.map((product) => (
               <Product product={product} key={product.id} />
             ))} */}
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+            <Product />
+
+            <Product />
+            <Product />
             <Product />
           </div>
         </div>
