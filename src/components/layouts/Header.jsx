@@ -92,7 +92,7 @@ const Header = () => {
         <div className="flex items-center space-x-4">
           <Link
             href="/"
-            className="flex flex-row space-x-3 items-center justify-center"
+            className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
             <span className="">
               <img className="w-5" src={logo} alt="CaterOS" />

@@ -5,7 +5,7 @@ const Cart = () => {
   let dollarUSLocale = Intl.NumberFormat("en-US");
   return (
     <>
-      <div className="m-2 md:m-5 p-2.5 bg-zinc-100 rounded-xl mt-5 overflow-y-auto h-96">
+      <div className="m-2 md:m-5 p-2.5 bg-zinc-100 rounded-xl mt-5 overflow-y-auto h-[460px]">
         {/* {cartItems.length >= 1 ? (
       cartItems.map((cartItem) => (
         <CartItem cartItem={cartItem} key={cartItem.id} />
