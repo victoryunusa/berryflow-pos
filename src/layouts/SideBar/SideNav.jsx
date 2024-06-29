@@ -17,8 +17,8 @@ const SideNav = () => {
             <img className="w-28" src={logo} alt="CaterOS" />
           </span>
         </Link>
-        <div className="flex flex-col space-y-2 ">
-          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100">
+        <div className="flex flex-col space-y-2 flex-grow">
+          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-[720px]">
             <li className="">
               <NavLink
                 to="/"
@@ -73,6 +73,17 @@ const SideNav = () => {
               ))}
             </>
           </ul>
+        </div>
+        <div className="flex-1 fixed bottom-0 bg-nelsa_primary w-64 h-1/2 text-sm z-50 shadow-lg  max-h-48 my-auto  whitespace-pre  font-medium  ">
+          <div className="flex p-4 border-y justify-between">
+            <div>
+              <p className="text-ms text-white font-semibold">Spark</p>
+              <small>No-cost $0/month</small>
+            </div>
+            <p className="text-teal-500 py-1.5 px-3 text-xs bg-teal-50 rounded-xl w-1/3">
+              Upgrade
+            </p>
+          </div>
         </div>
       </div>
     </div>

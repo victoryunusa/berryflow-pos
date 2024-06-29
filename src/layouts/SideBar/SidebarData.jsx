@@ -169,10 +169,10 @@ export const subMenusList = [
     path: "/manage",
     icon: <HeIcons.FaGear size={16} className="min-w-max" />,
     subNav: [
-      // {
-      //   title: "Company",
-      //   path: "/manage/company",
-      // },
+      {
+        title: "Company",
+        path: "/manage/company",
+      },
       // {
       //   title: "Site",
       //   path: "/manage/site",
@@ -197,10 +197,10 @@ export const subMenusList = [
         title: "Discount",
         path: "/manage/discount",
       },
-      {
-        title: "Coupon",
-        path: "/manage/coupon",
-      },
+      // {
+      //   title: "Coupon",
+      //   path: "/manage/coupon",
+      // },
       {
         title: "Taxes",
         path: "/manage/tax",
@@ -212,6 +212,30 @@ export const subMenusList = [
       {
         title: "Measurement Units",
         path: "/manage/measurement_units",
+      },
+      {
+        title: "Payment Methods",
+        path: "/manage/payment_methods",
+      },
+      {
+        title: "Printers",
+        path: "/manage/printers",
+      },
+      {
+        title: "Kitchen Displays",
+        path: "/manage/kitchen_displays",
+      },
+      {
+        title: "Payment Methods",
+        path: "/manage/payment_methods",
+      },
+      {
+        title: "Printers",
+        path: "/manage/printers",
+      },
+      {
+        title: "Kitchen Displays",
+        path: "/manage/kitchen_displays",
       },
       {
         title: "Payment Methods",
