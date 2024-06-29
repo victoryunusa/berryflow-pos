@@ -1,4 +1,4 @@
-import * as HeIcons from "react-icons/tb";
+import * as HeIcons from "react-icons/fa6";
 import * as Icon from "react-icons/si";
 
 export const subMenusList = [
@@ -29,7 +29,7 @@ export const subMenusList = [
   {
     name: "Finance",
     path: "/payments",
-    icon: <HeIcons.TbCash size={22} className="min-w-max" />,
+    icon: <HeIcons.FaMoneyBillTransfer size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Accounts",
@@ -53,7 +53,7 @@ export const subMenusList = [
   {
     name: "Inventory",
     path: "/inventory",
-    icon: <HeIcons.TbBuildingBank size={22} className="min-w-max" />,
+    icon: <HeIcons.FaBagShopping size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Suppliers",
@@ -72,7 +72,7 @@ export const subMenusList = [
   {
     name: "Menu",
     path: "/menu",
-    icon: <HeIcons.TbBuildingBank size={22} className="min-w-max" />,
+    icon: <HeIcons.FaBowlFood size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Products",
@@ -94,7 +94,7 @@ export const subMenusList = [
   {
     name: "Restaurant",
     path: "/restaurant",
-    icon: <HeIcons.TbBuildingBank size={22} className="min-w-max" />,
+    icon: <HeIcons.FaBellConcierge size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Kitchen Display",
@@ -111,9 +111,9 @@ export const subMenusList = [
     ],
   },
   {
-    name: "Area & Tables",
+    name: "Area & Table Management",
     path: "/table",
-    icon: <Icon.SiTablecheck size={22} className="min-w-max" />,
+    icon: <Icon.SiTablecheck size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Section (Floor Plan)",
@@ -132,7 +132,7 @@ export const subMenusList = [
   {
     name: "Reports",
     path: "/reports",
-    icon: <HeIcons.TbBuildingBank size={22} className="min-w-max" />,
+    icon: <HeIcons.FaChartPie size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Download Reports",
@@ -167,7 +167,7 @@ export const subMenusList = [
   {
     name: "Manage",
     path: "/manage",
-    icon: <HeIcons.TbBuildingBank size={22} className="min-w-max" />,
+    icon: <HeIcons.FaGear size={16} className="min-w-max" />,
     subNav: [
       // {
       //   title: "Company",

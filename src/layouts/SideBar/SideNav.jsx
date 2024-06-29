@@ -1,5 +1,5 @@
 import React from "react";
-import * as HeIcons from "react-icons/tb";
+import * as HeIcons from "react-icons/fa6";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import { subMenusList } from "./SidebarData";
@@ -27,7 +27,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.TbLayoutGrid size={20} className="min-w-max" />
+                <HeIcons.FaHouse size={16} className="min-w-max" />
                 Dashboard
               </NavLink>
             </li>
@@ -38,7 +38,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.TbLayoutGrid size={16} className="min-w-max" />
+                <HeIcons.FaCashRegister size={16} className="min-w-max" />
                 Billing Counters
               </NavLink>
             </li>
@@ -49,7 +49,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.TbLayoutGrid size={16} className="min-w-max" />
+                <HeIcons.FaCartShopping size={16} className="min-w-max" />
                 Orders
               </NavLink>
             </li>
@@ -60,7 +60,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.TbUserSquareRounded size={22} className="min-w-max" />
+                <HeIcons.FaUsers size={16} className="min-w-max" />
                 Customers
               </NavLink>
             </li>

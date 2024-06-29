@@ -116,7 +116,7 @@ const Header = () => {
                 />
               </span>
               <span className="flex flex-row items-start justify-center space-x-2">
-                {/* <p className="text-xs text-gray-400">Current branch: </p> */}
+                <p className="text-xs text-gray-400">Current branch: </p>
                 <h1 className="text-xs text-gray-600 font-bold">
                   {activeBranch?.name}
                 </h1>
@@ -129,7 +129,7 @@ const Header = () => {
               </span>
             </button>
             {isOpenBranchSelect === true ? (
-              <div className="absolute top-8 z-auto transition ease-in duration-700">
+              <div className="absolute top-8 right-0 z-auto transition ease-in duration-700">
                 <div className="w-64 rounded-lg shadow-md my-2 pin-t pin-l bg-white border">
                   <ul className="list-reset overflow-y-scroll p-2">
                     {branches?.map((branch) => (
