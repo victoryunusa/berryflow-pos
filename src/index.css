@@ -5,6 +5,7 @@
 @import url("https://api.fontshare.com/v2/css?f[]=quicksand@600,700,400,300,500,1&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=manrope@700,400,300,800,600,500,200&display=swap");
 @import url("https://api.fontshare.com/v2/css?f[]=plus-jakarta-sans@800,801,201,401,301,501,400,601,1,500,600,700,701,300,2,200&display=swap");
+@import url('https://fonts.cdnfonts.com/css/kreadon');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

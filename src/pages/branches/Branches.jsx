@@ -97,6 +97,8 @@ const Branches = () => {
                 <DataTable
                   value={branches}
                   stripedRows
+                  paginator
+                  rows={10}
                   size="small"
                   tableStyle={{ minWidth: "50rem" }}
                   className="text-sm font-manrope rounded-lg"

@@ -122,8 +122,10 @@ const Ingredients = () => {
           <DataTable
             value={ingredients}
             stripedRows
+            paginator
+            rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-manrope rounded-lg"
+            className="text-sm font-br rounded-lg"
           >
             <Column
               field="name"

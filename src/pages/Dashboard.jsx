@@ -81,7 +81,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h2 className="font-normal text-3xl text-gray-800">
+              <h2 className="font-semibold text-3xl text-gray-800">
                 {currency?.currency_symbol}300,000,000.00
               </h2>
               <span>

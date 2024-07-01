@@ -237,7 +237,7 @@ const Suppliers = () => {
             paginator
             rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-manrope"
+            className="text-sm font-br"
           >
             <Column
               field="supplier_code"

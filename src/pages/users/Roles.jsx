@@ -47,8 +47,10 @@ const Roles = () => {
           <DataTable
             value={roles}
             stripedRows
+            paginator
+            rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-manrope rounded-lg"
+            className="text-sm font-br rounded-lg"
           >
             <Column field="code" sortable header="Role Code"></Column>
             <Column field="name" sortable header="Name"></Column>

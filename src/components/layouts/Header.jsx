@@ -179,8 +179,8 @@ const Header = () => {
             )}
           </div>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
+          <Link
+            to="/pos"
             className="bg-orange-200 p-2 rounded-lg hover:cursor-pointer hidden md:block"
           >
             <span>
@@ -197,7 +197,7 @@ const Header = () => {
                 />
               </svg>
             </span>
-          </button>
+          </Link>
           <div className="relative z-50">
             <button
               className="flex flex-row items-center space-x-2 hover:cursor-pointer"

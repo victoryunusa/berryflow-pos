@@ -50,8 +50,10 @@ const Products = () => {
         <DataTable
           value={customers}
           stripedRows
+          paginator
+          rows={10}
           tableStyle={{ minWidth: "50rem" }}
-          className="text-sm font-manrope rounded-lg"
+          className="text-sm font-br rounded-lg"
         >
           <Column field="name" header="Name"></Column>
           <Column field="email" header="Email"></Column>

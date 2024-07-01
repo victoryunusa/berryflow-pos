@@ -134,10 +134,11 @@ const Categories = () => {
         <div className="bg-white border p-5 rounded-lg text-xs">
           <DataTable
             value={categories}
+            stripedRows
             paginator
             rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-manrope rounded-lg"
+            className="text-sm font-br rounded-lg"
           >
             <Column field="label" header="Category Name"></Column>
             <Column field="category_code" header="Category Code"></Column>

@@ -61,8 +61,10 @@ const Staff = () => {
           <DataTable
             value={users}
             stripedRows
+            paginator
+            rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-manrope rounded-lg"
+            className="text-sm font-vr rounded-lg"
           >
             <Column field="user_code" header="Code"></Column>
             <Column field="full_name" header="Full Name"></Column>

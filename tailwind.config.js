@@ -9,7 +9,8 @@ export default {
         pally: ["Pally", "sans-serif"],
         quicksand: ["Quicksand", "sans-serif"],
         manrope: ["Manrope", "sans-serif"],
-        cabin: ["Cabin", "sans-serif"],
+        //cabin: ["Cabin", "sans-serif"],
+        br: ["Cabin", "sans-serif"],
       },
       colors: {
         nelsa_primary: "#242424",

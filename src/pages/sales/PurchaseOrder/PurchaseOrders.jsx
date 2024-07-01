@@ -45,8 +45,10 @@ const PurchaseOrders = () => {
         <DataTable
           value={purchase_orders}
           stripedRows
+          paginator
+          rows={10}
           tableStyle={{ minWidth: "50rem" }}
-          className="text-sm font-manrope rounded-lg"
+          className="text-sm font-br rounded-lg"
         >
           <Column field="po_number" header="PO Number"></Column>
           <Column field="po_reference" header="PO Reference"></Column>
