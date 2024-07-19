@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AddProduct from "../../components/modals/AddProduct";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../features/products/productSlice";
+import { Link, useNavigate } from "react-router-dom";
 
-const Products = () => {
-  const [visible, setVisible] = useState(false);
-  const dispatch = useDispatch();
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import AddBillingCounter from "../../../components/modals/AddBillingCounter";
+import { getBillCounters } from "../../../features/bill_counter/billCounterSlice";
+
+const actionBodyTemplate = (rowData) => {
+  return (
+    <div className="flex flex-row space-x-3">
+      <button className="bg-blue-600 px-2 py-1 text-xs text-white rounded-md">
+        Edit
+      </button>
+      <button className="bg-red-600 px-2 py-1 text-xs text-white rounded-md">
+        Delete
+      </button>
+    </div>
+  );
+};
+
+const BillCounters = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.products);
+  const [openAdd, setOpenAdd] = useState(false);
 
-  const getNextProduct = (url) => {
-    dispatch(getProducts(url));
-  };
-
-  const showProduct = (slug) => {
-    navigate(`${slug}`);
-  };
+  const { bill_counters } = useSelector((state) => state.bill_counters);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getBillCounters());
   }, []);
 
   return (
@@ -28,18 +37,20 @@ const Products = () => {
       <div className="flex flex-col space-y-5">
         <div className="flex flex-row justify-between items-center">
           <div className="">
-            <h3 className="text-lg font-bold text-gray-700">Products</h3>
+            <h3 className="text-lg font-bold text-gray-700">
+              Billing Counters
+            </h3>
           </div>
           <div>
             <button
-              onClick={() => setVisible(true)}
               className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+              onClick={() => setOpenAdd(true)}
             >
               Add New
             </button>
           </div>
         </div>
-        <div className="bg-white border p-5 rounded-lg text-xs w-full">
+        <div className="bg-white border p-5 rounded-lg text-xs">
           <div className="flex flex-col overflow-x-auto">
             <div className="">
               <div className="inline-block w-full py-2 sm:px-2 lg:px-4">
@@ -56,17 +67,16 @@ const Products = () => {
                             <label className="sr-only">checkbox</label>
                           </div>
                         </th>
-                        <th className="px-2 py-4">Name</th>
-                        <th className="px-2 py-4">Category</th>
-                        <th className="px-2 py-4">Price</th>
-                        <th className="px-2 py-4">Cost</th>
-                        <th className="px-2 py-4">Costing Method</th>
-                        <th className="px-2 py-4">Selling Method</th>
+                        <th className="px-2 py-4">Counter Code</th>
+                        <th className="px-2 py-4">Counter Name</th>
+                        <th className="px-2 py-4">Status</th>
+                        <th className="px-2 py-4">Created On</th>
+                        <th className="px-2 py-4">Created By</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      {products?.data?.map((product, index) => (
+                      {bill_counters?.map((bill_counter, index) => (
                         <tr
                           className="odd:bg-white even:bg-neutral-50 border-b font-medium text-sm cursor-pointer hover:bg-neutral-100"
                           key={index}
@@ -82,23 +92,19 @@ const Products = () => {
                             </div>
                           </td>
                           <td className="px-2 py-4 font-bold">
-                            {product.name}
+                            {bill_counter.billing_counter_code}
                           </td>
                           <td className="px-2 py-4">
-                            {product?.category?.label}
+                            {bill_counter.counter_name}
                           </td>
-                          <td className="px-2 py-4">
-                            {product.price_excluding_tax}
-                          </td>
+                          <td className="px-2 py-4">{bill_counter.status}</td>
                           <td className=" whitespace-nowrap px-2 py-4">
-                            {product.cost_excluding_tax}
+                            {bill_counter.created_at}
                           </td>
                           <td className="px-2 py-4">
-                            {product.costing_method}
+                            {bill_counter.created_by}
                           </td>
-                          <td className=" whitespace-nowrap px-2 py-4">
-                            {product.selling_method}
-                          </td>
+
                           <td className="">
                             <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">
                               View
@@ -111,7 +117,7 @@ const Products = () => {
                   </table>
                 </div>
 
-                <div className="flex flex-row gap-2 justify-between mt-5">
+                {/* <div className="flex flex-row gap-2 justify-between mt-5">
                   <div>
                     <p>{`Showing  ${products.from} to ${products.to} of ${products.total} entries`}</p>
                   </div>
@@ -137,15 +143,15 @@ const Products = () => {
                       </button>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-      {visible && <AddProduct setOpen={setVisible} />}
+      {openAdd && <AddBillingCounter open={openAdd} setOpenAdd={setOpenAdd} />}
     </>
   );
 };
 
-export default Products;
+export default BillCounters;

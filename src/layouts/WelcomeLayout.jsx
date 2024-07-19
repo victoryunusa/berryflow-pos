@@ -16,7 +16,7 @@ const WelcomeLayout = () => {
     window.location.reload(true);
   };
   return (
-    <div className="flex-1 bg-gray-100 font-br tracking-wide ">
+    <div className="flex-1 bg-gray-100 font-manrope tracking-wide ">
       <div className="flex flex-row">
         <div className="flex-1 flex-col justify-center sm:text-left">
           <div className="bg-white px-5 py-2 md:py-2 rounded-lg w-full">

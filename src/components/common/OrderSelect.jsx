@@ -36,7 +36,7 @@ const OrderSelect = ({ options, handleAddToCart }) => {
         </div>
         {options?.map((option) => (
           <li
-            key={option?.id}
+            key={option?.slug}
             className={`p-2 text-sm hover:bg-nelsa_primary hover:text-white cursor-pointer ${
               option?.name?.toLowerCase().includes(inputValue)
                 ? "block"

@@ -91,7 +91,7 @@ const MainLayout = () => {
   };
 
   return (
-    <div className="flex font-br bg-white antialiased text-neutral-500 ">
+    <div className="flex font-manrope bg-white antialiased text-neutral-500 ">
       <SideNav />
       <main className="flex-1">
         <MarginWidthWrapper>

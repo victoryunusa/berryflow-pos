@@ -30,7 +30,7 @@ import { getPermissions } from "./features/permissions/permissionsSlice";
 import { getPaymentMethods } from "./features/payment_method/paymentMethodSlice";
 import { getModules } from "./features/master_actions/modulesSlice";
 
-document.title = "CaterOS - Be the restuarant your customers love";
+document.title = "Cloud based POS System - CaterOS";
 
 store.dispatch(getCountries());
 store.dispatch(getBillingTypes());

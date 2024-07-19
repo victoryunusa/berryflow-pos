@@ -18,7 +18,7 @@ const SideNav = () => {
           </span>
         </Link>
         <div className="flex flex-col space-y-2 flex-grow">
-          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-[720px]">
+          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-dvh">
             <li className="">
               <NavLink
                 to="/"
@@ -33,7 +33,7 @@ const SideNav = () => {
             </li>
             <li>
               <NavLink
-                to="/billing_counter"
+                to="/bill_counter"
                 className={({ isActive }) =>
                   isActive ? "activeLink" : "normalLink"
                 }
@@ -74,7 +74,7 @@ const SideNav = () => {
             </>
           </ul>
         </div>
-        <div className="flex-1 fixed bottom-0 bg-nelsa_primary w-64 h-1/2 text-sm z-50 shadow-lg  max-h-48 my-auto  whitespace-pre  font-medium  ">
+        {/* <div className="flex-1 fixed bottom-0 bg-nelsa_primary w-64 h-1/2 text-sm z-50 shadow-lg  max-h-20 my-auto  whitespace-pre  font-medium  ">
           <div className="flex p-4 border-y border-neutral-700 items-center justify-between">
             <div>
               <p className="text-ms text-white font-semibold">Spark</p>
@@ -89,7 +89,7 @@ const SideNav = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

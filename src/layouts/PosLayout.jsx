@@ -5,7 +5,7 @@ import Header from "../components/layouts/Header";
 const PosLayout = () => {
   return (
     <div className="flex-1 bg-gray-100 font-br tracking-wide ">
-      <div className="flex md:flex-1 min-h-screen md:fixed w-full">
+      <div className="flex min-h-screen">
         <Outlet />
       </div>
     </div>

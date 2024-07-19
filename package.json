@@ -9,7 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^3.3.4",
+    "@react-pdf/renderer": "^3.4.4",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^5.0.0-beta.2",
     "@testing-library/jest-dom": "^5.14.1",

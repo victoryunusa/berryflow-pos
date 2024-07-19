@@ -125,34 +125,49 @@ const Ingredients = () => {
             paginator
             rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm font-br rounded-lg"
+            className="text-sm rounded-lg"
           >
             <Column
-              field="name"
-              className="w-1/4"
+              field="product_code"
+              className=""
               sortable
-              header="Name"
+              header="Code"
             ></Column>
-            <Column field="cost" sortable header="Cost"></Column>
+            <Column field="name" className="" sortable header="Name"></Column>
+            <Column
+              field="cost_excluding_tax"
+              sortable
+              header="Purchase price"
+            ></Column>
+            <Column
+              field="cost_per_unit"
+              sortable
+              header="Cost per unit"
+            ></Column>
+            <Column
+              field="storage_to_ingredient"
+              sortable
+              header="Conversion rate"
+            ></Column>
             <Column
               field="costing_method"
               sortable
-              header="Costing Method"
+              header="Costing method"
             ></Column>
             <Column
               field="storage_unit.label"
               sortable
-              header="Storage Unit"
+              header="Purchase unit"
             ></Column>
             <Column
               field="ingredient_unit.label"
               sortable
-              header="Ingredient Unit"
+              header="Consumption unit"
             ></Column>
             <Column
               field="quantity"
               sortable
-              header="Available Quantity"
+              header="Available quantity"
             ></Column>
             <Column
               body={actionBodyTemplate}

@@ -14,7 +14,7 @@ export const purchaseCartSlice = createSlice({
     addItem(state, action) {
       //state.cartItems.push(action.payload);
       const itemIndex = state.purchaseOrderItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.slug === action.payload.slug
       );
 
       if (itemIndex >= 0) {
@@ -23,7 +23,7 @@ export const purchaseCartSlice = createSlice({
         const tempProduct = {
           ...action.payload,
           cartQuantity: 1,
-          cartUnitPrice: action.payload.price,
+          cartUnitPrice: action.payload.cost_excluding_tax,
           cartDiscountPrice: 0,
         };
         state.purchaseOrderItems.push(tempProduct);
@@ -36,7 +36,7 @@ export const purchaseCartSlice = createSlice({
     },
     removeOrderItem(state, action) {
       const nextCartItems = state.purchaseOrderItems.filter(
-        (cartItem) => cartItem.id !== action.payload.id
+        (cartItem) => cartItem.slug !== action.payload.slug
       );
 
       state.purchaseOrderItems = nextCartItems;
@@ -47,13 +47,13 @@ export const purchaseCartSlice = createSlice({
     },
     decreaseOrderItem(state, action) {
       const itemIndex = state.purchaseOrderItems.findIndex(
-        (cartItem) => cartItem.id === action.payload.id
+        (cartItem) => cartItem.slug === action.payload.slug
       );
       if (state.purchaseOrderItems[itemIndex].cartQuantity > 1) {
         state.purchaseOrderItems[itemIndex].cartQuantity -= 1;
       } else if (state.purchaseOrderItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.purchaseOrderItems.filter(
-          (cartItem) => cartItem.id !== action.payload.id
+          (cartItem) => cartItem.slug !== action.payload.slug
         );
 
         state.purchaseOrderItems = nextCartItems;
@@ -66,7 +66,7 @@ export const purchaseCartSlice = createSlice({
     updateQuantity(state, action) {
       //state.cartItems.push(action.payload);
       const itemIndex = state.purchaseOrderItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.slug === action.payload.slug
       );
 
       if (itemIndex >= 0) {
@@ -84,7 +84,7 @@ export const purchaseCartSlice = createSlice({
     updateUnitPrice(state, action) {
       //state.cartItems.push(action.payload);
       const itemIndex = state.purchaseOrderItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.slug === action.payload.slug
       );
 
       if (itemIndex >= 0) {
@@ -102,7 +102,7 @@ export const purchaseCartSlice = createSlice({
     updateDiscountPrice(state, action) {
       //state.cartItems.push(action.payload);
       const itemIndex = state.purchaseOrderItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.slug === action.payload.slug
       );
 
       if (itemIndex >= 0) {

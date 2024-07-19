@@ -8,7 +8,7 @@ const CartItem = () => {
     console.log(cartItem);
   };
   return (
-    <div className="flex flex-row justify-between items-center bg-white mb-1 p-2.5 shadow-sm border rounded-lg">
+    <div className="flex flex-row justify-between items-center mb-1 p-2.5 border-b">
       <div className="flex flex-row items-center">
         <img
           src={"http://localhost:8888/nelsa-api/storage/app/public/product/"}
@@ -31,7 +31,7 @@ const CartItem = () => {
       </div>
       <div>
         <button
-          className="rounded-lg text-white bg-red-500 h-7 w-7"
+          className="rounded-md text-white bg-red-500 text-sm h-5 w-5"
           onClick={() => handleRemoveFromCart("cartItem")}
         >
           X

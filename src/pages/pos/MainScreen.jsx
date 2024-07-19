@@ -48,7 +48,7 @@ const MainScreen = () => {
             </button>
           </div>
         </div>
-        <div className="flex md:flex-row flex-col gap-10 bg-white w-full p-2 rounded-xl">
+        <div className="flex md:flex-row flex-col gap-10 bg-white w-full p-2 md:p-5 rounded-xl">
           <div className="flex flex-col gap-3 w-full lg:w-3/5 min-h-screen">
             <div className="flex w-full rounded-lg gap-5">
               <div className="w-4/5 rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3">
@@ -67,7 +67,7 @@ const MainScreen = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 bg-zinc-100 p-3 gap-3 mt-2.5 overflow-y-auto rounded-xl h-[700px]">
+            <div className="grid grid-cols-3 md:grid-cols-6 bg-zinc-100 p-5 gap-3 overflow-y-auto rounded-xl h-[300px] md:h-[450px] lg:h-[710px]">
               {/* {products.map((product) => (
               <Product product={product} key={product.id} />
             ))} */}
@@ -110,7 +110,7 @@ const MainScreen = () => {
               <Product />
               <Product />
               <Product />
-
+              <Product />
               <Product />
               <Product />
               <Product />
@@ -179,20 +179,25 @@ const MainScreen = () => {
               <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-red-500 hover:bg-red-600 text-white font-semibold">
                 Cancel
               </button>
-              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-black hover:bg-zinc-900 text-white font-semibold">
+              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-purple-400 hover:bg-purple-700 text-white font-semibold">
                 Hold
               </button>
-              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-black hover:bg-zinc-900 text-white font-semibold">
+              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-blue-500 hover:bg-blue-700 text-white font-semibold">
                 Quick Bill
               </button>
-              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-black hover:bg-zinc-900 text-white font-semibold">
+              <button className="px-4 py-3 w-full rounded-lg shadow-lg text-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">
                 Place Order
               </button>
             </div>
           </div>
         </div>
       </div>
-      {openRunnungOrders && <RunningOrders setOpen={setOpenRunningOrders} />}
+      {openRunnungOrders && (
+        <RunningOrders
+          open={openRunnungOrders}
+          setOpen={setOpenRunningOrders}
+        />
+      )}
     </>
   );
 };

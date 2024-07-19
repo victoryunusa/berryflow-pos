@@ -47,7 +47,6 @@ import WaiterDisplay from "./pages/restaurant/WaiterDisplay";
 import QrMenu from "./pages/restaurant/QrMenu";
 import Tables from "./pages/restaurant/Tables";
 import RoomService from "./pages/restaurant/RoomService";
-import BillingCounterDashboard from "./pages/BillingCounterDashboard";
 import MeasurementUnits from "./pages/settings/Items/MeasurementUnits";
 import VerifyEmail from "./components/auth/VerifyEmail";
 import KYB from "./pages/kyb/KYB";
@@ -57,7 +56,6 @@ import AddProduct from "./pages/stock/product/AddProduct";
 import Branches from "./pages/branches/Branches";
 import NewPurchaseOrder from "./pages/sales/PurchaseOrder/NewPurchaseOrder";
 import Company from "./pages/settings/Items/Company";
-import BillingCounters from "./pages/settings/Items/BillingCounters";
 import PaymentMethods from "./pages/settings/Items/PaymentMethods";
 import Site from "./pages/settings/Items/Site";
 import Printers from "./pages/settings/Items/Printers";
@@ -69,6 +67,10 @@ import PaymentGateway from "./pages/setup/PaymentGateway";
 import ViewPurchaseOrder from "./pages/sales/PurchaseOrder/ViewPurchaseOrder";
 import PosLayout from "./layouts/PosLayout";
 import MainScreen from "./pages/pos/MainScreen";
+import SingleProduct from "./pages/stock/product/SingleProduct";
+import BillCounterDashboard from "./pages/BillCounterDashboard";
+import BillCounters from "./pages/settings/Items/BillCounters";
+import AddBusinessRegister from "./pages/business_account/register/AddBusinessRegister";
 
 function App() {
   return (
@@ -94,10 +96,10 @@ function App() {
           />
 
           <Route
-            path="/billing_counter"
+            path="/bill_counter"
             element={
               <Protected>
-                <BillingCounterDashboard />
+                <BillCounterDashboard />
               </Protected>
             }
           />
@@ -222,10 +224,10 @@ function App() {
             }
           />
           <Route
-            path="/manage/billing_counters"
+            path="/manage/bill_counters"
             element={
               <Protected>
-                <BillingCounters />
+                <BillCounters />
               </Protected>
             }
           />
@@ -274,7 +276,7 @@ function App() {
           />
 
           <Route
-            path="/payments/acounts"
+            path="/finance/acounts"
             element={
               <Protected>
                 <Accounts />
@@ -282,7 +284,7 @@ function App() {
             }
           />
           <Route
-            path="/payments/business_register"
+            path="/finance/business_register"
             element={
               <Protected>
                 <BusinessRegister />
@@ -290,7 +292,15 @@ function App() {
             }
           />
           <Route
-            path="payments/transactions"
+            path="/finance/business_register/add"
+            element={
+              <Protected>
+                <AddBusinessRegister />
+              </Protected>
+            }
+          />
+          <Route
+            path="finance/transactions"
             element={
               <Protected>
                 <Transactions />
@@ -339,6 +349,14 @@ function App() {
             element={
               <Protected>
                 <Products />
+              </Protected>
+            }
+          />
+          <Route
+            path="menu/products/:slug"
+            element={
+              <Protected>
+                <SingleProduct />
               </Protected>
             }
           />

@@ -16,7 +16,7 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
     <div className="w-full relative z-5">
       <div
         onClick={() => setOpen(!open)}
-        className={`flex w-full border bg-white px-4 py-3 items-center cursor-pointer justify-between rounded-lg `}
+        className={`flex w-full border bg-white px-4 py-3 items-center cursor-pointer justify-between rounded-md`}
       >
         <p className="text-xs text-gray-500">
           {selected
@@ -55,9 +55,15 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
                 : ""
             }`}
             onClick={() => {
-              setSelected(option?.label);
-              setFieldValue(name, option?.value);
-              setOpen(false);
+              if (option?.label?.toLowerCase() == selected.toLowerCase()) {
+                setSelected("");
+                setFieldValue(name, "");
+                setOpen(false);
+              } else {
+                setSelected(option?.label);
+                setFieldValue(name, option?.value);
+                setOpen(false);
+              }
             }}
             onChange={(selected) => onChange(selected)}
           >

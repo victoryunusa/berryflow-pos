@@ -28,21 +28,21 @@ export const subMenusList = [
   // },
   {
     name: "Finance",
-    path: "/payments",
+    path: "/finance",
     icon: <HeIcons.FaMoneyBillTransfer size={16} className="min-w-max" />,
     subNav: [
       {
         title: "Accounts",
-        path: "/payments/acounts",
+        path: "/finance/acounts",
       },
       {
         title: "Business Registers",
-        path: "/payments/business_register",
+        path: "/finance/business_register",
       },
 
       {
         title: "Transactions",
-        path: "/payments/transactions",
+        path: "/finance/transactions",
       },
       // {
       //   title: "Monthly Targets",
@@ -207,35 +207,11 @@ export const subMenusList = [
       },
       {
         title: "Billing Counters",
-        path: "/manage/billing_counters",
+        path: "/manage/bill_counters",
       },
       {
         title: "Measurement Units",
         path: "/manage/measurement_units",
-      },
-      {
-        title: "Payment Methods",
-        path: "/manage/payment_methods",
-      },
-      {
-        title: "Printers",
-        path: "/manage/printers",
-      },
-      {
-        title: "Kitchen Displays",
-        path: "/manage/kitchen_displays",
-      },
-      {
-        title: "Payment Methods",
-        path: "/manage/payment_methods",
-      },
-      {
-        title: "Printers",
-        path: "/manage/printers",
-      },
-      {
-        title: "Kitchen Displays",
-        path: "/manage/kitchen_displays",
       },
       {
         title: "Payment Methods",

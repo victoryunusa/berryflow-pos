@@ -9,6 +9,10 @@ import {
   addDiscountCode,
   getDiscountCodes,
 } from "../../features/discount/discountSlice";
+import {
+  addBillCounter,
+  getBillCounters,
+} from "../../features/bill_counter/billCounterSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -26,47 +30,41 @@ const AddBillingCounter = ({ setOpenAdd }) => {
   const dispatch = useDispatch();
 
   const initialValues = {
-    label: "",
-    discount_code: "",
-    discount_percentage: "",
+    counter_name: "",
+    billing_counter_code: "",
     description: "",
   };
 
   const validationSchema = Yup.object().shape({
-    label: Yup.string().required("Discount name is required!"),
-    discount_code: Yup.string().required("This field is required!"),
-    discount_percentage: Yup.string().required("This field is required!"),
-    description: Yup.string().required("This field is required!"),
+    counter_name: Yup.string().required("Name is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { label, discount_code, description, discount_percentage } =
-      formValue;
+    const { counter_name, billing_counter_code, description } = formValue;
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addDiscountCode({
-          label,
-          discount_code,
+        addBillCounter({
+          counter_name,
+          billing_counter_code,
           description,
-          discount_percentage,
         })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
 
       dispatch(
         alertActions.success({
-          message: "Discount added successfully.",
+          message: "Bill counter added successfully.",
           showAfterRedirect: true,
         })
       );
       // navigate("/suppliers");
       // window.location.reload(true);
-      dispatch(getDiscountCodes());
       setLoading(false);
       setOpenAdd(false);
+      dispatch(getBillCounters());
     } catch (error) {
       dispatch(alertActions.error(error));
       setLoading(false);
@@ -107,56 +105,36 @@ const AddBillingCounter = ({ setOpenAdd }) => {
                             <Field
                               type="text"
                               placeholder="Enter name"
-                              name="label"
+                              name="counter_name"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.label && touched.label
+                                errors.counter_name && touched.counter_name
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="label"
+                              name="counter_name"
                               component="div"
                               className="text-red-500 text-sm"
                             />
                           </div>
                           <div className="mt-4">
                             <label className="block text-nelsa_primary text-sm font-semibold">
-                              Discount Code
+                              Code
                             </label>
                             <Field
                               type="text"
                               placeholder="Enter discount code"
-                              name="discount_code"
+                              name="billing_counter_code"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.discount_code && touched.discount_code
+                                errors.billing_counter_code &&
+                                touched.billing_counter_code
                                   ? "border-red-500"
                                   : ""
                               } focus:border-blue-950`}
                             />
                             <ErrorMessage
-                              name="discount_code"
-                              component="div"
-                              className="text-red-500 text-sm"
-                            />
-                          </div>
-                          <div className="mt-4">
-                            <label className="block text-nelsa_primary text-sm font-semibold">
-                              Percentage
-                            </label>
-                            <Field
-                              type="text"
-                              placeholder="Enter percentage"
-                              name="discount_percentage"
-                              className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                errors.discount_percentage &&
-                                touched.discount_percentage
-                                  ? "border-red-500"
-                                  : ""
-                              } focus:border-blue-950`}
-                            />
-                            <ErrorMessage
-                              name="discount_percentage"
+                              name="billing_counter_code"
                               component="div"
                               className="text-red-500 text-sm"
                             />

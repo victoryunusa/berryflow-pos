@@ -92,7 +92,7 @@ const AddTax = ({ setOpenAdd, open, children }) => {
         <div className="fixed inset-0 z-[999] overflow-y-auto">
           <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
           <div className="flex items-center min-h-screen px-4 py-4">
-            <div className="relative w-full max-w-2xl p-7 md:p-10 mx-auto bg-white rounded-md shadow-lg">
+            <div className="relative w-full max-w-xl p-6 md:p-6 mx-auto bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
@@ -114,7 +114,7 @@ const AddTax = ({ setOpenAdd, open, children }) => {
                       {({ errors, touched, values }) => (
                         <Form className="w-full">
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-sm font-semibold">
+                            <label className="block text-nelsa_gray_3 text-xs font-semibold">
                               Tax Name
                             </label>
                             <Field
@@ -134,7 +134,7 @@ const AddTax = ({ setOpenAdd, open, children }) => {
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-sm font-semibold">
+                            <label className="block text-nelsa_gray_3 text-xs font-semibold">
                               Tax Code
                             </label>
                             <Field
@@ -154,7 +154,7 @@ const AddTax = ({ setOpenAdd, open, children }) => {
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-sm font-semibold">
+                            <label className="block text-nelsa_gray_3 text-xs font-semibold">
                               Type
                             </label>
                             <Field
@@ -182,10 +182,10 @@ const AddTax = ({ setOpenAdd, open, children }) => {
                               render={(arrayHelpers) => (
                                 <div>
                                   <div className="w-full flex flex-row">
-                                    <label className="block w-1/2 text-nelsa_primary text-sm font-semibold">
+                                    <label className="block w-1/2 text-nelsa_gray_3 text-xs font-semibold">
                                       Tax Component
                                     </label>
-                                    <label className="block text-nelsa_primary text-sm font-semibold">
+                                    <label className="block text-nelsa_gray_3 text-xs font-semibold">
                                       Tax Percentage
                                     </label>
                                   </div>

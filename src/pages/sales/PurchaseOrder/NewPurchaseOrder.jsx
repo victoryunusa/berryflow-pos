@@ -27,6 +27,8 @@ import AddIngredient from "../../../components/modals/AddIngredient";
 import AddTax from "../../../components/modals/AddTax";
 import AddSupplier from "../../../components/modals/AddSupplier";
 import { alertActions } from "../../../app/store";
+import { getProducts } from "../../../features/products/productSlice";
+import axios from "axios";
 
 const CustomInputComponent = ({ field, ...props }) => (
   <div>
@@ -36,6 +38,8 @@ const CustomInputComponent = ({ field, ...props }) => (
 
 const NewPurchaseOrder = () => {
   let dollarUSLocale = Intl.NumberFormat("en-US");
+
+  const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const initialValues = {
     supplier_id: "",
@@ -67,10 +71,12 @@ const NewPurchaseOrder = () => {
   const [openIngredient, setOpenIngredient] = useState(false);
   const [openTax, setOpenTax] = useState(false);
   const [openVendor, setOpenVendor] = useState(false);
+  const [items, setItems] = useState([]);
 
   const dispatch = useDispatch();
 
   const { suppliers } = useSelector((state) => state.suppliers);
+  const { token } = useSelector((state) => state.auth);
 
   const { countries } = useSelector((state) => state.countries);
 
@@ -104,6 +110,23 @@ const NewPurchaseOrder = () => {
     (state) => state.purchase_order_items
   );
 
+  const loadProducts = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `${BaseUrl}/products/load_products`,
+      config
+    );
+
+    setItems(response.data.products);
+  };
+
+  console.log(items);
+
   useEffect(() => {
     dispatch(clearOrderItems());
   }, []);
@@ -114,6 +137,14 @@ const NewPurchaseOrder = () => {
 
   useEffect(() => {
     dispatch(getIngredients());
+  }, []);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProducts());
   }, []);
 
   useEffect(() => {
@@ -138,16 +169,16 @@ const NewPurchaseOrder = () => {
     dispatch(removeOrderItem(cartItem));
   };
 
-  const handleChangeUnitPrice = ({ id, value }) => {
-    dispatch(updateUnitPrice({ id, unit_price: value }));
+  const handleChangeUnitPrice = ({ slug, value }) => {
+    dispatch(updateUnitPrice({ slug, unit_price: value }));
   };
 
-  const handleChangeDiscountPrice = ({ id, value }) => {
-    dispatch(updateDiscountPrice({ id, discount_price: value }));
+  const handleChangeDiscountPrice = ({ slug, value }) => {
+    dispatch(updateDiscountPrice({ slug, discount_price: value }));
   };
 
-  const handleChangeQuantity = ({ id, value }) => {
-    dispatch(updateQuantity({ id, new_quantity: value }));
+  const handleChangeQuantity = ({ slug, value }) => {
+    dispatch(updateQuantity({ slug, new_quantity: value }));
   };
 
   const handleSubmit = async (formValue) => {
@@ -412,7 +443,7 @@ const NewPurchaseOrder = () => {
                       </label>
 
                       <OrderSelect
-                        options={ingredients}
+                        options={items}
                         handleAddToCart={handleAddToCart}
                       />
                     </div>
@@ -480,7 +511,7 @@ const NewPurchaseOrder = () => {
                                       value={cartItem.cartQuantity}
                                       onChange={(e) =>
                                         handleChangeQuantity({
-                                          id: cartItem.id,
+                                          slug: cartItem.slug,
                                           value: e.target.value,
                                         })
                                       }
@@ -524,13 +555,16 @@ const NewPurchaseOrder = () => {
                                     value={cartItem.cartUnitPrice}
                                     onChange={(e) =>
                                       handleChangeUnitPrice({
-                                        id: cartItem.id,
+                                        slug: cartItem.slug,
                                         value: e.target.value,
                                       })
                                     }
                                     className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
                                   />
-                                  /{cartItem.storage_unit.unit_code}
+                                  /
+                                  {cartItem?.storage_unit?.unit_code != null
+                                    ? cartItem?.storage_unit?.unit_code
+                                    : "Item"}
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">
@@ -539,7 +573,7 @@ const NewPurchaseOrder = () => {
                                     type="number"
                                     onChange={(e) =>
                                       handleChangeDiscountPrice({
-                                        id: cartItem.id,
+                                        slug: cartItem.slug,
                                         value: e.target.value,
                                       })
                                     }

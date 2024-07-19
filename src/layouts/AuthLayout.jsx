@@ -23,7 +23,7 @@ const AuthLayout = () => {
   }, [token, isError, isSuccess, message, navigate, dispatch]);
 
   return (
-    <div className="bg-gray-100 p-3 font-br tracking-wide ">
+    <div className="bg-gray-100 p-3 font-manrope tracking-wide ">
       {/* <div className="w-1/2 flex flex-col justify-center items-center">
         <img src={logo} className="w-28" alt="logo" />
         <div className="flex items-center justify-center p-20">

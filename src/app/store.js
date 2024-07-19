@@ -7,6 +7,9 @@ import suppliersReducer from "../features/suppliers/suppliersSlice";
 import categoriesReducer from "../features/category/categoriesSlice";
 import unitsReducer from "../features/units/unitsSlice";
 import ingredientsReducer from "../features/ingredients/ingredientsSlice";
+import productsReducer from "../features/products/productSlice";
+import productReducer from "../features/products/singleProductSlice";
+import variantOptionsReducer from "../features/variant_option/variantOptionSlice";
 import areasReducer from "../features/area/areaSlice";
 import tablesReducer from "../features/table/tableSlice";
 import taxesReducer from "../features/tax/taxSlice";
@@ -14,6 +17,8 @@ import discountsReducer from "../features/discount/discountSlice";
 import userReducer from "../features/user/userSlice";
 import branchesReducer from "../features/branch/branchSlice";
 import billingTypesReducer from "../features/master_actions/billingTypeSlice";
+import billCounterReducer from "../features/bill_counter/billCounterSlice";
+import businessRegisterReducer from "../features/business_register/businessRegisterSlice";
 import invoicePrintTypesReducer from "../features/master_actions/invoicePrintTypeSlice";
 import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
@@ -33,12 +38,17 @@ export const store = configureStore({
     user: userReducer,
     alert: alertReducer,
     billing_types: billingTypesReducer,
+    bill_counters: billCounterReducer,
+    business_registers: businessRegisterReducer,
     invoice_print_types: invoicePrintTypesReducer,
     countries: countriesReducer,
     suppliers: suppliersReducer,
     categories: categoriesReducer,
     units: unitsReducer,
     ingredients: ingredientsReducer,
+    products: productsReducer,
+    product: productReducer,
+    variant_options: variantOptionsReducer,
     states: statesReducer,
     areas: areasReducer,
     tables: tablesReducer,
