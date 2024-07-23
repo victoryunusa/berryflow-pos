@@ -65,6 +65,24 @@ export const addProductVariant = createAsyncThunk(
   }
 );
 
+export const addProductExtra = createAsyncThunk(
+  "api/add_product_extra",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await productService.addProductExtra({ token, formData });
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
@@ -107,6 +125,18 @@ export const productSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(addProductVariant.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(addProductExtra.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addProductExtra.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(addProductExtra.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

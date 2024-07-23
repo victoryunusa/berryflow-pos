@@ -61,11 +61,26 @@ const addProductVariant = async ({ token, formData }) => {
   //return response.data.products;
 };
 
+const addProductExtra = async ({ token, formData }) => {
+  //console.log(token);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  await axios.post(`${BaseUrl}/extras/store`, formData, config);
+
+  //return response.data.products;
+};
+
 const productService = {
   addProduct,
   getProducts,
   getSingleProduct,
   addProductVariant,
+  addProductExtra,
 };
 
 export default productService;

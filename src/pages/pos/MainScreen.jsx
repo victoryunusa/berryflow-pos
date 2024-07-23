@@ -1,15 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "../../components/pos/Cart";
 import Product from "../../components/pos/Product";
 import Selector from "../../components/common/Selector";
 import RunningOrders from "../../components/pos/modals/RunningOrders";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
+  const [items, setItems] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const BaseUrl = import.meta.env.VITE_BASE_API_URL;
+
+  const { token } = useSelector((state) => state.auth);
   var options = [
     { value: 1, label: "Yes" },
     { value: 0, label: "No" },
   ];
+
+  const loadProducts = async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.get(
+      `${BaseUrl}/products/load_pos_products`,
+      config
+    );
+
+    setItems(response.data.products);
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-5 w-full p-5">
@@ -68,52 +97,9 @@ const MainScreen = () => {
             </div>
 
             <div className="grid grid-cols-3 md:grid-cols-6 bg-zinc-100 p-5 gap-3 overflow-y-auto rounded-xl h-[300px] md:h-[450px] lg:h-[710px]">
-              {/* {products.map((product) => (
-              <Product product={product} key={product.id} />
-            ))} */}
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
-              <Product />
+              {items?.map((product, index) => (
+                <Product product={product} key={index} />
+              ))}
             </div>
           </div>
           <div className="space-y-5 w-full lg:w-2/5">
@@ -134,7 +120,6 @@ const MainScreen = () => {
                 <Selector
                   options={options}
                   value={""}
-                  setFieldValue={""}
                   name="display_on_pos_screen"
                 />
               </div>
@@ -143,7 +128,6 @@ const MainScreen = () => {
                 <Selector
                   options={options}
                   value={""}
-                  setFieldValue={""}
                   name="display_on_pos_screen"
                 />
               </div>
