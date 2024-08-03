@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa6";
+import { addItemToCart } from "../../../features/pos/cartSlice";
 
 const ProductModal = ({ setOpen, open, product }) => {
   const [loading, setLoading] = useState(false);
@@ -47,7 +48,9 @@ const ProductModal = ({ setOpen, open, product }) => {
           ] = product.variants[option.id][0].id;
           temp.item_variations.names[option.id] =
             product.variants[option.id][0].name;
-          temp.item_variation_total += product.variants[option.id][0].price * 1;
+          temp.item_variation_total += parseFloat(
+            product.variants[option.id][0].price
+          ).toFixed(2);
         }
       });
     }
@@ -90,7 +93,7 @@ const ProductModal = ({ setOpen, open, product }) => {
     temp.item_extras.extras.forEach((extraId) => {
       product.extras.forEach((itemExtra) => {
         if (extraId === itemExtra.id) {
-          item_extra_total += parseFloat(itemExtra.price / 2);
+          item_extra_total += parseFloat(itemExtra.price);
         }
       });
     });
@@ -102,10 +105,11 @@ const ProductModal = ({ setOpen, open, product }) => {
 
     temp.item_variation_total = item_variation_total;
     temp.item_extra_total = item_extra_total;
-    temp.total_price =
+    temp.total_price = parseFloat(
       (product.price * 1 + temp.item_variation_total + temp.item_extra_total) *
-      temp.quantity;
-    item_addon_total;
+        temp.quantity
+    ).toFixed(2);
+    parseFloat(item_addon_total).toFixed(2);
 
     setCurrentTemp(temp);
   };
@@ -115,8 +119,11 @@ const ProductModal = ({ setOpen, open, product }) => {
       const newTemp = { ...prevTemp };
 
       if (e.target.checked) {
-        newTemp.item_extras.extras.push(id);
-        newTemp.item_extras.names.push(name);
+        // Check if the extra already exists to avoid duplicates
+        if (!newTemp.item_extras.extras.includes(id)) {
+          newTemp.item_extras.extras = [...newTemp.item_extras.extras, id];
+          newTemp.item_extras.names = [...newTemp.item_extras.names, name];
+        }
       } else {
         newTemp.item_extras.extras = newTemp.item_extras.extras.filter(
           (extraId) => extraId !== id
@@ -125,9 +132,7 @@ const ProductModal = ({ setOpen, open, product }) => {
           (extraName) => extraName !== name
         );
       }
-
       totalPriceSetup(newTemp);
-      console.log(newTemp);
       return newTemp;
     });
   };
@@ -168,6 +173,10 @@ const ProductModal = ({ setOpen, open, product }) => {
       totalPriceSetup(newTemp);
       return newTemp;
     });
+  };
+
+  const handleAddToCart = (currentTemp) => {
+    dispatch(addItemToCart(currentTemp));
   };
 
   if (!currentTemp || typeof document === "undefined") {
@@ -220,7 +229,7 @@ const ProductModal = ({ setOpen, open, product }) => {
                 </h4>
                 <div className="flex items-center bg-neutral-100 p-1 rounded-md">
                   <button
-                    className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-[1.85rem] text-neutral-500 bg-white border border-neutral-300 rounded-md focus:outline-none hover:bg-neutral-100"
+                    className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.25rem] w-[1.25rem] text-neutral-500 bg-white border border-neutral-300 rounded focus:outline-none hover:bg-neutral-100"
                     type="button"
                     onClick={() => {
                       quantityDecrement();
@@ -248,13 +257,13 @@ const ProductModal = ({ setOpen, open, product }) => {
                       type="number"
                       value={currentTemp.quantity}
                       onChange={(e) => quantityUp(e.target.value)}
-                      className="bg-neutral-100 w-14 text-center text-neutral-600 text-sm focus:outline-none block px-2.5 py-1"
+                      className="bg-neutral-100 w-14 text-center text-neutral-600 text-sm focus:outline-none block h-[1.45rem] px-2.5 py-1"
                       placeholder="1"
                       required
                     />
                   </div>
                   <button
-                    className="inline-flex items-center justify-center h-[1.85rem] w-[1.85rem] p-1 text-sm font-medium text-neutral-500 bg-white border border-neutral-300 rounded-md focus:outline-none hover:bg-neutral-100"
+                    className="inline-flex items-center justify-center h-[1.25rem] w-[1.25rem] p-1 text-sm font-medium text-neutral-500 bg-white border border-neutral-300 rounded focus:outline-none hover:bg-neutral-100"
                     type="button"
                     onClick={() => {
                       quantityIncrement();
@@ -430,11 +439,12 @@ const ProductModal = ({ setOpen, open, product }) => {
                   } p-3 rounded-md `}
                   onClick={() => {
                     // Add to cart logic here
-                    console.log(currentTemp);
+                    handleAddToCart(currentTemp);
+                    setOpen(false);
                   }}
                   disabled={currentTemp.total_price === 0 ? true : false}
                 >
-                  Add to cart - {currentTemp.total_price}
+                  Add to order - {currentTemp.total_price}
                 </button>
               </div>
             </div>

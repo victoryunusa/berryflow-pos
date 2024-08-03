@@ -20,13 +20,13 @@ const Product = ({ product }) => {
         onClick={() => setOpenModal(true)}
         className="flex flex-col bg-white shadow-md border rounded-lg cursor-pointer h-36"
       >
-        <div className="flex w-full h-1/2">
+        <div className="flex w-full h-2/3">
           <img
             src={
               "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
               product?.images[0]?.filename
             }
-            className="w-full  object-fit rounded-t-lg"
+            className="w-full rounded-t-lg"
             alt={product.name}
           />
         </div>
@@ -39,7 +39,7 @@ const Product = ({ product }) => {
           </div>
           <div className="flex flex-row">
             <span className="self-end font-bold text-xs md:text-md text-neutral-700">
-              ₦{dollarUSLocale.format(product.price)}
+              ₦{dollarUSLocale.format(parseFloat(product.price).toFixed(2))}
             </span>
           </div>
           {/* <div className="w-full">

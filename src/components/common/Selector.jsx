@@ -28,7 +28,7 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
         <HeIcons.FaChevronDown size={10} />
       </div>
       <ul
-        className={`bg-white rounded-lg mt-1 overflow-y-auto absolute z-[200] w-full ${
+        className={`bg-white rounded-lg overflow-y-auto absolute z-[200] w-full ${
           open ? "max-h-60 border" : "h-0"
         }`}
       >

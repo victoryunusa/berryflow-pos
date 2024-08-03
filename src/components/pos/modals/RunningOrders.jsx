@@ -22,11 +22,11 @@ const classNames = {
   bottom: "inset-x-0 bottom-0",
 };
 
-const RunningOrders = ({ open, setOpen, side = "left" }) => {
+const RunningOrders = ({ open, setOpen, side = "right" }) => {
   return (
     <div
       id={`dialog-${side}`}
-      className="relative z-10"
+      className="relative z-40"
       aria-labelledby="slide-over"
       role="dialog"
       aria-modal="true"
@@ -45,7 +45,7 @@ const RunningOrders = ({ open, setOpen, side = "left" }) => {
         <div className="absolute inset-0 overflow-hidden">
           <div
             className={clsx(
-              "pointer-events-none fixed max-w-full",
+              "pointer-events-none fixed max-w-full ",
               classNames[side]
             )}
           >

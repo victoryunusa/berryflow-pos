@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import { alertReducer } from "../features/alert/alertSlice";
+import cartReducer from "../features/pos/cartSlice";
 import countriesReducer from "../features/countries/countriesSlice";
 import statesReducer from "../features/states/statesSlice";
 import suppliersReducer from "../features/suppliers/suppliersSlice";
@@ -37,6 +38,7 @@ export const store = configureStore({
     auth: authReducer,
     user: userReducer,
     alert: alertReducer,
+    cart: cartReducer,
     billing_types: billingTypesReducer,
     bill_counters: billCounterReducer,
     business_registers: businessRegisterReducer,
