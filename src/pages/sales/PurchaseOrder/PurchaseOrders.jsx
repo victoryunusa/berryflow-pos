@@ -33,9 +33,11 @@ const PurchaseOrders = () => {
     <div className="flex flex-col space-y-5">
       <div className="flex flex-row justify-between items-center">
         <div className="">
-          <h3 className="text-lg font-bold text-gray-700">Purchase Orders</h3>
+          <h3 className="text-lg font-bold text-neutral-700">
+            Purchase Orders
+          </h3>
         </div>
-        <Link to="/inventory/purchase_orders/add">
+        <Link to="/finance/invoice/add">
           <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
             Add New
           </button>

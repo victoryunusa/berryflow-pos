@@ -6,7 +6,7 @@ import Settings from "./pages/settings/Settings";
 import AuthLayout from "./layouts/AuthLayout";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Invoice from "./pages/sales/Invoice";
+import Invoice from "./pages/sales/invoice/Invoice";
 import Cards from "./pages/Cards";
 import Transactions from "./pages/sales/Transactions";
 import Alert from "./components/common/Alert";
@@ -15,7 +15,6 @@ import SelectBranch from "./pages/SelectBranch";
 import Suppliers from "./pages/suppliers/Suppliers";
 import PurchaseOrders from "./pages/sales/PurchaseOrder/PurchaseOrders";
 //import Quotations from "./pages/sales/Quotations";
-//import DigitalMenuOrders from "./pages/sales/DigitalMenuOrders";
 import Orders from "./pages/sales/Orders";
 import Accounts from "./pages/business_account/Accounts";
 import Notifications from "./pages/Notifications";
@@ -71,6 +70,9 @@ import SingleProduct from "./pages/stock/product/SingleProduct";
 import BillCounterDashboard from "./pages/BillCounterDashboard";
 import BillCounters from "./pages/settings/Items/BillCounters";
 import AddBusinessRegister from "./pages/business_account/register/AddBusinessRegister";
+import OnlineOrders from "./pages/sales/OnlineOrders";
+import SingleOrder from "./pages/sales/SingleOrder";
+import NewInvoice from "./pages/sales/invoice/NewInvoice";
 
 function App() {
   return (
@@ -251,22 +253,6 @@ function App() {
           />
 
           <Route
-            path="/manage/invoices"
-            element={
-              <Protected>
-                <Invoice />
-              </Protected>
-            }
-          />
-          <Route
-            path="/cards"
-            element={
-              <Protected>
-                <Cards />
-              </Protected>
-            }
-          />
-          <Route
             path="/notifications"
             element={
               <Protected>
@@ -308,6 +294,22 @@ function App() {
             }
           />
           <Route
+            path="finance/invoices"
+            element={
+              <Protected>
+                <Invoice />
+              </Protected>
+            }
+          />
+          <Route
+            path="finance/invoice/add"
+            element={
+              <Protected>
+                <NewInvoice />
+              </Protected>
+            }
+          />
+          <Route
             path="/payments/monthly_targets"
             element={
               <Protected>
@@ -326,22 +328,23 @@ function App() {
             }
           />
 
-          {/* <Route
-            path="sales/quotations"
+          <Route
+            path="orders/:slug"
             element={
               <Protected>
-                <Quotations />
+                <SingleOrder />
               </Protected>
             }
-          /> */}
-          {/* <Route
-            path="sales/digital_menu_orders"
+          />
+
+          <Route
+            path="online_orders"
             element={
               <Protected>
-                <DigitalMenuOrders />
+                <OnlineOrders />
               </Protected>
             }
-          /> */}
+          />
 
           {/*Menu Related routes */}
           <Route

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { getBillCounters } from "../../../features/bill_counter/billCounterSlice";
 import { alertActions } from "../../../app/store";
 import { useNavigate } from "react-router";
-import { openBusinessRegister } from "../../../features/business_register/businessRegisterSlice";
+import { openBusinessRegister } from "../../../features/business_register/billingCounterStatSlice";
 
 const AddBusinessRegister = () => {
   const dispatch = useDispatch();

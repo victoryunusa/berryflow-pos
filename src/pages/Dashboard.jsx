@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col space-y-12">
       <div className="flex flex-col gap-5">
-        <div className="flex flex-row w-full md:w-[20rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
+        {/* <div className="flex flex-row w-full md:w-[20rem] bg-gray-200 p-2.5 gap-5 rounded-lg">
           <button className="bg-white px-3 py-2 rounded-lg cursor-pointer">
             <h3 className="text-sm font-semibold text-gray-700">General</h3>
           </button>
@@ -28,7 +28,7 @@ const Dashboard = () => {
           <button className=" p-2 rounded-lg cursor-pointer">
             <h3 className="text-sm font-semibold text-gray-500">Inventory</h3>
           </button>
-        </div>
+        </div> */}
         <div className="flex md:flex-row flex-col gap-5 mt-2">
           {/* <div className="md:w-2/5 w-full p-5 rounded-xl bg-nelsa_primary ">
             <div className="flex flex-row justify-between items-center">
@@ -72,7 +72,7 @@ const Dashboard = () => {
                 <span className="w-10 h-10 bg-nelsa_primary/15 text-nelsa_primary rounded-md p-3">
                   <HeIcons.FaWallet />
                 </span>
-                <p className="text-sm antialiased">Total Revenue</p>
+                <p className="text-sm">Total Revenue</p>
               </div>
               <div>
                 <span>
@@ -85,7 +85,7 @@ const Dashboard = () => {
                 {currency?.currency_symbol}300,000,000.00
               </h2>
               <span>
-                <p className="text-xs antialiased">0% change from last month</p>
+                <p className="text-xs">0% change from last month</p>
               </span>
             </div>
           </div>
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 <span className="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-md p-3">
                   <HeIcons.FaBookmark />
                 </span>
-                <p className="text-sm antialiased">Total Order</p>
+                <p className="text-sm">Total Order</p>
               </div>
               <div>
                 <span>
@@ -116,7 +116,7 @@ const Dashboard = () => {
                 <span className="w-10 h-10 bg-blue-50 text-blue-600 rounded-md p-3">
                   <HeIcons.FaChartPie />
                 </span>
-                <p className="text-sm antialiased">Average Sale</p>
+                <p className="text-sm">Average Sale</p>
               </div>
               <div>
                 <span>
@@ -139,7 +139,7 @@ const Dashboard = () => {
                 <span className="w-10 h-10 bg-green-100 text-green-600 rounded-md p-3">
                   <HeIcons.FaAward />
                 </span>
-                <p className="text-sm antialiased">Total Discount</p>
+                <p className="text-sm">Total Discount</p>
               </div>
               <div>
                 <span>

@@ -135,11 +135,11 @@ const AddIngredient = (props) => {
         <div className="fixed inset-0 z-[999] overflow-y-auto">
           <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
           <div className="flex items-center min-h-screen px-4 py-4">
-            <div className="relative w-full max-w-xl mx-auto font-manrope bg-white rounded-md shadow-lg">
+            <div className="relative w-full max-w-xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between border-b px-6 py-2">
-                    <h3 className="text-lg font-bold text-nelsa_primary">
+                    <h3 className="text-base font-bold text-nelsa_primary">
                       Add Ingredient
                     </h3>
                   </div>
@@ -339,7 +339,9 @@ const AddIngredient = (props) => {
                                 type="text"
                                 placeholder=""
                                 value={
-                                  values.cost / values.storage_to_ingredient
+                                  values.storage_to_ingredient == ""
+                                    ? 0.0
+                                    : values.cost / values.storage_to_ingredient
                                 }
                                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none focus:nelsa_gray_3`}
                                 disabled={true}

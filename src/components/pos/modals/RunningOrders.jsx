@@ -1,78 +1,41 @@
+import React from "react";
 import { createPortal } from "react-dom";
-import { clsx } from "clsx";
 
-const openClassNames = {
-  right: "translate-x-0",
-  left: "translate-x-0",
-  top: "translate-y-0",
-  bottom: "translate-y-0",
-};
+import * as FaIcons from "react-icons/fa6";
 
-const closeClassNames = {
-  right: "translate-x-full",
-  left: "-translate-x-full",
-  top: "-translate-y-full",
-  bottom: "translate-y-full",
-};
+const RunningOrders = ({ setOpen }) => {
+  if (typeof document !== "undefined") {
+    return createPortal(
+      <>
+        <div className="fixed inset-0 z-[999] overflow-y-auto">
+          <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
+          <div className="flex items-center justify-end min-h-screen">
+            <div className="relative w-full max-w-lg h-screen  font-br bg-white rounded-l-md shadow-lg">
+              <div className="w-full">
+                <div className="flex flex-col justify-center">
+                  <div className="flex justify-between border-b px-6 py-4">
+                    <h3 className="text-md font-bold">Running Orders</h3>
 
-const classNames = {
-  right: "inset-y-0 right-0",
-  left: "inset-y-0 left-0",
-  top: "inset-x-0 top-0",
-  bottom: "inset-x-0 bottom-0",
-};
+                    <div
+                      onClick={() => setOpen(false)}
+                      className="cursor-pointer"
+                    >
+                      <FaIcons.FaXmark size={20} className="text-red-600" />
+                    </div>
+                  </div>
 
-const RunningOrders = ({ open, setOpen, side = "right" }) => {
-  return (
-    <div
-      id={`dialog-${side}`}
-      className="relative z-40"
-      aria-labelledby="slide-over"
-      role="dialog"
-      aria-modal="true"
-      onClick={() => setOpen(!open)}
-    >
-      <div
-        className={clsx(
-          "fixed inset-0 transition-all",
-          {
-            "opacity-100 duration-500 ease-in-out visible": open,
-          },
-          { "opacity-0 duration-500 ease-in-out invisible": !open }
-        )}
-      ></div>
-      <div className={clsx({ "fixed inset-0 overflow-hidden": open })}>
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            className={clsx(
-              "pointer-events-none fixed max-w-full ",
-              classNames[side]
-            )}
-          >
-            <div
-              className={clsx(
-                "pointer-events-auto relative w-full h-full transform transition ease-in-out duration-500",
-                { [closeClassNames[side]]: !open },
-                { [openClassNames[side]]: open }
-              )}
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-              }}
-            >
-              <div
-                className={clsx(
-                  "flex flex-col h-full overflow-y-scroll p-20 shadow-xl bg-white rounded-r-lg w-96"
-                )}
-              >
-                content
+                  <div className="mt-5 flex flex-col justify-center items-center"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
+      </>,
+      document.body
+    );
+  } else {
+    return null;
+  }
 };
 
 export default RunningOrders;

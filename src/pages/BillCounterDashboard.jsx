@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBusinessRegisters } from "../features/business_register/businessRegisterSlice";
+import { getBillingCounterStats } from "../features/business_register/billingCounterStatSlice";
 
 const BillCounterDashboard = () => {
   const dispatch = useDispatch();
 
-  const { business_registers } = useSelector(
-    (state) => state.business_registers
+  const { billing_counter_stats } = useSelector(
+    (state) => state.billing_counter_stats
   );
 
   useEffect(() => {
-    dispatch(getBusinessRegisters());
+    dispatch(getBillingCounterStats());
   }, []);
 
   return (
@@ -23,7 +23,7 @@ const BillCounterDashboard = () => {
         </div>
       </div>
       <div className="flex flex-row w-full gap-5">
-        {business_registers?.map((register, index) => (
+        {billing_counter_stats?.map((register, index) => (
           <div
             className="flex flex-col w-full md:w-1/4 bg-white border rounded-md p-5"
             key={index}

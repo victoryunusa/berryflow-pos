@@ -16,6 +16,36 @@ const getBillingTypes = async () => {
   return response.data.billing_types;
 };
 
+const getOrderTypes = async () => {
+  const response = await axios.get(`${BaseUrl}/master/order_types`, headers);
+  localStorage.setItem(
+    "order_types",
+    JSON.stringify(response.data.order_types)
+  );
+  return response.data.order_types;
+};
+
+const getAccountTypes = async () => {
+  const response = await axios.get(`${BaseUrl}/master/account_types`, headers);
+  localStorage.setItem(
+    "account_types",
+    JSON.stringify(response.data.account_types)
+  );
+  return response.data.account_types;
+};
+
+const getTransactionTypes = async () => {
+  const response = await axios.get(
+    `${BaseUrl}/master/transaction_types`,
+    headers
+  );
+  localStorage.setItem(
+    "transaction_types",
+    JSON.stringify(response.data.transaction_types)
+  );
+  return response.data.transaction_types;
+};
+
 const getInvoicePrintTypes = async () => {
   const response = await axios.get(
     `${BaseUrl}/master/invoice_print_types`,
@@ -36,6 +66,9 @@ const getModules = async () => {
 
 const masterActionsService = {
   getBillingTypes,
+  getAccountTypes,
+  getTransactionTypes,
+  getOrderTypes,
   getInvoicePrintTypes,
   getModules,
 };

@@ -19,12 +19,23 @@ import {
 } from "../../features/pos/cartSlice";
 import AddCustomer from "../../components/modals/AddCustomer";
 import { getCustomers } from "../../features/customer/customerSlice";
+import ConfirmOrder from "../../components/pos/modals/ConfirmOrder";
+import { getPaymentMethods } from "../../features/payment_method/paymentMethodSlice";
+import { getTables } from "../../features/table/tableSlice";
+import SelectTable from "../../components/pos/modals/SelectTable";
+import CloseRegister from "../../components/pos/modals/CloseRegister";
+import HoldList from "../../components/pos/modals/HoldList";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
   const [items, setItems] = useState([]);
   const [openCustomerAdd, setOpenCustomerAdd] = useState(false);
-  const [billingType, setBillingType] = useState("Fine Dine");
+  const [openConfirmOrder, setOpenConfirmOrder] = useState(false);
+  const [openSelectTable, setOpenSelectTable] = useState(false);
+  const [openCloseRegister, setOpenCloseRegister] = useState(false);
+  const [openHoldList, setOpenHoldList] = useState(false);
+  const [selectedTable, setSelectedTable] = useState("");
+  const [orderType, setOrderType] = useState("");
 
   const scrolled = useScroll(5);
 
@@ -34,7 +45,17 @@ const MainScreen = () => {
 
   const { token } = useSelector((state) => state.auth);
 
+  const { order_types } = useSelector((state) => state.order_types);
+
+  const { tables, message } = useSelector((state) => state.tables);
+
+  const tablesIndex = tables?.filter((table) => table.status === 1);
+
   const { billing_types } = useSelector((state) => state.billing_types);
+
+  const [billingType, setBillingType] = useState(
+    billing_types[0].billing_type_constant
+  );
   var options = [
     { value: 1, label: "Yes" },
     { value: 0, label: "No" },
@@ -71,6 +92,14 @@ const MainScreen = () => {
   }, [cartItems, dispatch]);
 
   useEffect(() => {
+    dispatch(getPaymentMethods());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getTables());
+  }, [dispatch, message]);
+
+  useEffect(() => {
     dispatch(getCustomers());
   }, []);
 
@@ -82,8 +111,10 @@ const MainScreen = () => {
     dispatch(clearCart());
   };
 
+  //const customerIndex = Object.keys(customers).length - 1;
+
   const initialValues = {
-    customer_id: "",
+    customer_id: customers[0]?.slug ? customers[0]?.slug : "",
   };
 
   // Set initial values
@@ -121,42 +152,52 @@ const MainScreen = () => {
               <div className="flex flex-col w-full bg-white gap-10 p-5">
                 <div className="flex flex-row justify-between">
                   <div>
-                    <h5 className="text-lg font-semibold">New Order</h5>
+                    <h5 className="text-lg font-bold">New Order</h5>
                   </div>
                   <div className="flex flex-row gap-3">
-                    <div>
+                    <div className="">
                       <select
                         name="billing_type"
-                        className={`w-full px-3 py-2 border border-neutral-300 text-neutral-600 text-xs rounded-md focus:outline-none
+                        className={`w-full px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none
                           `}
+                        onChange={(e) => setBillingType(e.target.value)}
                       >
-                        {billing_types.map((billing_type) => (
-                          <option value={billing_type.id}>
+                        {billing_types.map((billing_type, index) => (
+                          <option
+                            value={billing_type.billing_type_constant}
+                            key={index}
+                          >
                             {billing_type.label}
                           </option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <button className="text-xs border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
+                      <button className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
                         Digital Menu Orders
                       </button>
                     </div>
                     <div>
                       <button
                         onClick={() => setOpenRunningOrders(true)}
-                        className="text-xs border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                        className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
                       >
                         Running Orders
                       </button>
                     </div>
                     <div>
-                      <button className="text-xs border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
+                      <button
+                        onClick={() => setOpenHoldList(true)}
+                        className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                      >
                         Hold List
                       </button>
                     </div>
                     <div>
-                      <button className="text-xs border border-red-600 bg-red-600 rounded-md px-3 py-2 text-white">
+                      <button
+                        onClick={() => setOpenCloseRegister(true)}
+                        className="text-small border border-red-600 bg-red-600 rounded-md px-3 py-2 text-white"
+                      >
                         Close Register
                       </button>
                     </div>
@@ -170,7 +211,7 @@ const MainScreen = () => {
                       name=""
                       id=""
                       placeholder="Search"
-                      className="focus-none bg-zinc-50 outline-none w-full"
+                      className="focus-none bg-zinc-50 outline-none w-full placeholder:text-sm"
                     />
                   </div>
                   <div className="w-1/5 bg-nelsa_primary px-3 py-2 rounded-md">
@@ -197,41 +238,63 @@ const MainScreen = () => {
             >
               {({ errors, touched, values, setFieldValue }) => (
                 <Form className="h-full">
-                  {/* <div className="flex flex-row items-center justify-between gap-3">
-                        <button className="w-1/3 px-4 py-3 rounded-lg font-bold bg-neutral-100 hover:bg-neutral-300  text-neutral-700">
-                          Dine in
-                        </button>
-                        <button className="w-1/3 px-4 py-3 rounded-lg font-bold bg-neutral-100 hover:bg-neutral-300 text-neutral-700">
-                          Take away
-                        </button>
-                        <button className="w-1/3 px-4 py-3 rounded-lg font-bold bg-neutral-100 hover:bg-neutral-300 text-neutral-700">
-                          Delivery
-                        </button>
-                      </div> */}
-                  <div className="w-full flex flex-row justify-end items-end h-20 px-5">
-                    <div className="flex flex-row items-end gap-2">
-                      <div className="flex flex-col w-64">
-                        <span className="text-xs">Customer:</span>
-                        <Selector
-                          options={newCustomers}
-                          value={values.customer_id}
-                          setFieldValue={setFieldValue}
-                          name="customer_id"
-                        />
-                      </div>
-                      <div className="flex flex-row">
-                        <button
-                          onClick={() => {
-                            setOpenCustomerAdd(true);
-                          }}
-                          className="px-4 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-nelsa_primary hover:text-white"
-                        >
-                          Add customer
-                        </button>
-                      </div>
+                  <div className="w-full flex flex-row gap-3 items-end mt-4 px-5">
+                    <div className="flex flex-col w-1/3">
+                      <span className="text-xs">Waiter:</span>
+                      <Selector
+                        options={newCustomers}
+                        value={values.customer_id}
+                        setFieldValue={setFieldValue}
+                        name="customer_id"
+                      />
+                    </div>
+                    <div className="flex flex-col w-1/3">
+                      <span className="text-xs">Customer:</span>
+                      <Selector
+                        options={newCustomers}
+                        value={values.customer_id}
+                        setFieldValue={setFieldValue}
+                        name="customer_id"
+                      />
+                    </div>
+                    <div className="flex flex-col w-1/3">
+                      <button
+                        onClick={() => {
+                          setOpenCustomerAdd(true);
+                        }}
+                        className="px-4 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-nelsa_primary hover:text-white"
+                      >
+                        Add customer
+                      </button>
                     </div>
                   </div>
-                  <div className="h-3/6 overflow-y-scroll px-5 my-5 bg-neutral-50 border rounded-md mx-5">
+                  <div className="flex flex-col px-5 my-4">
+                    <label className="block text-nelsa_primary text-small font-semibold mb-1">
+                      Order Type
+                    </label>
+                    <div className="flex flex-row gap-3 w-full">
+                      {order_types?.map((order_type, index) => (
+                        <button
+                          type="button"
+                          key={index}
+                          onClick={() => {
+                            setOrderType(order_type.order_type_constant);
+                            if (order_type.order_type_constant == "DINEIN") {
+                              setOpenSelectTable(true);
+                            }
+                          }}
+                          className={`w-1/2 text-xs ${
+                            order_type.order_type_constant == orderType
+                              ? "bg-green-100  text-green-800"
+                              : "bg-neutral-100 text-neutral-500"
+                          } font-bold px-3 py-3 rounded-md text-left hover:bg-green-100  hover:text-green-800`}
+                        >
+                          {order_type.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="h-1/4 overflow-y-scroll px-5 my-5 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
                   </div>
 
@@ -263,7 +326,7 @@ const MainScreen = () => {
                           name=""
                           id=""
                           placeholder="Enter coupon code"
-                          className="w-full rounded-l-md border px-3 border-zinc-200 bg-zinc-50 focus:outline-none"
+                          className="w-full rounded-l-md border px-3 border-zinc-200 bg-zinc-50 focus:outline-none placeholder:text-xs"
                         />
                         <button className="bg-black text-white text-sm font-semibold p-3 rounded-r-md focus-none">
                           Apply
@@ -294,7 +357,7 @@ const MainScreen = () => {
                           <span className="font-bold">₦2.25</span>
                         </div>
                         <div className="border-t border-zinc-200 flex items-center justify-between">
-                          <span className="text-lg">Total</span>
+                          <span className="text-lg font-bold">Total</span>
                           <span className="font-bold text-lg">
                             ₦{" "}
                             {dollarUSLocale.format(
@@ -311,8 +374,11 @@ const MainScreen = () => {
                       >
                         Cancel
                       </button>
-                      {billingType === "Fine Dine" ? (
-                        <button className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold">
+                      {billingType === "FINE_DINE" ? (
+                        <button
+                          onClick={() => setOpenConfirmOrder(true)}
+                          className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
+                        >
                           Send to Kitchen
                         </button>
                       ) : (
@@ -320,7 +386,10 @@ const MainScreen = () => {
                           <button className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center border hover:bg-neutral-200 text-neutral-500 font-semibold">
                             Hold Order
                           </button>
-                          <button className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold">
+                          <button
+                            onClick={() => setOpenConfirmOrder(true)}
+                            className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
+                          >
                             Close Order
                           </button>
                         </>
@@ -349,6 +418,12 @@ const MainScreen = () => {
       </div>
 
       {openCustomerAdd && <AddCustomer setOpenCustomer={setOpenCustomerAdd} />}
+      {openSelectTable && <SelectTable setOpen={setOpenSelectTable} />}
+      {openCloseRegister && <CloseRegister setOpen={setOpenCloseRegister} />}
+      {openHoldList && <HoldList setOpen={setOpenHoldList} />}
+      {openConfirmOrder && (
+        <ConfirmOrder setOpen={setOpenConfirmOrder} billingType={billingType} />
+      )}
       {openRunnungOrders && (
         <RunningOrders
           open={openRunnungOrders}

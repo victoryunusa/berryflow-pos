@@ -44,6 +44,10 @@ export const subMenusList = [
         title: "Transactions",
         path: "/finance/transactions",
       },
+      {
+        title: "Invoices",
+        path: "/finance/invoices",
+      },
       // {
       //   title: "Monthly Targets",
       //   path: "/payments/monthly_targets",

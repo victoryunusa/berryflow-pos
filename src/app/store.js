@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
+import accountReducer from "../features/account/accountSlice";
 import { alertReducer } from "../features/alert/alertSlice";
 import cartReducer from "../features/pos/cartSlice";
 import countriesReducer from "../features/countries/countriesSlice";
@@ -14,12 +15,17 @@ import variantOptionsReducer from "../features/variant_option/variantOptionSlice
 import areasReducer from "../features/area/areaSlice";
 import tablesReducer from "../features/table/tableSlice";
 import taxesReducer from "../features/tax/taxSlice";
+import transactionsReducer from "../features/transactions/transactionSlice";
 import discountsReducer from "../features/discount/discountSlice";
 import userReducer from "../features/user/userSlice";
 import branchesReducer from "../features/branch/branchSlice";
 import billingTypesReducer from "../features/master_actions/billingTypeSlice";
+import accountTypesReducer from "../features/master_actions/accountTypeSlice";
+import transactionTypesReducer from "../features/master_actions/transactionTypeSlice";
+import orderTypesReducer from "../features/master_actions/orderTypeSlice";
 import billCounterReducer from "../features/bill_counter/billCounterSlice";
 import businessRegisterReducer from "../features/business_register/businessRegisterSlice";
+import billinCounterStatReducer from "../features/business_register/billingCounterStatSlice";
 import invoicePrintTypesReducer from "../features/master_actions/invoicePrintTypeSlice";
 import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
@@ -36,11 +42,16 @@ export * from "../features/alert/alertSlice";
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    accounts: accountReducer,
     user: userReducer,
     alert: alertReducer,
     cart: cartReducer,
+    account_types: accountTypesReducer,
+    transaction_types: transactionTypesReducer,
     billing_types: billingTypesReducer,
+    order_types: orderTypesReducer,
     bill_counters: billCounterReducer,
+    billing_counter_stats: billinCounterStatReducer,
     business_registers: businessRegisterReducer,
     invoice_print_types: invoicePrintTypesReducer,
     countries: countriesReducer,
@@ -54,6 +65,7 @@ export const store = configureStore({
     states: statesReducer,
     areas: areasReducer,
     tables: tablesReducer,
+    transactions: transactionsReducer,
     taxes: taxesReducer,
     discounts: discountsReducer,
     branches: branchesReducer,

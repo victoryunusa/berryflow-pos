@@ -27,7 +27,7 @@ const OnboardingLayout = () => {
   //   }
 
   return (
-    <div className="min-h-screen font-manrope lg:flex-1 bg-white text-gray-900 overflow-x-0 p-2 md:p-6">
+    <div className="min-h-screen font-br lg:flex-1 bg-white text-gray-900 overflow-x-0 p-2 md:p-6">
       <Outlet />
     </div>
   );

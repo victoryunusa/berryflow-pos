@@ -29,11 +29,17 @@ import { getRoles } from "./features/role/roleSlice";
 import { getPermissions } from "./features/permissions/permissionsSlice";
 import { getPaymentMethods } from "./features/payment_method/paymentMethodSlice";
 import { getModules } from "./features/master_actions/modulesSlice";
+import { getOrderTypes } from "./features/master_actions/orderTypeSlice";
+import { getAccountTypes } from "./features/master_actions/accountTypeSlice";
+import { getTransactionTypes } from "./features/master_actions/transactionTypeSlice";
 
 document.title = "Cloud based POS System - CaterOS";
 
 store.dispatch(getCountries());
+store.dispatch(getAccountTypes());
+store.dispatch(getTransactionTypes());
 store.dispatch(getBillingTypes());
+store.dispatch(getOrderTypes());
 store.dispatch(getInvoicePrintTypes());
 store.dispatch(getModules());
 store.dispatch(getStates());

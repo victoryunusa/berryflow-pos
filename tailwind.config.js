@@ -4,13 +4,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        daysone: ["Days One", "sans-serif"],
-        redhat: ["Albert Sans", "sans-serif"],
-        pally: ["Pally", "sans-serif"],
-        quicksand: ["Quicksand", "sans-serif"],
-        manrope: ["Manrope", "sans-serif"],
         //cabin: ["Cabin", "sans-serif"],
-        br: ["Cabin", "sans-serif"],
+        br: ["Quicksand", "sans-serif"],
+      },
+      fontSize: {
+        small: "0.78rem",
       },
       colors: {
         nelsa_primary: "#242424",

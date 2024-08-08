@@ -84,7 +84,7 @@ const AddRole = (props) => {
             onClick={() => setOpenRole(false)}
           ></div>
           <div className="flex items-center min-h-screen px-2 py-2">
-            <div className="relative w-full max-w-xl p-6 md:p-6 mx-auto bg-white rounded-md shadow-lg">
+            <div className="relative w-full max-w-xl p-6 md:p-6 mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">

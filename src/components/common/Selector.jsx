@@ -13,7 +13,7 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
   //const label = selectedItem?.label ?? "Select Option...";
 
   return (
-    <div className="w-full relative z-5">
+    <div className="w-full relative z-100">
       <div
         onClick={() => setOpen(!open)}
         className={`flex w-full border bg-white px-4 py-3 items-center cursor-pointer justify-between rounded-md`}
@@ -28,7 +28,7 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
         <HeIcons.FaChevronDown size={10} />
       </div>
       <ul
-        className={`bg-white rounded-lg overflow-y-auto absolute z-[200] w-full ${
+        className={`bg-white rounded-lg overflow-y-auto absolute z-[999] w-full ${
           open ? "max-h-60 border" : "h-0"
         }`}
       >
@@ -45,7 +45,7 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
         {options?.map((option) => (
           <li
             key={option?.value}
-            className={`p-2 text-xs text-gray-700 hover:bg-yellow-100 hover:text-yellow-700 cursor-pointer ${
+            className={`px-2 py-2.5 text-xs text-gray-700 hover:bg-yellow-100 hover:text-yellow-700 cursor-pointer ${
               option?.label?.toLowerCase().includes(inputValue)
                 ? "block"
                 : "hidden"

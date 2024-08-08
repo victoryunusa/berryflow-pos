@@ -25,7 +25,7 @@ const Products = () => {
 
   return (
     <>
-      <div className="flex flex-col space-y-5">
+      <div className="flex flex-col space-y-5 font-br">
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">Products</h3>
@@ -43,11 +43,11 @@ const Products = () => {
           <div className="flex flex-col overflow-x-auto">
             <div className="">
               <div className="inline-block w-full py-2 sm:px-2 lg:px-4">
-                <div className="overflow-x-auto rounded-md">
-                  <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
-                    <thead className="text-md text-neutral-700 capitalize bg-neutral-200 border-b">
+                <div className="overflow-x-auto ">
+                  <table className="w-full text-sm text-left rtl:text-right text-neutral-500 ">
+                    <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
                       <tr>
-                        <th scope="col" className="p-4">
+                        {/* <th scope="col" className="p-4">
                           <div className="flex items-center">
                             <input
                               type="checkbox"
@@ -55,24 +55,25 @@ const Products = () => {
                             />
                             <label className="sr-only">checkbox</label>
                           </div>
-                        </th>
-                        <th className="px-2 py-4">Name</th>
-                        <th className="px-2 py-4">Category</th>
-                        <th className="px-2 py-4">Price</th>
-                        <th className="px-2 py-4">Cost</th>
-                        <th className="px-2 py-4">Costing Method</th>
-                        <th className="px-2 py-4">Selling Method</th>
+                        </th> */}
+                        <th className="px-2 py-3">Code</th>
+                        <th className="px-2 py-3">Name</th>
+                        <th className="px-2 py-3">Category</th>
+                        <th className="px-2 py-3">Price</th>
+                        <th className="px-2 py-3">Cost</th>
+                        <th className="px-2 py-3">Costing Method</th>
+                        <th className="px-2 py-3">Selling Method</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       {products?.data?.map((product, index) => (
                         <tr
-                          className="odd:bg-white even:bg-neutral-50 border-b font-medium text-sm cursor-pointer hover:bg-neutral-100"
+                          className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
                           key={index}
                           onClick={() => showProduct(product.slug)}
                         >
-                          <td className="w-4 p-4">
+                          {/* <td className="w-4 p-4">
                             <div className="flex items-center">
                               <input
                                 type="checkbox"
@@ -80,23 +81,24 @@ const Products = () => {
                               />
                               <label className="sr-only">checkbox</label>
                             </div>
+                          </td> */}
+                          <td className="px-2 py-3 font-semibold">
+                            {product.product_code}
                           </td>
-                          <td className="px-2 py-4 font-bold">
-                            {product.name}
-                          </td>
-                          <td className="px-2 py-4">
+                          <td className="px-2 py-3">{product.name}</td>
+                          <td className="px-2 py-3">
                             {product?.category?.label}
                           </td>
-                          <td className="px-2 py-4">
+                          <td className="px-2 py-3">
                             {product.price_excluding_tax}
                           </td>
-                          <td className=" whitespace-nowrap px-2 py-4">
+                          <td className=" whitespace-nowrap px-2 py-3">
                             {product.cost_excluding_tax}
                           </td>
-                          <td className="px-2 py-4">
+                          <td className="px-2 py-3">
                             {product.costing_method}
                           </td>
-                          <td className=" whitespace-nowrap px-2 py-4">
+                          <td className=" whitespace-nowrap px-2 py-3">
                             {product.selling_method}
                           </td>
                           <td className="">

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa6";
 import { addItemToCart } from "../../../features/pos/cartSlice";
+import { play_beep } from "../../../functions/functions";
 
 const ProductModal = ({ setOpen, open, product }) => {
   const [loading, setLoading] = useState(false);
@@ -177,6 +178,7 @@ const ProductModal = ({ setOpen, open, product }) => {
 
   const handleAddToCart = (currentTemp) => {
     dispatch(addItemToCart(currentTemp));
+    play_beep();
   };
 
   if (!currentTemp || typeof document === "undefined") {
@@ -188,7 +190,7 @@ const ProductModal = ({ setOpen, open, product }) => {
       <div className="fixed inset-0 z-[999] overflow-y-auto">
         <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
         <div className="flex mt-20 px-4 py-4">
-          <div className="relative w-full max-w-xl p-4 md:p-5 mx-auto bg-white rounded-md shadow-lg">
+          <div className="relative w-full max-w-xl font-br p-4 md:p-5 mx-auto bg-white rounded-md shadow-lg">
             <div className="flex flex-col w-full gap-3">
               <div className="flex flex-col justify-center">
                 <div className="flex flex-row justify-between">

@@ -19,10 +19,10 @@ const Cart = () => {
     <div className="flex flex-col ">
       {cartItems.length >= 1 ? (
         cartItems.map((cartItem, index) => (
-          <>
-            <CartItem cartItem={cartItem} key={index} />
+          <div key={index}>
+            <CartItem cartItem={cartItem} />
             <hr className={` ${lastElement == index ? "hidden" : "block"}`} />
-          </>
+          </div>
         ))
       ) : (
         <div className="flex items-center justify-center text-sm mt-20">

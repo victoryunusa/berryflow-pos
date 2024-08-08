@@ -1,5 +1,10 @@
 import clsx from "clsx";
+import axios from "axios";
 import { twMerge } from "tailwind-merge";
+
+import beep from "../assets/audio/beep.mp3";
+import notification from "../assets/audio/notification.mp3";
+import { useSelector } from "react-redux";
 
 export const formatCardNumber = (value) => {
   const val = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
@@ -52,4 +57,21 @@ export const checkPermission = (authUserPermissions, permission) => {
 
 export const cn = (...inputs) => {
   return twMerge(clsx(inputs));
+};
+
+export const play_beep = () => {
+  var audio = new Audio(beep);
+
+  audio.onerror = (e) => {
+    console.error("Audio failed to load:", e);
+  };
+
+  audio.play().catch((e) => {
+    console.error("Audio play failed:", e);
+  });
+};
+
+export const play_notification = () => {
+  var audio = new Audio(notification);
+  audio.play();
 };

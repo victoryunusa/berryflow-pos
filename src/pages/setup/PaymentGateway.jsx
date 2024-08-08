@@ -15,6 +15,10 @@ const PaymentGateway = () => {
   const dispatch = useDispatch();
   const { payment_methods } = useSelector((state) => state.payment_methods);
 
+  const paymentMethodsIndex = payment_methods?.filter(
+    (payment_method) => payment_method.activate_on_onboarding === 1
+  );
+
   useEffect(() => {
     dispatch(getPaymentMethods());
   }, [dispatch]);
@@ -61,7 +65,7 @@ const PaymentGateway = () => {
         </div>
 
         <div className="flex flex-col items-center gap-1">
-          {payment_methods?.map((payment_method) => (
+          {paymentMethodsIndex?.map((payment_method) => (
             <div
               className="bg-white p-5  md:m-2 rounded-md w-full md:w-[30rem]"
               key={payment_method.slug}

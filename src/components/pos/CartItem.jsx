@@ -44,7 +44,10 @@ const CartItem = ({ cartItem }) => {
               Variation:{" "}
               {Object.values(cartItem.item_variations.names).map(
                 (variation, index) => (
-                  <span className="text-xs text-neutral-500 font-normal">
+                  <span
+                    className="text-xs text-neutral-500 font-normal"
+                    key={index}
+                  >
                     {variation}
                     {", "}
                   </span>
@@ -59,7 +62,10 @@ const CartItem = ({ cartItem }) => {
             <p className="text-xs text-neutral-600 font-normal">
               Extra:{" "}
               {cartItem.item_extras.names.map((extra, index) => (
-                <span className="text-xs text-neutral-500 font-normal">
+                <span
+                  className="text-xs text-neutral-500 font-normal"
+                  key={index}
+                >
                   {extra}
                   {", "}
                 </span>

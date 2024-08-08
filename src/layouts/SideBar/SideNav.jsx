@@ -38,7 +38,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.FaCashRegister size={16} className="min-w-max" />
+                <HeIcons.FaHardDrive size={16} className="min-w-max" />
                 Billing Counters
               </NavLink>
             </li>
@@ -49,8 +49,19 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
+                <HeIcons.FaCashRegister size={16} className="min-w-max" />
+                POS Orders
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/online_orders"
+                className={({ isActive }) =>
+                  isActive ? "activeLink" : "normalLink"
+                }
+              >
                 <HeIcons.FaCartShopping size={16} className="min-w-max" />
-                Orders
+                Online Orders
               </NavLink>
             </li>
             <li>

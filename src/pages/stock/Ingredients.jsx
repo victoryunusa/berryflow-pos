@@ -125,7 +125,7 @@ const Ingredients = () => {
             paginator
             rows={10}
             tableStyle={{ minWidth: "50rem" }}
-            className="text-sm rounded-lg"
+            className="text-sm font-br rounded-lg"
           >
             <Column
               field="product_code"
