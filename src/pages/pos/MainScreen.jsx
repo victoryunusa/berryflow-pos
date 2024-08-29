@@ -29,6 +29,7 @@ import HoldList from "../../components/pos/modals/HoldList";
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
   const [items, setItems] = useState([]);
+  const [customers, setCustomers] = useState([]);
   const [openCustomerAdd, setOpenCustomerAdd] = useState(false);
   const [openConfirmOrder, setOpenConfirmOrder] = useState(false);
   const [openSelectTable, setOpenSelectTable] = useState(false);
@@ -61,13 +62,13 @@ const MainScreen = () => {
     { value: 0, label: "No" },
   ];
 
-  const loadProducts = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
+  const loadProducts = async () => {
     const response = await axios.get(
       `${BaseUrl}/products/load_pos_products`,
       config
@@ -76,7 +77,13 @@ const MainScreen = () => {
     setItems(response.data.products);
   };
 
-  const { customers } = useSelector((state) => state.customers);
+  const loadCustomers = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/customers/loadCustomers`,
+      config
+    );
+    setCustomers(response.data.customers);
+  };
 
   var newCustomers = customers.map(function (obj) {
     return { value: obj.slug, label: obj.name };
@@ -105,6 +112,7 @@ const MainScreen = () => {
 
   useEffect(() => {
     loadProducts();
+    loadCustomers();
   }, []);
 
   const handleClearCart = () => {

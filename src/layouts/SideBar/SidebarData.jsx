@@ -88,10 +88,10 @@ export const subMenusList = [
         path: "/menu/categories",
       },
 
-      {
-        title: "Add-on Groups",
-        path: "/menu/addon_groups",
-      },
+      // {
+      //   title: "Add-on Groups",
+      //   path: "/menu/addon_groups",
+      // },
     ],
   },
 
@@ -100,6 +100,10 @@ export const subMenusList = [
     path: "/restaurant",
     icon: <HeIcons.FaBellConcierge size={16} className="min-w-max" />,
     subNav: [
+      {
+        title: "Tables",
+        path: "/restaurant/tables",
+      },
       {
         title: "Kitchen Display",
         path: "/restaurant/kitchen_display",
@@ -114,25 +118,25 @@ export const subMenusList = [
       },
     ],
   },
-  {
-    name: "Area & Table Management",
-    path: "/table",
-    icon: <Icon.SiTablecheck size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Section (Floor Plan)",
-        path: "/table/section",
-      },
-      {
-        title: "Tables",
-        path: "/table/tables",
-      },
-      {
-        title: "Room Service",
-        path: "/table/rooms",
-      },
-    ],
-  },
+  // {
+  //   name: "Area & Table Management",
+  //   path: "/table",
+  //   icon: <Icon.SiTablecheck size={16} className="min-w-max" />,
+  //   subNav: [
+  //     {
+  //       title: "Section (Floor Plan)",
+  //       path: "/table/section",
+  //     },
+  //     {
+  //       title: "Tables",
+  //       path: "/table/tables",
+  //     },
+  //     // {
+  //     //   title: "Room Service",
+  //     //   path: "/table/rooms",
+  //     // },
+  //   ],
+  // },
   {
     name: "Reports",
     path: "/reports",

@@ -73,6 +73,7 @@ import AddBusinessRegister from "./pages/business_account/register/AddBusinessRe
 import OnlineOrders from "./pages/sales/OnlineOrders";
 import SingleOrder from "./pages/sales/SingleOrder";
 import NewInvoice from "./pages/sales/invoice/NewInvoice";
+import Viewer from "./pages/pdf/Viewer";
 
 function App() {
   return (
@@ -527,6 +528,14 @@ function App() {
 
           {/* Restaurant related routes */}
           <Route
+            path="restaurant/tables"
+            element={
+              <Protected>
+                <Tables />
+              </Protected>
+            }
+          />
+          <Route
             path="restaurant/kitchen_display"
             element={
               <Protected>
@@ -550,7 +559,8 @@ function App() {
               </Protected>
             }
           />
-          <Route
+
+          {/* <Route
             path="table/section"
             element={
               <Protected>
@@ -558,14 +568,7 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="table/tables"
-            element={
-              <Protected>
-                <Tables />
-              </Protected>
-            }
-          />
+          
           <Route
             path="table/rooms"
             element={
@@ -573,7 +576,7 @@ function App() {
                 <RoomService />
               </Protected>
             }
-          />
+          /> */}
         </Route>
 
         <Route element={<OnboardingLayout />}>
@@ -636,6 +639,7 @@ function App() {
           />
         </Route>
         <Route path="*" element={<p>There&apos;s nothing here: 404!</p>} />
+        <Route path="view_pdf" element={<Viewer />} />
       </Routes>
     </BrowserRouter>
   );

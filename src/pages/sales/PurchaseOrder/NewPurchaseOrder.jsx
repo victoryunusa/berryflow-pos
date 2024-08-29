@@ -94,7 +94,7 @@ const NewPurchaseOrder = () => {
   const { taxes } = useSelector((state) => state.taxes);
   var newTaxes = taxes.map(function (obj) {
     return {
-      value: obj.id,
+      value: obj.tax_option_constant,
       label: obj.label + " -" + obj.total_tax_percentage + "%",
     };
   });

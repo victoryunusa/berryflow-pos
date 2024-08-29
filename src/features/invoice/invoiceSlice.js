@@ -1,22 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import customerService from "./customerService";
+import invoiceService from "./invoiceService";
 
 const initialState = {
-  customers: [],
+  invoices: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
 
-//Get products
-
-export const getCustomers = createAsyncThunk(
-  "api/get_customers",
+//Get Accounts
+export const getInvoices = createAsyncThunk(
+  "api/get_invoices",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await customerService.getCustomers({ token, formData });
+      return await invoiceService.getInvoices({ token, formData });
     } catch (error) {
       const message =
         (error.response &&
@@ -29,12 +28,12 @@ export const getCustomers = createAsyncThunk(
   }
 );
 
-export const addCustomer = createAsyncThunk(
-  "api/add_customer",
+export const addInvoice = createAsyncThunk(
+  "api/add_invoice",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await customerService.addCustomer({ token, formData });
+      return await invoiceService.addInvoice({ token, formData });
     } catch (error) {
       const message =
         (error.response &&
@@ -47,36 +46,36 @@ export const addCustomer = createAsyncThunk(
   }
 );
 
-export const customerSlice = createSlice({
-  name: "customers",
+export const invoiceSlice = createSlice({
+  name: "invoices",
   initialState,
   reducers: {
-    reset: () => initialState,
+    reset: (state) => initialState,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getCustomers.pending, (state) => {
+      .addCase(getInvoices.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getCustomers.fulfilled, (state, action) => {
+      .addCase(getInvoices.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.customers = action.payload;
+        state.invoices = action.payload;
       })
-      .addCase(getCustomers.rejected, (state, action) => {
+      .addCase(getInvoices.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.customers = [];
+        state.invoices = [];
       })
-      .addCase(addCustomer.pending, (state) => {
+      .addCase(addInvoice.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addCustomer.fulfilled, (state) => {
+      .addCase(addInvoice.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(addCustomer.rejected, (state, action) => {
+      .addCase(addInvoice.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
@@ -84,5 +83,5 @@ export const customerSlice = createSlice({
   },
 });
 
-export const { reset } = customerSlice.actions;
-export default customerSlice.reducer;
+export const { reset } = invoiceSlice.actions;
+export default invoiceSlice.reducer;

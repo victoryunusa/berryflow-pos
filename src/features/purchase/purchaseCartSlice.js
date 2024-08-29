@@ -6,6 +6,7 @@ const initialState = {
   purchaseOrderItems: items ? JSON.parse(items) : [],
   orderItemsTotalQunatity: 0,
   orderItemsTotalAmount: 0,
+  orderItemsTotalDiscount: 0,
 };
 export const purchaseCartSlice = createSlice({
   name: "purchase_order_items",

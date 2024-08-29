@@ -29,9 +29,11 @@ import billinCounterStatReducer from "../features/business_register/billingCount
 import invoicePrintTypesReducer from "../features/master_actions/invoicePrintTypeSlice";
 import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
+import invoiceItemsReducer from "../features/invoice/invoiceCartSlice";
 import rolesReducer from "../features/role/roleSlice";
 import usersReducer from "../features/users/usersSlice";
 import purchaseOrderReducer from "../features/purchase/purchaseOrderSlice";
+import invoicesReducer from "../features/invoice/invoiceSlice";
 import customersReducer from "../features/customer/customerSlice";
 import permissionsReducer from "../features/permissions/permissionsSlice";
 import paymentMethodReducer from "../features/payment_method/paymentMethodSlice";
@@ -71,9 +73,11 @@ export const store = configureStore({
     branches: branchesReducer,
     vendor: vendorReducer,
     purchase_order_items: purchaseOrderItemsReducer,
+    invoice_items: invoiceItemsReducer,
     roles: rolesReducer,
     users: usersReducer,
     purchase_orders: purchaseOrderReducer,
+    invoices: invoicesReducer,
     customers: customersReducer,
     permissionsList: permissionsReducer,
     payment_methods: paymentMethodReducer,

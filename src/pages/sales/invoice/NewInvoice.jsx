@@ -8,27 +8,28 @@ import { getTaxes } from "../../../features/tax/taxSlice";
 import { getIngredients } from "../../../features/ingredients/ingredientsSlice";
 import Selector from "../../../components/common/Selector";
 import OrderSelect from "../../../components/common/OrderSelect";
-import {
-  addItem,
-  clearOrderItems,
-  decreaseOrderItem,
-  getOrderItemTotals,
-  updateUnitPrice,
-  getOrderItems,
-  removeOrderItem,
-  updateDiscountPrice,
-  updateQuantity,
-} from "../../../features/purchase/purchaseCartSlice";
-import {
-  addPurchaseOrder,
-  getPurchaseOrders,
-} from "../../../features/purchase/purchaseOrderSlice";
+
 import AddIngredient from "../../../components/modals/AddIngredient";
 import AddTax from "../../../components/modals/AddTax";
 import AddSupplier from "../../../components/modals/AddSupplier";
 import { alertActions } from "../../../app/store";
 import { getProducts } from "../../../features/products/productSlice";
 import axios from "axios";
+import {
+  addItem,
+  clearInvoiceItems,
+  decreaseInvoiceItem,
+  getInvoiceItemTotals,
+  getInvoiceItems,
+  removeInvoiceItem,
+  updateDiscountPrice,
+  updateQuantity,
+  updateUnitPrice,
+} from "../../../features/invoice/invoiceCartSlice";
+import {
+  addInvoice,
+  getInvoices,
+} from "../../../features/invoice/invoiceSlice";
 
 const CustomInputComponent = ({ field, ...props }) => (
   <div>
@@ -42,15 +43,14 @@ const NewInvoice = () => {
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const initialValues = {
-    supplier_id: "",
-    po_number: "",
-    po_reference: "",
-    po_order_date: "",
-    po_due_date: "",
-    supplier_currency: "",
+    bill_to: "",
+    bill_to_slug: "",
+    invoice_reference: "",
+    invoice_date: "",
+    invoice_due_date: "",
+    currency: "",
     tax_option: "",
     terms: "",
-    update_stock: "",
     shipping_charge: "",
     packing_charge: "",
     total: "",
@@ -59,12 +59,12 @@ const NewInvoice = () => {
 
   // Set initial values
   const validationSchema = Yup.object().shape({
-    supplier_id: Yup.string().required("This field is required!"),
-    po_number: Yup.string().required("This field is required!"),
-    po_reference: Yup.string().required("This field is required!"),
-    po_order_date: Yup.string().required("This field is required!"),
-    po_due_date: Yup.string().required("This field is required!"),
-    supplier_currency: Yup.string().required("This field is required!"),
+    bill_to: Yup.string().required("This field is required!"),
+    bill_to_slug: Yup.string().required("This field is required!"),
+    invoice_reference: Yup.string().required("This field is required!"),
+    invoice_date: Yup.string().required("This field is required!"),
+    invoice_due_date: Yup.string().required("This field is required!"),
+    currency: Yup.string().required("This field is required!"),
   });
 
   const [loading, setLoading] = useState(false);
@@ -72,10 +72,11 @@ const NewInvoice = () => {
   const [openTax, setOpenTax] = useState(false);
   const [openVendor, setOpenVendor] = useState(false);
   const [items, setItems] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
 
   const dispatch = useDispatch();
 
-  const { suppliers } = useSelector((state) => state.suppliers);
   const { token } = useSelector((state) => state.auth);
 
   const { countries } = useSelector((state) => state.countries);
@@ -94,34 +95,54 @@ const NewInvoice = () => {
   const { taxes } = useSelector((state) => state.taxes);
   var newTaxes = taxes.map(function (obj) {
     return {
-      value: obj.id,
+      value: obj.tax_option_constant,
       label: obj.label + " -" + obj.total_tax_percentage + "%",
     };
   });
   const { ingredients } = useSelector((state) => state.ingredients);
-
-  var newArray = suppliers.map(function (obj) {
-    return { value: obj.slug, label: obj.name };
-  });
 
   var options = [
     { value: "SUPPLIER", label: "Supplier" },
     { value: "CUSTOMER", label: "Customer" },
   ];
 
-  const cartItems = useSelector(getOrderItems);
+  var newSuppliers = suppliers.map(function (obj) {
+    return { value: obj.slug, label: obj.name };
+  });
 
-  const { orderItemsTotalAmount } = useSelector(
-    (state) => state.purchase_order_items
+  var newCustomers = customers.map(function (obj) {
+    return { value: obj.slug, label: obj.name };
+  });
+
+  const cartItems = useSelector(getInvoiceItems);
+
+  const { invoiceItemsTotalAmount } = useSelector(
+    (state) => state.invoice_items
   );
 
-  const loadProducts = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
+  const loadSuppliers = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/suppliers/loadSuppliers`,
+      config
+    );
+    setSuppliers(response.data.suppliers);
+  };
+
+  const loadCustomers = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/customers/loadCustomers`,
+      config
+    );
+    setCustomers(response.data.customers);
+  };
+
+  const loadProducts = async () => {
     const response = await axios.get(
       `${BaseUrl}/products/load_products`,
       config
@@ -130,14 +151,12 @@ const NewInvoice = () => {
     setItems(response.data.products);
   };
 
-  console.log(items);
-
   useEffect(() => {
-    dispatch(clearOrderItems());
+    dispatch(clearInvoiceItems());
   }, []);
 
   useEffect(() => {
-    dispatch(getOrderItemTotals());
+    dispatch(getInvoiceItemTotals());
   }, [cartItems, dispatch]);
 
   useEffect(() => {
@@ -146,6 +165,8 @@ const NewInvoice = () => {
 
   useEffect(() => {
     loadProducts();
+    loadSuppliers();
+    loadCustomers();
   }, []);
 
   useEffect(() => {
@@ -167,11 +188,11 @@ const NewInvoice = () => {
 
   //Decrease product quantity
   const handleDecreaseCart = (item) => {
-    dispatch(decreaseOrderItem(item));
+    dispatch(decreaseInvoiceItem(item));
   };
 
   const handleRemoveFromCart = (cartItem) => {
-    dispatch(removeOrderItem(cartItem));
+    dispatch(removeInvoiceItem(cartItem));
   };
 
   const handleChangeUnitPrice = ({ slug, value }) => {
@@ -188,16 +209,16 @@ const NewInvoice = () => {
 
   const handleSubmit = async (formValue) => {
     const {
-      supplier_id,
-      po_number,
-      po_reference,
-      po_order_date,
-      po_due_date,
-      supplier_currency,
+      bill_to,
+      bill_to_slug,
+      invoice_reference,
+      invoice_date,
+      invoice_due_date,
+      currency,
       tax_option,
-      update_stock,
       shipping_charge,
       packing_charge,
+      terms,
     } = formValue;
 
     dispatch(alertActions.clear());
@@ -205,19 +226,19 @@ const NewInvoice = () => {
       setLoading(true);
 
       await dispatch(
-        addPurchaseOrder({
-          supplier_id: supplier_id,
-          po_number: po_number,
-          po_reference: po_reference,
-          order_date: po_order_date,
-          order_due_date: po_due_date,
-          supplier_currency: supplier_currency,
+        addInvoice({
+          bill_to,
+          bill_to_slug: bill_to_slug,
+          invoice_reference: invoice_reference,
+          invoice_date: invoice_date,
+          invoice_due_date: invoice_due_date,
+          currency: currency,
           tax_option: tax_option,
-          update_stock: update_stock,
           shipping_charge: shipping_charge,
           packing_charge: packing_charge,
           products: cartItems,
           tax_type: "",
+          terms: terms,
         })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
@@ -230,7 +251,7 @@ const NewInvoice = () => {
       );
       // navigate("/suppliers");
       window.location.reload(true);
-      dispatch(getPurchaseOrders());
+      dispatch(getInvoices());
       setLoading(false);
     } catch (error) {
       dispatch(alertActions.error(error));
@@ -244,7 +265,7 @@ const NewInvoice = () => {
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-2 items-center">
             <Link
-              to="/finance/invoice"
+              to="/finance/invoices"
               className="text-lg font-bold text-gray-500 "
             >
               Invoice
@@ -253,7 +274,7 @@ const NewInvoice = () => {
             <h3 className="text-lg font-bold text-gray-700">Add Invoice</h3>
           </div>
         </div>
-        <div className="bg-white p-10 rounded-lg text-sm border">
+        <div className="bg-white p-5 md:p-10 rounded-lg text-sm border">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
@@ -288,15 +309,19 @@ const NewInvoice = () => {
                       </label>
 
                       <Selector
-                        options={newArray}
-                        value={values.supplier_id}
+                        options={
+                          values.bill_to == "SUPPLIER"
+                            ? newSuppliers
+                            : newCustomers
+                        }
+                        value={values.bill_to_slug}
                         setFieldValue={setFieldValue}
-                        name="supplier_id"
+                        name="bill_to_slug"
                         errors={errors}
                         touched={touched}
                       />
                       <ErrorMessage
-                        name="supplier_id"
+                        name="bill_to_slug"
                         component="div"
                         className="text-red-500 text-sm"
                       />
@@ -309,7 +334,7 @@ const NewInvoice = () => {
                       </label>
                       <Field
                         type="text"
-                        placeholder="PO Reference #"
+                        placeholder=""
                         autoComplete="off"
                         name="invoice_reference"
                         className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
@@ -376,7 +401,7 @@ const NewInvoice = () => {
                       </label>
                       <Selector
                         options={newCurrencies}
-                        value={values.supplier_currency}
+                        value={values.currency}
                         setFieldValue={setFieldValue}
                         name="currency"
                       />
@@ -411,7 +436,7 @@ const NewInvoice = () => {
                     </div>
                   </div>
 
-                  <div className="mt-4">
+                  {/* <div className="mt-4">
                     <div className="flex items-center mb-1">
                       <Field
                         type="checkbox"
@@ -426,17 +451,17 @@ const NewInvoice = () => {
                       If this option is enabled, product stock will be updated
                       when the purchase order is closed.
                     </p>
-                  </div>
+                  </div> */}
                   <div className="grid grid-cols-1 md:grid-cols-1 gap-3 mt-4">
                     <div className="flex flex-col">
                       <label className="block text-nelsa_primary font-semibold mb-1">
-                        Select Ingredient
-                        <span
+                        Select Item
+                        {/* <span
                           onClick={() => setOpenIngredient(true)}
                           className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
                         >
                           Add new
-                        </span>
+                        </span> */}
                       </label>
 
                       <OrderSelect
@@ -456,7 +481,7 @@ const NewInvoice = () => {
                             Quantity
                           </th>
                           <th scope="col" className="px-6 py-3">
-                            Unit Price
+                            Price
                           </th>
                           <th scope="col" className="px-6 py-3">
                             Discount %
@@ -558,10 +583,6 @@ const NewInvoice = () => {
                                     }
                                     className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
                                   />
-                                  /
-                                  {cartItem?.storage_unit?.unit_code != null
-                                    ? cartItem?.storage_unit?.unit_code
-                                    : "Item"}
                                 </div>
                               </td>
                               <td scope="col" className="px-6 py-3">
@@ -666,7 +687,7 @@ const NewInvoice = () => {
                             autoComplete="off"
                             name="total"
                             value={
-                              orderItemsTotalAmount +
+                              invoiceItemsTotalAmount +
                               values.shipping_charge +
                               values.packing_charge
                             }

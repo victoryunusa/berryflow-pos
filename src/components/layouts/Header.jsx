@@ -100,7 +100,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="w-4/5 flex flex-row justify-end items-center space-x-5">
+        <div className="flex flex-row justify-end items-center space-x-5">
           <div className="relative z-50 hidden md:block">
             <button
               className="flex flex-row items-center space-x-2 hover:cursor-pointer border rounded-md px-3 py-2"

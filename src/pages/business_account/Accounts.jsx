@@ -66,11 +66,19 @@ const Accounts = () => {
                             {account.account_code}
                           </td>
                           <td className="px-2 py-3">{account.label}</td>
-                          <td className="px-2 py-3">{account.account_type}</td>
-                          <td className=" whitespace-nowrap px-2 py-3">
-                            {account.pos_default}
+                          <td className="px-2 py-3">
+                            {account?.account_type_data != null
+                              ? account?.account_type_data?.label
+                              : "--"}
                           </td>
-                          <td className="px-2 py-3">{account.status}</td>
+                          <td className=" whitespace-nowrap px-2 py-3">
+                            {account.pos_default == 1 ? "Yes" : "No"}
+                          </td>
+                          <td className="px-2 py-3">
+                            {account?.status_data
+                              ? account?.status_data.label
+                              : "--"}
+                          </td>
                           <td className=" whitespace-nowrap px-2 py-3">
                             {account.created_at}
                           </td>

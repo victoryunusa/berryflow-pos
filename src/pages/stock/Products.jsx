@@ -33,7 +33,7 @@ const Products = () => {
           <div>
             <button
               onClick={() => setVisible(true)}
-              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+              className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md"
             >
               Add New
             </button>

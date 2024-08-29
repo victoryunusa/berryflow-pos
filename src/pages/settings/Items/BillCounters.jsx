@@ -54,55 +54,42 @@ const BillCounters = () => {
           <div className="flex flex-col overflow-x-auto">
             <div className="">
               <div className="inline-block w-full py-2 sm:px-2 lg:px-4">
-                <div className="overflow-x-auto rounded-md">
+                <div className="overflow-x-auto">
                   <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
-                    <thead className="text-md text-neutral-700 capitalize bg-neutral-200 border-b">
+                    <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
                       <tr>
-                        <th scope="col" className="p-4">
-                          <div className="flex items-center">
-                            <input
-                              type="checkbox"
-                              className="w-4 h-4 text-blue-600 bg-neutral-100 border-neutral-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label className="sr-only">checkbox</label>
-                          </div>
-                        </th>
-                        <th className="px-2 py-4">Counter Code</th>
-                        <th className="px-2 py-4">Counter Name</th>
-                        <th className="px-2 py-4">Status</th>
-                        <th className="px-2 py-4">Created On</th>
-                        <th className="px-2 py-4">Created By</th>
+                        <th className="px-2 py-3">Counter Code</th>
+                        <th className="px-2 py-3">Counter Name</th>
+                        <th className="px-2 py-3">Status</th>
+                        <th className="px-2 py-3">Created On</th>
+                        <th className="px-2 py-3">Created By</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
                       {bill_counters?.map((bill_counter, index) => (
                         <tr
-                          className="odd:bg-white even:bg-neutral-50 border-b font-medium text-sm cursor-pointer hover:bg-neutral-100"
+                          className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
                           key={index}
-                          onClick={() => showProduct(product.slug)}
                         >
-                          <td className="w-4 p-4">
-                            <div className="flex items-center">
-                              <input
-                                type="checkbox"
-                                className="w-4 h-4 text-blue-600 bg-neutral-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                              />
-                              <label className="sr-only">checkbox</label>
-                            </div>
-                          </td>
-                          <td className="px-2 py-4 font-bold">
+                          <td className="px-2 py-3 font-bold">
                             {bill_counter.billing_counter_code}
                           </td>
-                          <td className="px-2 py-4">
+                          <td className="px-2 py-3">
                             {bill_counter.counter_name}
                           </td>
-                          <td className="px-2 py-4">{bill_counter.status}</td>
-                          <td className=" whitespace-nowrap px-2 py-4">
+                          <td className="px-2 py-3">
+                            {bill_counter?.status_data
+                              ? bill_counter?.status_data?.label
+                              : "--"}
+                          </td>
+                          <td className=" whitespace-nowrap px-2 py-3">
                             {bill_counter.created_at}
                           </td>
-                          <td className="px-2 py-4">
-                            {bill_counter.created_by}
+                          <td className="px-2 py-3">
+                            {bill_counter?.created_user
+                              ? bill_counter?.created_user?.full_name
+                              : "--"}
                           </td>
 
                           <td className="">
