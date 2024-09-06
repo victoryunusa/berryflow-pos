@@ -75,3 +75,34 @@ export const play_notification = () => {
   var audio = new Audio(notification);
   audio.play();
 };
+
+export const distance = (lat1, lng1, lat2, lng2) => {
+  let radiationLat1 = (Math.PI * lat1) / 180;
+  let radiationLat2 = (Math.PI * lat2) / 180;
+  let theta = lng1 - lng2;
+  let radiationTheta = (Math.PI * theta) / 180;
+  let distance =
+    Math.sin(radiationLat1) * Math.sin(radiationLat2) +
+    Math.cos(radiationLat1) *
+      Math.cos(radiationLat2) *
+      Math.cos(radiationTheta);
+  distance = Math.acos(distance);
+  distance = (distance * 180) / Math.PI;
+  distance = distance * 60 * 1.1515;
+  distance = distance * 1.609344;
+  return distance;
+};
+
+export const order_status_class = (status) => {
+  if (status == "accepted" || status == "processing") {
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#2AC769] bg-[#CBFFE0]";
+  } else if (status == "pending") {
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#F6A609] bg-[#FFEEC6]";
+  } else if (status == "out-for-delivery") {
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#008BBA] bg-[#BDEFFF]";
+  } else if (status == "delivered") {
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-nelsa_primary bg-[#FFD7E7]";
+  } else {
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#FB4E4E] bg-[#FFDADA]";
+  }
+};

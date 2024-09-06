@@ -62,6 +62,9 @@ const AddBusinessRegister = () => {
       <div className="flex flex-row justify-between">
         <div className="">
           <h3 className="text-lg font-bold text-gray-700">Open register</h3>
+          <p className="text-xs text-neutral-400">
+            Select the plan that you want to subscribe to
+          </p>
         </div>
         {/* <div className="flex flex-row gap-3">
           <button className="flex items-center px-4 py-3 rounded-md bg-blue-700 text-white text-xs font-bold">

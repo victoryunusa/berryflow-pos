@@ -4,6 +4,7 @@ import accountReducer from "../features/account/accountSlice";
 import { alertReducer } from "../features/alert/alertSlice";
 import cartReducer from "../features/pos/cartSlice";
 import countriesReducer from "../features/countries/countriesSlice";
+import currenciesReducer from "../features/currencies/currenciesSlice";
 import statesReducer from "../features/states/statesSlice";
 import suppliersReducer from "../features/suppliers/suppliersSlice";
 import categoriesReducer from "../features/category/categoriesSlice";
@@ -57,6 +58,7 @@ export const store = configureStore({
     business_registers: businessRegisterReducer,
     invoice_print_types: invoicePrintTypesReducer,
     countries: countriesReducer,
+    currencies: currenciesReducer,
     suppliers: suppliersReducer,
     categories: categoriesReducer,
     units: unitsReducer,

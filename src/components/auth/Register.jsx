@@ -11,14 +11,14 @@ import { alertActions } from "../../app/store";
 import { register } from "../../features/auth/authSlice";
 
 const Register = () => {
-  const { countries } = useSelector((state) => state.countries);
+  // const { countries } = useSelector((state) => state.countries);
 
-  const [countryId, setCountryId] = useState(158);
-  const [isOpenCountriesList, setIsOpenCountriesList] = useState(false);
+  // const [countryId, setCountryId] = useState(158);
+  // const [isOpenCountriesList, setIsOpenCountriesList] = useState(false);
 
-  const countryIndex = countries.find(
-    (getCountry) => getCountry.id == countryId
-  );
+  // const countryIndex = countries.find(
+  //   (getCountry) => getCountry.id == countryId
+  // );
 
   const initialValues = {
     email: "",

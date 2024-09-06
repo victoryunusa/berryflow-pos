@@ -74,6 +74,7 @@ import OnlineOrders from "./pages/sales/OnlineOrders";
 import SingleOrder from "./pages/sales/SingleOrder";
 import NewInvoice from "./pages/sales/invoice/NewInvoice";
 import Viewer from "./pages/pdf/Viewer";
+import Billing from "./pages/subscription/Billing";
 
 function App() {
   return (
@@ -577,6 +578,22 @@ function App() {
               </Protected>
             }
           /> */}
+          <Route
+            path="billing"
+            element={
+              <Protected>
+                <Billing />
+              </Protected>
+            }
+          />
+          <Route
+            path="billing/subscription"
+            element={
+              <Protected>
+                <Billing />
+              </Protected>
+            }
+          />
         </Route>
 
         <Route element={<OnboardingLayout />}>

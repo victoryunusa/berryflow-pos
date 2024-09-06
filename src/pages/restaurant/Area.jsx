@@ -40,6 +40,9 @@ const Area = () => {
             <h3 className="text-lg font-bold text-gray-700">
               Areas (Floor Plan)
             </h3>
+            <p className="text-xs text-neutral-400">
+              Select the plan that you want to subscribe to
+            </p>
           </div>
           <div>
             <button

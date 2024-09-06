@@ -14,7 +14,8 @@ const SideNav = () => {
           className="flex flex-row py-[21.5px] space-x-6 items-center justify-center md:justify-start md:px-6 border-b border-neutral-600 w-full"
         >
           <span className="">
-            <img className="w-28" src={logo} alt="CaterOS" />
+            {/* <img className="w-28" src={logo} alt="CaterOS" /> */}
+            <h4 className="text-2xl font-bold text-white">TrueTab</h4>
           </span>
         </Link>
         <div className="flex flex-col space-y-2 flex-grow">

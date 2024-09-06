@@ -5,14 +5,15 @@ const Dashboard = () => {
   const { user } = useSelector((state) => state.user);
 
   const { countries } = useSelector((state) => state.countries);
+  const { currencies } = useSelector((state) => state.currencies);
   const { branches } = useSelector((state) => state.branches);
 
   const activeBranch = branches?.find(
     (branch) => branch.id === user?.branch_id
   );
 
-  const currency = countries?.find(
-    (country) => country.id === activeBranch?.currency_id
+  const currency = currencies?.find(
+    (currency) => currency.id === activeBranch?.currency_id
   );
 
   return (
@@ -82,7 +83,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-semibold text-3xl text-gray-800">
-                {currency?.currency_symbol}300,000,000.00
+                {currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>
@@ -104,7 +105,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h2 className="font-normal text-3xl text-gray-800">0</h2>
+              <h2 className="font-semibold text-3xl text-gray-800">0</h2>
               <span>
                 <p className="text-xs">0% change from last month</p>
               </span>
@@ -125,8 +126,8 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h2 className="font-normal text-3xl text-gray-800">
-                {currency?.currency_symbol}0.00
+              <h2 className="font-semibold text-3xl text-gray-800">
+                {currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>
@@ -148,8 +149,8 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="">
-              <h2 className="font-normal text-3xl text-gray-800">
-                {currency?.currency_symbol}0.00
+              <h2 className="font-semibold text-3xl text-gray-800">
+                {currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>

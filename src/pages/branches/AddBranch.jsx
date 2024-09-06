@@ -97,7 +97,7 @@ const AddBranch = () => {
 
       await dispatch(addBranch(formValue)).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
-      navigate("/settings/branches");
+      navigate("/manage/branches");
 
       setLoading(false);
     } catch (error) {
@@ -111,13 +111,16 @@ const AddBranch = () => {
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-row gap-2 items-center">
           <Link
-            to="/settings/branches"
+            to="/manage/branches"
             className="text-lg font-bold text-gray-500 "
           >
             Branches
           </Link>
           {"/"}
           <h3 className="text-lg font-bold text-gray-700">Add Branch</h3>
+          <p className="text-xs text-neutral-400">
+            Select the plan that you want to subscribe to
+          </p>
         </div>
       </div>
       <div className="bg-white p-10 rounded-lg text-sm">

@@ -18,6 +18,9 @@ const SingleOrder = () => {
           </div>
           <div>
             <h3 className="font-bold text-lg text-neutral-7">Order Details</h3>
+            <p className="text-xs text-neutral-400">
+              Select the plan that you want to subscribe to
+            </p>
           </div>
         </div>
       </div>

@@ -32,10 +32,12 @@ import { getModules } from "./features/master_actions/modulesSlice";
 import { getOrderTypes } from "./features/master_actions/orderTypeSlice";
 import { getAccountTypes } from "./features/master_actions/accountTypeSlice";
 import { getTransactionTypes } from "./features/master_actions/transactionTypeSlice";
+import { getCurrencies } from "./features/currencies/currenciesSlice";
 
 document.title = "Cloud based POS System - CaterOS";
 
 store.dispatch(getCountries());
+store.dispatch(getCurrencies());
 store.dispatch(getAccountTypes());
 store.dispatch(getTransactionTypes());
 store.dispatch(getBillingTypes());

@@ -216,9 +216,10 @@ const Header = () => {
               <div className="absolute top-12 right-0 z-50 transition ease-in duration-700">
                 <div className="w-64 rounded-lg shadow-md my-2 pin-t pin-l bg-white border">
                   <ul className="list-reset overflow-y-scroll p-2">
-                    <li
+                    <Link
+                      to="/billing"
                       onClick={() => setIsOpenProfile(!isOpenProfile)}
-                      className="hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md  cursor-pointer"
+                      className="flex w-full hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md  cursor-pointer"
                     >
                       <span className="flex flex-row items-center justify-between">
                         <span className="flex items-center space-x-3">
@@ -228,7 +229,7 @@ const Header = () => {
                           </p>
                         </span>
                       </span>
-                    </li>
+                    </Link>
                     <li
                       onClick={() => setIsOpenProfile(!isOpenProfile)}
                       className="hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md  cursor-pointer"

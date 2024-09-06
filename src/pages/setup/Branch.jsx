@@ -27,7 +27,7 @@ const Branch = () => {
     secondary_contact: "",
     secondary_email: "",
     address: "",
-    country: "158",
+    country: "",
     enable_restaurant_mode: "",
     billing_type: "",
     waiter_role: "",
@@ -51,6 +51,7 @@ const Branch = () => {
   const validationSchema = Yup.object().shape(
     {
       name: Yup.string().required("Branch name is required!"),
+      country: Yup.string().required("Country is required!"),
       currency: Yup.string().required("Currency is required!"),
       enable_printnode: Yup.string().nullable(),
       printnode_api: Yup.string()
@@ -70,15 +71,17 @@ const Branch = () => {
 
   const { countries } = useSelector((state) => state.countries);
 
+  const { currencies } = useSelector((state) => state.currencies);
+
   var newArray = countries.map(function (obj) {
     return {
       value: obj.id,
-      label: obj.name + " - " + obj.currency_code,
+      label: obj.name,
     };
   });
 
-  var newArray2 = countries.map(function (obj) {
-    return { value: obj.dial_code, label: obj.dial_code };
+  var newArray2 = currencies.map(function (obj) {
+    return { value: obj.id, label: obj.name + "-" + obj.code };
   });
 
   const { billing_types } = useSelector((state) => state.billing_types);
@@ -87,8 +90,8 @@ const Branch = () => {
     (state) => state.invoice_print_types
   );
 
-  const currencies = countries?.filter(
-    (currency) => currency.currency_name !== "" || currency.currency_code !== ""
+  var newCurrencies = currencies?.filter(
+    (currency) => currency.currency_name !== "" || currency.code !== ""
   );
 
   const handleSubmit = async (formValue) => {
@@ -171,10 +174,10 @@ const Branch = () => {
 
               <div className="mt-4">
                 <label className="block text-nelsa_primary text-sm font-semibold">
-                  Country currency<span className="text-red-600">*</span>
+                  Currency<span className="text-red-600">*</span>
                 </label>
                 <Selector
-                  options={newArray}
+                  options={newArray2}
                   value={values.currency}
                   setFieldValue={setFieldValue}
                   name="currency"
@@ -182,6 +185,24 @@ const Branch = () => {
 
                 <ErrorMessage
                   name="currency"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block text-nelsa_primary text-sm font-semibold">
+                  Country<span className="text-red-600">*</span>
+                </label>
+                <Selector
+                  options={newArray}
+                  value={values.country}
+                  setFieldValue={setFieldValue}
+                  name="country"
+                />
+
+                <ErrorMessage
+                  name="country"
                   component="div"
                   className="text-red-500 text-sm"
                 />

@@ -33,7 +33,8 @@ const AuthLayout = () => {
       <main className="flex-1 ">
         <div className="flex flex-col justify-center items-center space-y-5 h-screen">
           <div className="flex items-center justify-center">
-            <img className="w-[8.5rem]" src={logo} alt="logo" />
+            {/* <img className="w-[8.5rem]" src={logo} alt="logo" /> */}
+            <h4 className="text-2xl font-bold text-nelsa_primary">TrueTab</h4>
           </div>
           <div className="md:w-[28rem] w-[22rem] bg-white rounded-xl md:p-10 p-7">
             <Outlet />

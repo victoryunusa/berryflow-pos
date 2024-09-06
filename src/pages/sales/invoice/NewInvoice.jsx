@@ -272,6 +272,9 @@ const NewInvoice = () => {
             </Link>
             {"/"}
             <h3 className="text-lg font-bold text-gray-700">Add Invoice</h3>
+            <p className="text-xs text-neutral-400">
+              Select the plan that you want to subscribe to
+            </p>
           </div>
         </div>
         <div className="bg-white p-5 md:p-10 rounded-lg text-sm border">

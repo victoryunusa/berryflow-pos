@@ -81,55 +81,55 @@ const Branches = () => {
             <h3 className="text-lg font-bold text-gray-700">
               Settings/Branches
             </h3>
+            <p className="text-xs text-neutral-400">
+              Select the plan that you want to subscribe to
+            </p>
+          </div>
+          <div className="flex flex-row justify-end items-center">
+            <Link to="/manage/branches/add">
+              <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
+                Add New
+              </button>
+            </Link>
           </div>
         </div>
-        <div className="flex flex-row space-x-5">
-          <div className="w-full p-10 bg-white rounded-lg">
-            <div className="flex flex-col space-y-5">
-              <div className="flex flex-row justify-end items-center">
-                <Link to="/settings/branches/add">
-                  <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
-                    Add new
-                  </button>
-                </Link>
-              </div>
-              <div className="bg-white border p-5 rounded-lg text-xs">
-                <DataTable
-                  value={branches}
-                  stripedRows
-                  paginator
-                  rows={10}
-                  size="small"
-                  tableStyle={{ minWidth: "50rem" }}
-                  className="text-sm font-manrope rounded-lg"
-                >
-                  <Column field="store_code" header="Branch Code"></Column>
-                  <Column field="name" header="Name"></Column>
-                  <Column
-                    field="created_at"
-                    header="Created On"
-                    body={dateBodyTemplate}
-                  ></Column>
-                  <Column
-                    field="updated_at"
-                    header="Updated On"
-                    body={dateBodyTemplate}
-                  ></Column>
-                  <Column field="created_by" header="Created By"></Column>
-                  <Column
-                    field="status"
-                    body={statusBodyTemplate}
-                    header="Status"
-                  ></Column>
-                  <Column
-                    body={actionBodyTemplate}
-                    className="w-1/12"
-                    exportable={false}
-                    header="Action"
-                  ></Column>
-                </DataTable>
-              </div>
-            </div>
+
+        <div className="flex flex-col space-y-5">
+          <div className="bg-white border p-5 rounded-lg text-xs">
+            <DataTable
+              value={branches}
+              stripedRows
+              paginator
+              rows={10}
+              size="small"
+              tableStyle={{ minWidth: "50rem" }}
+              className="text-sm font-manrope rounded-lg"
+            >
+              <Column field="store_code" header="Branch Code"></Column>
+              <Column field="name" header="Name"></Column>
+              <Column
+                field="created_at"
+                header="Created On"
+                body={dateBodyTemplate}
+              ></Column>
+              <Column
+                field="updated_at"
+                header="Updated On"
+                body={dateBodyTemplate}
+              ></Column>
+              <Column field="created_by" header="Created By"></Column>
+              <Column
+                field="status"
+                body={statusBodyTemplate}
+                header="Status"
+              ></Column>
+              <Column
+                body={actionBodyTemplate}
+                className="w-1/12"
+                exportable={false}
+                header="Action"
+              ></Column>
+            </DataTable>
           </div>
         </div>
       </div>

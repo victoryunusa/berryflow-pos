@@ -32,6 +32,9 @@ const BusinessRegister = () => {
             <h3 className="text-lg font-bold text-gray-700 ">
               Business Registers
             </h3>
+            <p className="text-xs text-neutral-400">
+              Select the plan that you want to subscribe to
+            </p>
           </div>
           <div>
             <div className="px-3 py-2 bg-neutral-100 text-neutral-100 text-small font-semibold rounded-md">
