@@ -75,6 +75,7 @@ import SingleOrder from "./pages/sales/SingleOrder";
 import NewInvoice from "./pages/sales/invoice/NewInvoice";
 import Viewer from "./pages/pdf/Viewer";
 import Billing from "./pages/subscription/Billing";
+import Subscribe from "./pages/subscription/Subscribe";
 
 function App() {
   return (
@@ -590,7 +591,7 @@ function App() {
             path="billing/subscription"
             element={
               <Protected>
-                <Billing />
+                <Subscribe />
               </Protected>
             }
           />

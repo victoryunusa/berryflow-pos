@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import * as HeIcons from "react-icons/fa6";
 import { useMediaQuery } from "react-responsive";
-import logo from "../../assets/images/Nelsa_logo1.svg";
+import logo from "../../assets/images/truetab-white.svg";
 import { NavLink, useLocation } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import { subMenusList } from "./SidebarData";

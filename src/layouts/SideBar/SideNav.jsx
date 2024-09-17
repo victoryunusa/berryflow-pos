@@ -3,19 +3,19 @@ import * as HeIcons from "react-icons/fa6";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import { subMenusList } from "./SidebarData";
-import logo from "../../assets/images/logo-white.svg";
+import logo from "../../assets/images/truetab-white.svg";
 
 const SideNav = () => {
   return (
-    <div className="md:w-64 bg-nelsa_primary h-screen flex-1 fixed border-r border-neutral-600 hidden md:flex">
+    <div className="md:w-64 bg-nelsa_secondary h-screen flex-1 fixed hidden md:flex">
       <div className="flex flex-col space-y-6 w-full ">
         <Link
           href="/"
-          className="flex flex-row py-[21.5px] space-x-6 items-center justify-center md:justify-start md:px-6 border-b border-neutral-600 w-full"
+          className="flex flex-row py-[21.5px] space-x-6 items-center justify-center md:justify-start md:px-6 w-full"
         >
           <span className="">
-            {/* <img className="w-28" src={logo} alt="CaterOS" /> */}
-            <h4 className="text-2xl font-bold text-white">TrueTab</h4>
+            <img className="w-28" src={logo} alt="CaterOS" />
+            {/* <h4 className="text-2xl font-bold text-white">TrueTab</h4> */}
           </span>
         </Link>
         <div className="flex flex-col space-y-2 flex-grow">

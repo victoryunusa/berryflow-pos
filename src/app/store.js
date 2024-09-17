@@ -5,6 +5,9 @@ import { alertReducer } from "../features/alert/alertSlice";
 import cartReducer from "../features/pos/cartSlice";
 import countriesReducer from "../features/countries/countriesSlice";
 import currenciesReducer from "../features/currencies/currenciesSlice";
+import subscriptionPlanReducer from "../features/subscription_plan/subscriptionPlanSlice";
+import gatewaysReducer from "../features/payment_gateways/paymentGatewaySlice";
+
 import statesReducer from "../features/states/statesSlice";
 import suppliersReducer from "../features/suppliers/suppliersSlice";
 import categoriesReducer from "../features/category/categoriesSlice";
@@ -59,6 +62,7 @@ export const store = configureStore({
     invoice_print_types: invoicePrintTypesReducer,
     countries: countriesReducer,
     currencies: currenciesReducer,
+    subscription_plans: subscriptionPlanReducer,
     suppliers: suppliersReducer,
     categories: categoriesReducer,
     units: unitsReducer,
@@ -84,5 +88,6 @@ export const store = configureStore({
     permissionsList: permissionsReducer,
     payment_methods: paymentMethodReducer,
     modules: modulesReducer,
+    gateways: gatewaysReducer,
   },
 });

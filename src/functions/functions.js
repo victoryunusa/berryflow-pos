@@ -106,3 +106,12 @@ export const order_status_class = (status) => {
     return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#FB4E4E] bg-[#FFDADA]";
   }
 };
+
+export const getDetail = (value, key) => {
+  if (value) {
+    const item = JSON.parse(value);
+    return item?.[key] ?? null;
+  } else {
+    return null;
+  }
+};
