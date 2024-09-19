@@ -13,7 +13,7 @@ import {
 import { alertActions } from "../../app/store";
 import { logout, selectBranch } from "../../features/auth/authSlice";
 
-import logo from "../../assets/images/cater.svg";
+import logo from "../../assets/images/favicon.svg";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const Header = () => {
             className="flex flex-row space-x-3 items-center justify-center md:hidden"
           >
             <span className="">
-              <img className="w-5" src={logo} alt="CaterOS" />
+              <img className="w-10" src={logo} alt="CaterOS" />
             </span>
           </Link>
         </div>
