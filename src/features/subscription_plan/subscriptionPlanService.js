@@ -11,7 +11,7 @@ const getSubscriptionPlans = async (token) => {
   };
 
   const response = await axios.get(
-    `${BaseUrl}/admin/subscription_plans/list/`,
+    `${BaseUrl}/admin/subscription_plans/list`,
     config
   );
 
