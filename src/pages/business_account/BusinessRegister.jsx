@@ -3,6 +3,7 @@ import { getProducts } from "../../features/products/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getBusinessRegisters } from "../../features/business_register/businessRegisterSlice";
+import { prettyDate } from "../../functions/functions";
 
 const BusinessRegister = () => {
   const [visible, setVisible] = useState(false);
@@ -83,7 +84,7 @@ const BusinessRegister = () => {
                               : "-"}
                           </td>
                           <td className=" whitespace-nowrap px-2 py-3">
-                            {register.created_at}
+                            {prettyDate(register.created_at)}
                           </td>
                           <td className="">
                             <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">

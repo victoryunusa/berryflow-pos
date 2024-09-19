@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSubscriptionPlans } from "../../features/subscription_plan/subscriptionPlanSlice";
@@ -6,11 +6,16 @@ import { getDetail } from "../../functions/functions";
 import { getPaymentGateways } from "../../features/payment_gateways/paymentGatewaySlice";
 
 const Subscribe = () => {
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedGateway, setSelectedGateway] = useState(null);
+
   const { subscription_plans } = useSelector(
     (state) => state.subscription_plans
   );
 
   const { gateways } = useSelector((state) => state.gateways);
+
+  console.log(selectedGateway);
 
   const dispatch = useDispatch();
 
@@ -34,15 +39,24 @@ const Subscribe = () => {
           </p>
         </div>
       </div>
-      <div className="flex flex-col md:flex-row justify-between gap-5">
-        <div className="flex w-2/3">
+      <div className="flex flex-col md:flex-row place-items-start justify-between gap-5">
+        <div className="flex w-full md:w-2/3">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-zinc-100 w-full">
             {subscription_plans?.map((plan, index) => (
               <div
                 className="flex flex-row rounded-lg w-full justify-between h-80"
+                onClick={() => {
+                  setSelectedPlan(plan);
+                }}
                 key={index}
               >
-                <label className="flex flex-row justify-between w-full gap-3 p-5 text-neutral-600 border hover:border-green-400 hover:bg-green-50 rounded-md hover:cursor-pointer">
+                <label
+                  className={`flex flex-row justify-between w-full gap-3 p-5 text-neutral-600 border hover:border-nelsa_primary hover:bg-orange-50 ${
+                    selectedPlan?.slug == plan.slug
+                      ? "border-nelsa_primary bg-orange-50"
+                      : "bg-white"
+                  } rounded-md hover:cursor-pointer`}
+                >
                   <div className="flex flex-col gap-5">
                     <div className="">
                       <h4 className="w-full text-base">{plan.name}</h4>
@@ -114,16 +128,20 @@ const Subscribe = () => {
                   </div>
                   <span>
                     <input
-                      className="relative peer shrink-0
-                                 appearance-none w-4 h-4 border border-green-500 rounded bg-white
+                      className={`relative peer shrink-0
+                                 appearance-none w-7 h-7 border  rounded bg-white
                                  mt-1
-                                 checked:bg-green-600 checked:border-0"
+                                  ${
+                                    selectedPlan?.slug == plan.slug
+                                      ? "checked:bg-nelsa_primary checked:border-0 border-nelsa_primary "
+                                      : ""
+                                  }`}
                       type="radio"
                     />
                     <svg
                       className="
            absolute 
-           w-2 h-2 mt-1 ml-1
+           w-4 h-4 -mt-7 ml-1.5
            hidden peer-checked:block text-white"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -141,42 +159,91 @@ const Subscribe = () => {
             ))}
           </div>
         </div>
-        <div className="flex flex-col w-1/3 bg-white gap-3 p-5 rounded-md ">
-          <h4>Summary</h4>
-          <div className="flex flex-col w-full gap-2">
-            <div className="flex flex-row justify-between">
-              <span>
-                <p>Full Package</p>
-                <span>Monthly</span>
-              </span>
-              <span>50</span>
-            </div>
-            <hr />
-            <div className="flex flex-row justify-between">
-              <span>
-                <p>Gross Total</p>
-              </span>
-              <span>50</span>
-            </div>
-            <div className="flex flex-row justify-between">
-              <span>
-                <p className="text-xl font-bold">Total</p>
-              </span>
-              <span className="text-xl font-bold">50</span>
-            </div>
-            <hr />
-            <div>
-              <h4>Pay via</h4>
-              <div>
+        <div className="flex flex-col w-full  md:w-1/3 bg-white gap-3 p-5 rounded-md ">
+          <h4 className="font-semibold">Summary</h4>
+          {selectedPlan ? (
+            <div className="flex flex-col w-full gap-2">
+              <div className="flex flex-row justify-between">
+                <span className="">
+                  <p className="text-sm mb-1">{selectedPlan.name}</p>
+                  <span className="text-center bg-neutral-100 text-neutral-600 text-xs font-semibold capitalize px-2 py-1 rounded">
+                    {selectedPlan.period}
+                  </span>
+                </span>
+                <span>{selectedPlan.price}</span>
+              </div>
+              <hr />
+              <div className="flex flex-row justify-between">
+                <span>
+                  <p className="text-sm mb-1">Gross Total</p>
+                </span>
+                <span>{selectedPlan.price}</span>
+              </div>
+              <div className="flex flex-row justify-between mt-3">
+                <span>
+                  <p className="text-xl font-bold">Total</p>
+                </span>
+                <span className="text-xl font-bold">{selectedPlan.price}</span>
+              </div>
+              <hr />
+              <div className="flex flex-col gap-2">
+                <h4>Pay via</h4>
                 {gateways?.map((gateway, index) => (
-                  <span key={index}>{gateway.name}</span>
+                  <div
+                    key={index}
+                    className={`flex flex-row gap-2 cursor-pointer`}
+                    onClick={() => {
+                      setSelectedGateway(gateway.name);
+                    }}
+                  >
+                    <span
+                      className={`relative
+                                  w-5 h-5 border rounded 
+                                 mt-1
+                                  ${
+                                    selectedGateway == "Paystack"
+                                      ? "bg-nelsa_primary border-0 border-nelsa_primary "
+                                      : "bg-white"
+                                  }`}
+                    >
+                      <svg
+                        className="
+           absolute 
+           w-4 h-4 mt-0.5 ml-0.5
+           text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </span>
+                    <span>
+                      <p>{gateway.name}</p>
+                    </span>
+                  </div>
                 ))}
               </div>
+              <button
+                disabled={selectedGateway ? false : true}
+                className={`px-2 py-2.5 rounded-md mt-4 ${
+                  selectedGateway
+                    ? "bg-nelsa_primary text-white"
+                    : "bg-neutral-200 text-neutral-400"
+                }`}
+              >
+                Continue
+              </button>
             </div>
-            <button className="px-2 py-2.5 rounded-md bg-nelsa_primary text-white mt-4">
-              Continue
-            </button>
-          </div>
+          ) : (
+            <div className="flex border border-dashed rounded h-32  justify-center items-center">
+              <p className="text-sm">Select plan to continue</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

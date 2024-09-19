@@ -7,11 +7,11 @@
 @tailwind utilities;
 
 .normalLink {
-  @apply flex items-center font-medium mx-4 gap-2 p-2.5 hover:bg-neutral-700 text-neutral-400 hover:text-white rounded-lg md:cursor-pointer cursor-default transition duration-300;
+  @apply flex items-center font-medium gap-2 p-2.5 px-6 hover:border-r-4 border-nelsa_primary  hover:bg-neutral-800 text-neutral-400 hover:text-white md:cursor-pointer cursor-default transition duration-300;
 }
 
 .activeLink {
-  @apply flex gap-2 p-2.5 mx-4 items-center font-semibold bg-neutral-700 text-white rounded-lg md:cursor-pointer cursor-default transition duration-300;
+  @apply flex gap-2 p-2.5 px-6  items-center font-semibold bg-neutral-800 text-white border-r-4 border-nelsa_primary md:cursor-pointer cursor-default transition duration-300;
 }
 
 .activeLinkSub {

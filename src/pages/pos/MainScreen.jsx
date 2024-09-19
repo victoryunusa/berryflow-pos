@@ -398,7 +398,7 @@ const MainScreen = () => {
                             onClick={() => setOpenConfirmOrder(true)}
                             className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
                           >
-                            Close Order
+                            Complete Order
                           </button>
                         </>
                       )}
