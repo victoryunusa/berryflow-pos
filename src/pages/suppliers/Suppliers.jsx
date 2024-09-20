@@ -137,81 +137,81 @@ const Suppliers = () => {
     { field: "created_at", header: "Created Date" },
   ];
 
-  const exportColumns = cols.map((col) => ({
-    title: col.header,
-    dataKey: col.field,
-  }));
+  // const exportColumns = cols.map((col) => ({
+  //   title: col.header,
+  //   dataKey: col.field,
+  // }));
 
-  const exportCSV = (selectionOnly) => {
-    dt.current.exportCSV({ selectionOnly });
-  };
+  // const exportCSV = (selectionOnly) => {
+  //   dt.current.exportCSV({ selectionOnly });
+  // };
 
-  const exportPdf = () => {
-    import("jspdf").then((jsPDF) => {
-      import("jspdf-autotable").then(() => {
-        const doc = new jsPDF.default(0, 0);
+  // const exportPdf = () => {
+  //   import("jspdf").then((jsPDF) => {
+  //     import("jspdf-autotable").then(() => {
+  //       const doc = new jsPDF.default(0, 0);
 
-        doc.autoTable(exportColumns, suppliers);
-        const docName = `suppliers_${new Date().getTime()}.pdf`;
-        doc.save(docName);
-      });
-    });
-  };
+  //       doc.autoTable(exportColumns, suppliers);
+  //       const docName = `suppliers_${new Date().getTime()}.pdf`;
+  //       doc.save(docName);
+  //     });
+  //   });
+  // };
 
-  const exportExcel = () => {
-    import("xlsx").then((xlsx) => {
-      const worksheet = xlsx.utils.json_to_sheet(suppliers);
-      const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
-      const excelBuffer = xlsx.write(workbook, {
-        bookType: "xlsx",
-        type: "array",
-      });
+  // const exportExcel = () => {
+  //   import("xlsx").then((xlsx) => {
+  //     const worksheet = xlsx.utils.json_to_sheet(suppliers);
+  //     const workbook = { Sheets: { data: worksheet }, SheetNames: ["data"] };
+  //     const excelBuffer = xlsx.write(workbook, {
+  //       bookType: "xlsx",
+  //       type: "array",
+  //     });
 
-      saveAsExcelFile(excelBuffer, "suppliers");
-    });
-  };
+  //     saveAsExcelFile(excelBuffer, "suppliers");
+  //   });
+  // };
 
-  const saveAsExcelFile = (buffer, fileName) => {
-    import("file-saver").then((module) => {
-      if (module && module.default) {
-        let EXCEL_TYPE =
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
-        let EXCEL_EXTENSION = ".xlsx";
-        const data = new Blob([buffer], {
-          type: EXCEL_TYPE,
-        });
+  // const saveAsExcelFile = (buffer, fileName) => {
+  //   import("file-saver").then((module) => {
+  //     if (module && module.default) {
+  //       let EXCEL_TYPE =
+  //         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  //       let EXCEL_EXTENSION = ".xlsx";
+  //       const data = new Blob([buffer], {
+  //         type: EXCEL_TYPE,
+  //       });
 
-        module.default.saveAs(
-          data,
-          fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
-        );
-      }
-    });
-  };
+  //       module.default.saveAs(
+  //         data,
+  //         fileName + "_export_" + new Date().getTime() + EXCEL_EXTENSION
+  //       );
+  //     }
+  //   });
+  // };
 
-  const header = (
-    <div className="flex flex-row items-center justify-end gap-2">
-      <button
-        className="flex items-center justify-center p-2 bg-nelsa_primary text-white rounded-lg"
-        onClick={() => exportCSV(false)}
-      >
-        <HeIcons.FaFileCsv size={20} />
-      </button>
+  // const header = (
+  //   <div className="flex flex-row items-center justify-end gap-2">
+  //     <button
+  //       className="flex items-center justify-center p-2 bg-nelsa_primary text-white rounded-lg"
+  //       onClick={() => exportCSV(false)}
+  //     >
+  //       <HeIcons.FaFileCsv size={20} />
+  //     </button>
 
-      <button
-        className="flex items-center justify-center p-2 bg-green-600 text-white rounded-lg"
-        onClick={exportExcel}
-      >
-        <HeIcons.FaFileExcel size={20} />
-      </button>
-      <button
-        className="flex items-center justify-center p-2 bg-red-700 text-white rounded-lg"
-        onClick={exportPdf}
-      >
-        <HeIcons.FaFilePdf size={20} />
-      </button>
-    </div>
-  );
+  //     <button
+  //       className="flex items-center justify-center p-2 bg-green-600 text-white rounded-lg"
+  //       onClick={exportExcel}
+  //     >
+  //       <HeIcons.FaFileExcel size={20} />
+  //     </button>
+  //     <button
+  //       className="flex items-center justify-center p-2 bg-red-700 text-white rounded-lg"
+  //       onClick={exportPdf}
+  //     >
+  //       <HeIcons.FaFilePdf size={20} />
+  //     </button>
+  //   </div>
+  // );
 
   return (
     <>
