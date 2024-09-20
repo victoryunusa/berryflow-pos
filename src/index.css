@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 .normalLink {
-  @apply flex items-center font-medium gap-2 p-2.5 px-6 hover:border-r-4 border-nelsa_primary  hover:bg-neutral-800 text-neutral-400 hover:text-white md:cursor-pointer cursor-default transition duration-300;
+  @apply flex items-center font-medium gap-2 p-2.5 px-6 hover:border-r-4 hover:border-nelsa_primary  hover:bg-neutral-800 text-neutral-400 hover:text-white md:cursor-pointer cursor-default transition duration-300;
 }
 
 .activeLink {
@@ -15,7 +15,7 @@
 }
 
 .activeLinkSub {
-  @apply flex gap-3 p-2.5 items-center bg-white font-semibold text-white rounded-lg md:cursor-pointer cursor-default transition duration-300;
+  @apply flex gap-3 p-2.5 px-6 items-center bg-white font-semibold text-white md:cursor-pointer cursor-default transition duration-300;
 }
 
 input::-webkit-outer-spin-button,
