@@ -12,6 +12,7 @@ import BankTransfer from "../../components/modals/payment_methods/BankTransfer";
 import { getPaymentMethods } from "../../features/payment_method/paymentMethodSlice";
 
 const PaymentGateway = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { payment_methods } = useSelector((state) => state.payment_methods);
 
@@ -50,6 +51,10 @@ const PaymentGateway = () => {
       default:
         setOpenBankTransfer(true);
     }
+  };
+
+  const next = () => {
+    navigate("/");
   };
 
   return (
@@ -96,6 +101,7 @@ const PaymentGateway = () => {
           <div className="flex items-center mt-4 w-full md:w-[30rem]">
             <button
               type="submit"
+              onClick={next}
               className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
             >
               Save

@@ -154,7 +154,7 @@ const Welcome = () => {
                     } focus:border-blue-950`}
                   />
                   <div className="border px-4 py-2.5 rounded-r-md">
-                    <p className="text-neutral-500">.berryflow.app</p>
+                    <p className="text-neutral-500">.truetab.store</p>
                   </div>
                 </div>
 
