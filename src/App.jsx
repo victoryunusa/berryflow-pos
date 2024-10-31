@@ -7,7 +7,6 @@ import AuthLayout from "./layouts/AuthLayout";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Invoice from "./pages/sales/invoice/Invoice";
-import Cards from "./pages/Cards";
 import Transactions from "./pages/sales/Transactions";
 import Alert from "./components/common/Alert";
 import SelectBranchLayout from "./layouts/SelectBranchLayout";
@@ -45,12 +44,10 @@ import KitchenDisplay from "./pages/restaurant/KitchenDisplay";
 import WaiterDisplay from "./pages/restaurant/WaiterDisplay";
 import QrMenu from "./pages/restaurant/QrMenu";
 import Tables from "./pages/restaurant/Tables";
-import RoomService from "./pages/restaurant/RoomService";
 import MeasurementUnits from "./pages/settings/Items/MeasurementUnits";
 import VerifyEmail from "./components/auth/VerifyEmail";
 import KYB from "./pages/kyb/KYB";
 import OnboardingLayout from "./layouts/OnboardingLayout";
-import Area from "./pages/restaurant/Area";
 import AddProduct from "./pages/stock/product/AddProduct";
 import Branches from "./pages/branches/Branches";
 import NewPurchaseOrder from "./pages/sales/PurchaseOrder/NewPurchaseOrder";
@@ -637,7 +634,14 @@ function App() {
 
         {/* Pos Routes */}
         <Route element={<PosLayout />}>
-          <Route path="/pos/" element={<MainScreen />} />
+          <Route
+            path="/pos/"
+            element={
+              <Protected>
+                <MainScreen />{" "}
+              </Protected>
+            }
+          />
         </Route>
 
         <Route element={<AuthLayout />}>

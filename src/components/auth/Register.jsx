@@ -46,10 +46,10 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const saveCountry = (id) => {
-    setCountryId(id);
-    setIsOpenCountriesList(!isOpenCountriesList);
-  };
+  // const saveCountry = (id) => {
+  //   setCountryId(id);
+  //   setIsOpenCountriesList(!isOpenCountriesList);
+  // };
 
   const handleSubmit = async (formValue) => {
     const { first_name, last_name, email, password } = formValue;

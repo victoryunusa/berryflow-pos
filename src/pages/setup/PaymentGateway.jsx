@@ -104,7 +104,7 @@ const PaymentGateway = () => {
               onClick={next}
               className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
             >
-              Save
+              Complete
             </button>
           </div>
           {/* <div className="my-3">

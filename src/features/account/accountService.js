@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+
 // GET Accounts
 const getAccounts = async ({ token, formData }) => {
   const config = {

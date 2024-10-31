@@ -31,7 +31,7 @@ const Alert = () => {
         stiffness: 260,
         damping: 20,
       }}
-      className="flex flex-row font-manrope justify-end w-full top-24 right-0 absolute z-[1000] transition ease-in-out  duration-500 delay-150"
+      className="flex flex-row font-br justify-end w-full top-24 right-0 absolute z-[1000] transition ease-in-out  duration-500 delay-150"
     >
       <div
         className={`${

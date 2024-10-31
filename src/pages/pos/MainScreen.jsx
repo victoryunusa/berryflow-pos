@@ -55,7 +55,7 @@ const MainScreen = () => {
   const { billing_types } = useSelector((state) => state.billing_types);
 
   const [billingType, setBillingType] = useState(
-    billing_types[0].billing_type_constant
+    billing_types[0]?.billing_type_constant
   );
   var options = [
     { value: 1, label: "Yes" },

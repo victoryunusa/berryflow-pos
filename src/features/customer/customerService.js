@@ -12,7 +12,7 @@ const getCustomers = async ({ token, formData }) => {
 
   const page = formData ? formData : "";
 
-  const response = await axios.get(`${BaseUrl}/customers/list${page}`, config);
+  const response = await axios.get(`${BaseUrl}/customers/list?${page}`, config);
 
   //console.log(response.data);
 
