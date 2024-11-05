@@ -36,9 +36,24 @@ const addTransaction = async ({ token, formData }) => {
   //return response.data.products;
 };
 
+const editTransaction = async ({ token, formData }) => {
+  console.log(formData);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  //await axios.post(`${BaseUrl}/transactions/store`, formData, config);
+
+  //return response.data.products;
+};
+
 const transactionService = {
   getTransactions,
   addTransaction,
+  editTransaction,
 };
 
 export default transactionService;

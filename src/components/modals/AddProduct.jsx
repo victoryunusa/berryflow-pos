@@ -92,7 +92,7 @@ const AddProduct = (props) => {
     tax_option: "",
     selling_method: "",
     description: "",
-    image: null,
+    images: null,
   };
 
   const validationSchema = Yup.object().shape({
@@ -136,7 +136,7 @@ const AddProduct = (props) => {
       par_level,
       tax_option,
       description,
-      image,
+      images,
     } = formValue;
     console.log(formValue);
     dispatch(alertActions.clear());
@@ -158,7 +158,7 @@ const AddProduct = (props) => {
           storage_to_ingredient,
           par_level,
           tax_option,
-          image,
+          images,
           description,
         })
       ).unwrap();
@@ -539,11 +539,12 @@ const AddProduct = (props) => {
                               <input
                                 type="file"
                                 accept={"image/jpeg,image/png"}
-                                name="image"
+                                name="images"
+                                multiple
                                 onChange={(event) => {
                                   setFieldValue(
-                                    "image",
-                                    event.currentTarget.files[0]
+                                    "images",
+                                    event.currentTarget.files
                                   );
                                 }}
                                 className={`block w-full text-sm px-3 py-2 text-neutral-500 border rounded-md  ${
@@ -554,7 +555,7 @@ const AddProduct = (props) => {
                               />
 
                               <ErrorMessage
-                                name="image"
+                                name="images"
                                 component="div"
                                 className="text-red-500 text-xs"
                               />

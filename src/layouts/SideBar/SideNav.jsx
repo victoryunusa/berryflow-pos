@@ -19,7 +19,7 @@ const SideNav = () => {
           </span>
         </Link>
         <div className="flex flex-col space-y-2 flex-grow">
-          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-dvh">
+          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-[750px]">
             <li className="">
               <NavLink
                 to="/"

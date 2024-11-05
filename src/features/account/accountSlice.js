@@ -46,11 +46,29 @@ export const addAccount = createAsyncThunk(
   }
 );
 
+export const updateAccount = createAsyncThunk(
+  "api/update_account",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await accountService.updateAccount({ token, formData });
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const accountSlice = createSlice({
   name: "accounts",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -71,11 +89,23 @@ export const accountSlice = createSlice({
       .addCase(addAccount.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addAccount.fulfilled, (state, action) => {
+      .addCase(addAccount.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
       .addCase(addAccount.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateAccount.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateAccount.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateAccount.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

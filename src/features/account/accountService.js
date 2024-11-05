@@ -36,9 +36,25 @@ const addAccount = async ({ token, formData }) => {
   //return response.data.products;
 };
 
+//Add Account
+const updateAccount = async ({ token, formData }) => {
+  console.log(formData);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  //await axios.put(`${BaseUrl}/accounts/update`, formData, config);
+
+  //return response.data.products;
+};
+
 const accountService = {
   getAccounts,
   addAccount,
+  updateAccount,
 };
 
 export default accountService;

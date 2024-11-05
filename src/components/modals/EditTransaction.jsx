@@ -1,3 +1,4 @@
+import PropTypes from "prop-types"; // Import PropTypes
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,22 +10,17 @@ import Selector from "../common/Selector";
 import { getCategories } from "../../features/category/categoriesSlice";
 import { getPaymentMethods } from "../../features/payment_method/paymentMethodSlice";
 import {
-  addTransaction,
+  editTransaction,
   getTransactions,
 } from "../../features/transactions/transactionSlice";
 
-const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
+const CustomInputComponent = ({ field, ...props }) => (
   <div>
     <textarea type="text" {...field} {...props}></textarea>
   </div>
 );
 
-const AddTransaction = (props) => {
-  const { setOpen } = props;
+const EditTransaction = ({ setOpen, transaction }) => {
   const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
   const [customers, setCustomers] = useState([]);
@@ -33,7 +29,6 @@ const AddTransaction = (props) => {
 
   const dispatch = useDispatch();
 
-  const { categories } = useSelector((state) => state.categories);
   const { transaction_types } = useSelector((state) => state.transaction_types);
   const { payment_methods } = useSelector((state) => state.payment_methods);
 
@@ -102,34 +97,36 @@ const AddTransaction = (props) => {
   });
 
   var newPaymentMethods = payment_methods.map(function (obj) {
-    return { value: obj.slug, label: obj.name };
+    return { value: obj.id, label: obj.name };
   });
 
   var newAccounts = accounts.map(function (obj) {
-    return { value: obj.slug, label: obj.label };
+    return { value: obj.id, label: obj.label };
   });
 
   var newSuppliers = suppliers.map(function (obj) {
-    return { value: obj.slug, label: obj.name };
+    return { value: obj.id, label: obj.name };
   });
 
   var newCustomers = customers.map(function (obj) {
-    return { value: obj.slug, label: obj.name };
+    return { value: obj.id, label: obj.name };
   });
 
   var newUsers = users.map(function (obj) {
-    return { value: obj.slug, label: obj.full_name };
+    return { value: obj.id, label: obj.full_name };
   });
 
+  console.log(transaction);
+
   const initialValues = {
-    bill_to: "",
-    bill_to_slug: "",
-    account: "",
-    payment_method: "",
-    transaction_type: "",
-    notes: "",
-    transaction_date: "",
-    amount: "",
+    bill_to: transaction.bill_to,
+    bill_to_slug: transaction.bill_to_slug,
+    account: transaction.account_id.toString(),
+    payment_method: transaction.payment_method_id.toString(),
+    transaction_type: transaction.transaction_type,
+    notes: transaction.notes,
+    transaction_date: transaction.transaction_date.split("T")[0], // Format date correctly for input
+    amount: transaction.amount,
   };
 
   const validationSchema = Yup.object().shape({
@@ -159,7 +156,8 @@ const AddTransaction = (props) => {
       setLoading(true);
 
       await dispatch(
-        addTransaction({
+        editTransaction({
+          id: transaction.id, // Pass the transaction ID
           bill_to,
           bill_to_slug,
           account,
@@ -173,7 +171,7 @@ const AddTransaction = (props) => {
 
       dispatch(
         alertActions.success({
-          message: "Transaction successfully added.",
+          message: "Transaction successfully updated.",
           showAfterRedirect: true,
         })
       );
@@ -198,7 +196,7 @@ const AddTransaction = (props) => {
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between border-b px-6 py-2">
                     <h3 className="text-base font-bold text-nelsa_primary">
-                      Add Transaction
+                      Edit Transaction
                     </h3>
                   </div>
 
@@ -233,9 +231,9 @@ const AddTransaction = (props) => {
                               </label>
                               <Selector
                                 options={
-                                  values.bill_to == "SUPPLIER"
+                                  values.bill_to === "SUPPLIER"
                                     ? newSuppliers
-                                    : values.bill_to == "CUSTOMER"
+                                    : values.bill_to === "CUSTOMER"
                                     ? newCustomers
                                     : newUsers
                                 }
@@ -284,12 +282,7 @@ const AddTransaction = (props) => {
                             <div className="mt-3">
                               <label className="block text-nelsa_dark_blue text-xs font-semibold mb-1">
                                 Payment Method
-                                <span
-                                  onClick={() => setOpenUnit(true)}
-                                  className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
-                                >
-                                  Add
-                                </span>
+                                <span className="text-red-500">*</span>
                               </label>
                               <Selector
                                 options={newPaymentMethods}
@@ -297,7 +290,6 @@ const AddTransaction = (props) => {
                                 setFieldValue={setFieldValue}
                                 name="payment_method"
                               />
-
                               <ErrorMessage
                                 name="payment_method"
                                 component="div"
@@ -345,12 +337,10 @@ const AddTransaction = (props) => {
                                 className="text-red-500 text-xs"
                               />
                             </div>
-
-                            <div className="mt-4">
-                              <label className="block text-nelsa_dark_blue text-xs font-semibold">
-                                Note
+                            <div className="mt-3">
+                              <label className="block text-nelsa_gray_3 text-xs font-semibold mb-1">
+                                Notes
                               </label>
-
                               <Field
                                 name="notes"
                                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
@@ -361,6 +351,11 @@ const AddTransaction = (props) => {
                                 component={CustomInputComponent}
                                 placeholder="Description"
                               />
+                              <ErrorMessage
+                                name="notes"
+                                component="div"
+                                className="text-red-500 text-xs"
+                              />
                             </div>
                           </div>
                           <div className="flex flex-row justify-end mt-10 p-6 border-t">
@@ -370,7 +365,7 @@ const AddTransaction = (props) => {
                                 onClick={() => setOpen(false)}
                                 className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
                               >
-                                cancel
+                                Cancel
                               </button>
                               {loading ? (
                                 <button
@@ -393,7 +388,7 @@ const AddTransaction = (props) => {
                                   type="submit"
                                   className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
                                 >
-                                  Submit
+                                  Update
                                 </button>
                               )}
                             </div>
@@ -410,9 +405,28 @@ const AddTransaction = (props) => {
       </>,
       document.body
     );
-  } else {
-    return null;
   }
+  return null;
 };
 
-export default AddTransaction;
+// Add PropTypes for the component
+EditTransaction.propTypes = {
+  setOpen: PropTypes.func.isRequired,
+  transaction: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    bill_to: PropTypes.string.isRequired,
+    bill_to_slug: PropTypes.string.isRequired,
+    account_id: PropTypes.string.isRequired,
+    payment_method_id: PropTypes.string.isRequired,
+    transaction_type: PropTypes.string.isRequired,
+    notes: PropTypes.string,
+    transaction_date: PropTypes.string.isRequired,
+    amount: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+CustomInputComponent.propTypes = {
+  field: PropTypes.any,
+};
+
+export default EditTransaction;

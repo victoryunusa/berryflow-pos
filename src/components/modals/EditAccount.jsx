@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -6,30 +6,20 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../app/store";
 import Selector from "../common/Selector";
-import { getCategories } from "../../features/category/categoriesSlice";
-import { addAccount, getAccounts } from "../../features/account/accountSlice";
+import { updateAccount } from "../../features/account/accountSlice";
 
-const CustomInputComponent = ({
-  field, // { name, value, onChange, onBlur }
-  // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => (
+const CustomInputComponent = ({ field, ...props }) => (
   <div>
     <textarea type="text" {...field} {...props}></textarea>
   </div>
 );
 
-const AddAccount = (props) => {
-  const { setOpen } = props;
+const EditAccount = (props) => {
+  const { setOpen, account } = props; // Accept existing account details as a prop
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
-
   const { account_types } = useSelector((state) => state.account_types);
-
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
 
   var options = [
     { value: 1, label: "Yes" },
@@ -41,36 +31,32 @@ const AddAccount = (props) => {
   });
 
   const initialValues = {
-    account_name: "",
-    account_type: "",
-    pos_default: "",
-    initial_balance: "",
-    description: "",
+    label: account.label || "",
+    account_type: account.account_type_data.account_type_constant || "",
+    pos_default: account.pos_default.toString() || "",
+    initial_balance: account.initial_balance || "",
+    description: account.description || "",
   };
 
   const validationSchema = Yup.object().shape({
-    account_name: Yup.string().required("Account name is required!"),
+    label: Yup.string().required("Account name is required!"),
     account_type: Yup.string().required("This field is required!"),
     pos_default: Yup.string().required("This field is required!"),
     initial_balance: Yup.string().required("This field is required!"),
   });
 
   const handleSubmit = async (formValue) => {
-    const {
-      account_name,
-      account_type,
-      pos_default,
-      initial_balance,
-      description,
-    } = formValue;
+    const { label, account_type, pos_default, initial_balance, description } =
+      formValue;
 
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addAccount({
-          account_name,
+        updateAccount({
+          slug: account.slug, // Assuming the account object has an id property
+          label,
           account_type,
           pos_default,
           initial_balance,
@@ -80,12 +66,11 @@ const AddAccount = (props) => {
 
       dispatch(
         alertActions.success({
-          message: "Account successfully added.",
+          message: "Account successfully updated.",
           showAfterRedirect: true,
         })
       );
 
-      dispatch(getAccounts());
       setLoading(false);
       setOpen(false);
     } catch (error) {
@@ -105,7 +90,7 @@ const AddAccount = (props) => {
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between border-b px-6 py-2">
                     <h3 className="text-base font-bold text-nelsa_primary">
-                      Add Business Account
+                      Edit Business Account
                     </h3>
                   </div>
 
@@ -125,15 +110,15 @@ const AddAccount = (props) => {
                               <Field
                                 type="text"
                                 placeholder=""
-                                name="account_name"
+                                name="label"
                                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                                  errors.account_name && touched.account_name
+                                  errors.label && touched.label
                                     ? "border-red-500"
                                     : ""
                                 } focus:nelsa_gray_3`}
                               />
                               <ErrorMessage
-                                name="account_name"
+                                name="label"
                                 component="div"
                                 className="text-red-500 text-xs"
                               />
@@ -220,7 +205,7 @@ const AddAccount = (props) => {
                                 onClick={() => setOpen(false)}
                                 className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
                               >
-                                cancel
+                                Cancel
                               </button>
                               {loading ? (
                                 <button
@@ -243,7 +228,7 @@ const AddAccount = (props) => {
                                   type="submit"
                                   className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
                                 >
-                                  Submit
+                                  Update
                                 </button>
                               )}
                             </div>
@@ -266,15 +251,17 @@ const AddAccount = (props) => {
 };
 
 // Add prop types
-AddAccount.propTypes = {
+EditAccount.propTypes = {
   setOpen: PropTypes.func.isRequired,
   account: PropTypes.shape({
-    account_name: PropTypes.string,
-    account_type: PropTypes.string,
-    pos_default: PropTypes.string,
-    initial_balance: PropTypes.string,
-    description: PropTypes.string,
-    id: PropTypes.any,
+    account_name: PropTypes.any,
+    account_type: PropTypes.any,
+    account_type_data: PropTypes.object,
+    pos_default: PropTypes.any,
+    initial_balance: PropTypes.any,
+    description: PropTypes.any,
+    label: PropTypes.string,
+    slug: PropTypes.any,
   }), // Define account as an object with specific shape
 };
 
@@ -282,4 +269,4 @@ CustomInputComponent.propTypes = {
   field: PropTypes.any,
 };
 
-export default AddAccount;
+export default EditAccount;

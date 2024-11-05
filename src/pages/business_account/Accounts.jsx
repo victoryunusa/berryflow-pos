@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import { getProducts } from "../../features/products/productSlice";
 import AddAccount from "../../components/modals/AddAccount";
 import { getAccounts } from "../../features/account/accountSlice";
+import EditAccount from "../../components/modals/EditAccount";
 
 const Accounts = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { accounts } = useSelector((state) => state.accounts);
 
@@ -16,8 +14,17 @@ const Accounts = () => {
     dispatch(getAccounts(url));
   };
 
-  const showProduct = (slug) => {
-    navigate(`${slug}`);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedAccount, setSelectedAccount] = useState(null);
+
+  const handleEditClick = (account) => {
+    setSelectedAccount(account);
+    setIsEditModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedAccount(null);
   };
 
   useEffect(() => {
@@ -86,8 +93,14 @@ const Accounts = () => {
                             {account.created_at}
                           </td>
                           <td className="">
-                            <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">
-                              View
+                            <button
+                              onClick={() => handleEditClick(account)}
+                              className="underline px-2 py-1 text-xs text-blue-500  rounded-md"
+                            >
+                              Edit
+                            </button>
+                            <button className="underline px-2 py-1 text-xs text-red-500  rounded-md">
+                              Delete
                             </button>
                           </td>
                         </tr>
@@ -132,6 +145,9 @@ const Accounts = () => {
         </div>
       </div>
       {visible && <AddAccount setOpen={setVisible} />}
+      {isEditModalOpen && (
+        <EditAccount setOpen={closeModal} account={selectedAccount} />
+      )}
     </>
   );
 };

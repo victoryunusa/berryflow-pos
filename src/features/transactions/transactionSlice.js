@@ -46,11 +46,29 @@ export const addTransaction = createAsyncThunk(
   }
 );
 
+export const editTransaction = createAsyncThunk(
+  "api/edit_transactions",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await transactionService.editTransaction({ token, formData });
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const transactionSlice = createSlice({
   name: "transactions",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -71,11 +89,23 @@ export const transactionSlice = createSlice({
       .addCase(addTransaction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addTransaction.fulfilled, (state, action) => {
+      .addCase(addTransaction.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
       .addCase(addTransaction.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(editTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editTransaction.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(editTransaction.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
