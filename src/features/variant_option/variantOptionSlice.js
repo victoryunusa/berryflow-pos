@@ -14,10 +14,10 @@ const initialState = {
 
 export const getVariantOptions = createAsyncThunk(
   "api/get_variant_options",
-  async (_, thunkAPI) => {
+  async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await variantOptionService.getVariantOptions(token);
+      return await variantOptionService.getVariantOptions({ token, formData });
     } catch (error) {
       const message =
         (error.response &&
@@ -31,7 +31,7 @@ export const getVariantOptions = createAsyncThunk(
 );
 
 export const addVariantOption = createAsyncThunk(
-  "api/add_category",
+  "api/add_variant_option",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
@@ -52,7 +52,7 @@ export const variantOptionSlice = createSlice({
   name: "variant_options",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -73,7 +73,7 @@ export const variantOptionSlice = createSlice({
       .addCase(addVariantOption.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addVariantOption.fulfilled, (state, action) => {
+      .addCase(addVariantOption.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })

@@ -3,14 +3,19 @@ import axios from "axios";
 const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
 //Get products from api
-const getVariantOptions = async (token) => {
+const getVariantOptions = async ({ token, formData }) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await axios.get(`${BaseUrl}/variant_options/list`, config);
+  const page = formData ? formData : "";
+
+  const response = await axios.get(
+    `${BaseUrl}/variant_options/list${page}`,
+    config
+  );
 
   //console.log(response.data);
 

@@ -87,6 +87,10 @@ export const subMenusList = [
         title: "Categories",
         path: "/menu/categories",
       },
+      {
+        title: "Variant Options",
+        path: "/menu/variant_options",
+      },
 
       // {
       //   title: "Add-on Groups",

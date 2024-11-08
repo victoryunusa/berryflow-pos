@@ -12,23 +12,45 @@ import {
   getProducts,
 } from "../../../features/products/productSlice";
 import { getProduct } from "../../../features/products/singleProductSlice";
+import axios from "axios";
 
 const AddVariation = ({ product_slug, setOpen }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [variants, setVariants] = useState([]);
 
-  const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BASE_API_URL;
+
+  const { token } = useSelector((state) => state.auth);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const loadVariantOptions = async () => {
+    const response = await axios.get(`${BaseUrl}/variant_options/load`, config);
+    //console.log(response.data.variant_options);
+    setVariants(response.data.variant_options);
+  };
+
+  //const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { variant_options } = useSelector((state) => state.variant_options);
+  //const { variant_options } = useSelector((state) => state.variant_options);
 
-  var newArray = variant_options?.map(function (obj) {
+  var newArray = variants.map(function (obj) {
     return { value: obj.id, label: obj.label };
   });
 
   useEffect(() => {
     dispatch(getVariantOptions());
   }, [dispatch]);
+
+  useEffect(() => {
+    loadVariantOptions();
+  }, []);
 
   const initialValues = {
     name: "",

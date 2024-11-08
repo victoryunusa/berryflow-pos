@@ -90,20 +90,18 @@ const SingleProduct = () => {
                 <tbody>
                   {product?.variants?.map((variation, index) => (
                     <tr
-                      className="odd:bg-white even:bg-neutral-50 border-b font-medium text-sm cursor-pointer hover:bg-neutral-100"
+                      className="odd:bg-white even:bg-neutral-50 border-b font-medium text-xs cursor-pointer hover:bg-neutral-100"
                       key={index}
                       // onClick={() => showProduct(product.slug)}
                     >
                       <td className="w-4 p-4"></td>
-                      <td className="px-2 py-4 font-bold">
-                        {variation.variant_code}
-                      </td>
-                      <td className="px-2 py-4 font-bold">{variation.name}</td>
-                      <td className="px-2 py-4 font-bold">{variation.price}</td>
-                      <td className="px-2 py-4 font-bold">
+                      <td className="px-2 py-4">{variation.variant_code}</td>
+                      <td className="px-2 py-4">{variation.name}</td>
+                      <td className="px-2 py-4">{variation.price}</td>
+                      <td className="px-2 py-4">
                         {variation.variant_option_id}
                       </td>
-                      <td className="px-2 py-4 font-bold">
+                      <td className="px-2 py-4 font-semibold">
                         <span className="px-2 py-1 text-xs bg-green-100 rounded text-green-600">
                           Active
                         </span>
@@ -158,17 +156,15 @@ const SingleProduct = () => {
                 <tbody>
                   {product?.extras?.map((extra, index) => (
                     <tr
-                      className="odd:bg-white even:bg-neutral-50 border-b font-medium text-sm cursor-pointer hover:bg-neutral-100"
+                      className="odd:bg-white even:bg-neutral-50 border-b font-medium text-xs cursor-pointer hover:bg-neutral-100"
                       key={index}
                       // onClick={() => showProduct(product.slug)}
                     >
                       <td className="w-4 p-4"></td>
-                      <td className="px-2 py-4 font-bold">
-                        {extra.extra_code}
-                      </td>
-                      <td className="px-2 py-4 font-bold">{extra.name}</td>
-                      <td className="px-2 py-4 font-bold">{extra.price}</td>
-                      <td className="px-2 py-4 font-bold">
+                      <td className="px-2 py-4">{extra.extra_code}</td>
+                      <td className="px-2 py-4">{extra.name}</td>
+                      <td className="px-2 py-4">{extra.price}</td>
+                      <td className="px-2 py-4 font-semibold">
                         <span className="px-2 py-1 text-xs bg-green-100 rounded text-green-600">
                           Active
                         </span>

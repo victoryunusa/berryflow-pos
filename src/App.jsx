@@ -73,6 +73,7 @@ import NewInvoice from "./pages/sales/invoice/NewInvoice";
 import Viewer from "./pages/pdf/Viewer";
 import Billing from "./pages/subscription/Billing";
 import Subscribe from "./pages/subscription/Subscribe";
+import VariantOptions from "./pages/menu/VariantOptions";
 
 function App() {
   return (
@@ -376,6 +377,14 @@ function App() {
             element={
               <Protected>
                 <Categories />
+              </Protected>
+            }
+          />
+          <Route
+            path="menu/variant_options"
+            element={
+              <Protected>
+                <VariantOptions />
               </Protected>
             }
           />

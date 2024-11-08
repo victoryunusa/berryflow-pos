@@ -356,13 +356,6 @@ const AddProduct = (props) => {
                                       size={15}
                                     />
                                   </span>
-                                  {isShown && (
-                                    <div className="absolute z-[500] left-28 bg-white p-2 shadow-lg rounded-md border">
-                                      <p className="text-xs text-neutral-600 font-normal">
-                                        How the item is stored, eg. Box or Kg
-                                      </p>
-                                    </div>
-                                  )}
                                   <span
                                     onClick={() => setOpenUnit(true)}
                                     className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
@@ -396,13 +389,6 @@ const AddProduct = (props) => {
                                       size={15}
                                     />
                                   </span>
-                                  {isShown && (
-                                    <div className="absolute z-[500] left-28 bg-white p-2 shadow-lg rounded-md border">
-                                      <p className="text-xs text-neutral-600 font-normal">
-                                        How the item is stored, eg. Box or Kg
-                                      </p>
-                                    </div>
-                                  )}
                                   <span
                                     onClick={() => setOpenUnit(true)}
                                     className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
@@ -437,13 +423,6 @@ const AddProduct = (props) => {
                                       size={15}
                                     />
                                   </span>
-                                  {isShown && (
-                                    <div className="absolute z-[500] left-28 bg-white p-2 shadow-lg rounded-md border">
-                                      <p className="text-xs text-neutral-600 font-normal">
-                                        How the item is stored, eg. Box or Kg
-                                      </p>
-                                    </div>
-                                  )}
                                 </label>
                                 <Field
                                   type="text"
@@ -484,7 +463,7 @@ const AddProduct = (props) => {
                               </div>
                             </div>
 
-                            {values.stock_product != 0 && (
+                            {values.stock_product == 0 && (
                               <div className="mt-3 flex flex-row space-x-3">
                                 <div className="w-1/2">
                                   <label className="block text-nelsa_primary text-xs font-semibold mb-1">

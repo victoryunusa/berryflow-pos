@@ -47,6 +47,24 @@ export const addCustomer = createAsyncThunk(
   }
 );
 
+export const updateCustomer = createAsyncThunk(
+  "api/edit_customer",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await customerService.updateCustomer({ token, formData });
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const customerSlice = createSlice({
   name: "customers",
   initialState,
@@ -77,6 +95,18 @@ export const customerSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(addCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateCustomer.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCustomer.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

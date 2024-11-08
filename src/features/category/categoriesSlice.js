@@ -13,10 +13,10 @@ const initialState = {
 
 export const getCategories = createAsyncThunk(
   "api/get_categories",
-  async (_, thunkAPI) => {
+  async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await categoriesService.getCategories(token);
+      return await categoriesService.getCategories({ token, formData });
     } catch (error) {
       const message =
         (error.response &&
@@ -47,11 +47,29 @@ export const addCategory = createAsyncThunk(
   }
 );
 
+export const updateCategory = createAsyncThunk(
+  "api/edit_category",
+  async (formData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await categoriesService.updateCategory({ token, formData });
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -72,11 +90,23 @@ export const categoriesSlice = createSlice({
       .addCase(addCategory.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addCategory.fulfilled, (state, action) => {
+      .addCase(addCategory.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
       .addCase(addCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(updateCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCategory.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

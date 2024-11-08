@@ -35,9 +35,26 @@ const addCustomer = async ({ token, formData }) => {
   //return response.data.products;
 };
 
+const updateCustomer = async ({ token, formData }) => {
+  //console.log(token);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json; charset=utf-8",
+    },
+  };
+
+  console.log(formData);
+
+  // await axios.put(`${BaseUrl}/customers/store`, formData, config);
+
+  //return response.data.products;
+};
+
 const customerService = {
   addCustomer,
   getCustomers,
+  updateCustomer,
 };
 
 export default customerService;

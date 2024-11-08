@@ -1,71 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import AddCustomer from "../../components/modals/AddCustomer";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomers } from "../../features/customer/customerSlice";
-import EditCustomer from "../../components/modals/EditCustomer";
+import AddAccount from "../../components/modals/AddAccount";
+import EditAccount from "../../components/modals/EditAccount";
+import { getVariantOptions } from "../../features/variant_option/variantOptionSlice";
+import AddVariantOption from "../../components/modals/AddVariantOption";
 
-// const customers = [
-//   {
-//     name: "David Yunusa",
-//     code: "AGR100992",
-//     email: "david@getnelsa.com",
-//     phone: "0807998866",
-//     status: "Active",
-//     created_on: "2015-12-09",
-//     updated_on: "2015-12-09",
-//     created_by: "Victor Yunusa",
-//   },
-// ];
-
-const actionBodyTemplate = (rowData) => {
-  return (
-    <div className="flex flex-row space-x-3">
-      <button className="bg-blue-600 px-2 py-1 text-xs text-white rounded-md">
-        Edit
-      </button>
-      <button className="bg-red-600 px-2 py-1 text-xs text-white rounded-md">
-        Delete
-      </button>
-    </div>
-  );
-};
-
-const Customers = () => {
+const VariantOption = () => {
   const [visible, setVisible] = useState(false);
-  const { customers } = useSelector((state) => state.customers);
   const dispatch = useDispatch();
 
+  const { variant_options } = useSelector((state) => state.variant_options);
+
   const getNextAccount = (url) => {
-    dispatch(getCustomers(url));
+    dispatch(getVariantOptions(url));
   };
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [selectedAccount, setSelectedAccount] = useState(null);
 
   const handleEditClick = (account) => {
-    setSelectedCustomer(account);
+    setSelectedAccount(account);
     setIsEditModalOpen(true);
   };
 
   const closeModal = () => {
     setIsEditModalOpen(false);
-    setSelectedCustomer(null);
+    setSelectedAccount(null);
   };
 
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(getVariantOptions());
   }, [dispatch]);
   return (
     <>
-      <div className="flex flex-col space-y-5">
+      <div className="flex flex-col space-y-5 font-br">
         <div className="flex flex-row justify-between items-center">
           <div className="">
-            <h3 className="text-lg font-bold text-gray-700">Customers</h3>
+            <h3 className="text-lg font-bold text-gray-700">Variant Options</h3>
             <p className="text-xs text-neutral-400">
-              Select the plan that you want to subscribe to
+              Options for creating product variants such eg. size, color,
+              quantity etc.
             </p>
           </div>
           <div>
@@ -85,44 +59,29 @@ const Customers = () => {
                   <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
                     <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
                       <tr>
-                        <th className="px-2 py-3">Name</th>
-                        <th className="px-2 py-3">Email</th>
-                        <th className="px-2 py-3">Phone No</th>
-                        <th className="px-2 py-3">Loyalty Point(s)</th>
+                        <th className="px-2 py-3">Account Name</th>
                         <th className="px-2 py-3">Status</th>
                         <th className="px-2 py-3">Created Date</th>
                         <th></th>
                       </tr>
                     </thead>
                     <tbody>
-                      {customers?.data?.map((customer, index) => (
+                      {variant_options?.data?.map((variant_option, index) => (
                         <tr
                           className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
                           key={index}
                         >
                           <td className="px-2 py-3 font-semibold">
-                            {customer.name}
+                            {variant_option.label}
                           </td>
-                          <td className="px-2 py-3">
-                            {customer.email ? customer.email : "--"}
-                          </td>
-                          <td className="px-2 py-3">
-                            {customer.phone ? customer.phone : "--"}
-                          </td>
+                          <td className="px-2 py-3">{variant_option.label}</td>
+
                           <td className=" whitespace-nowrap px-2 py-3">
-                            {customer.loyalty_point}
-                          </td>
-                          <td className="px-2 py-3">
-                            {customer?.status_data
-                              ? customer?.status_data.label
-                              : "--"}
-                          </td>
-                          <td className=" whitespace-nowrap px-2 py-3">
-                            {customer.created_at}
+                            {variant_option.created_at}
                           </td>
                           <td className="">
                             <button
-                              onClick={() => handleEditClick(customer)}
+                              onClick={() => handleEditClick(variant_option)}
                               className="underline px-2 py-1 text-xs text-blue-500  rounded-md"
                             >
                               Edit
@@ -140,12 +99,14 @@ const Customers = () => {
 
                 <div className="flex flex-row gap-2 justify-between mt-5">
                   <div>
-                    <p>{`Showing  ${customers.from ? customers.from : 0} to ${
-                      customers.to ? customers.to : 0
-                    } of ${customers.total ? customers.total : 0} entries`}</p>
+                    <p>{`Showing  ${
+                      variant_options.from ? variant_options.from : 0
+                    } to ${variant_options.to ? variant_options.to : 0} of ${
+                      variant_options.total ? variant_options.total : 0
+                    } entries`}</p>
                   </div>
                   <div className="flex flex-row gap-2 ">
-                    {customers?.links?.map((link, index) => (
+                    {variant_options?.links?.map((link, index) => (
                       <button
                         key={index}
                         onClick={() => getNextAccount(link.url.slice(-7))}
@@ -172,12 +133,12 @@ const Customers = () => {
           </div>
         </div>
       </div>
-      {visible && <AddCustomer setOpenCustomer={setVisible} />}
+      {visible && <AddVariantOption setOpen={setVisible} />}
       {isEditModalOpen && (
-        <EditCustomer setOpen={closeModal} customer={selectedCustomer} />
+        <EditAccount setOpen={closeModal} account={selectedAccount} />
       )}
     </>
   );
 };
 
-export default Customers;
+export default VariantOption;
