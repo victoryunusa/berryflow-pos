@@ -6,16 +6,13 @@ import * as Yup from "yup";
 import * as Icon from "react-icons/tb";
 
 import { alertActions } from "../../app/store";
-import {
-  addIngredient,
-  getIngredients,
-} from "../../features/ingredients/ingredientsSlice";
 import Selector from "../common/Selector";
 import AddMeasurementUnit from "./AddMeasurementUnit";
 import { getCategories } from "../../features/category/categoriesSlice";
 import AddCategory from "./AddCategory";
 import AddTax from "./AddTax";
 import { addProduct, getProducts } from "../../features/products/productSlice";
+import axios from "axios";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -34,17 +31,37 @@ const AddProduct = (props) => {
   const [openUnit, setOpenUnit] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
   const [isShown, setIsShown] = useState(false);
+  const [categories, setCategories] = useState([]);
   //   const [image, setImage] = useState(null);
+
+  const BaseUrl = import.meta.env.VITE_BASE_API_URL;
+
+  const { token } = useSelector((state) => state.auth);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const loadCategories = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/categories/loadCategories`,
+      config
+    );
+    setCategories(response.data);
+  };
 
   const dispatch = useDispatch();
 
   const { units } = useSelector((state) => state.units);
 
-  const { categories } = useSelector((state) => state.categories);
+  //const { categories } = useSelector((state) => state.categories);
 
+  console.log(categories);
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    loadCategories();
+  }, []);
 
   var options1 = [
     { value: 1, label: "Yes" },
@@ -65,7 +82,7 @@ const AddProduct = (props) => {
     return { value: obj.id, label: obj.unit_code + " - " + obj.label };
   });
 
-  var newCategories = categories.map(function (obj) {
+  var newCategories = categories?.map(function (obj) {
     return { value: obj.id, label: obj.label };
   });
 
@@ -103,22 +120,22 @@ const AddProduct = (props) => {
     category: Yup.string().required("This field is required!"),
   });
 
-  const uploadHandler = (event) => {
-    // event.preventDefault();
-    const file = event.target.files[0];
-    if (!file) return;
-    if (file.size > 1024 * 1024) {
-      dispatch(
-        alertActions.error({
-          message: "File size should not exceed 1MB",
-          showAfterRedirect: true,
-        })
-      );
-      return;
-    }
-    file.isUploading = true;
-    setImage(file);
-  };
+  // const uploadHandler = (event) => {
+  //   // event.preventDefault();
+  //   const file = event.target.files[0];
+  //   if (!file) return;
+  //   if (file.size > 1024 * 1024) {
+  //     dispatch(
+  //       alertActions.error({
+  //         message: "File size should not exceed 1MB",
+  //         showAfterRedirect: true,
+  //       })
+  //     );
+  //     return;
+  //   }
+  //   file.isUploading = true;
+  //   setImage(file);
+  // };
 
   const handleSubmit = async (formValue) => {
     const {
@@ -527,7 +544,7 @@ const AddProduct = (props) => {
                                   );
                                 }}
                                 className={`block w-full text-sm px-3 py-2 text-neutral-500 border rounded-md  ${
-                                  errors.image && touched.image
+                                  errors.images && touched.images
                                     ? "border-red-500"
                                     : ""
                                 } focus:border-blue-950`}
