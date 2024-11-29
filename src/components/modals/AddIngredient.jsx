@@ -12,6 +12,7 @@ import Selector from "../common/Selector";
 import AddMeasurementUnit from "./AddMeasurementUnit";
 import { getCategories } from "../../features/category/categoriesSlice";
 import AddCategory from "./AddCategory";
+import axios from "axios";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -28,16 +29,35 @@ const AddIngredient = (props) => {
   const [loading, setLoading] = useState(false);
   const [openUnit, setOpenUnit] = useState(false);
   const [openCategory, setOpenCategory] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const BaseUrl = import.meta.env.VITE_BASE_API_URL;
+
+  const { token } = useSelector((state) => state.auth);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const loadCategories = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/categories/loadCategories`,
+      config
+    );
+    setCategories(response.data);
+  };
 
   const dispatch = useDispatch();
 
   const { units } = useSelector((state) => state.units);
 
-  const { categories } = useSelector((state) => state.categories);
+  //const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    loadCategories();
+  }, []);
 
   var options = [
     { value: "From Transactions", label: "From Transactions" },
