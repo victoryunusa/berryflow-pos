@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+//import { Formik, Field, Form, ErrorMessage } from "formik";
+//import * as Yup from "yup";
 import OtpInput from "react18-input-otp";
 
 import { alertActions } from "../../app/store";
-import { login, reset, verify } from "../../features/auth/authSlice";
+import { verify } from "../../features/auth/authSlice";
 
 const VerifyEmail = () => {
   const [loading, setLoading] = useState(false);
@@ -15,10 +15,6 @@ const VerifyEmail = () => {
   const email = JSON.parse(localStorage.getItem("email"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { user, isSuccess, isError, message } = useSelector(
-    (state) => state.auth
-  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +30,7 @@ const VerifyEmail = () => {
 
       await dispatch(verify(userData)).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
-      navigate("/");
+      navigate("/welcome");
       dispatch(
         alertActions.success({
           message: "Verification was successful",

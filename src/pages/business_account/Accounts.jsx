@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AddAccount from "../../components/modals/AddAccount";
 import { getAccounts } from "../../features/account/accountSlice";
 import EditAccount from "../../components/modals/EditAccount";
+import { prettyDate } from "../../functions/functions";
 
 const Accounts = () => {
   const [visible, setVisible] = useState(false);
@@ -90,7 +91,7 @@ const Accounts = () => {
                               : "--"}
                           </td>
                           <td className=" whitespace-nowrap px-2 py-3">
-                            {account.created_at}
+                            {prettyDate(account.created_at)}
                           </td>
                           <td className="">
                             <button

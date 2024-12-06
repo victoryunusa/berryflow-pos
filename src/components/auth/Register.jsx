@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
-import nigeria from "../../assets/images/nigeria.png";
-import ghana from "../../assets/images/ghana.png";
 
 import { alertActions } from "../../app/store";
 import { register } from "../../features/auth/authSlice";
@@ -19,6 +16,8 @@ const Register = () => {
   // const countryIndex = countries.find(
   //   (getCountry) => getCountry.id == countryId
   // );
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   const initialValues = {
     email: "",
@@ -63,6 +62,7 @@ const Register = () => {
           last_name,
           email,
           password,
+          timezone,
         })
       ).unwrap();
       localStorage.setItem("email", JSON.stringify(email));

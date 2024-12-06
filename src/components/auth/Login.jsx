@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { alertActions } from "../../app/store";
-import { login, reset } from "../../features/auth/authSlice";
+import { login } from "../../features/auth/authSlice";
 
 const Login = () => {
   const initialValues = {
@@ -27,10 +27,6 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { user, isSuccess, isError, message } = useSelector(
-    (state) => state.auth
-  );
 
   const handleSubmit = async (formValue) => {
     const { email, password } = formValue;

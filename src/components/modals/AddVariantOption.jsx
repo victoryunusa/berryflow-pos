@@ -84,7 +84,7 @@ const AddVariantOption = ({ setOpen, open, children }) => {
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter area name"
+                              placeholder="Enter name"
                               name="label"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                                 errors.label && touched.label

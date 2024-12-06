@@ -6,6 +6,7 @@ import AddCustomer from "../../components/modals/AddCustomer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomers } from "../../features/customer/customerSlice";
 import EditCustomer from "../../components/modals/EditCustomer";
+import { prettyDate } from "../../functions/functions";
 
 // const customers = [
 //   {
@@ -118,7 +119,7 @@ const Customers = () => {
                               : "--"}
                           </td>
                           <td className=" whitespace-nowrap px-2 py-3">
-                            {customer.created_at}
+                            {prettyDate(customer.created_at)}
                           </td>
                           <td className="">
                             <button
