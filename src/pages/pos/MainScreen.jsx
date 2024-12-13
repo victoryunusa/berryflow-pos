@@ -26,7 +26,6 @@ import SelectTable from "../../components/pos/modals/SelectTable";
 import CloseRegister from "../../components/pos/modals/CloseRegister";
 import HoldList from "../../components/pos/modals/HoldList";
 import { useNavigate } from "react-router";
-import WithActiveRegisterCheck from "../../HOC/withActiveRegisterCheck";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
@@ -53,7 +52,7 @@ const MainScreen = () => {
 
   const { tables, message } = useSelector((state) => state.tables);
 
-  //const { activeRegister } = useSelector((state) => state.active_register);
+  const { activeRegister } = useSelector((state) => state.active_register);
 
   const tablesIndex = tables?.filter((table) => table.status === 1);
 
@@ -62,6 +61,12 @@ const MainScreen = () => {
   const [billingType, setBillingType] = useState(
     billing_types[0]?.billing_type_constant
   );
+
+  useEffect(() => {
+    if (!activeRegister) {
+      navigate("/finance/business_register/add");
+    }
+  }, [navigate, activeRegister]);
 
   var options = [
     { value: 1, label: "Yes" },
@@ -452,6 +457,4 @@ const MainScreen = () => {
   );
 };
 
-const DashboardWithCheck = WithActiveRegisterCheck(MainScreen);
-
-export default DashboardWithCheck;
+export default MainScreen;
