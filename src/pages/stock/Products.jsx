@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AddProduct from "../../components/modals/AddProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../features/products/productSlice";
+import { textEllipsis } from "../../functions/functions";
 
 const Products = () => {
   const [visible, setVisible] = useState(false);
@@ -65,7 +66,7 @@ const Products = () => {
               <div className="flex flex-col gap-1.5 bg-neutral-100 p-2 rounded">
                 <div className=" w-full">
                   <p className="text-sm md:text-md font-semibold text-neutral-700">
-                    {product.name}
+                    {textEllipsis(product.name, 20)}
                   </p>
                   <span>
                     <p className="text-xs">{product.category.label}</p>

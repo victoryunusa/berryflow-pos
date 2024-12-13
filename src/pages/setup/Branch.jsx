@@ -95,14 +95,14 @@ const Branch = () => {
   );
 
   const handleSubmit = async (formValue) => {
-    const { name, currency, address, tax_id } = formValue;
+    const { name, currency, address, country, tax_id } = formValue;
     dispatch(alertActions.clear());
 
     try {
       setLoading(true);
 
       await dispatch(
-        addBranch({ name, currency, country: currency, address, tax_id })
+        addBranch({ name, currency, country, address, tax_id })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
       navigate("/setup/payment");

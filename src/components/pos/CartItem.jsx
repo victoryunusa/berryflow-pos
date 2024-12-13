@@ -7,6 +7,7 @@ import {
   removeFromCart,
   updateItemQuantity,
 } from "../../features/pos/cartSlice";
+import { textEllipsis } from "../../functions/functions";
 
 const CartItem = ({ cartItem }) => {
   let dollarUSLocale = Intl.NumberFormat("en-US");
@@ -36,7 +37,7 @@ const CartItem = ({ cartItem }) => {
     <div className="flex flex-row justify-between p-2.5">
       <div className="w-1/2">
         <span className="text-xs font-semibold truncate">
-          {cartItem.name.substring(0, 25)}
+          {textEllipsis(cartItem.name, 20)}
         </span>
         {Object.keys(cartItem.item_variations.variations).length !== 0 && (
           <span>

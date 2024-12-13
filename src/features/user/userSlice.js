@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import userService from "./userService";
 
-//const banks = JSON.parse(localStorage.getItem("banks"));
+const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-  user: [],
+  user: user ? user : [],
   isError: false,
   isSuccess: false,
   isLoading: false,

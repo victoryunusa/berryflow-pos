@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
@@ -81,9 +81,7 @@ const AddBranch = () => {
     (state) => state.invoice_print_types
   );
 
-  const currencies = countries?.filter(
-    (currency) => currency.currency_name !== "" || currency.currency_code !== ""
-  );
+  const { currencies } = useSelector((state) => state.currencies);
 
   //   useEffect(() => {
   //     dispatch(getSuppliers());
@@ -129,7 +127,7 @@ const AddBranch = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, values }) => (
+          {({ errors, touched }) => (
             <Form>
               <div className="flex flex-col gap-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -320,7 +318,7 @@ const AddBranch = () => {
                       >
                         <option value="">Select Option</option>
                         {countries.map((country) => (
-                          <option value={country.id}>
+                          <option value={country.id} key={country.id}>
                             {country.code} - {country.name}
                           </option>
                         ))}
@@ -396,7 +394,7 @@ const AddBranch = () => {
                       >
                         <option value="">Select Option</option>
                         {billing_types.map((billing_type) => (
-                          <option value={billing_type.id}>
+                          <option value={billing_type.id} key={billing_type.id}>
                             {billing_type.label}
                           </option>
                         ))}
@@ -466,9 +464,8 @@ const AddBranch = () => {
                       >
                         <option value="">Select Option</option>
                         {currencies.map((currency) => (
-                          <option value={currency.id}>
-                            {currency.name} - {currency.currency_code}{" "}
-                            {currency.currency_symbol}
+                          <option value={currency.id} key={currency.id}>
+                            {currency.name} - {currency.code}
                           </option>
                         ))}
                       </Field>
@@ -540,7 +537,10 @@ const AddBranch = () => {
                       >
                         <option value="">Select Option</option>
                         {invoice_print_types.map((invoice_print_type) => (
-                          <option value={invoice_print_type.id}>
+                          <option
+                            value={invoice_print_type.id}
+                            key={invoice_print_type.id}
+                          >
                             {invoice_print_type.print_type_label}
                           </option>
                         ))}

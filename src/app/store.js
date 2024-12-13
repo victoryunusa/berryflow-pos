@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import accountReducer from "../features/account/accountSlice";
+import activeRegisterReducer from "../features/pos/businessRegisterSlice";
 import { alertReducer } from "../features/alert/alertSlice";
 import cartReducer from "../features/pos/cartSlice";
 import countriesReducer from "../features/countries/countriesSlice";
@@ -49,6 +50,7 @@ export const store = configureStore({
   reducer: {
     auth: authReducer,
     accounts: accountReducer,
+    active_register: activeRegisterReducer,
     user: userReducer,
     alert: alertReducer,
     cart: cartReducer,

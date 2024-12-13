@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { alertActions } from "../../../app/store";
 import { getTables } from "../../../features/table/tableSlice";
 import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
+import { getCartItems, getTotals } from "../../../features/pos/cartSlice";
 
 const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
   const [visible, setVisible] = useState(false);
@@ -24,56 +25,86 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const { token } = useSelector((state) => state.auth);
+  const { payment_methods } = useSelector((state) => state.payment_methods);
+  const cartItems = useSelector(getCartItems);
+  const cart = useSelector((state) => state.cart);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loadAccounts = async () => {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.get(
+        `${BaseUrl}/accounts/loadAccounts`,
+        config
+      );
 
-    const response = await axios.get(
-      `${BaseUrl}/accounts/loadAccounts`,
-      config
-    );
-
-    setAccounts(response.data.accounts);
-    const accountIndex = response.data.accounts?.find(
-      (account) => account.pos_default === 1
-    );
-    console.log(accountIndex);
-    setAccountNumber(accountIndex.slug);
+      setAccounts(response.data.accounts || []);
+      const accountIndex = response.data.accounts?.find(
+        (account) => account.pos_default === 1
+      );
+      if (accountIndex) {
+        setAccountNumber(accountIndex.slug);
+        console.log(`Loaded default account: ${accountIndex.slug}`);
+      }
+    } catch (error) {
+      console.error("Error loading accounts:", error);
+    }
   };
 
-  const { payment_methods } = useSelector((state) => state.payment_methods);
-
+  // Filter active payment methods
   const paymentMethodsIndex = payment_methods?.filter(
     (payment_method) => payment_method.status === 1
   );
 
+  // Update cart totals when items change
   useEffect(() => {
-    loadAccounts();
-  }, []);
+    dispatch(getTotals());
+  }, [cartItems, dispatch]);
 
+  // Load accounts on mount
+  useEffect(() => {
+    if (token && BaseUrl) {
+      loadAccounts();
+    }
+  }, [token, BaseUrl]);
+
+  // Load payment methods on mount
   useEffect(() => {
     dispatch(getPaymentMethods());
   }, [dispatch]);
 
-  const initialValues = {
-    business_account: "",
-    received_value: "",
-    order_value: "",
-  };
+  // Memoized initialValues to reflect updated states
+  const initialValues = useMemo(
+    () => ({
+      business_account: accountNumber || "",
+      payment_method: paymentMethod || "",
+      received_value: "",
+      order_value: cart?.cartTotalAmount || 0.0,
+      balance_amount: "",
+    }),
+    [accountNumber, paymentMethod, cart?.cartTotalAmount]
+  );
 
+  // Form validation schema
   const validationSchema = Yup.object().shape({
-    business_account: Yup.string().required("Account is required!"),
+    //business_account: Yup.string().required("Account is required!"),
+    payment_method: Yup.string().required("Payment method is required!"),
+    received_value: Yup.number()
+      .min(0, "Value must be positive")
+      .required("Value is required"),
+    balance_amount: Yup.number().min(0, "Balance must be positive"),
   });
 
   const handleSubmit = async (formValue) => {
-    const { name } = formValue;
+    //const { name } = formValue;
+
+    console.log({ formValue, accountNumber });
 
     dispatch(alertActions.clear());
     try {
@@ -126,7 +157,7 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                       validationSchema={validationSchema}
                       onSubmit={handleSubmit}
                     >
-                      {({ errors, touched }) => (
+                      {({ setFieldValue, values, errors, touched }) => (
                         <Form className="w-full">
                           <div className="max-h-[720px] overflow-scroll px-6 md:px-6">
                             <div className="flex flex-row gap-3 mb-6">
@@ -143,9 +174,13 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                     <button
                                       key={index}
                                       type="button"
-                                      onClick={() =>
-                                        setAccountNumber(account.slug)
-                                      }
+                                      onClick={() => {
+                                        setAccountNumber(account.slug);
+                                        setFieldValue(
+                                          "business_account",
+                                          account.slug
+                                        );
+                                      }}
                                       className={`w-1/3 text-small text-left ${
                                         account.slug == accountNumber
                                           ? "bg-green-100 text-green-800"
@@ -155,6 +190,11 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                       {account.label}
                                     </button>
                                   ))}
+                                  <ErrorMessage
+                                    name="business_account"
+                                    component="div"
+                                    className="text-red-500 text-sm"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -168,9 +208,13 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                     (payment_method, index) => (
                                       <button
                                         key={index}
-                                        onClick={() =>
-                                          setPaymentMethod(payment_method.slug)
-                                        }
+                                        onClick={() => {
+                                          setPaymentMethod(payment_method.slug);
+                                          setFieldValue(
+                                            "payment_method",
+                                            payment_method.slug
+                                          );
+                                        }}
                                         type="button"
                                         className={`w-1/4 text-small ${
                                           payment_method.slug == paymentMethod
@@ -182,6 +226,11 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                       </button>
                                     )
                                   )}
+                                  <ErrorMessage
+                                    name="payment_method"
+                                    component="div"
+                                    className="text-red-500 text-sm"
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -193,15 +242,16 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                 <Field
                                   type="text"
                                   placeholder="Received Amount"
-                                  name="name"
+                                  name="received_value"
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.received_value &&
+                                    touched.received_value
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="received_value"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />
@@ -213,16 +263,16 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                 <Field
                                   type="text"
                                   placeholder="Order Value"
-                                  name="name"
+                                  name="order_value"
                                   disabled
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.order_value && touched.order_value
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="order_value"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />
@@ -234,16 +284,20 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
                                 <Field
                                   type="text"
                                   placeholder="Balance Amount"
-                                  name="name"
+                                  name="balance_amount"
+                                  value={
+                                    values.received_value - values.order_value
+                                  }
                                   disabled
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.balance_amount &&
+                                    touched.balance_amount
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="balance_amount"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />

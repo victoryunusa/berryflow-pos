@@ -48,9 +48,15 @@ const openBusinessRegister = async ({ token, formData }) => {
     },
   };
 
-  await axios.post(`${BaseUrl}/business_registers/open`, formData, config);
+  const response = await axios.post(
+    `${BaseUrl}/business_registers/open`,
+    formData,
+    config
+  );
 
-  //return response.data.products;
+  //localStorage.setItem("activeRegister", JSON.stringify(response.data.slug));
+
+  return response.data;
 };
 
 const businessRegisterService = {

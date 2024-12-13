@@ -181,7 +181,6 @@ const Header = () => {
           <Link
             to="/pos"
             className="flex bg-green-100 text-green-800 items-center text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-1"
-            target="_blank"
           >
             <HeIcons.FaCashRegister size={16} />
             Point Of Sale

@@ -7,6 +7,7 @@ import { getBillCounters } from "../../../features/bill_counter/billCounterSlice
 import { alertActions } from "../../../app/store";
 import { useNavigate } from "react-router";
 import { openBusinessRegister } from "../../../features/business_register/billingCounterStatSlice";
+import { setActiveRegister } from "../../../features/pos/businessRegisterSlice";
 
 const AddBusinessRegister = () => {
   const dispatch = useDispatch();
@@ -31,25 +32,21 @@ const AddBusinessRegister = () => {
     try {
       setLoading(true);
 
-      await dispatch(
+      const response = await dispatch(
         openBusinessRegister({
           opening_amount,
           billing_counter: billCounter,
         })
       ).unwrap();
 
-      dispatch(
-        alertActions.success({
-          message: "Business register openned successfully.",
-          showAfterRedirect: true,
-        })
-      );
-      navigate("/pos");
-      // window.location.reload(true);
-      setLoading(false);
-      //dispatch(getBillCounters());
+      // Update the active register in Redux
+      console.log(response);
+      dispatch(setActiveRegister(response));
+
+      navigate("/pos", { replace: true });
     } catch (error) {
       dispatch(alertActions.error(error));
+    } finally {
       setLoading(false);
     }
   };
@@ -88,9 +85,9 @@ const AddBusinessRegister = () => {
                   {bill_counters?.map((bill_counter, index) => (
                     <div
                       onClick={() => setBillCounter(bill_counter.slug)}
-                      className={`w-full md:w-1/5 border  hover:border-green-300  hover:bg-green-100  hover:text-green-600 rounded-md p-5 cursor-pointer ${
+                      className={`w-full md:w-1/5 border  hover:border-green-300  hover:bg-green-50  hover:text-green-600 rounded-md p-5 cursor-pointer ${
                         billCounter === bill_counter.slug
-                          ? "bg-green-100 text-green-600 border-green-300"
+                          ? "bg-green-50 text-green-600 border-green-300"
                           : "bg-neutral-100 text-neutral-600 border-neutral-200"
                       }`}
                       key={index}
@@ -99,7 +96,9 @@ const AddBusinessRegister = () => {
                         {bill_counter.billing_counter_code}-
                         {bill_counter.counter_name}
                       </h3>
-                      <span className="text-xs">Free</span>
+                      <span className="text-xs">
+                        {bill_counter.register !== null ? "Occupied" : "Free"}
+                      </span>
                     </div>
                   ))}
                 </div>

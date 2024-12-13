@@ -11,9 +11,9 @@ const getProfile = async ({ token }) => {
   };
 
   const response = await axios.get(`${BaseUrl}/user/profile`, config);
-  //   if (response.data) {
-  //     localStorage.setItem("user", JSON.stringify(response.data));
-  //   }
+  if (response.data) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  }
 
   return response.data.user;
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import ProductModal from "./modals/ProductModal";
+import { textEllipsis } from "../../functions/functions";
 
 const Product = ({ product }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -34,7 +35,7 @@ const Product = ({ product }) => {
         <div className="flex flex-col p-2 h-1/2">
           <div className=" w-full">
             <p className="text-xs md:text-xs font-normal text-neutral-700">
-              {product.name}
+              {textEllipsis(product.name, 20)}
             </p>
           </div>
           <div className="flex flex-row">

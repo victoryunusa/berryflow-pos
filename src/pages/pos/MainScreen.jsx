@@ -25,6 +25,8 @@ import { getTables } from "../../features/table/tableSlice";
 import SelectTable from "../../components/pos/modals/SelectTable";
 import CloseRegister from "../../components/pos/modals/CloseRegister";
 import HoldList from "../../components/pos/modals/HoldList";
+import { useNavigate } from "react-router";
+import WithActiveRegisterCheck from "../../HOC/withActiveRegisterCheck";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
@@ -41,6 +43,7 @@ const MainScreen = () => {
   const scrolled = useScroll(5);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
@@ -50,6 +53,8 @@ const MainScreen = () => {
 
   const { tables, message } = useSelector((state) => state.tables);
 
+  //const { activeRegister } = useSelector((state) => state.active_register);
+
   const tablesIndex = tables?.filter((table) => table.status === 1);
 
   const { billing_types } = useSelector((state) => state.billing_types);
@@ -57,6 +62,7 @@ const MainScreen = () => {
   const [billingType, setBillingType] = useState(
     billing_types[0]?.billing_type_constant
   );
+
   var options = [
     { value: 1, label: "Yes" },
     { value: 0, label: "No" },
@@ -73,6 +79,8 @@ const MainScreen = () => {
       `${BaseUrl}/products/load_pos_products`,
       config
     );
+
+    console.log(response.data.products);
 
     setItems(response.data.products);
   };
@@ -122,6 +130,8 @@ const MainScreen = () => {
   //const customerIndex = Object.keys(customers).length - 1;
 
   const initialValues = {
+    customer_id: customers[0]?.slug ? customers[0]?.slug : "",
+    customer_id: customers[0]?.slug ? customers[0]?.slug : "",
     customer_id: customers[0]?.slug ? customers[0]?.slug : "",
   };
 
@@ -230,7 +240,7 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-5 bg-zinc-100 py-3 px-5">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-zinc-100 py-3 px-5">
                 {items?.map((product, index) => (
                   <Product product={product} key={index} />
                 ))}
@@ -247,7 +257,7 @@ const MainScreen = () => {
               {({ errors, touched, values, setFieldValue }) => (
                 <Form className="h-full">
                   <div className="w-full flex flex-row gap-3 items-end mt-4 px-5">
-                    <div className="flex flex-col w-1/3">
+                    {/* <div className="flex flex-col w-1/3">
                       <span className="text-xs">Waiter:</span>
                       <Selector
                         options={newCustomers}
@@ -255,8 +265,8 @@ const MainScreen = () => {
                         setFieldValue={setFieldValue}
                         name="customer_id"
                       />
-                    </div>
-                    <div className="flex flex-col w-1/3">
+                    </div> */}
+                    <div className="flex flex-col w-2/3">
                       <span className="text-xs">Customer:</span>
                       <Selector
                         options={newCustomers}
@@ -376,12 +386,12 @@ const MainScreen = () => {
                       </div>
                     </div>
                     <div className="flex flex-row w-full gap-3  mt-5">
-                      <button
+                      {/* <button
                         onClick={handleClearCart}
                         className="px-2 py-3 md:px-4 md:py-3 w-full rounded-md md:rounded-lg text-xs md:text-sm text-center border border-red-500 hover:bg-red-500 text-red-500 hover:text-white font-semibold"
                       >
                         Cancel
-                      </button>
+                      </button> */}
                       {billingType === "FINE_DINE" ? (
                         <button
                           onClick={() => setOpenConfirmOrder(true)}
@@ -392,13 +402,13 @@ const MainScreen = () => {
                       ) : (
                         <>
                           <button className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center border hover:bg-neutral-200 text-neutral-500 font-semibold">
-                            Hold Order
+                            Hold
                           </button>
                           <button
                             onClick={() => setOpenConfirmOrder(true)}
                             className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
                           >
-                            Complete Order
+                            Complete
                           </button>
                         </>
                       )}
@@ -442,4 +452,6 @@ const MainScreen = () => {
   );
 };
 
-export default MainScreen;
+const DashboardWithCheck = WithActiveRegisterCheck(MainScreen);
+
+export default DashboardWithCheck;
