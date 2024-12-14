@@ -14,6 +14,10 @@ import { alertActions } from "../../app/store";
 import { logout, selectBranch } from "../../features/auth/authSlice";
 
 import logo from "../../assets/images/favicon.svg";
+import {
+  getRegister,
+  reset as resetRegister,
+} from "../../features/pos/businessRegisterSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -61,7 +65,8 @@ const Header = () => {
       const branch_slug = branchId.slug;
 
       await dispatch(selectBranch({ logged_user_slug, branch_slug })).unwrap();
-      //dispatch(reset());
+      dispatch(getRegister());
+      dispatch(resetRegister());
       window.location.reload(true);
     } catch (error) {
       dispatch(alertActions.error(error));

@@ -74,11 +74,13 @@ import Viewer from "./pages/pdf/Viewer";
 import Billing from "./pages/subscription/Billing";
 import Subscribe from "./pages/subscription/Subscribe";
 import VariantOptions from "./pages/menu/VariantOptions";
+import InactivityLogout from "./HOC/InactivityLogout";
 
 function App() {
   return (
     <BrowserRouter>
       {/* Alert component */}
+      <InactivityLogout logoutTime={30000} /> {/* 5 mins inactivity */}
       <Alert />
       <Routes>
         <Route
