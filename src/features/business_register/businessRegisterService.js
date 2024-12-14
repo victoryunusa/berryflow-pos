@@ -39,29 +39,8 @@ const getBillingCounterStats = async (token) => {
   return response.data.bill_counters_data;
 };
 
-const openBusinessRegister = async ({ token, formData }) => {
-  //console.log(token);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json; charset=utf-8",
-    },
-  };
-
-  const response = await axios.post(
-    `${BaseUrl}/business_registers/open`,
-    formData,
-    config
-  );
-
-  //localStorage.setItem("activeRegister", JSON.stringify(response.data.slug));
-
-  return response.data;
-};
-
 const businessRegisterService = {
   getBillingCounterStats,
-  openBusinessRegister,
   getBusinessRegisters,
 };
 

@@ -6,6 +6,13 @@ import * as Yup from "yup";
 
 import { alertActions } from "../../app/store";
 import { login } from "../../features/auth/authSlice";
+import { getRegister } from "../../features/pos/businessRegisterSlice";
+import { getCountries } from "../../features/countries/countriesSlice";
+import { getCurrencies } from "../../features/currencies/currenciesSlice";
+import { getAccountTypes } from "../../features/master_actions/accountTypeSlice";
+import { getTransactionTypes } from "../../features/master_actions/transactionTypeSlice";
+import { getBillingTypes } from "../../features/master_actions/billingTypeSlice";
+import { getOrderTypes } from "../../features/master_actions/orderTypeSlice";
 
 const Login = () => {
   const initialValues = {
@@ -38,6 +45,8 @@ const Login = () => {
 
       await dispatch(login({ email, password })).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
+      dispatch(getRegister());
+
       navigate("/");
 
       setLoading(false);

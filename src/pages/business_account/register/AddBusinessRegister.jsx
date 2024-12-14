@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import { getBillCounters } from "../../../features/bill_counter/billCounterSlice";
 import { alertActions } from "../../../app/store";
 import { useNavigate } from "react-router";
-import { openBusinessRegister } from "../../../features/business_register/billingCounterStatSlice";
-import { setActiveRegister } from "../../../features/pos/businessRegisterSlice";
+import {
+  getRegister,
+  openRegister,
+  setActiveRegister,
+} from "../../../features/pos/businessRegisterSlice";
 
 const AddBusinessRegister = () => {
   const dispatch = useDispatch();
@@ -33,7 +36,7 @@ const AddBusinessRegister = () => {
       setLoading(true);
 
       const response = await dispatch(
-        openBusinessRegister({
+        openRegister({
           opening_amount,
           billing_counter: billCounter,
         })
@@ -42,6 +45,7 @@ const AddBusinessRegister = () => {
       // Update the active register in Redux
       console.log(response);
       dispatch(setActiveRegister(response));
+      dispatch(getRegister());
 
       navigate("/pos", { replace: true });
     } catch (error) {
@@ -53,7 +57,7 @@ const AddBusinessRegister = () => {
 
   useEffect(() => {
     dispatch(getBillCounters());
-  }, []);
+  }, [dispatch]);
   return (
     <div className="flex flex-col space-y-5">
       <div className="flex flex-row justify-between">
@@ -75,7 +79,7 @@ const AddBusinessRegister = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {() => (
             <Form className="flex flex-col bg-white rounded-lg p-10 gap-5 border">
               <div className="flex flex-col">
                 <div>

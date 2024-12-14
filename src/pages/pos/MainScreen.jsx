@@ -26,6 +26,7 @@ import SelectTable from "../../components/pos/modals/SelectTable";
 import CloseRegister from "../../components/pos/modals/CloseRegister";
 import HoldList from "../../components/pos/modals/HoldList";
 import { useNavigate } from "react-router";
+import { getRegister } from "../../features/pos/businessRegisterSlice";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
@@ -61,6 +62,10 @@ const MainScreen = () => {
   const [billingType, setBillingType] = useState(
     billing_types[0]?.billing_type_constant
   );
+
+  useEffect(() => {
+    dispatch(getRegister());
+  }, [dispatch]);
 
   useEffect(() => {
     if (!activeRegister) {
