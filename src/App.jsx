@@ -80,7 +80,8 @@ function App() {
   return (
     <BrowserRouter>
       {/* Alert component */}
-      <InactivityLogout logoutTime={30000} /> {/* 5 mins inactivity */}
+      {/* <InactivityLogout logoutTime={30000} warningTime={20000} />{" "} */}
+      {/* 5 mins inactivity */}
       <Alert />
       <Routes>
         <Route

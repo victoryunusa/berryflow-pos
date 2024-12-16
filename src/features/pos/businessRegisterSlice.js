@@ -4,7 +4,7 @@ import businessRegisterService from "./businessRegisterService";
 const activeRegister = localStorage.getItem("activeRegister");
 
 const initialState = {
-  activeRegister: activeRegister ? JSON.parse(activeRegister) : null,
+  activeRegister: activeRegister ? activeRegister : null,
   isError: false,
   isSuccess: false,
   isLoading: false,

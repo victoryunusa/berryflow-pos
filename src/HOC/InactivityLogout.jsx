@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { logout, reset } from "../features/auth/authSlice";
 import { useDispatch } from "react-redux";
 
-const InactivityLogout = ({ logoutTime = 300000 }) => {
-  // Default: 5 minutes (in ms)
+const InactivityLogout = ({ logoutTime = 300000, warningTime = 240000 }) => {
   const [timeoutId, setTimeoutId] = useState(null);
-  const dispatch = useDispatch();
+  const [warningTimeoutId, setWarningTimeoutId] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Function to log the user out
   const handleLogout = async () => {
@@ -17,50 +18,71 @@ const InactivityLogout = ({ logoutTime = 300000 }) => {
     navigate("/auth/login");
   };
 
+  // Function to handle "Stay Logged In"
+  const handleStayLoggedIn = () => {
+    setShowWarning(false);
+    resetTimer();
+  };
+
   // Reset the inactivity timer
   const resetTimer = () => {
-    // Clear the existing timer
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
+    // Clear existing timers
+    if (timeoutId) clearTimeout(timeoutId);
+    if (warningTimeoutId) clearTimeout(warningTimeoutId);
 
-    // Set a new timer
-    const id = setTimeout(() => {
+    // Set warning timer
+    const warningId = setTimeout(() => {
+      setShowWarning(true);
+    }, warningTime);
+
+    // Set logout timer
+    const logoutId = setTimeout(() => {
       handleLogout();
     }, logoutTime);
 
-    // Save the timer ID
-    setTimeoutId(id);
+    // Save timers
+    setWarningTimeoutId(warningId);
+    setTimeoutId(logoutId);
   };
 
   // Track user activity
   useEffect(() => {
-    // Events to track
     const events = ["mousemove", "keydown", "mousedown", "touchstart"];
 
-    // Reset timer on activity
-    const resetOnActivity = () => resetTimer();
+    const resetOnActivity = () => {
+      setShowWarning(false); // Hide warning if any activity occurs
+      resetTimer();
+    };
 
-    // Attach event listeners
     events.forEach((event) => window.addEventListener(event, resetOnActivity));
 
-    // Set the initial timer
+    // Set initial timers
     resetTimer();
 
-    // Clean up on unmount
     return () => {
-      // Clear the timer
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      // Remove event listeners
+      if (timeoutId) clearTimeout(timeoutId);
+      if (warningTimeoutId) clearTimeout(warningTimeoutId);
       events.forEach((event) =>
         window.removeEventListener(event, resetOnActivity)
       );
     };
-  }, [logoutTime]); // Only re-run if logoutTime changes
+  }, [logoutTime, warningTime]);
 
-  return null; // No UI is needed for this component
+  return (
+    <>
+      {showWarning && (
+        <div className="modal">
+          <div className="modal-content">
+            <p>
+              You will be logged out due to inactivity. Do you want to stay
+              logged in?
+            </p>
+            <button onClick={handleStayLoggedIn}>Stay Logged In</button>
+          </div>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default InactivityLogout;

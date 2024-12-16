@@ -11,7 +11,14 @@ import { getTables } from "../../../features/table/tableSlice";
 import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
 import { getCartItems, getTotals } from "../../../features/pos/cartSlice";
 
-const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
+const ConfirmOrder = ({
+  setOpen,
+  billingType,
+  orderType,
+  register,
+  open,
+  children,
+}) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
@@ -102,15 +109,35 @@ const ConfirmOrder = ({ setOpen, billingType, open, children }) => {
   });
 
   const handleSubmit = async (formValue) => {
-    //const { name } = formValue;
+    const { payment_method, order_value, received_value } = formValue;
 
-    console.log({ formValue, accountNumber });
+    console.log({
+      formValue,
+      accountNumber,
+      quantity,
+      register,
+      billingType,
+      orderType,
+    });
 
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
-      //await dispatch(addArea({ name })).unwrap();
+      await dispatch(
+        addArea({
+          payment_method,
+          order_value,
+          received_value,
+          accountNumber,
+          quantity: cart.cartTotalQuantity,
+          cart_items: cart.cartItems,
+          business_register: register,
+          billing_type: billingType,
+          order_type: orderType,
+          order_status: "CLOSE",
+        })
+      ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
 
       dispatch(

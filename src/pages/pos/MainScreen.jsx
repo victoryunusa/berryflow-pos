@@ -112,6 +112,7 @@ const MainScreen = () => {
   const cartItems = useSelector(getCartItems);
 
   const cart = useSelector((state) => state.cart);
+
   useEffect(() => {
     dispatch(getTotals());
   }, [cartItems, dispatch]);
@@ -140,8 +141,6 @@ const MainScreen = () => {
   //const customerIndex = Object.keys(customers).length - 1;
 
   const initialValues = {
-    customer_id: customers[0]?.slug ? customers[0]?.slug : "",
-    customer_id: customers[0]?.slug ? customers[0]?.slug : "",
     customer_id: customers[0]?.slug ? customers[0]?.slug : "",
   };
 
@@ -450,7 +449,12 @@ const MainScreen = () => {
       {openCloseRegister && <CloseRegister setOpen={setOpenCloseRegister} />}
       {openHoldList && <HoldList setOpen={setOpenHoldList} />}
       {openConfirmOrder && (
-        <ConfirmOrder setOpen={setOpenConfirmOrder} billingType={billingType} />
+        <ConfirmOrder
+          setOpen={setOpenConfirmOrder}
+          cart={cart}
+          register={activeRegister}
+          billingType={billingType}
+        />
       )}
       {openRunnungOrders && (
         <RunningOrders
