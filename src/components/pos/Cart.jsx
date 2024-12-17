@@ -25,7 +25,7 @@ const Cart = () => {
           </div>
         ))
       ) : (
-        <div className="flex items-center justify-center text-sm mt-20">
+        <div className="flex items-center justify-center text-sm mt-10">
           <p>Please add items this order</p>
         </div>
       )}

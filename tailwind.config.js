@@ -11,7 +11,7 @@ export default {
         small: "0.78rem",
       },
       colors: {
-        nelsa_primary: "#FF641C",
+        nelsa_primary: "#13293D",
         nelsa_secondary: "#000000",
         h28_light_green: "#EBF5FF",
         h28_light_green_2: "#44C3D2",
@@ -21,12 +21,6 @@ export default {
         nelsa_gray: "#7c878b",
         nelsa_gray_2: "#8f8f8f",
         nelsa_gray_3: "#5d5d5d",
-        h28_light_grey: "#f7f7f7",
-        h28_light_grey_2: "#f9f9f9",
-        h28_red: "#dc3545",
-        h28_yellow: "#f5bd3e",
-        h28_gold: "#eca400",
-        h28_orange: "#cd4a38",
       },
       screens: {
         tablet: "640px",

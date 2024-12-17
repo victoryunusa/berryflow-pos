@@ -34,7 +34,7 @@ const CartItem = ({ cartItem }) => {
     console.log(cartItem);
   };
   return (
-    <div className="flex flex-row justify-between p-2.5">
+    <div className="flex flex-row items-center justify-between p-2.5">
       <div className="w-1/2">
         <span className="text-xs font-semibold truncate">
           {textEllipsis(cartItem.name, 20)}
@@ -140,7 +140,7 @@ const CartItem = ({ cartItem }) => {
           </svg>
         </button>
       </div>
-      <div className=" w-20 flex justify-between">
+      <div className=" w-20 flex justify-between ml-2">
         <h1 className="font-semibold text-xs">
           ₦{" "}
           {dollarUSLocale.format(

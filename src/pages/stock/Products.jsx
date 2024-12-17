@@ -46,11 +46,11 @@ const Products = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-5 bg-zinc-100 ">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 bg-zinc-100 ">
           {products?.data?.map((product, index) => (
             <div
               key={index}
-              className="flex flex-col bg-white shadow-md border rounded-xl cursor-pointer h-64 p-2"
+              className="flex flex-col bg-white shadow-md border rounded-xl cursor-pointer p-2"
               onClick={() => showProduct(product.slug)}
             >
               <div className="flex w-full h-28 bg-contain">
@@ -63,7 +63,7 @@ const Products = () => {
                   alt={product.name}
                 />
               </div>
-              <div className="flex flex-col gap-1.5 bg-neutral-100 p-2 rounded">
+              <div className="flex flex-col gap-1.5 rounded">
                 <div className=" w-full">
                   <p className="text-sm md:text-md font-semibold text-neutral-700">
                     {textEllipsis(product.name, 20)}

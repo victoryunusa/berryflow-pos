@@ -321,7 +321,7 @@ const MainScreen = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="h-1/4 overflow-y-scroll px-5 my-5 bg-neutral-50 border rounded-md mx-5">
+                  <div className="h-2/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
                   </div>
 
@@ -347,18 +347,6 @@ const MainScreen = () => {
                       </div> */}
                   <div className=" w-full p-5">
                     <div className="flex flex-col gap-2 w-full">
-                      <div className="flex w-full rounded-lg">
-                        <input
-                          type="text"
-                          name=""
-                          id=""
-                          placeholder="Enter coupon code"
-                          className="w-full rounded-l-md border px-3 border-zinc-200 bg-zinc-50 focus:outline-none placeholder:text-xs"
-                        />
-                        <button className="bg-black text-white text-sm font-semibold p-3 rounded-r-md focus-none">
-                          Apply
-                        </button>
-                      </div>
                       <div className="flex flex-col md:gap-1">
                         <div className="flex justify-between ">
                           <span className="font-semibold text-sm">
@@ -377,12 +365,12 @@ const MainScreen = () => {
                           </span>
                           <span className="font-bold">- ₦0.00</span>
                         </div>
-                        <div className="flex justify-between ">
+                        {/* <div className="flex justify-between ">
                           <span className="font-semibold text-sm">
                             Shipping
                           </span>
                           <span className="font-bold">₦2.25</span>
-                        </div>
+                        </div> */}
                         <div className="border-t border-zinc-200 flex items-center justify-between">
                           <span className="text-lg font-bold">Total</span>
                           <span className="font-bold text-lg">
@@ -394,7 +382,7 @@ const MainScreen = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-row w-full gap-3  mt-5">
+                    <div className="flex flex-row w-full gap-3  mt-3">
                       {/* <button
                         onClick={handleClearCart}
                         className="px-2 py-3 md:px-4 md:py-3 w-full rounded-md md:rounded-lg text-xs md:text-sm text-center border border-red-500 hover:bg-red-500 text-red-500 hover:text-white font-semibold"
@@ -454,6 +442,7 @@ const MainScreen = () => {
           cart={cart}
           register={activeRegister}
           billingType={billingType}
+          orderType={orderType}
         />
       )}
       {openRunnungOrders && (

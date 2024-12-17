@@ -7,7 +7,7 @@ import logo from "../../assets/images/truetab-white.svg";
 
 const SideNav = () => {
   return (
-    <div className="md:w-64 bg-nelsa_secondary h-screen flex-1 fixed hidden md:flex">
+    <div className="md:w-64 bg-nelsa_primary h-screen flex-1 fixed hidden md:flex">
       <div className="flex flex-col space-y-6 w-full ">
         <Link
           href="/"
