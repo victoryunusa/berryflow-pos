@@ -78,17 +78,10 @@ const NewPurchaseOrder = () => {
   const { suppliers } = useSelector((state) => state.suppliers);
   const { token } = useSelector((state) => state.auth);
 
-  const { countries } = useSelector((state) => state.countries);
+  const { currencies } = useSelector((state) => state.currencies);
 
-  const currencies = countries?.filter(
-    (currency) => currency.currency_name !== "" || currency.currency_code !== ""
-  );
-
-  var newCurrencies = currencies.map(function (obj) {
-    return {
-      value: obj.id,
-      label: obj.name + " - " + obj.currency_symbol,
-    };
+  var newArray2 = currencies.map(function (obj) {
+    return { value: obj.id, label: obj.code + " - " + obj.name };
   });
 
   const { taxes } = useSelector((state) => state.taxes);
@@ -225,6 +218,12 @@ const NewPurchaseOrder = () => {
       );
       // navigate("/suppliers");
       window.location.reload(true);
+      dispatch(
+        alertActions.success({
+          message: "Purchase Order successfully added.",
+          showAfterRedirect: true,
+        })
+      );
       dispatch(getPurchaseOrders());
       setLoading(false);
     } catch (error) {
@@ -378,7 +377,7 @@ const NewPurchaseOrder = () => {
                         Supplier Currency
                       </label>
                       <Selector
-                        options={newCurrencies}
+                        options={newArray2}
                         value={values.supplier_currency}
                         setFieldValue={setFieldValue}
                         name="supplier_currency"

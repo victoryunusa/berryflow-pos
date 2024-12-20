@@ -79,17 +79,10 @@ const NewInvoice = () => {
 
   const { token } = useSelector((state) => state.auth);
 
-  const { countries } = useSelector((state) => state.countries);
-
-  const currencies = countries?.filter(
-    (currency) => currency.currency_name !== "" || currency.currency_code !== ""
-  );
+  const { currencies } = useSelector((state) => state.currencies);
 
   var newCurrencies = currencies.map(function (obj) {
-    return {
-      value: obj.id,
-      label: obj.name + " - " + obj.currency_symbol,
-    };
+    return { value: obj.id, label: obj.code + " - " + obj.name };
   });
 
   const { taxes } = useSelector((state) => state.taxes);
