@@ -83,6 +83,9 @@ const TableModal = ({ setOpenAdd, table, open }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center items-center">
                   <div className="flex flex-col items-center justify-center my-5">
+                    <h1 className="text-2xl font-extrabold">
+                      {user?.vendor.business_name}
+                    </h1>
                     <h2>{activeBranch?.name}</h2>
                     <p>Address: {activeBranch?.address}</p>
                   </div>
