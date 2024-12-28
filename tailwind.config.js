@@ -5,7 +5,7 @@ export default {
     extend: {
       fontFamily: {
         //cabin: ["Cabin", "sans-serif"],
-        br: ["Quicksand", "sans-serif"],
+        br: ["Varela Round", "sans-serif"],
       },
       fontSize: {
         small: "0.78rem",

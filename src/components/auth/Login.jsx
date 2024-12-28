@@ -75,9 +75,7 @@ const Login = () => {
         {({ errors, touched }) => (
           <Form>
             <div className="mt-4">
-              <label className="block text-nelsa_dark_blue text-sm font-semibold">
-                Email
-              </label>
+              <label className="block text-nelsa_primary text-sm">Email</label>
               <Field
                 type="text"
                 placeholder="Email"
@@ -85,7 +83,7 @@ const Login = () => {
                 name="email"
                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                   errors.email && touched.email ? "border-red-500" : ""
-                } focus:border-nelsa_dark_blue`}
+                } focus:border-nelsa_primary`}
               />
               <ErrorMessage
                 name="email"
@@ -94,7 +92,7 @@ const Login = () => {
               />
             </div>
             <div className="mt-4">
-              <label className="block text-nelsa_dark_blue text-sm font-semibold">
+              <label className="block text-nelsa_primary text-sm">
                 Password
               </label>
               <Field
@@ -104,7 +102,7 @@ const Login = () => {
                 name="password"
                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                   errors.password && touched.password ? "border-red-500" : ""
-                } focus:border-nelsa_dark_blue`}
+                } focus:border-nelsa_primary`}
               />
               <ErrorMessage
                 name="password"
@@ -116,21 +114,21 @@ const Login = () => {
                   <input
                     type="checkbox"
                     value=""
-                    className="w-4 h-4 cursor-pointer text-nelsa_dark_blue checked:bg-nelsa_dark_blue bg-gray-100 rounded-xl border-gray-300"
+                    className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
                   />
-                  <label className="ml-2 text-sm text-gray-600 ">
+                  <label className="ml-2 text-sm text-neutral-600 hover:text-nelsa_primary">
                     Remember me
                   </label>
                 </div>
                 <Link
                   to="/auth/forgot-password"
-                  className="text-sm text-gray-600 hover:text-gray-900"
+                  className="text-sm text-neutral-600 hover:text-nelsa_primary"
                 >
                   Forgot your password?
                 </Link>
               </div>
             </div>
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between text-base">
               {loading ? (
                 <button
                   type="submit"

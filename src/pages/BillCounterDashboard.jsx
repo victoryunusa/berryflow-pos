@@ -87,6 +87,24 @@ const BillCounterDashboard = () => {
                 </div>
               ))}
             </div>
+            <div className="flex flex-row justify-between border-t mt-5 py-2">
+              <span className="flex flex-col gap-3  text-sm">
+                <p>Recently Opened On</p>
+                <h4 className="text-xs">
+                  {register.business_register != null
+                    ? register.business_register.opening_date
+                    : " - "}
+                </h4>
+              </span>
+              <span className="flex flex-col gap-3  text-end text-sm">
+                <p>Opened By</p>
+                <h4 className="text-xs">
+                  {register.business_register != null
+                    ? register.business_register.user.full_name
+                    : " - "}
+                </h4>
+              </span>
+            </div>
           </div>
         ))}
       </div>

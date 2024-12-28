@@ -66,7 +66,6 @@ const Header = () => {
 
       await dispatch(selectBranch({ logged_user_slug, branch_slug })).unwrap();
       dispatch(getRegister());
-      dispatch(resetRegister());
       window.location.reload(true);
     } catch (error) {
       dispatch(alertActions.error(error));

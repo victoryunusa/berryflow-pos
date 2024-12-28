@@ -75,6 +75,8 @@ import Billing from "./pages/subscription/Billing";
 import Subscribe from "./pages/subscription/Subscribe";
 import VariantOptions from "./pages/menu/VariantOptions";
 import InactivityLogout from "./HOC/InactivityLogout";
+import Wallet from "./pages/wallet/Wallet";
+import VerifyOTP from "./components/auth/VerifyOTP";
 
 function App() {
   return (
@@ -604,8 +606,18 @@ function App() {
               </Protected>
             }
           />
-        </Route>
 
+          {/* Wallet Routes */}
+
+          <Route
+            path="wallet"
+            element={
+              <Protected>
+                <Wallet />
+              </Protected>
+            }
+          />
+        </Route>
         <Route element={<OnboardingLayout />}>
           <Route
             path="/business_verification"
@@ -616,7 +628,6 @@ function App() {
             }
           />
         </Route>
-
         <Route element={<WelcomeLayout />}>
           <Route
             path="/welcome"
@@ -643,7 +654,6 @@ function App() {
             }
           />
         </Route>
-
         {/* Pos Routes */}
         <Route element={<PosLayout />}>
           <Route
@@ -655,13 +665,11 @@ function App() {
             }
           />
         </Route>
-
         <Route element={<AuthLayout />}>
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Register />} />
           <Route path="/auth/verify_email" element={<VerifyEmail />} />
         </Route>
-
         <Route element={<SelectBranchLayout />}>
           <Route
             path="select/branch"
@@ -674,6 +682,7 @@ function App() {
         </Route>
         <Route path="*" element={<p>There&apos;s nothing here: 404!</p>} />
         <Route path="view_pdf" element={<Viewer />} />
+        <Route path="verify_otp" element={<VerifyOTP />} />
       </Routes>
     </BrowserRouter>
   );

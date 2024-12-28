@@ -249,7 +249,7 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 bg-zinc-100 py-3 px-5">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-3 bg-zinc-100 py-3 px-5">
                 {items?.map((product, index) => (
                   <Product product={product} key={index} />
                 ))}
@@ -353,7 +353,6 @@ const MainScreen = () => {
                             Subtotal
                           </span>
                           <span className="font-bold">
-                            ₦{" "}
                             {dollarUSLocale.format(
                               Math.round(cart.cartTotalAmount)
                             )}
@@ -363,7 +362,7 @@ const MainScreen = () => {
                           <span className="font-semibold text-sm">
                             Discount
                           </span>
-                          <span className="font-bold">- ₦0.00</span>
+                          <span className="font-bold">- 0.00</span>
                         </div>
                         {/* <div className="flex justify-between ">
                           <span className="font-semibold text-sm">
@@ -374,7 +373,6 @@ const MainScreen = () => {
                         <div className="border-t border-zinc-200 flex items-center justify-between">
                           <span className="text-lg font-bold">Total</span>
                           <span className="font-bold text-lg">
-                            ₦{" "}
                             {dollarUSLocale.format(
                               Math.round(cart.cartTotalAmount)
                             )}
