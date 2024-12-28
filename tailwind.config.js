@@ -32,6 +32,9 @@ export default {
         desktop: "1280px",
         // => @media (min-width: 1280px) { ... }
       },
+      backgroundImage: {
+        "bg-pattern": "url('/src/assets/images/2028.png')",
+      },
     },
   },
   plugins: [],

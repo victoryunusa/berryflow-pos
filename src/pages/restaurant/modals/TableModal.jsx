@@ -40,7 +40,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
       const imgWidth = 148; // A5 width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      pdf.addImage(imgData, "PNG", 15, 15, imgWidth - 20, imgHeight - 20); // Adjust margins
+      pdf.addImage(imgData, "PNG", 10, 10, imgWidth - 20, imgHeight - 15); // Adjust margins
       pdf.save(`table-${table.table_name}-details.pdf`);
 
       // Show buttons again
@@ -77,7 +77,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
           ></div>
           <div className="flex items-center min-h-screen px-4 py-4">
             <div
-              className="relative w-full max-w-lg p-7 md:p-10 mx-auto font-br bg-white rounded-md shadow-lg"
+              className="relative w-full max-w-lg p-7 md:p-10 mx-auto font-br bg-white rounded-md shadow-lg bg-bg-pattern bg-top bg-contain bg-no-repeat"
               ref={printRef} // Reference for capturing content
             >
               <div className="w-full">
@@ -104,17 +104,17 @@ const TableModal = ({ setOpenAdd, table, open }) => {
                       {table?.table_name} -{" "}
                       <span className="font-bold">{table?.table_number}</span>
                     </h2>
-                    <h2 className="mb-5">Section: {table?.floor_plan?.name}</h2>
+                    <h2 className="mb-3">Section: {table?.floor_plan?.name}</h2>
                     <p>Please scan & send quick order</p>
                     <p className="text-2xl font-bold">Thank You</p>
                   </div>
-                  <div className="flex flex-row gap-2 items-center justify-center">
+                  <div className="flex flex-row gap-2 items-center justify-center mb-5">
                     <p className="text-sm">Powered by: </p>
                     <img className="w-28" src={logo} alt="CaterOS" />
                   </div>
                 </div>
                 {/* Download PDF Button */}
-                <div className="mt-5 flex flex-row items-center justify-center gap-3">
+                <div className="mt-1 flex flex-row items-center justify-center gap-3 my-10">
                   <button
                     onClick={handleDownloadPDF}
                     className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 export-hide"
