@@ -1,5 +1,5 @@
 import React from "react";
-import OTPInput from "../common/OtpInput";
+import OTPInput from "../common/OTPInput";
 
 const VerifyOTP = () => {
   const handleOtpComplete = (otp) => {
