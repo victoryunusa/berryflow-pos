@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import * as HeIcons from "react-icons/fa6";
 //import { Link, useNavigate } from "react-router-dom";
 
 //import { Button } from "primereact/button";
@@ -9,12 +10,14 @@ import { getTables } from "../../features/table/tableSlice";
 import ScrollableTabBar from "../../components/common/ScrollableTabBar";
 import AddArea from "../../components/modals/AddArea";
 import { getAreas } from "../../features/area/areaSlice";
+import TableModal from "./modals/TableModal";
 
 const Tables = () => {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [openAdd, setOpenAdd] = useState(false);
+  const [openTable, setOpenTable] = useState(false);
   const [openAddArea, setOpenAddArea] = useState(false);
   const { tables } = useSelector((state) => state.tables);
   const { areas } = useSelector((state) => state.areas);
@@ -35,6 +38,18 @@ const Tables = () => {
   );
 
   console.log(filteredTables);
+
+  const [selectedTable, setSelectedTable] = useState(null);
+
+  const handleEditClick = (account) => {
+    setSelectedTable(account);
+    setOpenTable(true);
+  };
+
+  const closeModal = () => {
+    setOpenTable(false);
+    setSelectedTable(null);
+  };
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -75,7 +90,7 @@ const Tables = () => {
 
                 <div>
                   <button
-                    className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+                    className="px-3 py-2 bg-nelsa_primary text-white font-semibold text-sm rounded-md"
                     onClick={() => setOpenAddArea(true)}
                   >
                     Add Section
@@ -85,28 +100,58 @@ const Tables = () => {
 
               <div>
                 <button
-                  className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+                  className="px-3 py-2 bg-nelsa_primary text-white font-semibold text-sm rounded-md"
                   onClick={() => setOpenAdd(true)}
                 >
                   Add Table
                 </button>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3 py-3">
+              <div className="grid grid-cols-1 md:grid-cols-6 gap-3 py-3">
                 {filteredTables?.map((table) => (
                   <div
                     key={table.slug}
-                    className="bg-white border rounded-lg p-5"
+                    className="flex flex-col bg-white border rounded-lg p-5"
                   >
-                    <QRCode
-                      size={5}
-                      style={{ height: "auto", maxWidth: "70%", width: "70%" }}
-                      value={table.slug}
-                      viewBox={`0 0 70 70`}
-                    />
-                    <h2 className="text-lg font-bold">
-                      {table.table_name} {" - "} {table.table_number}
-                    </h2>
+                    <div className="flex flex-row items-center justify-center">
+                      <QRCode
+                        size={5}
+                        style={{
+                          height: "auto",
+                          maxWidth: "50%",
+                          width: "50%",
+                        }}
+                        value={table.slug}
+                        viewBox={`0 0 70 70`}
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                      <h2 className="text-lg font-bold">
+                        {table.table_name} {" - "} {table.table_number}
+                      </h2>
+                      <h2 className="text-lg font-bold">
+                        Seats: {table.table_number}
+                      </h2>
+                      <div className="flex flex-row gap-2 w-full">
+                        <button
+                          className="flex flex-row p-1 rounded bg-blue-600 gap-1 w-1/2 items-center justify-center"
+                          onClick={() => handleEditClick(table)}
+                        >
+                          <HeIcons.FaDownload
+                            size={14}
+                            className="text-white"
+                          />
+                          <span className="text-white font-semibold">
+                            Download
+                          </span>
+                        </button>
+                        <button className="flex flex-row p-1.5 rounded bg-nelsa_primary gap-1 w-1/2 items-center justify-center">
+                          <HeIcons.FaEye size={14} className="text-white" />
+                          <span className="text-white font-semibold">View</span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -119,6 +164,13 @@ const Tables = () => {
       {openAdd && <AddTable open={openAdd} setOpenAdd={setOpenAdd} />}
       {openAddArea && (
         <AddArea open={openAddArea} setOpenAdd={setOpenAddArea} />
+      )}
+      {openTable && (
+        <TableModal
+          open={openTable}
+          table={selectedTable}
+          setOpenAdd={closeModal}
+        />
       )}
     </>
   );
