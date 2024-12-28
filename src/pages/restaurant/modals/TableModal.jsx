@@ -96,7 +96,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
                       maxWidth: "40%",
                       width: "40%",
                     }}
-                    value={table.slug}
+                    value={`https://${user?.vendor.url}.truetab.site`}
                     viewBox={`0 0 70 70`}
                   />
                   <div className="flex flex-col items-center justify-center my-5">
