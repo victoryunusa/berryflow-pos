@@ -64,7 +64,7 @@ const AddArea = ({ setOpenAdd, open, children }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-bold">Add new area</h3>
+                    <h3 className="text-lg font-bold">Add new section</h3>
                     <h4
                       className="text-lg font-medium text-gray-500 hover:cursor-pointer"
                       onClick={() => setOpenAdd(false)}
@@ -87,7 +87,7 @@ const AddArea = ({ setOpenAdd, open, children }) => {
                             </label>
                             <Field
                               type="text"
-                              placeholder="Enter area name"
+                              placeholder="Enter section name"
                               name="name"
                               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                                 errors.name && touched.name

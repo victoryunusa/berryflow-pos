@@ -20,7 +20,6 @@ const getOrders = async ({ token, formData }) => {
 
 //Add Order
 const addOrder = async ({ token, formData }) => {
-  console.log(token);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -28,9 +27,15 @@ const addOrder = async ({ token, formData }) => {
     },
   };
 
-  await axios.post(`${BaseUrl}/orders/store`, formData, config);
+  console.log(formData);
 
-  //return response.data.products;
+  const response = await axios.post(
+    `${BaseUrl}/orders/store`,
+    formData,
+    config
+  );
+
+  return response.data;
 };
 
 const orderService = {

@@ -105,6 +105,10 @@ export const subMenusList = [
     icon: <HeIcons.FaBellConcierge size={16} className="min-w-max" />,
     subNav: [
       {
+        title: "Section (Floor Plan)",
+        path: "/restaurant/section",
+      },
+      {
         title: "Tables",
         path: "/restaurant/tables",
       },

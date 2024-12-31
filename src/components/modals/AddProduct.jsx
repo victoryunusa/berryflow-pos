@@ -205,13 +205,13 @@ const AddProduct = (props) => {
             <div className="relative w-full max-w-xl  mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-2 ">
+                  <div className="flex justify-between px-6 py-2 ">
                     <h3 className="text-md font-bold text-nelsa_primary">
                       Add product
                     </h3>
                   </div>
 
-                  <div className="mt-5 flex flex-col ">
+                  <div className="flex flex-col ">
                     <Formik
                       initialValues={initialValues}
                       validationSchema={validationSchema}
@@ -575,7 +575,7 @@ const AddProduct = (props) => {
                             </div>
                           </div>
 
-                          <div className="flex flex-row justify-end mt-5 p-6 border-t">
+                          <div className="flex flex-row justify-end p-6">
                             <div className="flex items-baseline justify-between gap-3 w-1/2">
                               <button
                                 type="button"

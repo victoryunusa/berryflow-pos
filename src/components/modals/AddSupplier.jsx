@@ -94,12 +94,12 @@ const AddSupplier = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-bold text-nelsa_primary">
+                    <h3 className="text-md font-bold text-nelsa_primary">
                       Add Supplier
                     </h3>
                   </div>
 
-                  <div className="mt-5 flex flex-col justify-center items-center">
+                  <div className="flex flex-col justify-center items-center">
                     <Formik
                       initialValues={initialValues}
                       validationSchema={validationSchema}
@@ -114,7 +114,7 @@ const AddSupplier = (props) => {
                             <Field
                               type="text"
                               name="supplier_name"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-lg focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.supplier_name && touched.supplier_name
                                   ? "border-red-500"
                                   : ""
@@ -133,7 +133,7 @@ const AddSupplier = (props) => {
                             <Field
                               type="text"
                               name="phone"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-lg focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.phone && touched.phone
                                   ? "border-red-500"
                                   : ""
@@ -154,7 +154,7 @@ const AddSupplier = (props) => {
                               id="email"
                               autoComplete="off"
                               name="email"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-lg focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.email && touched.email
                                   ? "border-red-500"
                                   : ""
@@ -173,7 +173,7 @@ const AddSupplier = (props) => {
 
                             <Field
                               name="address"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-lg focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.address && touched.address
                                   ? "border-red-500"
                                   : ""
@@ -192,14 +192,14 @@ const AddSupplier = (props) => {
                               <button
                                 type="button"
                                 onClick={() => setOpenSupplier(false)}
-                                className="w-full px-3 py-2 mt-4 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
+                                className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
                               >
                                 cancel
                               </button>
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-3 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -215,7 +215,7 @@ const AddSupplier = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

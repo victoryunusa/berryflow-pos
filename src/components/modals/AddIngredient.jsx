@@ -158,13 +158,13 @@ const AddIngredient = (props) => {
             <div className="relative w-full max-w-xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-2">
+                  <div className="flex justify-between px-6 py-3">
                     <h3 className="text-base font-bold text-nelsa_primary">
                       Add Ingredient
                     </h3>
                   </div>
 
-                  <div className="mt-5 flex flex-col">
+                  <div className="flex flex-col">
                     <Formik
                       initialValues={initialValues}
                       validationSchema={validationSchema}
@@ -174,7 +174,7 @@ const AddIngredient = (props) => {
                         <Form className="w-full">
                           <div className="max-h-[720px] overflow-scroll px-6 md:px-6">
                             <div className="">
-                              <label className="block text-nelsa_gray_3 text-xs font-semibold">
+                              <label className="block text-nelsa_primary text-xs font-semibold">
                                 Name
                               </label>
                               <Field
@@ -194,14 +194,14 @@ const AddIngredient = (props) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className=" text-nelsa_primary text-xs ">
+                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
                                 SKU
                               </label>
                               <Field
                                 type="text"
                                 placeholder=""
                                 name="ingredient_code"
-                                className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
+                                className={`w-full px-4 py-3 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                   errors.ingredient_code &&
                                   touched.ingredient_code
                                     ? "border-red-500"
@@ -215,7 +215,7 @@ const AddIngredient = (props) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className="block text-nelsa_gray_3 text-xs font-semibold mb-1">
+                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
                                 Category
                                 <span
                                   onClick={() => setOpenCategory(true)}
@@ -449,12 +449,12 @@ const AddIngredient = (props) => {
                               </div>
                             </div> */}
                           </div>
-                          <div className="flex flex-row justify-end mt-10 p-6 border-t">
+                          <div className="flex flex-row justify-end mt-10 p-6">
                             <div className="flex items-baseline justify-between gap-3 w-1/2">
                               <button
                                 type="button"
                                 onClick={() => setOpenIngredient(false)}
-                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
+                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
                               >
                                 cancel
                               </button>
@@ -477,7 +477,7 @@ const AddIngredient = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

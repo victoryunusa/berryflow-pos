@@ -196,7 +196,7 @@ const AddTransaction = (props) => {
             <div className="relative w-full max-w-xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-2">
+                  <div className="flex justify-between px-6 py-2">
                     <h3 className="text-base font-bold text-nelsa_primary">
                       Add Transaction
                     </h3>
@@ -363,12 +363,12 @@ const AddTransaction = (props) => {
                               />
                             </div>
                           </div>
-                          <div className="flex flex-row justify-end mt-10 p-6 border-t">
+                          <div className="flex flex-row justify-end p-6">
                             <div className="flex items-baseline justify-between gap-3 w-1/2">
                               <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
+                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
                               >
                                 cancel
                               </button>
@@ -391,7 +391,7 @@ const AddTransaction = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

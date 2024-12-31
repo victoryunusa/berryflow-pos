@@ -77,6 +77,7 @@ import VariantOptions from "./pages/menu/VariantOptions";
 import InactivityLogout from "./HOC/InactivityLogout";
 import Wallet from "./pages/wallet/Wallet";
 import VerifyOTP from "./components/auth/VerifyOTP";
+import Section from "./pages/restaurant/Section";
 
 function App() {
   return (
@@ -573,15 +574,15 @@ function App() {
             }
           />
 
-          {/* <Route
-            path="table/section"
+          <Route
+            path="restaurant/section"
             element={
               <Protected>
-                <Area />
+                <Section />
               </Protected>
             }
           />
-          
+          {/*
           <Route
             path="table/rooms"
             element={

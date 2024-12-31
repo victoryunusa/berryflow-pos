@@ -75,14 +75,16 @@ const AddTable = ({ setOpenAdd }) => {
         <div className="fixed inset-0 z-[999] overflow-y-auto">
           <div className="fixed inset-0 w-full h-full bg-black opacity-40"></div>
           <div className="flex items-center min-h-screen px-4 py-4">
-            <div className="relative w-full max-w-xl p-6 md:p-6 mx-auto font-br bg-white rounded-md shadow-lg">
+            <div className="relative w-full max-w-xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between">
-                    <h3 className="text-lg font-bold">Create table</h3>
+                  <div className="flex justify-between px-6 py-5">
+                    <h3 className="text-base font-bold text-nelsa_primary">
+                      Add Table
+                    </h3>
                   </div>
 
-                  <div className="mt-5 flex flex-col justify-center items-center">
+                  <div className="mb-5 flex flex-col justify-center items-center px-6 md:px-6">
                     <Formik
                       initialValues={initialValues}
                       validationSchema={validationSchema}
@@ -90,14 +92,14 @@ const AddTable = ({ setOpenAdd }) => {
                     >
                       {({ values, errors, touched, setFieldValue }) => (
                         <Form className="w-full">
-                          <div className="mt-4">
+                          <div className="">
                             <label className="block text-nelsa_primary text-xs font-semibold">
                               Name
                             </label>
                             <Field
                               type="text"
                               name="name"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-lg focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.name && touched.name
                                   ? "border-red-500"
                                   : ""
@@ -116,7 +118,7 @@ const AddTable = ({ setOpenAdd }) => {
                             <Field
                               type="text"
                               name="table_number"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.table_number && touched.table_number
                                   ? "border-red-500"
                                   : ""
@@ -135,7 +137,7 @@ const AddTable = ({ setOpenAdd }) => {
                             <Field
                               type="text"
                               name="occupants"
-                              className={`w-full px-3 py-2 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
+                              className={`w-full px-3 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                                 errors.occupants && touched.occupants
                                   ? "border-red-500"
                                   : ""
@@ -175,14 +177,14 @@ const AddTable = ({ setOpenAdd }) => {
                               <button
                                 type="button"
                                 onClick={() => setOpenAdd(false)}
-                                className="w-full px-3 py-2 mt-4 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
+                                className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
                               >
                                 cancel
                               </button>
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-3 py-3 mt-4 font-bold bg-[#7893d3] text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -198,7 +200,7 @@ const AddTable = ({ setOpenAdd }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

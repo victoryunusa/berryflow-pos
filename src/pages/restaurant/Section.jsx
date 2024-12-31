@@ -21,7 +21,7 @@ const actionBodyTemplate = (rowData) => {
   );
 };
 
-const Area = () => {
+const Section = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ const Area = () => {
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">
-              Areas (Floor Plan)
+              Sections (Floor Plan)
             </h3>
             <p className="text-xs text-neutral-400">
               Select the plan that you want to subscribe to
@@ -77,4 +77,4 @@ const Area = () => {
   );
 };
 
-export default Area;
+export default Section;

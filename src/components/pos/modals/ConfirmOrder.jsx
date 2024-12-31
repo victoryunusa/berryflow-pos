@@ -10,6 +10,7 @@ import { alertActions } from "../../../app/store";
 import { getTables } from "../../../features/table/tableSlice";
 import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
 import { getCartItems, getTotals } from "../../../features/pos/cartSlice";
+import { addOrder } from "../../../features/order/orderSlice";
 
 const ConfirmOrder = ({
   setOpen,
@@ -111,21 +112,12 @@ const ConfirmOrder = ({
   const handleSubmit = async (formValue) => {
     const { payment_method, order_value, received_value } = formValue;
 
-    console.log({
-      formValue,
-      accountNumber,
-      quantity,
-      register,
-      billingType,
-      orderType,
-    });
-
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
       await dispatch(
-        addArea({
+        addOrder({
           payment_method,
           order_value,
           received_value,
@@ -142,12 +134,10 @@ const ConfirmOrder = ({
 
       dispatch(
         alertActions.success({
-          message: "Area successfully added.",
+          message: "Order successfully added.",
           showAfterRedirect: true,
         })
       );
-      // navigate("/suppliers");
-      // window.location.reload(true);
 
       setLoading(false);
       setVisible(false);
@@ -167,15 +157,15 @@ const ConfirmOrder = ({
             <div className="relative w-full max-w-4xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-4">
+                  <div className="flex justify-between px-6 py-4">
                     <h3 className="text-md font-bold">Confirm</h3>
 
-                    <div
+                    {/* <div
                       onClick={() => setOpen(false)}
                       className="cursor-pointer"
                     >
                       <FaIcons.FaXmark size={20} className="text-red-600" />
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="mt-5 flex flex-col justify-center items-center">
@@ -332,12 +322,12 @@ const ConfirmOrder = ({
                             </div>
                           </div>
 
-                          <div className="flex flex-row justify-end mt-10 p-4 md:p-5 border-t">
+                          <div className="flex flex-row justify-end p-4 md:p-5 mt-5">
                             <div className="flex items-baseline justify-between gap-3 w-1/2">
                               <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
+                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
                               >
                                 cancel
                               </button>
@@ -360,7 +350,7 @@ const ConfirmOrder = ({
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>
