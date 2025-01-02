@@ -27,13 +27,15 @@ const addOrder = async ({ token, formData }) => {
     },
   };
 
-  console.log(formData);
+  console.log(token);
 
   const response = await axios.post(
     `${BaseUrl}/orders/store`,
     formData,
     config
   );
+
+  console.log(response.data);
 
   return response.data;
 };

@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import * as FaIcons from "react-icons/fa6";
+//import * as FaIcons from "react-icons/fa6";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../../app/store";
-import { getTables } from "../../../features/table/tableSlice";
+//import { getTables } from "../../../features/table/tableSlice";
 import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
 import { getCartItems, getTotals } from "../../../features/pos/cartSlice";
 import { addOrder } from "../../../features/order/orderSlice";
@@ -25,19 +25,16 @@ const ConfirmOrder = ({
   const [accounts, setAccounts] = useState([]);
   const [accountNumber, setAccountNumber] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [text, setText] = useState("0012969332");
-  const copy = async () => {
-    await navigator.clipboard.writeText(text);
-  };
 
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const { payment_methods } = useSelector((state) => state.payment_methods);
   const cartItems = useSelector(getCartItems);
   const cart = useSelector((state) => state.cart);
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const loadAccounts = async () => {
@@ -121,13 +118,15 @@ const ConfirmOrder = ({
           payment_method,
           order_value,
           received_value,
-          accountNumber,
+          business_account: accountNumber,
           quantity: cart.cartTotalQuantity,
-          cart_items: cart.cartItems,
+          cart: cart.cartItems,
           business_register: register,
           billing_type: billingType,
           order_type: orderType,
           order_status: "CLOSE",
+          logged_user_id: user?.id,
+          logged_user_store_id: user?.branch_id,
         })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));

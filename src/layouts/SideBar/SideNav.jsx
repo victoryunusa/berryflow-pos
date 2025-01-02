@@ -82,7 +82,7 @@ const SideNav = () => {
                 />
               </span>
               <span className="flex flex-col items-start">
-                <h1 className="text-sm text-neutral-400 font-bold">
+                <h1 className="text-xs text-neutral-400 font-bold">
                   {user?.vendor?.business_name}
                 </h1>
                 <h1 className="text-xs text-white">{activeBranch?.name}</h1>

@@ -68,10 +68,10 @@ const Header = () => {
         <div className="flex flex-row justify-end items-center space-x-5">
           <Link
             to="/pos"
-            className="flex bg-green-100 text-green-800 items-center text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-1"
+            className="flex flex-row bg-green-100 text-green-800 items-cente justify-centerr text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-2"
           >
             <HeIcons.FaCashRegister size={16} />
-            Point Of Sale
+            <p>Point Of Sale</p>
           </Link>
           <div className="relative z-50">
             <button
