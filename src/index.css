@@ -1,10 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.activeBranchStyle {
+  @apply text-nelsa_primary p-2 cursor-pointer hover:bg-zinc-100 rounded-md;
+}
+.normalBranchStyle {
+  @apply text-zinc-400 hover:text-nelsa_primary p-2 cursor-pointer hover:bg-zinc-100 rounded-md;
+}
 
 .normalLink {
   @apply flex items-center font-medium gap-2 p-2.5 px-6 hover:border-r-4 hover:border-orange-600  hover:bg-cyan-950 text-neutral-400 hover:text-white md:cursor-pointer cursor-default transition duration-300;
@@ -25,7 +32,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -33,7 +40,8 @@ input[type=number] {
   body * {
     visibility: hidden;
   }
-  .printable-area, .printable-area * {
+  .printable-area,
+  .printable-area * {
     visibility: visible;
   }
   .printable-area {
@@ -42,7 +50,6 @@ input[type=number] {
     left: 0;
   }
 }
-
 
 .modal {
   position: fixed;
@@ -76,4 +83,3 @@ input[type=number] {
 .modal-content button:hover {
   background: #0056b3;
 }
-
