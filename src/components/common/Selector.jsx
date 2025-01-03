@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import * as HeIcons from "react-icons/fa6";
 
@@ -9,16 +9,29 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
     selectedItem ? selectedItem.value : ""
   );
   const [open, setOpen] = useState(false);
+  const selectorRef = useRef(null);
 
-  //const label = selectedItem?.label ?? "Select Option...";
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (selectorRef.current && !selectorRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className="w-full relative z-100">
+    <div className="w-full relative z-100" ref={selectorRef}>
       <div
         onClick={() => setOpen(!open)}
         className={`flex w-full border bg-white px-4 py-3 items-center cursor-pointer justify-between rounded-md`}
       >
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-neutral-500">
           {selected
             ? selected?.length > 25
               ? selected?.substring(0, 25)
@@ -50,12 +63,12 @@ const Selector = ({ options, name, value, onChange, setFieldValue }) => {
                 ? "block"
                 : "hidden"
             } ${
-              option?.label?.toLowerCase() == selected.toLowerCase()
+              option?.label?.toLowerCase() === selected.toLowerCase()
                 ? "font-bold"
                 : ""
             }`}
             onClick={() => {
-              if (option?.label?.toLowerCase() == selected.toLowerCase()) {
+              if (option?.label?.toLowerCase() === selected.toLowerCase()) {
                 setSelected("");
                 setFieldValue(name, "");
                 setOpen(false);

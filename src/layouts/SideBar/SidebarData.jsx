@@ -92,10 +92,10 @@ export const subMenusList = [
         path: "/menu/variant_options",
       },
 
-      // {
-      //   title: "Add-on Groups",
-      //   path: "/menu/addon_groups",
-      // },
+      {
+        title: "Add-on Groups",
+        path: "/menu/addon_groups",
+      },
     ],
   },
 

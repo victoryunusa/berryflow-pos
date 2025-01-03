@@ -12,6 +12,15 @@ import {
 } from "../../../features/products/productSlice";
 import { alertActions } from "../../../app/store";
 import Selector from "../../../components/common/Selector";
+import OrderSelect from "../../../components/common/OrderSelect";
+import {
+  addItem,
+  getVariantOptions,
+  removeVariantItem,
+  updateVariantOption,
+} from "../../../features/products/productVariantSlice";
+import VariantSelector from "../../../components/common/VariantSelector";
+import MultipleSelect from "../../../components/common/MultipleSelect";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -25,11 +34,10 @@ const CustomInputComponent = ({
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
-  const [openTax, setOpenTax] = useState(false);
-  const [openUnit, setOpenUnit] = useState(false);
-  const [openCategory, setOpenCategory] = useState(false);
-  const [isShown, setIsShown] = useState(false);
+  const [items, setItems] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [variantOptions, setVariantOptions] = useState([]);
   //   const [image, setImage] = useState(null);
 
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
@@ -40,6 +48,12 @@ const AddProduct = () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  };
+
+  const loadVariantOptions = async () => {
+    const response = await axios.get(`${BaseUrl}/variant_options/load`, config);
+    //console.log(response.data.variant_options);
+    setVariantOptions(response.data.variant_options);
   };
 
   const loadCategories = async () => {
@@ -53,23 +67,74 @@ const AddProduct = () => {
   const dispatch = useDispatch();
 
   const { units } = useSelector((state) => state.units);
+  //const { variant_items } = useSelector((state) => state.variant_items);
+  const variantItems = useSelector(getVariantOptions);
 
   //const { categories } = useSelector((state) => state.categories);
 
+  const loadProducts = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/products/load_pos_products`,
+      config
+    );
+
+    setItems(response.data.products);
+  };
+
+  const loadIngredients = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/products/load_products`,
+      config
+    );
+
+    setIngredients(response.data.products);
+  };
+
   console.log(categories);
   useEffect(() => {
+    loadProducts();
     loadCategories();
+    loadIngredients();
+    loadVariantOptions();
   }, []);
 
-  var options1 = [
-    { value: 1, label: "Yes" },
-    { value: 0, label: "No" },
+  //Add product to cart
+  const handleAddProductVariant = (item) => {
+    dispatch(addItem(item));
+  };
+
+  const handleRemoveVariant = (cartItem) => {
+    dispatch(removeVariantItem(cartItem));
+  };
+
+  const handleChangeVariantOption = (slug, value) => {
+    console.log({ slug, value });
+    dispatch(updateVariantOption({ slug, variant_option: value }));
+  };
+
+  // var options1 = [
+  //   { value: 1, label: "Yes" },
+  //   { value: 0, label: "No" },
+  // ];
+
+  // var options2 = [
+  //   { value: "Weight", label: "Weight" },
+  //   { value: "Unit", label: "Unit" },
+  // ];
+
+  const optionsMain = [
+    { value: "apple", label: "Apple" },
+    { value: "banana", label: "Banana" },
+    { value: "cherry", label: "Cherry" },
+    { value: "date", label: "Date" },
   ];
 
-  var options2 = [
-    { value: "Weight", label: "Weight" },
-    { value: "Unit", label: "Unit" },
-  ];
+  const [selectedValues, setSelectedValues] = useState([]);
+
+  const handleSelectionChange = (selectSlug, selectedOptions) => {
+    console.log("Selected options:", selectedOptions);
+    setSelectedValues(selectedOptions);
+  };
 
   var options = [
     { value: "From Transactions", label: "From Transactions" },
@@ -119,23 +184,6 @@ const AddProduct = () => {
     costing_method: Yup.string().required("This field is required!"),
     category: Yup.string().required("This field is required!"),
   });
-
-  // const uploadHandler = (event) => {
-  //   // event.preventDefault();
-  //   const file = event.target.files[0];
-  //   if (!file) return;
-  //   if (file.size > 1024 * 1024) {
-  //     dispatch(
-  //       alertActions.error({
-  //         message: "File size should not exceed 1MB",
-  //         showAfterRedirect: true,
-  //       })
-  //     );
-  //     return;
-  //   }
-  //   file.isUploading = true;
-  //   setImage(file);
-  // };
 
   const handleSubmit = async (formValue) => {
     const {
@@ -316,24 +364,6 @@ const AddProduct = () => {
                       </div>
                     </div>
 
-                    {/* <div className="mt-3">
-                      <label className="block text-nelsa_primary text-xs font-semibold">
-                        Stock Product
-                      </label>
-                      <Selector
-                        options={options1}
-                        value={values.stock_product}
-                        setFieldValue={setFieldValue}
-                        name="stock_product"
-                      />
-
-                      <ErrorMessage
-                        name="stock_product"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
-                    </div> */}
-
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/3">
                         <label className="block text-nelsa_primary text-xs font-semibold">
@@ -401,43 +431,6 @@ const AddProduct = () => {
                       </div>
                     </div>
 
-                    {/* <div className="mt-3 flex flex-row space-x-3">
-                      <div className="w-1/2">
-                        <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold mb-1">
-                          Storage unit
-                        </label>
-
-                        <Selector
-                          options={newArray}
-                          value={values.storage_unit}
-                          setFieldValue={setFieldValue}
-                          name="storage_unit"
-                        />
-
-                        <ErrorMessage
-                          name="storage_unit"
-                          component="div"
-                          className="text-red-500 text-xs"
-                        />
-                      </div>
-                      <div className="w-1/2">
-                        <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold mb-1">
-                          Usage unit
-                        </label>
-                        <Selector
-                          options={newArray}
-                          value={values.ingredient_unit}
-                          setFieldValue={setFieldValue}
-                          name="ingredient_unit"
-                        />
-
-                        <ErrorMessage
-                          name="ingredient_unit"
-                          component="div"
-                          className="text-red-500 text-xs"
-                        />
-                      </div>
-                    </div> */}
                     <div className="mt-3 flex flex-row space-x-3">
                       <div className="w-1/2">
                         <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold">
@@ -537,19 +530,62 @@ const AddProduct = () => {
                           <label className="block text-nelsa_primary text-xs font-semibold mb-1">
                             Search and Add Variant Products
                           </label>
-                          <Selector
-                            options={options}
-                            value={values.costing_method}
-                            setFieldValue={setFieldValue}
-                            name="costing_method"
-                          />
-                          <ErrorMessage
-                            name="costing_method"
-                            component="div"
-                            className="text-red-500 text-xs"
+                          <OrderSelect
+                            options={items}
+                            handleAddToCart={handleAddProductVariant}
                           />
                         </div>
                       </div>
+                      {variantItems.length >= 1 && (
+                        <div>
+                          <div className="mt-5">
+                            <div className="w-full flex flex-row items-start justify-start gap-3">
+                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                Variant Option
+                              </label>
+                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                Name & Description
+                              </label>
+                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                Sale Price
+                              </label>
+                            </div>
+                            {variantItems?.map((variant, index) => (
+                              <div
+                                className="flex flex-row gap-3 mt-1"
+                                key={variant.slug}
+                              >
+                                <div className="w-1/3">
+                                  <VariantSelector
+                                    variant={variant}
+                                    index={index}
+                                    variantOptions={variantOptions}
+                                    handleChangeVariantOption={
+                                      handleChangeVariantOption
+                                    }
+                                  />
+                                </div>
+                                <div className="flex items-center w-1/3 px-4 py-3 mt-1 border text-neutral-500 bg-neutral-100 text-xs rounded-md">
+                                  <p className="">{variant.name}</p>
+                                </div>
+                                <div className="flex flex-row items-center w-1/3">
+                                  <p className="w-4/5 text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
+                                    {variant.price}
+                                  </p>
+
+                                  <button
+                                    type="button"
+                                    className="flex items-center justify-center text-2xl text-red-600 p-1.5"
+                                    onClick={() => handleRemoveVariant(variant)}
+                                  >
+                                    x
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                     <hr className="mt-8" />
                     <div className="flex flex-col mt-2">
@@ -563,20 +599,11 @@ const AddProduct = () => {
                           <label className="block text-nelsa_primary text-xs font-semibold">
                             Add-on Groups
                           </label>
-                          <Field
-                            type="text"
-                            placeholder=""
-                            name="cost"
-                            className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                              errors.cost && touched.cost
-                                ? "border-red-500"
-                                : ""
-                            } focus:border-blue-950`}
-                          />
-                          <ErrorMessage
-                            name="cost"
-                            component="div"
-                            className="text-red-500 text-xs"
+
+                          <MultipleSelect
+                            options={optionsMain}
+                            handleSelectionChange={handleSelectionChange}
+                            selectSlug="fruit-select"
                           />
                         </div>
                       </div>
@@ -593,22 +620,188 @@ const AddProduct = () => {
                           <label className="block text-nelsa_primary text-xs font-semibold">
                             Search and Add Ingredients
                           </label>
-                          <Field
-                            type="text"
-                            placeholder=""
-                            name="cost"
-                            className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                              errors.cost && touched.cost
-                                ? "border-red-500"
-                                : ""
-                            } focus:border-blue-950`}
-                          />
-                          <ErrorMessage
-                            name="cost"
-                            component="div"
-                            className="text-red-500 text-xs"
+                          <OrderSelect
+                            options={ingredients}
+                            handleAddToCart={setFieldValue}
                           />
                         </div>
+                      </div>
+                      <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
+                        <table className="w-full text-sm text-left ">
+                          <thead className=" text-nelsa_primary border-b-2 text-xs">
+                            <tr className="">
+                              <th scope="col" className="py-3">
+                                Name & Description
+                              </th>
+                              <th scope="col" className="px-6 py-3">
+                                Purchase Price of 1 Unit
+                              </th>
+                              <th scope="col" className="px-6 py-3">
+                                Sale Price of 1 Unit
+                              </th>
+
+                              <th scope="col" className="px-6 py-3">
+                                Quantity
+                              </th>
+                              <th scope="col" className="px-6 py-3">
+                                Measuring Unit
+                              </th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody className=" text-gray-500">
+                            {/* {cartItems.length >= 1 ? (
+                          cartItems.map((cartItem, index) => (
+                            <tr key={index} className="border-t">
+                              <td scope="col" className="">
+                                {cartItem.name}
+                              </td>
+                              <td scope="col" className="px-6 py-3">
+                                <div className="flex items-center">
+                                  <button
+                                    className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                    type="button"
+                                    onClick={() => {
+                                      handleDecreaseCart(cartItem);
+                                    }}
+                                  >
+                                    <span className="sr-only">
+                                      Quantity button
+                                    </span>
+                                    <svg
+                                      className="w-3 h-3"
+                                      aria-hidden="true"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 18 2"
+                                    >
+                                      <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M1 1h16"
+                                      />
+                                    </svg>
+                                  </button>
+                                  <div>
+                                    <input
+                                      type="number"
+                                      value={cartItem.cartQuantity}
+                                      onChange={(e) =>
+                                        handleChangeQuantity({
+                                          slug: cartItem.slug,
+                                          value: e.target.value,
+                                        })
+                                      }
+                                      className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
+                                      placeholder="1"
+                                      required
+                                    />
+                                  </div>
+                                  <button
+                                    className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                    type="button"
+                                    onClick={() => {
+                                      handleAddToCart(cartItem);
+                                    }}
+                                  >
+                                    <span className="sr-only">
+                                      Quantity button
+                                    </span>
+                                    <svg
+                                      className="w-3 h-3"
+                                      aria-hidden="true"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 18 18"
+                                    >
+                                      <path
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M9 1v16M1 9h16"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </td>
+                              <td scope="col" className="px-6 py-3">
+                                <div className="flex flex-row items-center gap-2">
+                                  <input
+                                    type="number"
+                                    value={cartItem.cartUnitPrice}
+                                    onChange={(e) =>
+                                      handleChangeUnitPrice({
+                                        slug: cartItem.slug,
+                                        value: e.target.value,
+                                      })
+                                    }
+                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
+                                  />
+                                </div>
+                              </td>
+                              <td scope="col" className="px-6 py-3">
+                                <div>
+                                  <input
+                                    type="number"
+                                    onChange={(e) =>
+                                      handleChangeDiscountPrice({
+                                        slug: cartItem.slug,
+                                        value: e.target.value,
+                                      })
+                                    }
+                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
+                                  />
+                                </div>
+                              </td>
+                              <td scope="col" className="px-6 py-3">
+                                {dollarUSLocale.format(
+                                  Math.round(
+                                    cartItem.cartUnitPrice *
+                                      cartItem.cartQuantity -
+                                      (cartItem.cartUnitPrice *
+                                        cartItem.cartQuantity *
+                                        cartItem.cartDiscountPrice) /
+                                        100
+                                  )
+                                )}
+                              </td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className=" p-2 w-8 h-8 bg-red-600 border border-red-100 rounded-md text-white"
+                                  onClick={() => handleRemoveFromCart(cartItem)}
+                                >
+                                  -
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <div className="text-center text-sm mt-10">
+                            <div>Please select items to add</div>
+                          </div>
+                        )} */}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="mt-4">
+                        <div className="flex items-center mb-1">
+                          <Field
+                            type="checkbox"
+                            name="update_stock"
+                            className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                          />
+                          <label className="ml-2 text-xs text-nelsa_primary font-bold">
+                            Set Product Price as Ingredient Cost
+                          </label>
+                        </div>
+                        <p className="text-xs text-neutral-400 ml-6">
+                          If this option is enabled, product sale price and
+                          purchase price will be replaced with ingredient cost
+                        </p>
                       </div>
                     </div>
                   </div>

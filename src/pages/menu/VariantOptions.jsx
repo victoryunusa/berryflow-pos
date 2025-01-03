@@ -59,6 +59,7 @@ const VariantOption = () => {
                   <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
                     <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
                       <tr>
+                        <th className="px-2 py-3">S/N</th>
                         <th className="px-2 py-3">Account Name</th>
                         <th className="px-2 py-3">Status</th>
                         <th className="px-2 py-3">Created Date</th>
@@ -71,6 +72,9 @@ const VariantOption = () => {
                           className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
                           key={index}
                         >
+                          <td className="px-2 py-3 font-semibold">
+                            {index + 1}
+                          </td>
                           <td className="px-2 py-3 font-semibold">
                             {variant_option.label}
                           </td>

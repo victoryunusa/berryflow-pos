@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddProduct from "../../components/modals/AddProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../features/products/productSlice";
@@ -37,12 +37,17 @@ const Products = () => {
             </p>
           </div>
           <div>
-            <button
+            <Link to="/menu/products/add">
+              <button className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md">
+                Add New
+              </button>
+            </Link>
+            {/* <button
               onClick={() => setVisible(true)}
               className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md"
             >
               Add New
-            </button>
+            </button> */}
           </div>
         </div>
 
