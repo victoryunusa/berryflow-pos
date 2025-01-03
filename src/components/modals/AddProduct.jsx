@@ -113,8 +113,7 @@ const AddProduct = (props) => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Item name is required!"),
-    product_code: Yup.string().required("This field is required!"),
+    name: Yup.string().required("Product name is required!"),
     price: Yup.string().required("This field is required!"),
     costing_method: Yup.string().required("This field is required!"),
     category: Yup.string().required("This field is required!"),
@@ -242,7 +241,11 @@ const AddProduct = (props) => {
                             </div>
                             <div className="mt-3">
                               <label className="block text-nelsa_primary text-xs font-semibold">
-                                SKU
+                                Product Code (SKU){"    "}
+                                <span className="ml-2 text-neutral-400 font-regular text-xs">
+                                  * This will be automatically generated if left
+                                  blank
+                                </span>
                               </label>
                               <Field
                                 type="text"
@@ -285,6 +288,28 @@ const AddProduct = (props) => {
                             <div className="flex flex-col mt-3">
                               <label className="block text-nelsa_primary text-xs font-semibold mb-1">
                                 Tax Option
+                                <span
+                                  onClick={() => setOpenTax(true)}
+                                  className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"
+                                >
+                                  Add new
+                                </span>
+                              </label>
+                              <Selector
+                                options={newTaxes}
+                                value={values.tax_option}
+                                setFieldValue={setFieldValue}
+                                name="tax_option"
+                              />
+                              <ErrorMessage
+                                name="tax_option"
+                                component="div"
+                                className="text-red-500 text-sm"
+                              />
+                            </div>
+                            <div className="flex flex-col mt-3">
+                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                                Discount Code
                                 <span
                                   onClick={() => setOpenTax(true)}
                                   className="ml-2 cursor-pointer rounded px-1 text-blue-600 border border-blue-600 text-xs font-normal"

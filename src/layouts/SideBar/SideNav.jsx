@@ -60,6 +60,7 @@ const SideNav = () => {
 
       await dispatch(selectBranch({ logged_user_slug, branch_slug })).unwrap();
       dispatch(getRegister());
+      navigate("/");
       window.location.reload(true);
     } catch (error) {
       dispatch(alertActions.error(error));
@@ -97,8 +98,8 @@ const SideNav = () => {
             </span>
           </button>
           {isOpenBranchSelect === true ? (
-            <div className="absolute top-8 right-0 z-auto transition ease-in duration-700">
-              <div className="w-64 rounded-lg shadow-md my-2 pin-t pin-l bg-white border">
+            <div className="absolute top-20 left-5 z-auto transition ease-in duration-700">
+              <div className="w-52 rounded-lg shadow-md my-2 pin-t pin-l bg-white border">
                 <ul className="list-reset overflow-y-scroll p-2">
                   {branches?.map((branch) => (
                     <li
