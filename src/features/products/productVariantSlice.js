@@ -43,7 +43,7 @@ export const productVariantSlice = createSlice({
       );
 
       if (itemIndex >= 0) {
-        state.variantItems[itemIndex].variant_option =
+        state.variantItems[itemIndex].variant_option_slug =
           action.payload.variant_option;
       } else {
         console.log("Item is not in cart");

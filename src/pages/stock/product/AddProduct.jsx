@@ -61,6 +61,7 @@ const AddProduct = () => {
   const BaseUrl = import.meta.env.VITE_BASE_API_URL;
 
   const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
 
   const config = {
     headers: {
@@ -240,6 +241,14 @@ const AddProduct = () => {
     return { value: obj.slug, label: obj.name };
   });
 
+  // var newVariantOptions = variantOptions.map(function (obj) {
+  //   return { value: obj.slug, label: obj.label };
+  // });
+
+  var newDiscountCodes = discountCodes.map(function (obj) {
+    return { value: obj.slug, label: obj.discount_code + " - " + obj.label };
+  });
+
   var newAddonGroups = addonGroups.map(function (obj) {
     return { value: obj.slug, label: obj.label };
   });
@@ -266,8 +275,8 @@ const AddProduct = () => {
     product_code: "",
     costing_method: "Fixed",
     storage_to_ingredient: "",
-    purchase_price_excluding_tax: "",
-    sale_price_excluding_tax: "",
+    purchase_price: "",
+    sale_price: "",
     sale_price_including_tax: "",
     par_level: "",
     stock_product: "",
@@ -278,12 +287,16 @@ const AddProduct = () => {
     is_addon_product: false,
     is_ingredient_price: false,
     supplier: "",
+    discount_code: "",
+    alert_quantity: "",
+    quantity: "",
+    parent_variant_option: "",
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Product name is required!"),
-    price: Yup.string().required("This field is required!"),
-    costing_method: Yup.string().required("This field is required!"),
+    purchase_price: Yup.string().required("This field is required!"),
+    sale_price: Yup.string().required("This field is required!"),
     category: Yup.string().required("This field is required!"),
   });
 
@@ -293,17 +306,27 @@ const AddProduct = () => {
       cost,
       price,
       category,
-      product_code,
-      costing_method,
-      selling_method,
-      stock_product,
       storage_unit,
       ingredient_unit,
+      product_code,
+      costing_method,
       storage_to_ingredient,
+      purchase_price,
+      sale_price,
+      sale_price_including_tax,
       par_level,
+      stock_product,
       tax_option,
+      selling_method,
       description,
       images,
+      is_addon_product,
+      is_ingredient_price,
+      supplier,
+      discount_code,
+      alert_quantity,
+      quantity,
+      parent_variant_option,
     } = formValue;
     console.log(formValue);
     dispatch(alertActions.clear());
@@ -312,21 +335,37 @@ const AddProduct = () => {
 
       await dispatch(
         addProduct({
-          name,
+          product_name: name,
           cost,
           price,
           category,
-          product_code,
-          costing_method,
-          selling_method,
-          stock_product,
           storage_unit,
           ingredient_unit,
+          product_code,
+          costing_method,
           storage_to_ingredient,
+          purchase_price,
+          sale_price,
+          sale_price_including_tax: sale_price,
           par_level,
-          tax_option,
-          images,
+          stock_product,
+          tax_code: tax_option,
+          selling_method,
           description,
+          images,
+          is_addon_product: is_addon_product == true ? "1" : "0",
+          is_ingredient_price: is_ingredient_price == true ? "1" : "0",
+          supplier,
+          discount_code,
+          alert_quantity,
+          quantity,
+          parent_variant_option,
+          ingredients: productIngredientItems,
+          addon_group_values: selectedValues,
+          variants: variantItems,
+          logged_user_id: user?.id,
+          logged_user_store_id: user?.branch_id,
+          logged_user_vendor_id: user?.vendor_id,
         })
       ).unwrap();
 
@@ -421,7 +460,7 @@ const AddProduct = () => {
                             errors.product_code && touched.product_code
                               ? "border-red-500"
                               : ""
-                          } focus:nelsa_gray_3`}
+                          } focus:border-nelsa_primary`}
                         />
                         <ErrorMessage
                           name="product_code"
@@ -488,13 +527,13 @@ const AddProduct = () => {
                           Discount Code
                         </label>
                         <Selector
-                          options={newTaxes}
-                          value={values.tax_option}
+                          options={newDiscountCodes}
+                          value={values.discount_code}
                           setFieldValue={setFieldValue}
-                          name="tax_option"
+                          name="discount_code"
                         />
                         <ErrorMessage
-                          name="tax_option"
+                          name="discount_code"
                           component="div"
                           className="text-red-500 text-sm"
                         />
@@ -509,16 +548,15 @@ const AddProduct = () => {
                         <Field
                           type="text"
                           placeholder=""
-                          name="purchase_price_excluding_tax"
+                          name="purchase_price"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                            errors.purchase_price_excluding_tax &&
-                            touched.purchase_price_excluding_tax
+                            errors.purchase_price && touched.purchase_price
                               ? "border-red-500"
                               : ""
                           } focus:border-blue-950`}
                         />
                         <ErrorMessage
-                          name="purchase_price_excluding_tax"
+                          name="purchase_price"
                           component="div"
                           className="text-red-500 text-xs"
                         />
@@ -530,16 +568,15 @@ const AddProduct = () => {
                         <Field
                           type="text"
                           placeholder=""
-                          name="sale_price_excluding_tax"
+                          name="sale_price"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                            errors.sale_price_excluding_tax &&
-                            touched.sale_price_excluding_tax
+                            errors.sale_price && touched.sale_price
                               ? "border-red-500"
                               : ""
                           } focus:border-blue-950`}
                         />
                         <ErrorMessage
-                          name="sale_price_excluding_tax"
+                          name="sale_price"
                           component="div"
                           className="text-red-500 text-xs"
                         />
@@ -554,6 +591,7 @@ const AddProduct = () => {
                           type="text"
                           placeholder=""
                           name="sale_price_including_tax"
+                          value={values.sale_price}
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
                             errors.sale_price_including_tax &&
                             touched.sale_price_including_tax
@@ -579,16 +617,15 @@ const AddProduct = () => {
                         <Field
                           type="number"
                           placeholder=""
-                          name="storage_to_ingredient"
+                          name="quantity"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                            errors.storage_to_ingredient &&
-                            touched.storage_to_ingredient
+                            errors.quantity && touched.quantity
                               ? "border-red-500"
                               : ""
-                          } focus:nelsa_gray_3`}
+                          } focus:border-nelsa_primary`}
                         />
                         <ErrorMessage
-                          name="storage_to_ingredient"
+                          name="quantity"
                           component="div"
                           className="text-red-500 text-xs"
                         />
@@ -600,15 +637,15 @@ const AddProduct = () => {
                         <Field
                           type="number"
                           placeholder=""
-                          name="par_level"
+                          name="alert_quantity"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                            errors.cost && touched.par_level
+                            errors.cost && touched.alert_quantity
                               ? "border-red-500"
                               : ""
                           } focus:border-blue-950`}
                         />
                         <ErrorMessage
-                          name="par_level"
+                          name="alert_quantity"
                           component="div"
                           className="text-red-500 text-xs"
                         />
@@ -680,15 +717,45 @@ const AddProduct = () => {
                           </div>
                           {variantItems.length >= 1 && (
                             <div>
+                              <div className="mt-4">
+                                <label className="block text-nelsa_primary text-xs font-semibold">
+                                  Variant Option for Current Product
+                                </label>
+                                <select
+                                  name="billing_type"
+                                  className={`w-1/2 px-3 py-2.5 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+                                  onChange={(e) =>
+                                    setFieldValue(
+                                      "parent_variant_option",
+                                      e.target.value
+                                    )
+                                  }
+                                  // onChange={(e) => setBillingType(e.target.value)}
+                                >
+                                  <option value="">
+                                    Select variant option
+                                  </option>
+                                  {variantOptions.map(
+                                    (variant_option, index) => (
+                                      <option
+                                        value={variant_option.slug}
+                                        key={index}
+                                      >
+                                        {variant_option.label}
+                                      </option>
+                                    )
+                                  )}
+                                </select>
+                              </div>
                               <div className="mt-5">
                                 <div className="w-full flex flex-row items-start justify-start gap-3">
-                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
                                     Variant Option
                                   </label>
-                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
                                     Name & Description
                                   </label>
-                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
                                     Sale Price
                                   </label>
                                 </div>

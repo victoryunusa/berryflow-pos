@@ -34,7 +34,7 @@ const getSingleProduct = async ({ token, formData }) => {
 };
 
 const addProduct = async ({ token, formData }) => {
-  //console.log(token);
+  console.log(formData);
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ const addProduct = async ({ token, formData }) => {
     },
   };
 
-  await axios.post(`${BaseUrl}/products/store`, formData, config);
+  await axios.post(`${BaseUrl}/products/save`, formData, config);
 
   //return response.data.products;
 };

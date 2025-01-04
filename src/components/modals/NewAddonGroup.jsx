@@ -41,12 +41,14 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
 
   const loadProducts = async () => {
     const response = await axios.get(
-      `${BaseUrl}/products/load_pos_products`,
+      `${BaseUrl}/products/load_addon_group_product`,
       config
     );
 
-    setItems(response.data.products);
+    setItems(response.data.data);
   };
+
+  console.log(items);
 
   useEffect(() => {
     loadProducts();
@@ -105,9 +107,10 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
       // navigate("/suppliers");
       // window.location.reload(true);
       dispatch(getAddonGroups());
+
       setLoading(false);
       setVisible(false);
-      setOpen(false);
+      closeModal();
     } catch (error) {
       dispatch(alertActions.error(error));
       setLoading(false);
@@ -224,7 +227,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
                                       </div>
                                       <div className="flex flex-row items-center w-1/2">
                                         <p className="w-full text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
-                                          {addon.price}
+                                          {addon.price_excluding_tax}
                                         </p>
 
                                         <button
