@@ -10,11 +10,18 @@ const getProducts = async ({ token, formData }) => {
     },
   };
 
-  //sconsole.log(formData);
+  console.log(formData);
 
-  const page = formData ? formData : "";
+  const query = new URLSearchParams({
+    page: formData.page || 1,
+    product_filter: formData.productFilter || "default_filter",
+  }).toString();
 
-  const response = await axios.get(`${BaseUrl}/products/list${page}`, config);
+  console.log(query);
+
+  //const page = formData ? formData : "";
+
+  const response = await axios.get(`${BaseUrl}/products/list?${query}`, config);
 
   return response.data.products;
 };

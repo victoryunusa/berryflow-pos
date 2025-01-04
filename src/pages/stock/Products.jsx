@@ -10,19 +10,32 @@ const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [productFilter, setProductFilter] = useState("billing_products");
+  const [page, setPage] = useState(1);
+
   const { products } = useSelector((state) => state.products);
 
-  const getNextProduct = (url) => {
-    dispatch(getProducts(url));
+  useEffect(() => {
+    dispatch(getProducts({ page, productFilter }));
+  }, [dispatch, productFilter, page]);
+
+  const handleFilterChange = (filter) => {
+    setProductFilter(filter);
+    setPage(1); // Reset to the first page on filter change
   };
+
+  const getNextProduct = (page) => {
+    setPage(page); // Update current page
+  };
+
+  // const getNextProduct = ({ url }) => {
+  //   console.log(url);
+  //   dispatch(getProducts({ url, productFilter }));
+  // };
 
   const showProduct = (slug) => {
     navigate(`${slug}`);
   };
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
 
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
@@ -49,6 +62,18 @@ const Products = () => {
               Add New
             </button> */}
           </div>
+        </div>
+
+        <div>
+          <select
+            className={`w-1/4 px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+            onChange={(e) => handleFilterChange(e.target.value)}
+            value={productFilter}
+          >
+            <option value="default_filter">All</option>
+            <option value="billing_products">Billing Products</option>
+            <option value="addon_products">Add-on Products</option>
+          </select>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 bg-zinc-100 ">
@@ -86,7 +111,7 @@ const Products = () => {
                   </span>
                 </div>
                 <div className="w-full flex flex-row gap-2">
-                  <button className="p-2 flex items-center justify-center text-white rounded-md bg-black hover:bg-neutral-700 w-full">
+                  <button className="p-2 flex items-center justify-center text-white rounded-md bg-nelsa_primary hover:bg-nelsa_primary/90 w-full">
                     <span className="text-sm font-semibold">View</span>
                   </button>
                 </div>
@@ -102,7 +127,7 @@ const Products = () => {
             {products?.links?.map((link, index) => (
               <button
                 key={index}
-                onClick={() => getNextProduct(link.url.slice(-7))}
+                onClick={() => getNextProduct(link.url.split("=")[1])}
                 className={`${
                   link.active
                     ? "bg-nelsa_primary text-white"

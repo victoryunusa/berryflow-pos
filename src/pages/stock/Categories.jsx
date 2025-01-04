@@ -123,7 +123,9 @@ const Categories = () => {
                     {categories?.links?.map((link, index) => (
                       <button
                         key={index}
-                        onClick={() => getNextCategories(link.url.slice(-7))}
+                        onClick={() =>
+                          getNextCategories(link.url.split("=")[1])
+                        }
                         className={`${
                           link.active
                             ? "bg-nelsa_primary text-white"

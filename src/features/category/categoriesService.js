@@ -12,7 +12,10 @@ const getCategories = async ({ token, formData }) => {
 
   const page = formData ? formData : "";
 
-  const response = await axios.get(`${BaseUrl}/categories/list${page}`, config);
+  const response = await axios.get(
+    `${BaseUrl}/categories/list?page=${page}`,
+    config
+  );
 
   //console.log(response.data);
 
