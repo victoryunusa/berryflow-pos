@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import * as HeIcons from "react-icons/fa6";
 
 const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
   const localStorageKey = `select-${selectSlug}`;
@@ -72,12 +73,15 @@ const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
       {/* Select Dropdown */}
       <div>
         <button
-          className="w-full px-4 py-3 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none"
+          className="flex flex-row justify-between items-center w-full px-4 py-3 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none"
           onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown
         >
-          {selectedOptions.length === 0
-            ? "Select options"
-            : `${selectedOptions.length} option(s) selected`}
+          <span>
+            {selectedOptions.length === 0
+              ? "Select options"
+              : `${selectedOptions.length} option(s) selected`}
+          </span>
+          <HeIcons.FaChevronDown size={10} />
         </button>
         {dropdownOpen && (
           <div className="absolute z-50 mt-1 w-full bg-white border border-neutral-300 rounded-md max-h-60 overflow-y-auto">

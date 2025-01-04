@@ -22,6 +22,17 @@ import {
 import VariantSelector from "../../../components/common/VariantSelector";
 import MultipleSelect from "../../../components/common/MultipleSelect";
 import SwitchButton from "../../../components/common/SwitchButton";
+import {
+  addIngredientItem,
+  decreaseOrderItem,
+  getProductIngredientItems,
+  getPurchaseIngredientItemTotals,
+  removeOrderItem,
+  updateDiscountPrice,
+  updateMeasurementUnit,
+  updateQuantity,
+  updateUnitPrice,
+} from "../../../features/products/productIngedientSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -34,8 +45,14 @@ const CustomInputComponent = ({
 );
 
 const AddProduct = () => {
+  let dollarUSLocale = Intl.NumberFormat("en-US");
+
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const [discountCodes, setDiscountCodes] = useState([]);
+  const [addonGroups, setAddonGroups] = useState([]);
+  const [measurementUnits, setMeasurementUnits] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [categories, setCategories] = useState([]);
   const [variantOptions, setVariantOptions] = useState([]);
@@ -49,6 +66,33 @@ const AddProduct = () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  };
+
+  console.log(discountCodes);
+
+  const loadSuppliers = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/suppliers/loadSuppliers`,
+      config
+    );
+    setSuppliers(response.data.suppliers);
+  };
+
+  const loadDiscountCodes = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/discounts/loadDiscountCodes`,
+      config
+    );
+    setDiscountCodes(response.data);
+  };
+
+  const loadAddonGroups = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/addon_groups/loadAddonGroups`,
+      config
+    );
+    //console.log(response.data.variant_options);
+    setAddonGroups(response.data);
   };
 
   const loadVariantOptions = async () => {
@@ -65,11 +109,22 @@ const AddProduct = () => {
     setCategories(response.data);
   };
 
+  const loadMeasurementUnits = async () => {
+    const response = await axios.get(
+      `${BaseUrl}/units/loadMeasurementUnits`,
+      config
+    );
+    setMeasurementUnits(response.data);
+  };
+
   const dispatch = useDispatch();
 
-  const { units } = useSelector((state) => state.units);
   //const { variant_items } = useSelector((state) => state.variant_items);
   const variantItems = useSelector(getVariantOptions);
+  const productIngredientItems = useSelector(getProductIngredientItems);
+
+  const { ingredientItemsTotalSale, ingredientItemsTotalPurchase } =
+    useSelector((state) => state.product_ingredient_items);
 
   //const { categories } = useSelector((state) => state.categories);
 
@@ -97,7 +152,15 @@ const AddProduct = () => {
     loadCategories();
     loadIngredients();
     loadVariantOptions();
+    loadMeasurementUnits();
+    loadAddonGroups();
+    loadSuppliers();
+    loadDiscountCodes();
   }, []);
+
+  useEffect(() => {
+    dispatch(getPurchaseIngredientItemTotals());
+  }, [productIngredientItems, dispatch]);
 
   //Add product to cart
   const handleAddProductVariant = (item) => {
@@ -108,9 +171,40 @@ const AddProduct = () => {
     dispatch(removeVariantItem(cartItem));
   };
 
+  const handleChangeMeasurementUnit = (slug, value) => {
+    console.log({ slug, value });
+    dispatch(updateMeasurementUnit({ slug, unit_slug: value }));
+  };
+
   const handleChangeVariantOption = (slug, value) => {
     console.log({ slug, value });
     dispatch(updateVariantOption({ slug, variant_option: value }));
+  };
+
+  //Add product to cart
+  const handleAddToCart = (item) => {
+    dispatch(addIngredientItem(item));
+  };
+
+  //Decrease product quantity
+  const handleDecreaseCart = (item) => {
+    dispatch(decreaseOrderItem(item));
+  };
+
+  const handleRemoveFromCart = (cartItem) => {
+    dispatch(removeOrderItem(cartItem));
+  };
+
+  const handleChangeUnitPrice = ({ slug, value }) => {
+    dispatch(updateUnitPrice({ slug, unit_price: value }));
+  };
+
+  const handleChangeDiscountPrice = ({ slug, value }) => {
+    dispatch(updateDiscountPrice({ slug, discount_price: value }));
+  };
+
+  const handleChangeQuantity = ({ slug, value }) => {
+    dispatch(updateQuantity({ slug, new_quantity: value }));
   };
 
   // var options1 = [
@@ -142,8 +236,12 @@ const AddProduct = () => {
     { value: "Fixed", label: "Fixed" },
   ];
 
-  var newArray = units.map(function (obj) {
-    return { value: obj.id, label: obj.unit_code + " - " + obj.label };
+  var newSuppliers = suppliers.map(function (obj) {
+    return { value: obj.slug, label: obj.name };
+  });
+
+  var newAddonGroups = addonGroups.map(function (obj) {
+    return { value: obj.slug, label: obj.label };
   });
 
   var newCategories = categories?.map(function (obj) {
@@ -178,6 +276,8 @@ const AddProduct = () => {
     description: "",
     images: null,
     is_addon_product: false,
+    is_ingredient_price: false,
+    supplier: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -261,8 +361,7 @@ const AddProduct = () => {
       </div>
       <div className="bg-white p-5 md:p-10 rounded-lg text-sm border">
         <div className="flex flex-row">
-          <div className="flex w-1/3"></div>
-          <div className="flex flex-col w-2/3">
+          <div className="flex flex-col w-full">
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -354,13 +453,13 @@ const AddProduct = () => {
                           Supplier
                         </label>
                         <Selector
-                          options={newCategories}
-                          value={values.category}
+                          options={newSuppliers}
+                          value={values.supplier}
                           setFieldValue={setFieldValue}
-                          name="category"
+                          name="supplier"
                         />
                         <ErrorMessage
-                          name="category"
+                          name="supplier"
                           component="div"
                           className="text-red-500 text-xs"
                         />
@@ -478,7 +577,7 @@ const AddProduct = () => {
                           Quantity
                         </label>
                         <Field
-                          type="text"
+                          type="number"
                           placeholder=""
                           name="storage_to_ingredient"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
@@ -499,7 +598,7 @@ const AddProduct = () => {
                           Low Quantity Alert
                         </label>
                         <Field
-                          type="text"
+                          type="number"
                           placeholder=""
                           name="par_level"
                           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
@@ -646,7 +745,7 @@ const AddProduct = () => {
                               </label>
 
                               <MultipleSelect
-                                options={optionsMain}
+                                options={newAddonGroups}
                                 handleSelectionChange={handleSelectionChange}
                                 selectSlug="fruit-select"
                               />
@@ -667,7 +766,7 @@ const AddProduct = () => {
                               </label>
                               <OrderSelect
                                 options={ingredients}
-                                handleAddToCart={setFieldValue}
+                                handleAddToCart={handleAddToCart}
                               />
                             </div>
                           </div>
@@ -685,163 +784,182 @@ const AddProduct = () => {
                                     Sale Price of 1 Unit
                                   </th>
 
-                                  <th scope="col" className="px-6 py-3">
+                                  <th scope="col" className="px-4 py-3">
                                     Quantity
                                   </th>
-                                  <th scope="col" className="px-6 py-3">
+                                  <th scope="col" className="px-4 py-3">
                                     Measuring Unit
                                   </th>
                                   <th></th>
                                 </tr>
                               </thead>
                               <tbody className=" text-gray-500">
-                                {/* {cartItems.length >= 1 ? (
-                          cartItems.map((cartItem, index) => (
-                            <tr key={index} className="border-t">
-                              <td scope="col" className="">
-                                {cartItem.name}
-                              </td>
-                              <td scope="col" className="px-6 py-3">
-                                <div className="flex items-center">
-                                  <button
-                                    className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                                    type="button"
-                                    onClick={() => {
-                                      handleDecreaseCart(cartItem);
-                                    }}
-                                  >
-                                    <span className="sr-only">
-                                      Quantity button
-                                    </span>
-                                    <svg
-                                      className="w-3 h-3"
-                                      aria-hidden="true"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 18 2"
-                                    >
-                                      <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M1 1h16"
-                                      />
-                                    </svg>
-                                  </button>
-                                  <div>
-                                    <input
-                                      type="number"
-                                      value={cartItem.cartQuantity}
-                                      onChange={(e) =>
-                                        handleChangeQuantity({
-                                          slug: cartItem.slug,
-                                          value: e.target.value,
-                                        })
-                                      }
-                                      className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
-                                      placeholder="1"
-                                      required
-                                    />
-                                  </div>
-                                  <button
-                                    className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                                    type="button"
-                                    onClick={() => {
-                                      handleAddToCart(cartItem);
-                                    }}
-                                  >
-                                    <span className="sr-only">
-                                      Quantity button
-                                    </span>
-                                    <svg
-                                      className="w-3 h-3"
-                                      aria-hidden="true"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 18 18"
-                                    >
-                                      <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M9 1v16M1 9h16"
-                                      />
-                                    </svg>
-                                  </button>
-                                </div>
-                              </td>
-                              <td scope="col" className="px-6 py-3">
-                                <div className="flex flex-row items-center gap-2">
-                                  <input
-                                    type="number"
-                                    value={cartItem.cartUnitPrice}
-                                    onChange={(e) =>
-                                      handleChangeUnitPrice({
-                                        slug: cartItem.slug,
-                                        value: e.target.value,
-                                      })
-                                    }
-                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
-                                  />
-                                </div>
-                              </td>
-                              <td scope="col" className="px-6 py-3">
-                                <div>
-                                  <input
-                                    type="number"
-                                    onChange={(e) =>
-                                      handleChangeDiscountPrice({
-                                        slug: cartItem.slug,
-                                        value: e.target.value,
-                                      })
-                                    }
-                                    className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
-                                  />
-                                </div>
-                              </td>
-                              <td scope="col" className="px-6 py-3">
-                                {dollarUSLocale.format(
-                                  Math.round(
-                                    cartItem.cartUnitPrice *
-                                      cartItem.cartQuantity -
-                                      (cartItem.cartUnitPrice *
-                                        cartItem.cartQuantity *
-                                        cartItem.cartDiscountPrice) /
-                                        100
+                                {productIngredientItems.length >= 1 ? (
+                                  productIngredientItems.map(
+                                    (cartItem, index) => (
+                                      <tr key={index} className="border-t">
+                                        <td scope="col" className="">
+                                          {cartItem.name}
+                                        </td>
+
+                                        <td scope="col" className="px-6 py-3">
+                                          <div className="flex flex-row items-center gap-2">
+                                            <input
+                                              type="number"
+                                              disabled
+                                              value={cartItem.cartPurchasePrice}
+                                              className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
+                                            />
+                                          </div>
+                                        </td>
+                                        <td scope="col" className="px-6 py-3">
+                                          <div>
+                                            <input
+                                              type="number"
+                                              disabled
+                                              value={cartItem.cartSalePrice}
+                                              className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
+                                            />
+                                          </div>
+                                        </td>
+                                        <td scope="col" className="px-4 py-3">
+                                          <div className="flex items-center">
+                                            <button
+                                              className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                              type="button"
+                                              onClick={() => {
+                                                handleDecreaseCart(cartItem);
+                                              }}
+                                            >
+                                              <span className="sr-only">
+                                                Quantity button
+                                              </span>
+                                              <svg
+                                                className="w-3 h-3"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 18 2"
+                                              >
+                                                <path
+                                                  stroke="currentColor"
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  strokeWidth="2"
+                                                  d="M1 1h16"
+                                                />
+                                              </svg>
+                                            </button>
+                                            <div>
+                                              <input
+                                                type="number"
+                                                value={cartItem.cartQuantity}
+                                                onChange={(e) =>
+                                                  handleChangeQuantity({
+                                                    slug: cartItem.slug,
+                                                    value: e.target.value,
+                                                  })
+                                                }
+                                                className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
+                                                placeholder="1"
+                                                required
+                                              />
+                                            </div>
+                                            <button
+                                              className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                              type="button"
+                                              onClick={() => {
+                                                handleAddToCart(cartItem);
+                                              }}
+                                            >
+                                              <span className="sr-only">
+                                                Quantity button
+                                              </span>
+                                              <svg
+                                                className="w-3 h-3"
+                                                aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 18 18"
+                                              >
+                                                <path
+                                                  stroke="currentColor"
+                                                  strokeLinecap="round"
+                                                  strokeLinejoin="round"
+                                                  strokeWidth="2"
+                                                  d="M9 1v16M1 9h16"
+                                                />
+                                              </svg>
+                                            </button>
+                                          </div>
+                                        </td>
+                                        <td scope="col" className="px-4 py-3">
+                                          <select
+                                            name="billing_type"
+                                            className={`w-full px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+                                            onChange={(e) =>
+                                              handleChangeMeasurementUnit(
+                                                cartItem.slug,
+                                                e.target.value
+                                              )
+                                            }
+                                            // onChange={(e) => setBillingType(e.target.value)}
+                                          >
+                                            <option value="">Select</option>
+                                            {measurementUnits.map(
+                                              (unit, index) => (
+                                                <option
+                                                  value={unit.slug}
+                                                  key={index}
+                                                >
+                                                  {unit.unit_code}-{unit.label}
+                                                </option>
+                                              )
+                                            )}
+                                          </select>
+                                        </td>
+                                        <td>
+                                          <button
+                                            type="button"
+                                            className=" text-red-600 font-bold text-lg"
+                                            onClick={() =>
+                                              handleRemoveFromCart(cartItem)
+                                            }
+                                          >
+                                            x
+                                          </button>
+                                        </td>
+                                      </tr>
+                                    )
                                   )
+                                ) : (
+                                  <div className="text-center text-sm mt-10">
+                                    <div>Please select items to add</div>
+                                  </div>
                                 )}
-                              </td>
-                              <td>
-                                <button
-                                  type="button"
-                                  className=" p-2 w-8 h-8 bg-red-600 border border-red-100 rounded-md text-white"
-                                  onClick={() => handleRemoveFromCart(cartItem)}
-                                >
-                                  -
-                                </button>
-                              </td>
-                            </tr>
-                          ))
-                        ) : (
-                          <div className="text-center text-sm mt-10">
-                            <div>Please select items to add</div>
-                          </div>
-                        )} */}
                               </tbody>
                             </table>
                           </div>
+                          <div className="flex flex-row gap-5 my-5">
+                            <div className="flex flex-col w-1/3">
+                              <h3 className="text-sm text-neutral-500 font-semibold">
+                                Total Ingredient Purchase Price
+                              </h3>
+                              <p>{ingredientItemsTotalPurchase}</p>
+                            </div>
+                            <div className="flex flex-col w-2/3">
+                              <h3 className="text-sm text-neutral-500 font-semibold">
+                                Total Ingredient Selling Price Excluding Tax
+                              </h3>
+                              <p>{ingredientItemsTotalSale}</p>
+                            </div>
+                          </div>
                           <div className="mt-4">
                             <div className="flex items-center mb-1">
-                              <Field
-                                type="checkbox"
-                                name="update_stock"
-                                className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                              <SwitchButton
+                                name="is_ingredient_price"
+                                label="Set Product Price as Ingredient Cost"
                               />
-                              <label className="ml-2 text-xs text-nelsa_primary font-bold">
-                                Set Product Price as Ingredient Cost
-                              </label>
                             </div>
                             <p className="text-xs text-neutral-400 ml-6">
                               If this option is enabled, product sale price and

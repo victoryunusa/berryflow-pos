@@ -26,7 +26,10 @@ const SwitchButton = ({ label, ...props }) => {
 
       {/* Label */}
       {label && (
-        <label htmlFor={props.id || props.name} className="mr-3 text-sm">
+        <label
+          htmlFor={props.id || props.name}
+          className="mr-3 text-xs text-nelsa_primary font-bold"
+        >
           {label}
         </label>
       )}

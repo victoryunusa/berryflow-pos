@@ -38,6 +38,7 @@ import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
 import invoiceItemsReducer from "../features/invoice/invoiceCartSlice";
 import variantItemsReducer from "../features/products/productVariantSlice";
 import addonItemsReducer from "../features/addon_group/addonProductSlice";
+import productIngredientReducer from "../features/products/productIngedientSlice";
 import rolesReducer from "../features/role/roleSlice";
 import usersReducer from "../features/users/usersSlice";
 import purchaseOrderReducer from "../features/purchase/purchaseOrderSlice";
@@ -76,6 +77,7 @@ export const store = configureStore({
     product: productReducer,
     variant_options: variantOptionsReducer,
     addon_groups: addonGroupReducer,
+    product_ingredient_items: productIngredientReducer,
     states: statesReducer,
     areas: areasReducer,
     tables: tablesReducer,
