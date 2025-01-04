@@ -21,6 +21,7 @@ import {
 } from "../../../features/products/productVariantSlice";
 import VariantSelector from "../../../components/common/VariantSelector";
 import MultipleSelect from "../../../components/common/MultipleSelect";
+import SwitchButton from "../../../components/common/SwitchButton";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -176,6 +177,7 @@ const AddProduct = () => {
     selling_method: "",
     description: "",
     images: null,
+    is_addon_product: false,
   };
 
   const validationSchema = Yup.object().shape({
@@ -268,26 +270,43 @@ const AddProduct = () => {
             >
               {({ values, errors, touched, setFieldValue }) => (
                 <Form className="w-full">
-                  <div className="">
-                    <div className="">
-                      <label className="block text-nelsa_primary text-xs font-semibold">
-                        Name
-                      </label>
-                      <Field
-                        type="text"
-                        placeholder=""
-                        name="name"
-                        className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                          errors.name && touched.name ? "border-red-500" : ""
-                        } focus:nelsa_gray_3`}
+                  <div className="mb-5">
+                    <p className="text-nelsa_primary/60 font-semibold mb-2">
+                      Product Identifier Information (Optional)
+                    </p>
+                    <div>
+                      <SwitchButton
+                        name="is_addon_product"
+                        label="This is an Add-on Product"
                       />
-                      <ErrorMessage
-                        name="name"
-                        component="div"
-                        className="text-red-500 text-xs"
-                      />
+                      <p className="text-neutral-400 text-xs mt-1">
+                        If this option is enabled, product will be considered as
+                        an add-on product. Add-on products can only be tagged to
+                        a billing product via add-on groups
+                      </p>
                     </div>
+                  </div>
+                  <hr className="my-8" />
+                  <div className="">
                     <div className="flex flex-row mt-3 w-full gap-5">
+                      <div className="w-1/2">
+                        <label className="block text-nelsa_primary text-xs font-semibold">
+                          Name
+                        </label>
+                        <Field
+                          type="text"
+                          placeholder=""
+                          name="name"
+                          className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
+                            errors.name && touched.name ? "border-red-500" : ""
+                          } focus:nelsa_gray_3`}
+                        />
+                        <ErrorMessage
+                          name="name"
+                          component="div"
+                          className="text-red-500 text-xs"
+                        />
+                      </div>
                       <div className="w-1/2">
                         <label className="block text-nelsa_primary text-xs font-semibold">
                           Product Code (SKU){"    "}
@@ -311,9 +330,28 @@ const AddProduct = () => {
                           className="text-red-500 text-xs"
                         />
                       </div>
+                    </div>
+
+                    <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
                         <label className="block text-nelsa_primary text-xs font-semibold mb-1">
                           Category
+                        </label>
+                        <Selector
+                          options={newCategories}
+                          value={values.category}
+                          setFieldValue={setFieldValue}
+                          name="category"
+                        />
+                        <ErrorMessage
+                          name="category"
+                          component="div"
+                          className="text-red-500 text-xs"
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                          Supplier
                         </label>
                         <Selector
                           options={newCategories}
@@ -365,7 +403,7 @@ const AddProduct = () => {
                     </div>
 
                     <div className="flex flex-row mt-3 w-full gap-5">
-                      <div className="w-1/3">
+                      <div className="w-1/2">
                         <label className="block text-nelsa_primary text-xs font-semibold">
                           Purchase Price Excluding Tax
                         </label>
@@ -386,7 +424,7 @@ const AddProduct = () => {
                           className="text-red-500 text-xs"
                         />
                       </div>
-                      <div className="w-1/3">
+                      <div className="w-1/2">
                         <label className="block text-nelsa_primary text-xs font-semibold">
                           Sale Price Excluding Tax
                         </label>
@@ -407,7 +445,9 @@ const AddProduct = () => {
                           className="text-red-500 text-xs"
                         />
                       </div>
-                      <div className="w-1/3">
+                    </div>
+                    <div className="flex flex-row mt-3 w-full gap-5">
+                      <div className="w-1/2">
                         <label className="block text-nelsa_primary text-xs font-semibold">
                           Sale Price Including Tax
                         </label>
@@ -429,6 +469,7 @@ const AddProduct = () => {
                           className="text-red-500 text-xs"
                         />
                       </div>
+                      <div className="w-1/2"></div>
                     </div>
 
                     <div className="mt-3 flex flex-row space-x-3">
@@ -518,139 +559,143 @@ const AddProduct = () => {
                         placeholder="Description"
                       />
                     </div>
-                    <hr className="mt-8" />
-                    <div className="flex flex-col mt-2">
+                    {values.is_addon_product === false && (
                       <div>
-                        <p className="text-nelsa_primary/60 font-semibold mb-2">
-                          Product Variants
-                        </p>
-                      </div>
-                      <div className=" flex flex-row space-x-3">
-                        <div className="w-1/2">
-                          <label className="block text-nelsa_primary text-xs font-semibold mb-1">
-                            Search and Add Variant Products
-                          </label>
-                          <OrderSelect
-                            options={items}
-                            handleAddToCart={handleAddProductVariant}
-                          />
-                        </div>
-                      </div>
-                      {variantItems.length >= 1 && (
-                        <div>
-                          <div className="mt-5">
-                            <div className="w-full flex flex-row items-start justify-start gap-3">
-                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
-                                Variant Option
+                        <hr className="mt-8" />
+                        <div className="flex flex-col mt-2">
+                          <div>
+                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                              Product Variants
+                            </p>
+                          </div>
+                          <div className=" flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                                Search and Add Variant Products
                               </label>
-                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
-                                Name & Description
-                              </label>
-                              <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
-                                Sale Price
-                              </label>
+                              <OrderSelect
+                                options={items}
+                                handleAddToCart={handleAddProductVariant}
+                              />
                             </div>
-                            {variantItems?.map((variant, index) => (
-                              <div
-                                className="flex flex-row gap-3 mt-1"
-                                key={variant.slug}
-                              >
-                                <div className="w-1/3">
-                                  <VariantSelector
-                                    variant={variant}
-                                    index={index}
-                                    variantOptions={variantOptions}
-                                    handleChangeVariantOption={
-                                      handleChangeVariantOption
-                                    }
-                                  />
+                          </div>
+                          {variantItems.length >= 1 && (
+                            <div>
+                              <div className="mt-5">
+                                <div className="w-full flex flex-row items-start justify-start gap-3">
+                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                    Variant Option
+                                  </label>
+                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                    Name & Description
+                                  </label>
+                                  <label className="block w-1/3 text-nelsa_gray_3 text-xs font-semibold">
+                                    Sale Price
+                                  </label>
                                 </div>
-                                <div className="flex items-center w-1/3 px-4 py-3 mt-1 border text-neutral-500 bg-neutral-100 text-xs rounded-md">
-                                  <p className="">{variant.name}</p>
-                                </div>
-                                <div className="flex flex-row items-center w-1/3">
-                                  <p className="w-4/5 text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
-                                    {variant.price}
-                                  </p>
-
-                                  <button
-                                    type="button"
-                                    className="flex items-center justify-center text-2xl text-red-600 p-1.5"
-                                    onClick={() => handleRemoveVariant(variant)}
+                                {variantItems?.map((variant, index) => (
+                                  <div
+                                    className="flex flex-row gap-3 mt-1"
+                                    key={variant.slug}
                                   >
-                                    x
-                                  </button>
-                                </div>
+                                    <div className="w-1/3">
+                                      <VariantSelector
+                                        variant={variant}
+                                        index={index}
+                                        variantOptions={variantOptions}
+                                        handleChangeVariantOption={
+                                          handleChangeVariantOption
+                                        }
+                                      />
+                                    </div>
+                                    <div className="flex items-center w-1/3 px-4 py-3 mt-1 border text-neutral-500 bg-neutral-100 text-xs rounded-md">
+                                      <p className="">{variant.name}</p>
+                                    </div>
+                                    <div className="flex flex-row items-center w-1/3">
+                                      <p className="w-4/5 text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
+                                        {variant.price}
+                                      </p>
+
+                                      <button
+                                        type="button"
+                                        className="flex items-center justify-center text-2xl text-red-600 p-1.5"
+                                        onClick={() =>
+                                          handleRemoveVariant(variant)
+                                        }
+                                      >
+                                        x
+                                      </button>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
+                            </div>
+                          )}
+                        </div>
+                        <hr className="mt-8" />
+                        <div className="flex flex-col mt-2">
+                          <div>
+                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                              Choose Add-on Groups
+                            </p>
+                          </div>
+                          <div className=" flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_primary text-xs font-semibold">
+                                Add-on Groups
+                              </label>
+
+                              <MultipleSelect
+                                options={optionsMain}
+                                handleSelectionChange={handleSelectionChange}
+                                selectSlug="fruit-select"
+                              />
+                            </div>
                           </div>
                         </div>
-                      )}
-                    </div>
-                    <hr className="mt-8" />
-                    <div className="flex flex-col mt-2">
-                      <div>
-                        <p className="text-nelsa_primary/60 font-semibold mb-2">
-                          Choose Add-on Groups
-                        </p>
-                      </div>
-                      <div className=" flex flex-row space-x-3">
-                        <div className="w-1/2">
-                          <label className="block text-nelsa_primary text-xs font-semibold">
-                            Add-on Groups
-                          </label>
+                        <hr className="mt-8" />
+                        <div className="flex flex-col mt-2">
+                          <div>
+                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                              Ingredient Information
+                            </p>
+                          </div>
+                          <div className=" flex flex-row space-x-3">
+                            <div className="w-1/2">
+                              <label className="block text-nelsa_primary text-xs font-semibold">
+                                Search and Add Ingredients
+                              </label>
+                              <OrderSelect
+                                options={ingredients}
+                                handleAddToCart={setFieldValue}
+                              />
+                            </div>
+                          </div>
+                          <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
+                            <table className="w-full text-sm text-left ">
+                              <thead className=" text-nelsa_primary border-b-2 text-xs">
+                                <tr className="">
+                                  <th scope="col" className="py-3">
+                                    Name & Description
+                                  </th>
+                                  <th scope="col" className="px-6 py-3">
+                                    Purchase Price of 1 Unit
+                                  </th>
+                                  <th scope="col" className="px-6 py-3">
+                                    Sale Price of 1 Unit
+                                  </th>
 
-                          <MultipleSelect
-                            options={optionsMain}
-                            handleSelectionChange={handleSelectionChange}
-                            selectSlug="fruit-select"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <hr className="mt-8" />
-                    <div className="flex flex-col mt-2">
-                      <div>
-                        <p className="text-nelsa_primary/60 font-semibold mb-2">
-                          Ingredient Information
-                        </p>
-                      </div>
-                      <div className=" flex flex-row space-x-3">
-                        <div className="w-1/2">
-                          <label className="block text-nelsa_primary text-xs font-semibold">
-                            Search and Add Ingredients
-                          </label>
-                          <OrderSelect
-                            options={ingredients}
-                            handleAddToCart={setFieldValue}
-                          />
-                        </div>
-                      </div>
-                      <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
-                        <table className="w-full text-sm text-left ">
-                          <thead className=" text-nelsa_primary border-b-2 text-xs">
-                            <tr className="">
-                              <th scope="col" className="py-3">
-                                Name & Description
-                              </th>
-                              <th scope="col" className="px-6 py-3">
-                                Purchase Price of 1 Unit
-                              </th>
-                              <th scope="col" className="px-6 py-3">
-                                Sale Price of 1 Unit
-                              </th>
-
-                              <th scope="col" className="px-6 py-3">
-                                Quantity
-                              </th>
-                              <th scope="col" className="px-6 py-3">
-                                Measuring Unit
-                              </th>
-                              <th></th>
-                            </tr>
-                          </thead>
-                          <tbody className=" text-gray-500">
-                            {/* {cartItems.length >= 1 ? (
+                                  <th scope="col" className="px-6 py-3">
+                                    Quantity
+                                  </th>
+                                  <th scope="col" className="px-6 py-3">
+                                    Measuring Unit
+                                  </th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody className=" text-gray-500">
+                                {/* {cartItems.length >= 1 ? (
                           cartItems.map((cartItem, index) => (
                             <tr key={index} className="border-t">
                               <td scope="col" className="">
@@ -784,26 +829,29 @@ const AddProduct = () => {
                             <div>Please select items to add</div>
                           </div>
                         )} */}
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="mt-4">
-                        <div className="flex items-center mb-1">
-                          <Field
-                            type="checkbox"
-                            name="update_stock"
-                            className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
-                          />
-                          <label className="ml-2 text-xs text-nelsa_primary font-bold">
-                            Set Product Price as Ingredient Cost
-                          </label>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div className="mt-4">
+                            <div className="flex items-center mb-1">
+                              <Field
+                                type="checkbox"
+                                name="update_stock"
+                                className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                              />
+                              <label className="ml-2 text-xs text-nelsa_primary font-bold">
+                                Set Product Price as Ingredient Cost
+                              </label>
+                            </div>
+                            <p className="text-xs text-neutral-400 ml-6">
+                              If this option is enabled, product sale price and
+                              purchase price will be replaced with ingredient
+                              cost
+                            </p>
+                          </div>
                         </div>
-                        <p className="text-xs text-neutral-400 ml-6">
-                          If this option is enabled, product sale price and
-                          purchase price will be replaced with ingredient cost
-                        </p>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <div className="flex flex-row justify-end mt-3">
