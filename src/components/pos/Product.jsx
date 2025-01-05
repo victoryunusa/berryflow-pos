@@ -16,8 +16,8 @@ const Product = ({ product }) => {
       product.tax_code != null ? product.tax_code.tax_type : "EXCLUSIVE";
     var product_sale_price =
       tax_type == "EXCLUSIVE"
-        ? product.price_excluding_tax
-        : product.price_including_tax;
+        ? product.price_including_tax
+        : product.price_excluding_tax;
 
     var tax_percentage =
       product.tax_code != null

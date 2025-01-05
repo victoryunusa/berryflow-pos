@@ -6,6 +6,8 @@ const initialState = {
   cartItems: items ? JSON.parse(items) : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
+  cartTotalDiscount: 0,
+  cartTotalTax: 0,
 };
 
 export const cartSlice = createSlice({
@@ -76,25 +78,45 @@ export const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     getTotals(state) {
-      let { total, cart_quantity } = state.cartItems.reduce(
-        (cartTotal, cartItem) => {
-          const { price, cart_quantity } = cartItem;
+      let { total, cart_quantity, total_discount, total_tax } =
+        state.cartItems.reduce(
+          (cartTotal, cartItem) => {
+            const {
+              price,
+              cart_quantity,
+              tax_percentage,
+              discount_percentage,
+            } = cartItem;
 
-          const itemTotal = parseFloat(price) * parseFloat(cart_quantity);
+            const itemTotal = parseFloat(price) * parseFloat(cart_quantity);
 
-          cartTotal.total += itemTotal;
-          cartTotal.cart_quantity += cart_quantity;
+            const discountTotal = parseFloat(
+              price * cart_quantity * (discount_percentage / 100)
+            );
 
-          return cartTotal;
-        },
-        {
-          total: 0,
-          cart_quantity: 0,
-        }
-      );
+            const taxTotal = parseFloat(
+              price * cart_quantity * (tax_percentage / 100)
+            );
+
+            cartTotal.total += itemTotal;
+            cartTotal.cart_quantity += cart_quantity;
+            cartTotal.total_discount += discountTotal;
+            cartTotal.total_tax += taxTotal;
+
+            return cartTotal;
+          },
+          {
+            total: 0,
+            cart_quantity: 0,
+            total_discount: 0,
+            total_tax: 0,
+          }
+        );
 
       state.cartTotalQuantity = cart_quantity;
       state.cartTotalAmount = total;
+      state.cartTotalDiscount = total_discount;
+      state.cartTotalTax = total_tax;
     },
   },
   extraReducers: () => {},

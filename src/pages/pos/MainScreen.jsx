@@ -38,7 +38,7 @@ const MainScreen = () => {
   const [openCloseRegister, setOpenCloseRegister] = useState(false);
   const [openHoldList, setOpenHoldList] = useState(false);
   const [selectedTable, setSelectedTable] = useState("");
-  const [orderType, setOrderType] = useState("");
+  const [orderType, setOrderType] = useState("TAKEWAY");
 
   const scrolled = useScroll(5);
 
@@ -60,7 +60,7 @@ const MainScreen = () => {
   const { billing_types } = useSelector((state) => state.billing_types);
 
   const [billingType, setBillingType] = useState(
-    billing_types[0]?.billing_type_constant
+    billing_types[1]?.billing_type_constant
   );
 
   useEffect(() => {
@@ -181,13 +181,14 @@ const MainScreen = () => {
                   <div>
                     <h5 className="text-lg font-bold">New Order</h5>
                   </div>
-                  <div className="flex flex-row gap-3">
+                  <div className="flex flex-row items-center gap-3">
                     <div className="">
                       <select
                         name="billing_type"
-                        className={`w-full px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none
+                        className={`w-full px-3 py-2.5 border border-neutral-500 text-neutral-600 text-small  rounded-md focus:outline-none
                           `}
                         onChange={(e) => setBillingType(e.target.value)}
+                        value={billingType}
                       >
                         {billing_types.map((billing_type, index) => (
                           <option
@@ -200,14 +201,14 @@ const MainScreen = () => {
                       </select>
                     </div>
                     <div>
-                      <button className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
+                      <button className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
                         Digital Menu Orders
                       </button>
                     </div>
                     <div>
                       <button
                         onClick={() => setOpenRunningOrders(true)}
-                        className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
                       >
                         Running Orders
                       </button>
@@ -215,7 +216,7 @@ const MainScreen = () => {
                     <div>
                       <button
                         onClick={() => setOpenHoldList(true)}
-                        className="text-small border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
                       >
                         Hold List
                       </button>
@@ -223,7 +224,7 @@ const MainScreen = () => {
                     <div>
                       <button
                         onClick={() => setOpenCloseRegister(true)}
-                        className="text-small border border-red-600 bg-red-600 rounded-md px-3 py-2 text-white"
+                        className="text-small font-semibold border border-red-600 bg-red-600 rounded-md px-3 py-2 text-white"
                       >
                         Close Register
                       </button>
@@ -321,7 +322,7 @@ const MainScreen = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="h-2/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
+                  <div className="h-3/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
                   </div>
 
@@ -362,7 +363,34 @@ const MainScreen = () => {
                           <span className="font-semibold text-sm">
                             Discount
                           </span>
-                          <span className="font-bold">- 0.00</span>
+                          <span className="font-bold">
+                            -{" "}
+                            {dollarUSLocale.format(
+                              Math.round(cart.cartTotalDiscount)
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between ">
+                          <span className="font-semibold text-sm">
+                            Total after Discount
+                          </span>
+                          <span className="font-bold">
+                            {dollarUSLocale.format(
+                              Math.round(
+                                cart.cartTotalAmount - cart.cartTotalDiscount
+                              )
+                            )}
+                          </span>
+                        </div>
+                        <div className="flex justify-between ">
+                          <span className="font-semibold text-sm">
+                            Total Tax
+                          </span>
+                          <span className="font-bold">
+                            {dollarUSLocale.format(
+                              Math.round(cart.cartTotalTax)
+                            )}
+                          </span>
                         </div>
                         {/* <div className="flex justify-between ">
                           <span className="font-semibold text-sm">
@@ -374,7 +402,11 @@ const MainScreen = () => {
                           <span className="text-lg font-bold">Total</span>
                           <span className="font-bold text-lg">
                             {dollarUSLocale.format(
-                              Math.round(cart.cartTotalAmount)
+                              Math.round(
+                                cart.cartTotalAmount -
+                                  cart.cartTotalDiscount +
+                                  cart.cartTotalTax
+                              )
                             )}
                           </span>
                         </div>

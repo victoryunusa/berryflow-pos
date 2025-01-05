@@ -63,6 +63,7 @@ const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
             <button
               className="ml-1 text-white bg-transparent border-0"
               onClick={() => handleRemovePill(selected)}
+              type="button"
             >
               &times;
             </button>
@@ -75,6 +76,7 @@ const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
         <button
           className="flex flex-row justify-between items-center w-full px-4 py-3 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none"
           onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown
+          type="button"
         >
           <span>
             {selectedOptions.length === 0
