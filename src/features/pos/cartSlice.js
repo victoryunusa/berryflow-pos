@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
   reducers: {
     addItemToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.slug === action.payload.slug
+        (item) => item.product_slug === action.payload.product_slug
       );
 
       //const pseudoId = new Date().getTime();
@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
     },
     removeFromCart(state, action) {
       const nextCartItems = state.cartItems.filter(
-        (cartItem) => cartItem.slug !== action.payload.slug
+        (cartItem) => cartItem.product_slug !== action.payload.product_slug
       );
 
       state.cartItems = nextCartItems;
@@ -41,13 +41,13 @@ export const cartSlice = createSlice({
     },
     decrease(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.slug === action.payload.slug
+        (cartItem) => cartItem.product_slug === action.payload.product_slug
       );
       if (state.cartItems[itemIndex].cart_quantity > 1) {
         state.cartItems[itemIndex].cart_quantity -= 1;
       } else if (state.cartItems[itemIndex].cart_quantity === 1) {
         const nextCartItems = state.cartItems.filter(
-          (cartItem) => cartItem.slug !== action.payload.slug
+          (cartItem) => cartItem.product_slug !== action.payload.product_slug
         );
 
         state.cartItems = nextCartItems;
@@ -58,11 +58,13 @@ export const cartSlice = createSlice({
       //state.cartItems.push(action.payload);
 
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.slug === action.payload.slug
+        (item) => item.product_slug === action.payload.product_slug
       );
 
       if (itemIndex >= 0) {
-        state.cartItems[itemIndex].cart_quantity = action.payload.new_quantity;
+        state.cartItems[itemIndex].cart_quantity = parseInt(
+          action.payload.new_quantity
+        );
       } else {
         console.log("Item is not in cart");
       }
@@ -76,9 +78,9 @@ export const cartSlice = createSlice({
     getTotals(state) {
       let { total, cart_quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
-          const { price_including_tax, cart_quantity } = cartItem;
+          const { price, cart_quantity } = cartItem;
 
-          const itemTotal = price_including_tax * cart_quantity;
+          const itemTotal = parseFloat(price) * parseFloat(cart_quantity);
 
           cartTotal.total += itemTotal;
           cartTotal.cart_quantity += cart_quantity;

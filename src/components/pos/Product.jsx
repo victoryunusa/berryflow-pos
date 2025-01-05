@@ -12,13 +12,41 @@ const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-    //console.log(product);
-    //dispatch(addItemToCart(product));
+    var tax_type =
+      product.tax_code != null ? product.tax_code.tax_type : "EXCLUSIVE";
+    var product_sale_price =
+      tax_type == "EXCLUSIVE"
+        ? product.price_excluding_tax
+        : product.price_including_tax;
+
+    var tax_percentage =
+      product.tax_code != null
+        ? parseFloat(product.tax_code.total_tax_percentage)
+        : 0;
+    var discount_percentage =
+      product.discount_code != null
+        ? parseFloat(product.discount_code.discount_percentage)
+        : 0;
+
+    var product_data = {
+      product_slug: product.slug,
+      product_code: product.product_code,
+      name: product.name,
+      price: product_sale_price,
+      tax_percentage: tax_percentage != null ? tax_percentage : 0.0,
+      discount_percentage:
+        discount_percentage != null ? discount_percentage : 0.0,
+
+      customizable: product.customizable,
+      price_including_tax: product.price_including_tax,
+      tax_type: tax_type,
+    };
+
     if (product?.variants?.length > 0) {
       setOpenModal(true);
-      console.log(product);
+      console.log(product_data);
     } else {
-      dispatch(addItemToCart(product));
+      dispatch(addItemToCart(product_data));
       play_beep();
     }
   };
@@ -71,7 +99,7 @@ const Product = ({ product }) => {
             <span className="self-end font-bold text-xs md:text-lg text-neutral-700">
               ₦
               {dollarUSLocale.format(
-                parseFloat(product.price_including_tax).toFixed(2)
+                parseFloat(product.price_excluding_tax).toFixed(2)
               )}
             </span>
           </div>

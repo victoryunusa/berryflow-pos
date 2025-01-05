@@ -26,8 +26,8 @@ const CartItem = ({ cartItem }) => {
     dispatch(getTotals());
   };
 
-  const handleChangeQuantity = ({ slug, value }) => {
-    dispatch(updateItemQuantity({ slug, new_quantity: value }));
+  const handleChangeQuantity = ({ product_slug, value }) => {
+    dispatch(updateItemQuantity({ product_slug, new_quantity: value }));
   };
 
   const handleRemoveFromCart = (cartItem) => {
@@ -35,11 +35,11 @@ const CartItem = ({ cartItem }) => {
     console.log(cartItem);
   };
   return (
-    <div className="flex flex-col py-2.5 px-2 border my-2">
+    <div className="flex flex-col py-3.5 px-3 border my-2 rounded-md bg-white">
       <div className="flex flex-row items-center justify-between">
-        <div className="w-1/2">
-          <span className="text-xs font-semibold truncate">
-            {textEllipsis(cartItem.name, 25)}
+        <div className="flex items-center w-1/2">
+          <span className="text-xs font-bold truncate">
+            {textEllipsis(cartItem.name, 35)}
           </span>
         </div>
         <div className="flex items-center bg-white border p-1 rounded-md h-[1.75rem]">
@@ -73,7 +73,7 @@ const CartItem = ({ cartItem }) => {
               value={cartItem.cart_quantity}
               onChange={(e) =>
                 handleChangeQuantity({
-                  slug: cartItem.slug,
+                  product_slug: cartItem.product_slug,
                   value: e.target.value,
                 })
               }
@@ -111,7 +111,7 @@ const CartItem = ({ cartItem }) => {
           <h1 className="font-semibold text-xs">
             ₦{" "}
             {dollarUSLocale.format(
-              Math.round(cartItem.price_including_tax * cartItem.cart_quantity)
+              Math.round(cartItem.price * cartItem.cart_quantity)
             )}
           </h1>
         </div>
@@ -123,6 +123,32 @@ const CartItem = ({ cartItem }) => {
           <FaIcons.FaXmark size={15} className="text-red-600" />
         </button>
       </div>
+      <div>
+        <p className="text-xs text-green-600">
+          Discount Amount:{" "}
+          {dollarUSLocale.format(
+            Math.round(
+              cartItem.price *
+                cartItem.cart_quantity *
+                (cartItem.discount_percentage / 100)
+            )
+          )}
+        </p>
+        <p className="text-xs text-neutral-500">
+          Tax Amount:{" "}
+          {dollarUSLocale.format(
+            Math.round(
+              cartItem.price *
+                cartItem.cart_quantity *
+                (cartItem.tax_percentage / 100)
+            )
+          )}
+        </p>
+      </div>
+      {cartItem.selected_addon_products != null &&
+      Object.keys(cartItem.selected_addon_products).length != 0 ? (
+        <div>Customize</div>
+      ) : null}
     </div>
   );
 };
