@@ -249,7 +249,7 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-6 gap-3 bg-zinc-100 py-3 px-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-zinc-100 py-3 px-5">
                 {items?.map((product, index) => (
                   <Product product={product} key={index} />
                 ))}

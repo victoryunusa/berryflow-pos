@@ -14,17 +14,17 @@ export const cartSlice = createSlice({
   reducers: {
     addItemToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.pseudoId === action.payload.pseudoId
+        (item) => item.slug === action.payload.slug
       );
 
-      const pseudoId = new Date().getTime();
+      //const pseudoId = new Date().getTime();
 
       if (itemIndex >= 0) {
-        state.cartItems[itemIndex].quantity++;
+        state.cartItems[itemIndex].cart_quantity++;
       } else {
         const tempProduct = {
           ...action.payload,
-          pseudoId: pseudoId,
+          cart_quantity: 1,
         };
         state.cartItems.push(tempProduct);
       }
@@ -33,7 +33,7 @@ export const cartSlice = createSlice({
     },
     removeFromCart(state, action) {
       const nextCartItems = state.cartItems.filter(
-        (cartItem) => cartItem.pseudoId !== action.payload.pseudoId
+        (cartItem) => cartItem.slug !== action.payload.slug
       );
 
       state.cartItems = nextCartItems;
@@ -41,13 +41,13 @@ export const cartSlice = createSlice({
     },
     decrease(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (cartItem) => cartItem.pseudoId === action.payload.pseudoId
+        (cartItem) => cartItem.slug === action.payload.slug
       );
-      if (state.cartItems[itemIndex].quantity > 1) {
-        state.cartItems[itemIndex].quantity -= 1;
-      } else if (state.cartItems[itemIndex].quantity === 1) {
+      if (state.cartItems[itemIndex].cart_quantity > 1) {
+        state.cartItems[itemIndex].cart_quantity -= 1;
+      } else if (state.cartItems[itemIndex].cart_quantity === 1) {
         const nextCartItems = state.cartItems.filter(
-          (cartItem) => cartItem.pseudoId !== action.payload.pseudoId
+          (cartItem) => cartItem.slug !== action.payload.slug
         );
 
         state.cartItems = nextCartItems;
@@ -58,11 +58,11 @@ export const cartSlice = createSlice({
       //state.cartItems.push(action.payload);
 
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.pseudoId === action.payload.pseudoId
+        (item) => item.slug === action.payload.slug
       );
 
       if (itemIndex >= 0) {
-        state.cartItems[itemIndex].quantity = action.payload.new_quantity;
+        state.cartItems[itemIndex].cart_quantity = action.payload.new_quantity;
       } else {
         console.log("Item is not in cart");
       }
@@ -74,26 +74,24 @@ export const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     getTotals(state) {
-      let { total, quantity } = state.cartItems.reduce(
+      let { total, cart_quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
-          const { price, item_variation_total, item_extra_total, quantity } =
-            cartItem;
+          const { price_including_tax, cart_quantity } = cartItem;
 
-          const itemTotal =
-            (price * 1 + item_variation_total + item_extra_total) * quantity;
+          const itemTotal = price_including_tax * cart_quantity;
 
           cartTotal.total += itemTotal;
-          cartTotal.quantity += quantity;
+          cartTotal.cart_quantity += cart_quantity;
 
           return cartTotal;
         },
         {
           total: 0,
-          quantity: 0,
+          cart_quantity: 0,
         }
       );
 
-      state.cartTotalQuantity = quantity;
+      state.cartTotalQuantity = cart_quantity;
       state.cartTotalAmount = total;
     },
   },

@@ -213,7 +213,7 @@ const ProductModal = ({ setOpen, open, product }) => {
                         {product.description}
                       </p>
                       <h3 className="text-sm text-neutral-700 font-bold">
-                        {product.price}
+                        {product.price_including_tax}
                       </h3>
                     </div>
                   </div>

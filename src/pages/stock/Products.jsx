@@ -64,9 +64,9 @@ const Products = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex gap-5">
           <select
-            className={`w-1/4 px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+            className={`w-1/5 px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
             onChange={(e) => handleFilterChange(e.target.value)}
             value={productFilter}
           >
@@ -80,7 +80,7 @@ const Products = () => {
           {products?.data?.map((product, index) => (
             <div
               key={index}
-              className="flex flex-col bg-white shadow-md border rounded-xl cursor-pointer p-2"
+              className="flex flex-col bg-white shadow-md border rounded-lg cursor-pointer p-2"
               onClick={() => showProduct(product.slug)}
             >
               <div className="flex w-full h-28 bg-contain">
