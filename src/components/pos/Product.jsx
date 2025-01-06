@@ -69,7 +69,7 @@ const Product = ({ product }) => {
                   Code: {textEllipsis(product.product_code, 20)}
                 </p>
                 <p className="text-xs md:text-sm font-bold text-nelsa_primary">
-                  {textEllipsis(product.name, 35)}
+                  {textEllipsis(product.name, 25)}
                 </p>
               </div>
             </div>
@@ -83,7 +83,7 @@ const Product = ({ product }) => {
             />
           </div>
 
-          <div className="flex flex-row justify-between w-full gap-3 mt-6">
+          <div className="flex flex-row justify-between w-full gap-3 mt-2">
             <div className=" w-full">
               {product?.discount_code && (
                 <p className="text-sm md:text-xs text-green-500">

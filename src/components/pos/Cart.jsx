@@ -16,12 +16,12 @@ const Cart = () => {
   const lastElement = cartItems && cartItems?.length - 1;
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col my-1">
       {cartItems.length >= 1 ? (
         cartItems.map((cartItem, index) => (
           <div key={index}>
             <CartItem cartItem={cartItem} />
-            <hr className={` ${lastElement == index ? "hidden" : "block"}`} />
+            {/* <hr className={` ${lastElement == index ? "hidden" : "block"}`} /> */}
           </div>
         ))
       ) : (

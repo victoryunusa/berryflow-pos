@@ -28,7 +28,7 @@ const BillCounterDashboard = () => {
       <div className="flex flex-row w-full gap-5">
         {billing_counter_stats?.map((register, index) => (
           <div
-            className="flex flex-col w-full md:w-1/4 bg-white border rounded-md p-5"
+            className="flex flex-col w-full md:w-1/3 bg-white border rounded-md p-5"
             key={index}
           >
             <div className="flex flex-row justify-between">

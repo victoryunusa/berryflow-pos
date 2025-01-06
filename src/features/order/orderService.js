@@ -27,7 +27,7 @@ const addOrder = async ({ token, formData }) => {
     },
   };
 
-  console.log(token);
+  console.log(formData);
 
   const response = await axios.post(
     `${BaseUrl}/orders/store`,

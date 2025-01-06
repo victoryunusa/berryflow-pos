@@ -9,7 +9,11 @@ import * as Yup from "yup";
 import { alertActions } from "../../../app/store";
 //import { getTables } from "../../../features/table/tableSlice";
 import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
-import { getCartItems, getTotals } from "../../../features/pos/cartSlice";
+import {
+  clearCart,
+  getCartItems,
+  getTotals,
+} from "../../../features/pos/cartSlice";
 import { addOrder } from "../../../features/order/orderSlice";
 
 const ConfirmOrder = ({
@@ -17,6 +21,7 @@ const ConfirmOrder = ({
   billingType,
   orderType,
   register,
+  customer,
   open,
   children,
 }) => {
@@ -84,13 +89,16 @@ const ConfirmOrder = ({
     dispatch(getPaymentMethods());
   }, [dispatch]);
 
+  const orderTotal =
+    cart?.cartTotalAmount + cart?.cartTotalTax + cart?.cartTotalDiscount;
+
   // Memoized initialValues to reflect updated states
   const initialValues = useMemo(
     () => ({
       business_account: accountNumber || "",
       payment_method: paymentMethod || "",
       received_value: "",
-      order_value: cart?.cartTotalAmount || 0.0,
+      order_value: orderTotal || 0.0,
       balance_amount: "",
     }),
     [accountNumber, paymentMethod, cart?.cartTotalAmount]
@@ -115,6 +123,7 @@ const ConfirmOrder = ({
 
       await dispatch(
         addOrder({
+          customer: customer,
           payment_method,
           order_value,
           received_value,
@@ -127,6 +136,7 @@ const ConfirmOrder = ({
           order_status: "CLOSE",
           logged_user_id: user?.id,
           logged_user_store_id: user?.branch_id,
+          logged_user_vendor_id: user?.vendor_id,
         })
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
@@ -137,6 +147,8 @@ const ConfirmOrder = ({
           showAfterRedirect: true,
         })
       );
+
+      dispatch(clearCart());
 
       setLoading(false);
       setVisible(false);

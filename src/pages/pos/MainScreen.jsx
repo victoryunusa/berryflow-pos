@@ -250,7 +250,7 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-zinc-100 py-3 px-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3  py-3 px-5 h-1/2">
                 {items?.map((product, index) => (
                   <Product product={product} key={index} />
                 ))}
@@ -322,7 +322,7 @@ const MainScreen = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="h-3/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
+                  <div className="h-2/5 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
                   </div>
 
@@ -473,6 +473,7 @@ const MainScreen = () => {
           register={activeRegister}
           billingType={billingType}
           orderType={orderType}
+          customer={customers[0]}
         />
       )}
       {openRunnungOrders && (

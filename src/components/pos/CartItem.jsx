@@ -35,7 +35,7 @@ const CartItem = ({ cartItem }) => {
     console.log(cartItem);
   };
   return (
-    <div className="flex flex-col py-3.5 px-3 border my-2 rounded-md bg-white">
+    <div className="flex flex-col py-3.5 px-3 border my-1 rounded-md bg-white">
       <div className="flex flex-row items-center justify-between">
         <div className="flex items-center w-1/2">
           <span className="text-xs font-bold truncate">
@@ -145,9 +145,12 @@ const CartItem = ({ cartItem }) => {
           )}
         </p>
       </div>
-      {cartItem.selected_addon_products != null &&
-      Object.keys(cartItem.selected_addon_products).length != 0 ? (
-        <div>Customize</div>
+      {cartItem.customizable == 1 ? (
+        <div>
+          <span className="text-xs text-blue-500 font-semibold cursor-pointer">
+            Modify
+          </span>
+        </div>
       ) : null}
     </div>
   );

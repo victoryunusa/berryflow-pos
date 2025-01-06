@@ -15,7 +15,9 @@ const getRegister = async (token) => {
     config
   );
 
-  localStorage.setItem("activeRegister", JSON.stringify(response.data.slug));
+  localStorage.setItem("activeRegister", JSON.stringify(response.data));
+
+  console.log(response.data);
 
   return response.data;
 };

@@ -2,12 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import * as HeIcons from "react-icons/fa6";
 
 const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
-  const localStorageKey = `select-${selectSlug}`;
-  const [selectedOptions, setSelectedOptions] = useState(() => {
-    const savedSelections = localStorage.getItem(localStorageKey);
-    return savedSelections ? JSON.parse(savedSelections) : [];
-  });
-
+  const [selectedOptions, setSelectedOptions] = useState([]); // Initialize without localStorage
   const [dropdownOpen, setDropdownOpen] = useState(false); // Manage dropdown open state
   const dropdownRef = useRef(null); // Ref to handle clicking outside
 
@@ -39,7 +34,6 @@ const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
       newSelectedOptions.push(option.value);
       setSelectedOptions(newSelectedOptions);
     }
-    localStorage.setItem(localStorageKey, JSON.stringify(newSelectedOptions));
   };
 
   const handleRemovePill = (value) => {
@@ -47,7 +41,6 @@ const MultipleSelect = ({ options, handleSelectionChange, selectSlug }) => {
       (option) => option !== value
     );
     setSelectedOptions(newSelectedOptions);
-    localStorage.setItem(localStorageKey, JSON.stringify(newSelectedOptions));
   };
 
   return (
