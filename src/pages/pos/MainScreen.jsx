@@ -354,9 +354,7 @@ const MainScreen = () => {
                             Subtotal
                           </span>
                           <span className="font-bold">
-                            {dollarUSLocale.format(
-                              Math.round(cart.cartTotalAmount)
-                            )}
+                            {dollarUSLocale.format(cart.cartTotalAmount)}
                           </span>
                         </div>
                         <div className="flex justify-between ">
@@ -364,10 +362,7 @@ const MainScreen = () => {
                             Discount
                           </span>
                           <span className="font-bold">
-                            -{" "}
-                            {dollarUSLocale.format(
-                              Math.round(cart.cartTotalDiscount)
-                            )}
+                            - {dollarUSLocale.format(cart.cartTotalDiscount)}
                           </span>
                         </div>
                         <div className="flex justify-between ">
@@ -376,9 +371,7 @@ const MainScreen = () => {
                           </span>
                           <span className="font-bold">
                             {dollarUSLocale.format(
-                              Math.round(
-                                cart.cartTotalAmount - cart.cartTotalDiscount
-                              )
+                              cart.cartTotalAmount - cart.cartTotalDiscount
                             )}
                           </span>
                         </div>
@@ -387,9 +380,7 @@ const MainScreen = () => {
                             Total Tax
                           </span>
                           <span className="font-bold">
-                            {dollarUSLocale.format(
-                              Math.round(cart.cartTotalTax)
-                            )}
+                            {dollarUSLocale.format(cart.cartTotalTax)}
                           </span>
                         </div>
                         {/* <div className="flex justify-between ">
@@ -402,11 +393,9 @@ const MainScreen = () => {
                           <span className="text-lg font-bold">Total</span>
                           <span className="font-bold text-lg">
                             {dollarUSLocale.format(
-                              Math.round(
-                                cart.cartTotalAmount -
-                                  cart.cartTotalDiscount +
-                                  cart.cartTotalTax
-                              )
+                              cart.cartTotalAmount -
+                                cart.cartTotalDiscount +
+                                cart.cartTotalTax
                             )}
                           </span>
                         </div>

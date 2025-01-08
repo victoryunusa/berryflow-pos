@@ -68,7 +68,7 @@ const SideNav = () => {
   };
 
   return (
-    <div className="md:w-64 bg-nelsa_primary h-screen flex-1 fixed hidden md:flex">
+    <div className="md:w-72 bg-nelsa_primary h-screen flex-1 fixed hidden md:flex">
       <div className="flex flex-col space-y-2 w-full ">
         <div className="relative z-50 hidden md:block px-5 py-5 w-full">
           <button

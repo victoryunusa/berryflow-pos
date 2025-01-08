@@ -90,7 +90,7 @@ const ConfirmOrder = ({
   }, [dispatch]);
 
   const orderTotal =
-    cart?.cartTotalAmount + cart?.cartTotalTax + cart?.cartTotalDiscount;
+    cart?.cartTotalAmount + cart?.cartTotalTax - cart?.cartTotalDiscount;
 
   // Memoized initialValues to reflect updated states
   const initialValues = useMemo(
