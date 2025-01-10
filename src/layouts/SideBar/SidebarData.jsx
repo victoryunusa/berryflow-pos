@@ -121,8 +121,8 @@ export const subMenusList = [
         path: "/restaurant/waiter_display",
       },
       {
-        title: "QR Menu",
-        path: "/restaurant/qr_menu",
+        title: "Online Ordering",
+        path: "/restaurant/online_ordering",
       },
     ],
   },

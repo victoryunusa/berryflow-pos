@@ -42,7 +42,6 @@ import IngredientQuantityAlert from "./pages/reports/IngredientQuantityAlert";
 import BranchStockChart from "./pages/reports/BranchStockChart";
 import KitchenDisplay from "./pages/restaurant/KitchenDisplay";
 import WaiterDisplay from "./pages/restaurant/WaiterDisplay";
-import QrMenu from "./pages/restaurant/QrMenu";
 import Tables from "./pages/restaurant/Tables";
 import MeasurementUnits from "./pages/settings/Items/MeasurementUnits";
 import VerifyEmail from "./components/auth/VerifyEmail";
@@ -78,6 +77,7 @@ import InactivityLogout from "./HOC/InactivityLogout";
 import Wallet from "./pages/wallet/Wallet";
 import VerifyOTP from "./components/auth/VerifyOTP";
 import Section from "./pages/restaurant/Section";
+import OnlineOrdering from "./pages/restaurant/OnlineOrdering";
 
 function App() {
   return (
@@ -566,10 +566,10 @@ function App() {
             }
           />
           <Route
-            path="restaurant/qr_menu"
+            path="restaurant/online_ordering"
             element={
               <Protected>
-                <QrMenu />
+                <OnlineOrdering />
               </Protected>
             }
           />
