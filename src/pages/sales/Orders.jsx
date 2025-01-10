@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getOrders } from "../../features/order/orderSlice";
 import { Link } from "react-router-dom";
+import { prettyDate } from "../../functions/functions";
 
 const Orders = () => {
   const [visible, setVisible] = useState(false);
@@ -91,10 +92,18 @@ const Orders = () => {
                           <td className="px-2 py-3">
                             {order.total_order_amount}
                           </td>
-                          <td className="px-2 py-3">{order.status}</td>
-                          <td className="px-2 py-3">{order.payment_status}</td>
-                          <td className="px-2 py-3">{order.created_at}</td>
-                          <td className="px-2 py-3">{order.created_by}</td>
+                          <td className="px-2 py-3">
+                            {order.status_data?.label}
+                          </td>
+                          <td className="px-2 py-3">
+                            {order.payment_status_data?.label}
+                          </td>
+                          <td className="px-2 py-3">
+                            {prettyDate(order.created_at)}
+                          </td>
+                          <td className="px-2 py-3">
+                            {order.created_user?.full_name}
+                          </td>
                           <td className="">
                             <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">
                               View
