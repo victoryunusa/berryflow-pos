@@ -345,11 +345,11 @@ const ConfirmOrder = ({
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 font-bold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
-                                    className="mr-5 inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                                    className="mr-5 inline-block h-3 w-3 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                                     role="status"
                                   >
                                     <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
@@ -361,7 +361,7 @@ const ConfirmOrder = ({
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md flex items-center justify-center"
                                 >
                                   Submit
                                 </button>

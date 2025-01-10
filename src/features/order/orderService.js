@@ -24,6 +24,7 @@ const addOrder = async ({ token, formData }) => {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json; charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
     },
   };
 

@@ -109,10 +109,7 @@ const CartItem = ({ cartItem }) => {
         </div>
         <div className=" w-20 flex justify-between ml-2">
           <h1 className="font-semibold text-xs">
-            ₦{" "}
-            {dollarUSLocale.format(
-              Math.round(cartItem.price * cartItem.cart_quantity)
-            )}
+            ₦ {dollarUSLocale.format(cartItem.price * cartItem.cart_quantity)}
           </h1>
         </div>
 
@@ -127,21 +124,17 @@ const CartItem = ({ cartItem }) => {
         <p className="text-xs text-green-600">
           Discount Amount:{" "}
           {dollarUSLocale.format(
-            Math.round(
-              cartItem.price *
-                cartItem.cart_quantity *
-                (cartItem.discount_percentage / 100)
-            )
+            cartItem.price *
+              cartItem.cart_quantity *
+              (cartItem.discount_percentage / 100)
           )}
         </p>
         <p className="text-xs text-neutral-500">
           Tax Amount:{" "}
           {dollarUSLocale.format(
-            Math.round(
-              cartItem.price *
-                cartItem.cart_quantity *
-                (cartItem.tax_percentage / 100)
-            )
+            cartItem.price *
+              cartItem.cart_quantity *
+              (cartItem.tax_percentage / 100)
           )}
         </p>
       </div>
