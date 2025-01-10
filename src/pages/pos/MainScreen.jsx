@@ -27,6 +27,7 @@ import CloseRegister from "../../components/pos/modals/CloseRegister";
 import HoldList from "../../components/pos/modals/HoldList";
 import { useNavigate } from "react-router";
 import { getRegister } from "../../features/pos/businessRegisterSlice";
+import { getProfile } from "../../features/user/userSlice";
 
 const MainScreen = () => {
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
@@ -65,6 +66,10 @@ const MainScreen = () => {
 
   useEffect(() => {
     dispatch(getRegister());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProfile());
   }, [dispatch]);
 
   useEffect(() => {

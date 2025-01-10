@@ -15,6 +15,7 @@ import {
   getTotals,
 } from "../../../features/pos/cartSlice";
 import { addOrder } from "../../../features/order/orderSlice";
+import { getProfile } from "../../../features/user/userSlice";
 
 const ConfirmOrder = ({
   setOpen,
@@ -87,6 +88,10 @@ const ConfirmOrder = ({
   // Load payment methods on mount
   useEffect(() => {
     dispatch(getPaymentMethods());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProfile());
   }, [dispatch]);
 
   const orderTotal =

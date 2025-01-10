@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getOrders } from "../../features/order/orderSlice";
+import { Link } from "react-router-dom";
 
 const Orders = () => {
   const [visible, setVisible] = useState(false);
@@ -32,12 +33,17 @@ const Orders = () => {
             </p>
           </div>
           <div>
-            <button
+            <Link to="/pos">
+              <button className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md">
+                Add New
+              </button>
+            </Link>
+            {/* <button
               onClick={() => setVisible(true)}
               className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md"
             >
               Add New
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="flex gap-5">
