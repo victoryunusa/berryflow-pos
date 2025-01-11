@@ -15,6 +15,7 @@ import categoriesReducer from "../features/category/categoriesSlice";
 import unitsReducer from "../features/units/unitsSlice";
 import ingredientsReducer from "../features/ingredients/ingredientsSlice";
 import ordersReducer from "../features/order/orderSlice";
+import orderReducer from "../features/order/singleOrderSlice";
 import productsReducer from "../features/products/productSlice";
 import productReducer from "../features/products/singleProductSlice";
 import variantOptionsReducer from "../features/variant_option/variantOptionSlice";
@@ -75,6 +76,7 @@ export const store = configureStore({
     units: unitsReducer,
     ingredients: ingredientsReducer,
     orders: ordersReducer,
+    order: orderReducer,
     products: productsReducer,
     product: productReducer,
     variant_options: variantOptionsReducer,

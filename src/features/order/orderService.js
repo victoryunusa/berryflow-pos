@@ -18,6 +18,23 @@ const getOrders = async ({ token, formData }) => {
   return response.data.orders;
 };
 
+const getOrder = async ({ token, formData }) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  //console.log({ token, formData });
+
+  const response = await axios.get(
+    `${BaseUrl}/orders/show/${formData}`,
+    config
+  );
+
+  return response.data.order;
+};
+
 //Add Order
 const addOrder = async ({ token, formData }) => {
   const config = {
@@ -43,6 +60,7 @@ const addOrder = async ({ token, formData }) => {
 
 const orderService = {
   getOrders,
+  getOrder,
   addOrder,
 };
 

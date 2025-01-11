@@ -1,10 +1,25 @@
-import React from "react";
+import { useEffect } from "react";
 
 import * as FaIcons from "react-icons/fa6";
-import food from "../../assets/images/food.jpg";
+
+//import food from "../../assets/images/food.jpg";
 import profile from "../../assets/images/profile.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
+import { getOrder } from "../../features/order/singleOrderSlice";
+import { prettyDate } from "../../functions/functions";
 
 const SingleOrder = () => {
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  //const navigate = useNavigate();
+
+  const { order } = useSelector((state) => state.order);
+
+  useEffect(() => {
+    dispatch(getOrder(slug));
+  }, []);
+
   return (
     <div className="flex flex-col space-y-5">
       {/* Top */}
@@ -29,7 +44,7 @@ const SingleOrder = () => {
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-5">
             <h3 className="text-xl font-bold text-neutral-500">
-              Order ID: #00899666
+              Order ID: #{order?.order_number}
             </h3>
             <span className="flex gap-3">
               <span className="flex items-center px-2.5 h-5 rounded-lg bg-green-100 text-green-600 text-xs font-bold">
@@ -41,35 +56,44 @@ const SingleOrder = () => {
             </span>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="flex text-small text-neutral-500">
+            <p className="flex text-sm text-neutral-500">
               <FaIcons.FaCalendarDays size={15} className="mr-2" />
-              08:50 PM, 04-07-2024
+              {prettyDate(order?.created_at_label)}
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Order From:{" "}
-              <span className="text-neutral-700 font-bold">Digital Menu</span>
+              <span className="text-neutral-700 font-bold">
+                {order?.order_origin}
+              </span>
             </p>
-            <p className="text-small text-neutral-500">
-              Payment Mode:{" "}
-              <span className="text-neutral-700 font-bold">Cash</span>
+            <p className="text-sm text-neutral-500">
+              Payment Method:{" "}
+              <span className="text-neutral-700 font-bold">
+                {order?.payment_method}
+              </span>
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Order Type:{" "}
-              <span className="text-neutral-700 font-bold">Table</span>
+              <span className="text-neutral-700 font-bold">
+                {order?.order_type}
+              </span>
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Billing Type:{" "}
-              <span className="text-neutral-700 font-bold">Fine Dine</span>
+              <span className="text-neutral-700 font-bold">
+                {" "}
+                {order?.billing_type_data?.label}
+              </span>
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Table: <span className="text-neutral-700 font-bold">-</span>
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Waiter: <span className="text-neutral-700 font-bold">-</span>
             </p>
-            <p className="text-small text-neutral-500">
+            <p className="text-sm text-neutral-500">
               Delivery Time:
-              <span className="text-neutral-700 font-bold">04-07-2024</span>
+              <span className="text-neutral-700 font-bold">--</span>
             </p>
           </div>
         </div>
@@ -110,39 +134,46 @@ const SingleOrder = () => {
             </h3>
           </div>
           <div className="flex p-5">
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-row gap-3 items-center">
-                <div className="flex flex-row">
-                  <img
-                    src={food}
-                    className="w-16 h-16 object-fit rounded-lg"
-                    alt="food"
-                  />
-                  {/* <span className="flex bg-nelsa_primary text-white font-bold h-8 w-8 rounded-full items-center justify-center relative top-4 -left-20 shadow-xl">
+            {order?.products.map((product, index) => (
+              <div className="flex flex-col gap-2" key={index}>
+                <div className="flex flex-row gap-3 items-center">
+                  <div className="flex flex-row">
+                    <img
+                      src={
+                        "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
+                        product?.product.images[0]?.filename
+                      }
+                      className="w-16 h-16 object-fit rounded-lg"
+                      alt="food"
+                    />
+                    {/* <span className="flex bg-nelsa_primary text-white font-bold h-8 w-8 rounded-full items-center justify-center relative top-4 -left-20 shadow-xl">
                     30
                   </span> */}
+                  </div>
+                  <div className="flex flex-col">
+                    <h3 className="text-base text-neutral-700 font-bold">
+                      {product.name}
+                    </h3>
+                    {/* <p className="text-small text-neutral-500">
+                      Steak Size: Large, Steak Temperature: Well
+                    </p> */}
+                    <p className="text-sm text-neutral-700 font-bold">
+                      {order.currency_code} {product.total_price}
+                    </p>
+                  </div>
+                  <div>x {product.quantity}</div>
                 </div>
-                <div className="flex flex-col">
-                  <h3 className="text-sm text-neutral-700 font-bold">
-                    Beef With Mix Vegetables
-                  </h3>
-                  <p className="text-small text-neutral-500">
-                    Steak Size: Large, Steak Temperature: Well
-                  </p>
-                  <p className="text-sm text-neutral-700 font-bold">$172.80</p>
-                </div>
-                <div>x 3</div>
+                {/* <div className="flex flex-col w-full">
+                  <span className="flex flex-row text-neutral-700 w-full text-small gap-1">
+                    Extras:<p className="text-neutral-500"> Onion, Mushrooms</p>
+                  </span>
+                  <span className="flex flex-row text-neutral-700 w-full text-small gap-1">
+                    Instruction:
+                    <p className="text-neutral-500">Nice</p>
+                  </span>
+                </div> */}
               </div>
-              <div className="flex flex-col w-full">
-                <span className="flex flex-row text-neutral-700 w-full text-small gap-1">
-                  Extras:<p className="text-neutral-500"> Onion, Mushrooms</p>
-                </span>
-                <span className="flex flex-row text-neutral-700 w-full text-small gap-1">
-                  Instruction:
-                  <p className="text-neutral-500">Nice</p>
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="w-1/2 flex flex-col gap-5">
@@ -150,24 +181,41 @@ const SingleOrder = () => {
             <div className="flex flex-col gap-3 p-5">
               <div className="flex flex-row justify-between w-full text-neutral-700 text-sm font-normal">
                 <span>Subtotal</span>
-                <span>$186.30</span>
+                <span>
+                  {order.currency_code}{" "}
+                  {order.sale_amount_subtotal_excluding_tax}
+                </span>
               </div>
               <div className="flex flex-row justify-between w-full text-neutral-700 text-sm font-normal">
                 <span>Discount</span>
-                <span>$186.30</span>
+                <span>
+                  {order.currency_code} -
+                  {order.total_discount_amount
+                    ? order.total_discount_amount
+                    : "--"}
+                </span>
+              </div>
+              <div className="flex flex-row justify-between w-full text-neutral-700 text-sm font-normal">
+                <span>Tax</span>
+                <span>
+                  {order.currency_code}{" "}
+                  {order.total_tax_amount ? order.total_tax_amount : "--"}
+                </span>
               </div>
             </div>
             <div className="flex border-t border-dashed w-full">
               <div className="flex flex-row justify-between p-5 w-full text-neutral-700 font-bold">
                 <span>Total</span>
-                <span>$186.30</span>
+                <span>
+                  {order.currency_code} {order.total_order_amount}
+                </span>
               </div>
             </div>
           </div>
           <div className="bg-white rounded-md border py-5">
             <div className="border-b">
               <h3 className="px-5 mb-5 text-lg text-neutral-500 font-bold">
-                Delivery Information
+                Customer Information
               </h3>
             </div>
             <div className="flex flex-col gap-3 p-5">
@@ -177,16 +225,16 @@ const SingleOrder = () => {
                   className="w-10 h-10 rounded-full"
                   alt="Profile"
                 />
-                <h4>Name Name</h4>
+                <h4>{order?.customer_name}</h4>
               </div>
               <div className="flex flex-col gap-3 border-b pb-2">
                 <span className="flex items-center text-small text-neutral-500">
                   <FaIcons.FaEnvelope size={15} className="mr-2" />
-                  customer@example.com
+                  {order?.customer_email}
                 </span>
                 <span className="flex items-center text-small text-neutral-500">
                   <FaIcons.FaPhoneVolume size={15} className="mr-2" />
-                  08069072412
+                  {order?.customer_phone}
                 </span>
               </div>
             </div>
