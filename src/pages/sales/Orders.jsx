@@ -70,6 +70,8 @@ const Orders = () => {
                         <th className="px-2 py-3">Customer Name</th>
                         <th className="px-2 py-3">Email</th>
                         <th className="px-2 py-3">Amount</th>
+                        <th className="px-2 py-3">Order type</th>
+                        <th className="px-2 py-3">Bill type</th>
                         <th className="px-2 py-3">Status</th>
                         <th className="px-2 py-3">Payment status</th>
                         <th className="px-2 py-3">Date</th>
@@ -91,6 +93,16 @@ const Orders = () => {
                           <td className="px-2 py-3">{order.customer_email}</td>
                           <td className="px-2 py-3">
                             {order.total_order_amount}
+                          </td>
+                          <td className="px-2 py-3">
+                            {order.order_type_data?.label
+                              ? order.order_type_data?.label
+                              : "--"}
+                          </td>
+                          <td className="px-2 py-3">
+                            {order.billing_type_data?.label
+                              ? order.billing_type_data?.label
+                              : "--"}
                           </td>
                           <td className="px-2 py-3">
                             {order.status_data?.label}
