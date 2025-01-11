@@ -134,7 +134,7 @@ const SingleOrder = () => {
             </h3>
           </div>
           <div className="flex p-5">
-            {order?.products.map((product, index) => (
+            {order?.products?.map((product, index) => (
               <div className="flex flex-col gap-2" key={index}>
                 <div className="flex flex-row gap-3 items-center">
                   <div className="flex flex-row">
