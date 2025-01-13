@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import * as FaIcons from "react-icons/fa6";
 
@@ -8,8 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getOrder } from "../../features/order/singleOrderSlice";
 import { prettyDate } from "../../functions/functions";
+import PrintOrder from "./order/modals/PrintOrder";
 
 const SingleOrder = () => {
+  const [openPrintOrder, setOpenPrintOrder] = useState(false);
+  const [processedOrder, setProcessedOrder] = useState(null);
+  const [openPrint, setOpenPrint] = useState(false);
+
   const dispatch = useDispatch();
   const { slug } = useParams();
   //const navigate = useNavigate();
@@ -18,7 +23,17 @@ const SingleOrder = () => {
 
   useEffect(() => {
     dispatch(getOrder(slug));
-  }, []);
+  }, [dispatch, slug]);
+
+  const handleOpenPrint = (slug) => {
+    setProcessedOrder(slug);
+    setOpenPrintOrder(true);
+  };
+
+  const closeModal = () => {
+    setOpenPrintOrder(false);
+    setProcessedOrder(null);
+  };
 
   return (
     <div className="flex flex-col space-y-5">
@@ -119,7 +134,10 @@ const SingleOrder = () => {
             </select>
           </div>
           <div>
-            <button className="flex bg-nelsa_primary text-white px-3 py-2.5 rounded-md text-sm font-semibold">
+            <button
+              onClick={() => handleOpenPrint(order?.slug)}
+              className="flex bg-nelsa_primary text-white px-3 py-2.5 rounded-md text-sm font-semibold"
+            >
               <FaIcons.FaPrint size={15} className="mr-2" /> Print
             </button>
           </div>
@@ -133,7 +151,7 @@ const SingleOrder = () => {
               Order Items
             </h3>
           </div>
-          <div className="flex p-5">
+          <div className="flex flex-col gap-5 p-5">
             {order?.products?.map((product, index) => (
               <div className="flex flex-col gap-2" key={index}>
                 <div className="flex flex-row gap-3 items-center">
@@ -241,6 +259,9 @@ const SingleOrder = () => {
           </div>
         </div>
       </div>
+      {openPrintOrder && (
+        <PrintOrder setOpen={closeModal} slug={processedOrder} />
+      )}
     </div>
   );
 };

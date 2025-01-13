@@ -23,10 +23,12 @@ const ConfirmOrder = ({
   orderType,
   register,
   customer,
+  setProcessedOrder,
   open,
   children,
 }) => {
   const [visible, setVisible] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
   const [accountNumber, setAccountNumber] = useState("");
@@ -126,7 +128,7 @@ const ConfirmOrder = ({
     try {
       setLoading(true);
 
-      await dispatch(
+      const response = await dispatch(
         addOrder({
           customer: customer,
           payment_method,
@@ -146,14 +148,16 @@ const ConfirmOrder = ({
       ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
 
-      dispatch(
-        alertActions.success({
-          message: "Order successfully added.",
-          showAfterRedirect: true,
-        })
-      );
+      // dispatch(
+      //   alertActions.success({
+      //     message: "Order successfully added.",
+      //     showAfterRedirect: true,
+      //   })
+      // );
 
       dispatch(clearCart());
+      console.log(response.data);
+      setProcessedOrder(response.data);
 
       setLoading(false);
       setVisible(false);

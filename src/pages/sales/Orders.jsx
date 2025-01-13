@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getOrders } from "../../features/order/orderSlice";
@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { prettyDate } from "../../functions/functions";
 
 const Orders = () => {
-  const [visible, setVisible] = useState(false);
+  //const [visible, setVisible] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ const Orders = () => {
   useEffect(() => {
     dispatch(getOrders());
   }, []);
+
   return (
     <>
       <div className="flex flex-col space-y-5 font-br">
@@ -160,7 +162,7 @@ const Orders = () => {
           </div>
         </div>
       </div>
-      {visible && <AddProduct setOpen={setVisible} />}
+      {/* {visible && <AddProduct setOpen={setVisible} />} */}
     </>
   );
 };

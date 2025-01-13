@@ -28,8 +28,11 @@ import HoldList from "../../components/pos/modals/HoldList";
 import { useNavigate } from "react-router";
 import { getRegister } from "../../features/pos/businessRegisterSlice";
 import { getProfile } from "../../features/user/userSlice";
+import PrintOrder from "../sales/order/modals/PrintOrder";
 
 const MainScreen = () => {
+  const [openPrintOrder, setOpenPrintOrder] = useState(false);
+  const [processedOrder, setProcessedOrder] = useState(null);
   const [openRunnungOrders, setOpenRunningOrders] = useState(false);
   const [items, setItems] = useState([]);
   const [customers, setCustomers] = useState([]);
@@ -155,6 +158,16 @@ const MainScreen = () => {
   });
 
   const handleSubmit = () => {};
+
+  const handleOpenPrint = (slug) => {
+    setProcessedOrder(slug);
+    setOpenPrintOrder(true);
+  };
+
+  const closeModal = () => {
+    setOpenPrintOrder(false);
+    setProcessedOrder(null);
+  };
 
   return (
     <>
@@ -456,6 +469,9 @@ const MainScreen = () => {
         </div>
       </div>
 
+      {openPrintOrder && (
+        <PrintOrder setOpen={closeModal} slug={processedOrder} />
+      )}
       {openCustomerAdd && <AddCustomer setOpenCustomer={setOpenCustomerAdd} />}
       {openSelectTable && <SelectTable setOpen={setOpenSelectTable} />}
       {openCloseRegister && <CloseRegister setOpen={setOpenCloseRegister} />}
@@ -468,6 +484,7 @@ const MainScreen = () => {
           billingType={billingType}
           orderType={orderType}
           customer={customers[0]}
+          setProcessedOrder={handleOpenPrint}
         />
       )}
       {openRunnungOrders && (
