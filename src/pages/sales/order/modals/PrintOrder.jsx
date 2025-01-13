@@ -44,7 +44,7 @@ const PrintOrder = ({ setOpen, slug, open }) => {
         <div className="fixed inset-0 z-[999] overflow-y-auto">
           <div
             className="fixed inset-0 w-full h-full bg-black opacity-40"
-            onClick={() => setOpen(false)}
+            onClick={setOpen}
           ></div>
           <div className="flex items-center min-h-screen px-4 py-4">
             <div
@@ -128,10 +128,17 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                       ))}
                     </div>
                     {/* Print Button */}
-                    <div className="mt-1 flex flex-row items-center justify-center gap-3 my-10 export-hide">
+                    <div className="mt-5 flex flex-row items-center justify-center gap-3 my-3 export-hide">
+                      <button
+                        onClick={setOpen}
+                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700"
+                      >
+                        <FaIcons.FaX size={15} className="mr-2" />
+                        Close
+                      </button>
                       <button
                         onClick={handlePrint}
-                        className="flex flex-row items-center px-4 py-2 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700"
+                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700"
                       >
                         <FaIcons.FaPrint size={15} className="mr-2" />
                         Print
