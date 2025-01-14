@@ -55,11 +55,13 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                 <div className="w-full printable-area">
                   <div className="flex flex-col">
                     <div className="flex flex-col items-center justify-center my-5">
-                      <h1 className="text-2xl font-extrabold">
+                      <h1 className="text-xl font-extrabold">
                         {user?.vendor.business_name}
                       </h1>
-                      <h2>{activeBranch?.name}</h2>
-                      <p className="text-center">
+                      <h2 className="text-center text-sm">
+                        {activeBranch?.name}
+                      </h2>
+                      <p className="text-center text-sm">
                         Address: {activeBranch?.address}
                       </p>
                       {activeBranch?.primary_contact && (
@@ -127,18 +129,57 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                         </div>
                       ))}
                     </div>
+                    <div className="flex flex-col items-end text-sm border-b border-dashed border-neutral-600 py-2">
+                      <span className="flex flex-row gap-2">
+                        <p>Subtotal: </p>{" "}
+                        <p> {order.sale_amount_subtotal_excluding_tax}</p>
+                      </span>
+                      <span className="flex flex-row gap-2">
+                        <p>Discount: </p>{" "}
+                        <p>
+                          -
+                          {order.total_discount_amount
+                            ? order.total_discount_amount
+                            : "--"}
+                        </p>
+                      </span>
+                      <span className="flex flex-row gap-2">
+                        <p>Tax: </p>
+                        <p>
+                          {order.total_tax_amount
+                            ? order.total_tax_amount
+                            : "--"}
+                        </p>
+                      </span>
+                      <span className="flex flex-row gap-2 font-bold">
+                        <p>Total: </p>
+                        <p>{order.total_order_amount}</p>
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-center text-sm border-neutral-600 py-2">
+                      <span className="flex flex-row ">Thank you.</span>
+                      <span className="flex flex-row ">Please come again.</span>
+                    </div>
+                    {/* <div className="flex flex-col text-sm border-y border-dashed border-neutral-600 py-2">
+                      <span className="flex flex-row ">
+                        Served by:{" "}
+                        <p className="ml-3 font-semibold">
+                          {order.created_by?.full_name}
+                        </p>
+                      </span>
+                    </div> */}
                     {/* Print Button */}
                     <div className="mt-5 flex flex-row items-center justify-center gap-3 my-3 export-hide">
                       <button
                         onClick={setOpen}
-                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-red-600 text-white rounded-md font-semibold hover:bg-red-700"
+                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-red-500 text-white rounded-md font-semibold hover:bg-red-700"
                       >
-                        <FaIcons.FaX size={15} className="mr-2" />
+                        <FaIcons.FaX size={13} className="mr-2" />
                         Close
                       </button>
                       <button
                         onClick={handlePrint}
-                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700"
+                        className="w-1/3 flex flex-row items-center px-4 py-2 bg-green-500 text-white rounded-md font-semibold hover:bg-green-700"
                       >
                         <FaIcons.FaPrint size={15} className="mr-2" />
                         Print
