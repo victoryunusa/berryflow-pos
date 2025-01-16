@@ -51,7 +51,7 @@ const MainLayout = () => {
   }, [token, navigate]);
 
   return (
-    <div className="flex font-br bg-white font-medium antialiased text-neutral-700 ">
+    <div className="flex font-br bg-white font-medium antialiased text-neutral-700 text-base">
       <SideNav />
       <main className="flex-1">
         <MarginWidthWrapper>

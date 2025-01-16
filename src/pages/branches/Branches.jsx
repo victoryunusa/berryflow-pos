@@ -78,12 +78,8 @@ const Branches = () => {
       <div className="flex flex-col space-y-5">
         <div className="flex flex-row justify-between items-center">
           <div className="">
-            <h3 className="text-lg font-bold text-gray-700">
-              Settings/Branches
-            </h3>
-            <p className="text-xs text-neutral-400">
-              Select the plan that you want to subscribe to
-            </p>
+            <h3 className="text-lg font-bold text-gray-700">Branches</h3>
+            <p className="text-xs text-neutral-400">Configure your branches</p>
           </div>
           <div className="flex flex-row justify-end items-center">
             <Link to="/manage/branches/add">

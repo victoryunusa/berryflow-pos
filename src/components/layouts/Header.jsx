@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as HeIcons from "react-icons/fa6";
 import { cn } from "../../functions/functions";
 import useScroll from "../../hooks/useScroll";
@@ -19,6 +19,21 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [isOpenProfile, setIsOpenProfile] = useState(false);
+
+  const dropdownRef = useRef(null);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpenProfile(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   //const { token } = useSelector((state) => state.auth);
 
@@ -68,25 +83,25 @@ const Header = () => {
         <div className="flex flex-row justify-end items-center space-x-5">
           <Link
             to="/pos"
-            className="flex flex-row bg-green-100 text-green-800 items-cente justify-centerr text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-2"
+            className="flex flex-row bg-green-50 text-green-800 items-cente justify-centerr text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-2"
           >
             <HeIcons.FaCashRegister size={16} />
             <p>Point Of Sale</p>
           </Link>
-          <div className="relative z-50">
+          <div ref={dropdownRef} className="relative z-50">
             <button
-              className="flex flex-row items-center space-x-2 hover:cursor-pointer"
+              className="flex flex-row items-center space-x-2 hover:cursor-pointer bg-neutral-100 border px-3 py-3 rounded-lg"
               onClick={() => setIsOpenProfile(!isOpenProfile)}
             >
-              <Avatar
+              {/* <Avatar
                 label={
                   user &&
                   `${user?.first_name?.charAt(0) + user?.last_name?.charAt(0)}`
                 }
                 className="h-10 w-10 font-manrope text-gray-700 text-md font-bold rounded-full"
-              />
-              {/* <span className="flex flex-col items-start">
-                <p className="text-xs text-gray-400">Hi,</p>
+              /> */}
+              <HeIcons.FaUser className="min-w-max text-gray-600" size={18} />
+              <span className="flex flex-col items-start">
                 <h1 className="text-xs text-gray-700 font-bold">
                   {user && user.first_name}
                 </h1>
@@ -98,7 +113,7 @@ const Header = () => {
                     size={18}
                   />
                 </span>
-              </span> */}
+              </span>
             </button>
             {isOpenProfile === true ? (
               <div className="absolute top-12 right-0 z-50 transition ease-in duration-700">
@@ -133,7 +148,7 @@ const Header = () => {
                     </li>
                     <li
                       onClick={onLogout}
-                      className="hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md cursor-pointer"
+                      className="hover:bg-gray-100 text-red-600 hover:text-nelsa_primary p-2 rounded-md cursor-pointer"
                     >
                       <span className="flex flex-row items-center justify-between">
                         <span className="flex items-center space-x-3">
