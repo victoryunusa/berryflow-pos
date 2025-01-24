@@ -11,7 +11,7 @@ export default {
         small: "0.78rem",
       },
       colors: {
-        nelsa_primary: "#13293D",
+        nelsa_primary: "#25202C",
         nelsa_secondary: "#000000",
         h28_light_green: "#EBF5FF",
         h28_light_green_2: "#44C3D2",
