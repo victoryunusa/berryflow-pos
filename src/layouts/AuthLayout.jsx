@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
 
-import logo from "../assets/images/truetab_2.svg";
+import logo from "../assets/images/truetab.svg";
 import authImage from "../assets/images/auth.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import { reset } from "../features/auth/authSlice";
