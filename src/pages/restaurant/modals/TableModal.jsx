@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-import logo from "../../../assets/images/truetab.svg";
+import logo from "../../../assets/images/main_logo.png";
 
 const TableModal = ({ setOpenAdd, table, open }) => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
       buttons.forEach((button) => (button.style.display = "none"));
 
       const canvas = await html2canvas(input, {
-        scale: 2, // Higher scale = better quality
+        scale: 3, // Higher scale = better quality
       });
 
       const imgData = canvas.toDataURL("image/png");
@@ -54,7 +54,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
 
     if (input) {
       buttons.forEach((button) => (button.style.display = "none"));
-      const canvas = await html2canvas(input, { scale: 2 });
+      const canvas = await html2canvas(input, { scale: 3 });
       const imgData = canvas.toDataURL("image/png");
 
       // Create a download link
@@ -77,42 +77,70 @@ const TableModal = ({ setOpenAdd, table, open }) => {
           ></div>
           <div className="flex items-center min-h-screen px-4 py-4">
             <div
-              className="relative w-full max-w-lg p-7 md:p-10 mx-auto font-br bg-white rounded-md shadow-lg bg-bg-pattern bg-top bg-contain bg-no-repeat"
+              className="relative w-full max-w-lg mx-auto font-br bg-white rounded-md shadow-lg "
               ref={printRef} // Reference for capturing content
             >
               <div className="w-full">
-                <div className="flex flex-col justify-center items-center">
-                  <div className="flex flex-col items-center justify-center my-5">
-                    <h1 className="text-2xl font-extrabold">
-                      {user?.vendor.business_name}
-                    </h1>
-                    <h2>{activeBranch?.name}</h2>
-                    <p>Address: {activeBranch?.address}</p>
+                <div className="flex flex-col justify-center items-center gap-20">
+                  <div>
+                    <div className="flex flex-col items-center justify-center mt-5 my-5 gap-1">
+                      <h1 className="text-4xl font-extrabold">Order & Pay</h1>
+                      <h1 className="text-2xl font-bold">
+                        {user?.vendor.business_name}
+                      </h1>
+                      <h2>{activeBranch?.name}</h2>
+                      <p className="w-2/3 text-sm capitalize text-center">
+                        Address: {activeBranch?.address}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-center my-5 gap-5">
+                      <span className="flex flex-row items-center gap-4">
+                        <span className="flex flex-col items-end text-neutral-600">
+                          <p>Table</p>
+                          <p>number</p>
+                        </span>
+                        <span className="font-bold text-5xl">
+                          <p>{table?.table_number}</p>
+                        </span>
+                      </span>
+                      <span className="flex flex-row items-center gap-4">
+                        <span className="flex flex-col items-end">
+                          <p>Section:</p>
+                        </span>
+                        <span className="font-bold text-xl">
+                          {table?.floor_plan?.name}
+                        </span>
+                      </span>
+                    </div>
+                    {/* <div className="flex flex-col gap-2 items-center justify-center mb-5 w-full">
+                      <p className="text-sm">Powered by: </p>
+                      <img className="" src={logo} alt="CaterOS" />
+                    </div> */}
                   </div>
-                  <QRCode
-                    size={8}
-                    style={{
-                      height: "auto",
-                      maxWidth: "40%",
-                      width: "40%",
-                    }}
-                    value={`https://${user?.vendor.url}.truetab.site`}
-                    viewBox={`0 0 70 70`}
-                  />
-                  <div className="flex flex-col items-center justify-center my-5">
-                    <h2>
-                      {table?.table_name} -{" "}
-                      <span className="font-bold">{table?.table_number}</span>
-                    </h2>
-                    <h2 className="mb-3">Section: {table?.floor_plan?.name}</h2>
-                    <p>Please scan & send quick order</p>
-                    <p className="text-2xl font-bold">Thank You</p>
-                  </div>
-                  <div className="flex flex-row gap-2 items-center justify-center mb-5">
-                    <p className="text-sm">Powered by: </p>
-                    <img className="w-28" src={logo} alt="CaterOS" />
+                  <div className="bg-[#A9DDF7] flex flex-row w-full px-28 pb-10 justify-center">
+                    <div className="flex flex-col w-full py-5 rounded-b-2xl bg-white items-center border-t-4 border-[#A9DDF7] relative -top-10">
+                      <h2 className="capitalize font-semibold text-neutral-400 mb-5">
+                        Scan with phone camera
+                      </h2>
+                      <QRCode
+                        size={10}
+                        style={{
+                          height: "auto",
+                          maxWidth: "50%",
+                          width: "50%",
+                        }}
+                        value={`https://${user?.vendor.url}.truetab.site`}
+                        viewBox={`0 0 70 70`}
+                      />
+                      <div className="flex flex-col gap-1 items-center justify-center my-5 w-full">
+                        <p className="text-sm">Powered by: </p>
+                        <img className="w-28" src={logo} alt="CaterOS" />
+                      </div>
+                    </div>
                   </div>
                 </div>
+
                 {/* Download PDF Button */}
                 <div className="mt-1 flex flex-row items-center justify-center gap-3 my-10">
                   <button

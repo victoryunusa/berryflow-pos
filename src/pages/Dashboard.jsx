@@ -70,7 +70,7 @@ const Dashboard = () => {
           <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
-                <span className="w-10 h-10 bg-nelsa_primary/15 text-nelsa_primary rounded-md p-3">
+                <span className="w-10 h-10 bg-nelsa_primary/5 text-nelsa_primary rounded-md p-3">
                   <HeIcons.FaWallet />
                 </span>
                 <p className="text-sm">Total Revenue</p>

@@ -68,7 +68,7 @@ const Header = () => {
         "border-b border-gray-200 bg-white/75 backdrop-blur-lg": scrolled,
       })}
     >
-      <div className="flex h-[47px] items-center justify-between px-5 md:px-10 ">
+      <div className="flex h-[65px] items-center justify-between px-5 md:px-10">
         <div className="flex items-center space-x-4">
           <Link
             href="/"
@@ -83,7 +83,7 @@ const Header = () => {
         <div className="flex flex-row justify-end items-center space-x-5">
           <Link
             to="/pos"
-            className="flex flex-row bg-green-50 text-green-800 items-cente justify-centerr text-small font-semibold px-3 py-2.5 rounded-md hover:cursor-pointer gap-2"
+            className="flex flex-row bg-blue-50 text-nelsa_secondary border border-nelsa_secondary items-cente justify-centerr text-small font-semibold px-3 py-2 rounded-lg hover:cursor-pointer gap-2"
           >
             <HeIcons.FaCashRegister size={16} />
             <p>Point Of Sale</p>

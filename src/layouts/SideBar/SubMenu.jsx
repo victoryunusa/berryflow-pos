@@ -41,7 +41,7 @@ const SubMenu = ({ data }) => {
           <li key={submenu.title} className="">
             <NavLink
               to={`${submenu.path}`}
-              className={`normalLink ${
+              className={`normalLinkSub ${
                 pathname.includes(submenu.path) && "activeLinkSub"
               } !bg-transparent capitalize`}
             >

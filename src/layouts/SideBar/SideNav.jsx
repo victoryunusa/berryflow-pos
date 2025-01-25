@@ -83,25 +83,25 @@ const SideNav = () => {
   };
 
   return (
-    <div className="md:w-72 bg-nelsa_primary h-screen flex-1 fixed hidden md:flex">
+    <div className="md:w-72 bg-white h-screen flex-1 fixed hidden md:flex">
       <div className="flex flex-col space-y-2 w-full ">
         <div
           ref={dropdownRef}
           className="relative z-50 hidden md:block px-5 py-5 w-full"
         >
           <button
-            className="flex flex-row items-center justify-between hover:cursor-pointer border border-cyan-900 rounded-md px-3 py-2 bg-cyan-950 w-full"
+            className="flex flex-row items-center justify-between hover:cursor-pointer rounded-lg px-2 py-2 bg-nelsa_secondary w-full"
             onClick={() => setIsOpenBranchSelect((prev) => !prev)}
           >
             <span className="flex flex-row items-center gap-3">
-              <span className="p-2 rounded-md bg-white">
+              <span className="p-2 rounded bg-white">
                 <HeIcons.FaStore
                   size={20}
-                  className="min-w-max text-nelsa_primary"
+                  className="min-w-max text-nelsa_secondary"
                 />
               </span>
               <span className="flex flex-col items-start">
-                <h1 className="text-xs text-neutral-400 font-bold">
+                <h1 className="text-xs text-blue-100 font-bold">
                   {user?.vendor?.business_name}
                 </h1>
                 <h1 className="text-xs text-white">{activeBranch?.name}</h1>
@@ -109,7 +109,7 @@ const SideNav = () => {
             </span>
             <span>
               <IoIosCode
-                className="min-w-max text-neutral-200 rotate-90"
+                className="min-w-max text-neutral-100 rotate-90"
                 size={18}
               />
             </span>
@@ -144,7 +144,7 @@ const SideNav = () => {
           )}
         </div>
         <div className="flex flex-col space-y-2 flex-grow">
-          <ul className="whitespace-pre py-5 text-[0.8rem] flex flex-col gap-1 overflow-scroll h-[750px]">
+          <ul className="whitespace-pre py-5 px-5 text-[0.8rem] gap-1 flex flex-col overflow-scroll h-[750px]">
             <li className="">
               <NavLink
                 to="/"
@@ -197,7 +197,7 @@ const SideNav = () => {
                   isActive ? "activeLink" : "normalLink"
                 }
               >
-                <HeIcons.FaUsers size={16} className="min-w-max" />
+                <HeIcons.FaUsers size={20} className="min-w-max" />
                 Customers
               </NavLink>
             </li>

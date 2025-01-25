@@ -138,7 +138,7 @@ const Orders = () => {
                     {orders?.links?.map((link, index) => (
                       <button
                         key={index}
-                        onClick={() => getNextProduct(link.url.slice(-7))}
+                        onClick={() => getNextProduct(link.url.split("=")[1])}
                         className={`${
                           link.active
                             ? "bg-nelsa_primary text-white"

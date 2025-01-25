@@ -14,15 +14,19 @@
 }
 
 .normalLink {
-  @apply flex items-center font-medium gap-2 p-2.5 px-6 hover:border-r-4 hover:border-orange-600  hover:bg-stone-800 text-neutral-400 hover:text-white md:cursor-pointer cursor-default transition duration-300;
+  @apply flex items-center font-medium gap-2 p-3 px-3 rounded-lg  hover:bg-nelsa_primary text-nelsa_primary  hover:text-white md:cursor-pointer cursor-default transition duration-300;
 }
 
 .activeLink {
-  @apply flex gap-2 p-2.5 px-6  items-center font-semibold bg-cyan-950 text-white border-r-4 border-orange-600 md:cursor-pointer cursor-default transition duration-300;
+  @apply flex gap-2 p-3 px-3  items-center font-semibold bg-nelsa_primary text-white rounded-lg  md:cursor-pointer cursor-default transition duration-300;
 }
 
 .activeLinkSub {
-  @apply flex gap-3 p-2.5 px-6 items-center bg-white font-semibold text-white md:cursor-pointer cursor-default transition duration-300;
+  @apply flex gap-3 p-2.5 px-3 items-center  font-bold text-nelsa_primary md:cursor-pointer cursor-default transition duration-300;
+}
+
+.normalLinkSub {
+  @apply flex items-center gap-2 p-2.5 px-3 rounded-lg hover:bg-nelsa_primary text-nelsa_primary md:cursor-pointer cursor-default transition duration-300;
 }
 
 input::-webkit-outer-spin-button,
