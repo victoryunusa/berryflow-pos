@@ -118,8 +118,8 @@ const TableModal = ({ setOpenAdd, table, open }) => {
                       <img className="" src={logo} alt="CaterOS" />
                     </div> */}
                   </div>
-                  <div className="bg-[#A9DDF7] flex flex-row w-full px-28 pb-10 justify-center">
-                    <div className="flex flex-col w-full py-5 rounded-b-2xl bg-white items-center border-t-4 border-[#A9DDF7] relative -top-10">
+                  <div className="bg-[#f35925] flex flex-row w-full px-28 pb-10 justify-center">
+                    <div className="flex flex-col w-full py-5 rounded-b-2xl bg-white items-center border-t-4 border-[#f35925] relative -top-10">
                       <h2 className="capitalize font-semibold text-neutral-400 mb-5">
                         Scan with phone camera
                       </h2>

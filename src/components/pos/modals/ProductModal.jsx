@@ -437,7 +437,7 @@ const ProductModal = ({ setOpen, open, product }) => {
                   className={`w-full  ${
                     currentTemp.total_price === 0
                       ? "bg-neutral-200 text-neutral-500"
-                      : "bg-nelsa_primary text-white"
+                      : "bg-tt_rich_black text-white"
                   } p-3 rounded-md `}
                   onClick={() => {
                     // Add to cart logic here

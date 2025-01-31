@@ -83,7 +83,7 @@ const Header = () => {
         <div className="flex flex-row justify-end items-center space-x-5">
           <Link
             to="/pos"
-            className="flex flex-row bg-blue-50 text-nelsa_secondary border border-nelsa_secondary items-cente justify-centerr text-small font-semibold px-3 py-2 rounded-lg hover:cursor-pointer gap-2"
+            className="flex flex-row bg-tt_uranian_blue-900 text-tt_celestial_blue border border-tt_celestial_blue items-cente justify-centerr text-small font-semibold px-3 py-2 rounded-lg hover:cursor-pointer gap-2"
           >
             <HeIcons.FaCashRegister size={16} />
             <p>Point Of Sale</p>
@@ -122,7 +122,7 @@ const Header = () => {
                     <Link
                       to="/billing"
                       onClick={() => setIsOpenProfile(!isOpenProfile)}
-                      className="flex w-full hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md  cursor-pointer"
+                      className="flex w-full hover:bg-gray-100 text-zinc-400 hover:text-tt_rich_black p-2 rounded-md  cursor-pointer"
                     >
                       <span className="flex flex-row items-center justify-between">
                         <span className="flex items-center space-x-3">
@@ -135,7 +135,7 @@ const Header = () => {
                     </Link>
                     <li
                       onClick={() => setIsOpenProfile(!isOpenProfile)}
-                      className="hover:bg-gray-100 text-zinc-400 hover:text-nelsa_primary p-2 rounded-md  cursor-pointer"
+                      className="hover:bg-gray-100 text-zinc-400 hover:text-tt_rich_black p-2 rounded-md  cursor-pointer"
                     >
                       <span className="flex flex-row items-center justify-between">
                         <span className="flex items-center space-x-3">
@@ -148,7 +148,7 @@ const Header = () => {
                     </li>
                     <li
                       onClick={onLogout}
-                      className="hover:bg-gray-100 text-red-600 hover:text-nelsa_primary p-2 rounded-md cursor-pointer"
+                      className="hover:bg-gray-100 text-red-600 hover:text-tt_rich_black p-2 rounded-md cursor-pointer"
                     >
                       <span className="flex flex-row items-center justify-between">
                         <span className="flex items-center space-x-3">

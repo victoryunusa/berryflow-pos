@@ -89,7 +89,7 @@ const AddCategory = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-bold text-nelsa_primary">
+                    <h3 className="text-lg font-bold text-tt_rich_black">
                       Add Category
                     </h3>
                     <h4
@@ -204,7 +204,7 @@ const AddCategory = (props) => {
                             ) : (
                               <button
                                 type="submit"
-                                className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                               >
                                 Submit
                               </button>

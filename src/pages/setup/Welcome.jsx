@@ -99,7 +99,7 @@ const Welcome = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-center">
-        <h3 className="text-2xl font-bold text-nelsa_primary">
+        <h3 className="text-2xl font-bold text-tt_rich_black">
           Tell us about your organisation
         </h3>
         <p className="text-sm text-neutral-500 mt-2">
@@ -115,7 +115,7 @@ const Welcome = () => {
           {({ values, errors, touched, setFieldValue }) => (
             <Form>
               <div className="">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Organisation name<span className="text-red-600">*</span>
                 </label>
                 <Field
@@ -136,7 +136,7 @@ const Welcome = () => {
                 />
               </div>
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Store link<span className="text-red-600">*</span>
                 </label>
                 <p className="text-[0.7rem] text-neutral-500">
@@ -166,7 +166,7 @@ const Welcome = () => {
               </div>
 
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   WhatsApp number<span className="text-red-600">*</span>
                 </label>
                 <div className="flex flex-row mt-1 gap-2">
@@ -202,7 +202,7 @@ const Welcome = () => {
                 </div>
               </div>
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Business Location
                 </label>
                 <Selector
@@ -219,7 +219,7 @@ const Welcome = () => {
                 />
               </div>
               {/* <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Currency
                 </label>
                 <Field
@@ -245,7 +245,7 @@ const Welcome = () => {
               </div> */}
               {/* <div className="mt-4">
                 <div className="">
-                  <label className="block text-nelsa_primary font-semibold">
+                  <label className="block text-tt_rich_black font-semibold">
                     Address
                   </label>
 
@@ -267,7 +267,7 @@ const Welcome = () => {
               </div> */}
 
               {/* <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Business Email
                 </label>
                 <Field
@@ -306,7 +306,7 @@ const Welcome = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                    className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                   >
                     Next
                   </button>

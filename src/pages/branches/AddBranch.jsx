@@ -132,7 +132,7 @@ const AddBranch = () => {
               <div className="flex flex-col gap-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Name
                     </label>
                     <Field
@@ -151,7 +151,7 @@ const AddBranch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Branch Code
                     </label>
                     <Field
@@ -172,7 +172,7 @@ const AddBranch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Tax ID
                     </label>
                     <Field
@@ -196,7 +196,7 @@ const AddBranch = () => {
                   <p>Contact Information</p>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Primary Contact #
                       </label>
                       <Field
@@ -217,7 +217,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Secondary Contact #
                       </label>
                       <Field
@@ -238,7 +238,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Primary Email
                       </label>
                       <Field
@@ -259,7 +259,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Secondary Email
                       </label>
                       <Field
@@ -282,7 +282,7 @@ const AddBranch = () => {
                   </div>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Address
                       </label>
                       <Field
@@ -304,7 +304,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Country
                       </label>
                       <Field
@@ -330,7 +330,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Zipcode
                       </label>
                       <Field
@@ -357,7 +357,7 @@ const AddBranch = () => {
                   <p>Restaurant Mode</p>
                   <div className="mt-2 grid grid-cols-1 md:grid-cols-4 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Enable Restaurant Mode
                       </label>
                       <Field
@@ -380,7 +380,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Default Billing Type
                       </label>
                       <Field
@@ -406,7 +406,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Role for Waiter
                       </label>
                       <Field
@@ -427,7 +427,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Role for Chef
                       </label>
                       <Field
@@ -450,7 +450,7 @@ const AddBranch = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mt-5">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Currency
                       </label>
                       <Field
@@ -476,7 +476,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Enable Customer Detail Popup
                       </label>
                       <Field
@@ -499,7 +499,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Enable Variant Selection Popup
                       </label>
                       <Field
@@ -522,7 +522,7 @@ const AddBranch = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Invoice Print Type
                       </label>
                       <Field
@@ -560,7 +560,7 @@ const AddBranch = () => {
                     <Field
                       type="checkbox"
                       name="enable_digital_qr_menu"
-                      className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                      className="w-4 h-4 cursor-pointer text-tt_rich_black checked:bg-tt_rich_black bg-gray-100 rounded-xl border-gray-300"
                     />
                     <label className="ml-2 text-sm text-gray-600 ">
                       Enable Digital QR Menu?
@@ -572,7 +572,7 @@ const AddBranch = () => {
                 </div>
                 <div className=" grid grid-cols-1 md:grid-cols-4 gap-3">
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Menu Open Time
                     </label>
                     <Field
@@ -593,7 +593,7 @@ const AddBranch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Menu Close Time
                     </label>
                     <Field
@@ -614,7 +614,7 @@ const AddBranch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Digital Menu OTP Verification
                     </label>
                     <Field
@@ -636,7 +636,7 @@ const AddBranch = () => {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="block text-nelsa_primary font-semibold">
+                    <label className="block text-tt_rich_black font-semibold">
                       Send Digital Menu Orders To Kitchen
                     </label>
                     <Field
@@ -666,7 +666,7 @@ const AddBranch = () => {
                     <Field
                       type="checkbox"
                       name="enable_printnode"
-                      className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                      className="w-4 h-4 cursor-pointer text-tt_rich_black checked:bg-tt_rich_black bg-gray-100 rounded-xl border-gray-300"
                     />
                     <label className="ml-2 text-sm text-gray-600 ">
                       Enable PrintNode Printing?
@@ -707,7 +707,7 @@ const AddBranch = () => {
                   ) : (
                     <button
                       type="submit"
-                      className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                      className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                     >
                       Save
                     </button>

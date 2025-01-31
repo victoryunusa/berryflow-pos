@@ -18,7 +18,7 @@ const PopUpModal = ({ setOpen, open, product }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-lg font-bold text-nelsa_primary">
+                    <h3 className="text-lg font-bold text-tt_rich_black">
                       Choose Variant {product.name}
                     </h3>
                     <div
@@ -36,7 +36,7 @@ const PopUpModal = ({ setOpen, open, product }) => {
                       className={`w-full  ${
                         currentTemp === 0
                           ? "bg-neutral-200 text-neutral-500"
-                          : "bg-nelsa_primary text-white"
+                          : "bg-tt_rich_black text-white"
                       } p-3 rounded-md `}
                       //   onClick={() => {
                       //     // Add to cart logic here

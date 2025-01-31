@@ -90,7 +90,7 @@ const Tables = () => {
 
                 <div>
                   <button
-                    className="px-3 py-2 bg-nelsa_primary text-white font-semibold text-sm rounded-md"
+                    className="px-3 py-2 bg-tt_rich_black text-white font-semibold text-sm rounded-md"
                     onClick={() => setOpenAddArea(true)}
                   >
                     Add Section
@@ -100,7 +100,7 @@ const Tables = () => {
 
               <div>
                 <button
-                  className="px-3 py-2 bg-nelsa_primary text-white font-semibold text-sm rounded-md"
+                  className="px-3 py-2 bg-tt_rich_black text-white font-semibold text-sm rounded-md"
                   onClick={() => setOpenAdd(true)}
                 >
                   Add Table
@@ -146,7 +146,7 @@ const Tables = () => {
                             Download
                           </span>
                         </button>
-                        <button className="flex flex-row p-1.5 rounded bg-nelsa_primary gap-1 w-1/2 items-center justify-center">
+                        <button className="flex flex-row p-1.5 rounded bg-tt_rich_black gap-1 w-1/2 items-center justify-center">
                           <HeIcons.FaEye size={14} className="text-white" />
                           <span className="text-white font-semibold">View</span>
                         </button>

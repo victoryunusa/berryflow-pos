@@ -82,7 +82,7 @@ const AddArea = ({ setOpenAdd, open, children }) => {
                       {({ errors, touched }) => (
                         <Form className="w-full">
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-sm font-semibold">
+                            <label className="block text-tt_rich_black text-sm font-semibold">
                               Name
                             </label>
                             <Field
@@ -122,7 +122,7 @@ const AddArea = ({ setOpenAdd, open, children }) => {
                             ) : (
                               <button
                                 type="submit"
-                                className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                               >
                                 Submit
                               </button>

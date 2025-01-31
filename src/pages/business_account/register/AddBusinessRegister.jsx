@@ -135,7 +135,7 @@ const AddBusinessRegister = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="w-full md:w-1/5 px-4 py-3 text-sm font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                    className="w-full md:w-1/5 px-4 py-3 text-sm font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                   >
                     Open register & continue
                   </button>

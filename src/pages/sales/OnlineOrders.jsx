@@ -34,7 +34,7 @@ const OnlineOrders = () => {
           <div>
             <button
               onClick={() => setVisible(true)}
-              className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md"
+              className="px-3 py-2 bg-tt_rich_black text-white text-small font-semibold rounded-md"
             >
               Add New
             </button>
@@ -105,8 +105,8 @@ const OnlineOrders = () => {
                         onClick={() => getNextProduct(link.url.slice(-7))}
                         className={`${
                           link.active
-                            ? "bg-nelsa_primary text-white"
-                            : "border text-nelsa_primary"
+                            ? "bg-tt_rich_black text-white"
+                            : "border text-tt_rich_black"
                         } px-2 py-1 rounded-md`}
                         disabled={link.url == null ? true : false}
                       >

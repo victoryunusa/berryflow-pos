@@ -79,7 +79,7 @@ const AddTable = ({ setOpenAdd }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between px-6 py-5">
-                    <h3 className="text-base font-bold text-nelsa_primary">
+                    <h3 className="text-base font-bold text-tt_rich_black">
                       Add Table
                     </h3>
                   </div>
@@ -93,7 +93,7 @@ const AddTable = ({ setOpenAdd }) => {
                       {({ values, errors, touched, setFieldValue }) => (
                         <Form className="w-full">
                           <div className="">
-                            <label className="block text-nelsa_primary text-xs font-semibold">
+                            <label className="block text-tt_rich_black text-xs font-semibold">
                               Name
                             </label>
                             <Field
@@ -112,7 +112,7 @@ const AddTable = ({ setOpenAdd }) => {
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-xs font-semibold">
+                            <label className="block text-tt_rich_black text-xs font-semibold">
                               Table Number
                             </label>
                             <Field
@@ -131,7 +131,7 @@ const AddTable = ({ setOpenAdd }) => {
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-xs font-semibold">
+                            <label className="block text-tt_rich_black text-xs font-semibold">
                               Number of occupants
                             </label>
                             <Field
@@ -200,7 +200,7 @@ const AddTable = ({ setOpenAdd }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

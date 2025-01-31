@@ -62,7 +62,7 @@ const OTPInput = ({ length = 4, onComplete }) => {
           onKeyDown={(e) => handleKeyDown(e, index)}
           onFocus={() => handleFocus(index)}
           onPaste={handlePaste}
-          className="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-nelsa_primary focus:ring-2 focus:ring-indigo-100"
+          className="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-tt_rich_black focus:ring-2 focus:ring-indigo-100"
         />
       ))}
     </div>

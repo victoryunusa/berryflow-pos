@@ -11,9 +11,9 @@ const Sidebar = () => {
           <NavLink
             key={index}
             to={`${menu.path}`}
-            className={`hover:bg-gray-100 hover:text-nelsa_primary p-2.5 hover:rounded-lg w-full text-[0.9rem] ${
+            className={`hover:bg-gray-100 hover:text-tt_rich_black p-2.5 hover:rounded-lg w-full text-[0.9rem] ${
               pathname.includes(menu.path) &&
-              "text-nelsa_primary bg-gray-100 rounded-lg"
+              "text-tt_rich_black bg-gray-100 rounded-lg"
             } capitalize`}
           >
             {menu?.name}

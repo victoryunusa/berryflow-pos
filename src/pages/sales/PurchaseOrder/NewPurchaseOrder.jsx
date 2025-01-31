@@ -260,7 +260,7 @@ const NewPurchaseOrder = () => {
                 <div className="flex flex-col">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold mb-1">
+                      <label className="block text-tt_rich_black font-semibold mb-1">
                         Vendor
                         <span
                           onClick={() => setOpenVendor(true)}
@@ -287,7 +287,7 @@ const NewPurchaseOrder = () => {
                   </div>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         PO Number
                       </label>
                       <Field
@@ -308,7 +308,7 @@ const NewPurchaseOrder = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         PO Reference #
                       </label>
                       <Field
@@ -329,7 +329,7 @@ const NewPurchaseOrder = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         PO Order Date
                       </label>
                       <Field
@@ -350,7 +350,7 @@ const NewPurchaseOrder = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         PO Order Due Date
                       </label>
                       <Field
@@ -373,7 +373,7 @@ const NewPurchaseOrder = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold mb-1">
+                      <label className="block text-tt_rich_black font-semibold mb-1">
                         Supplier Currency
                       </label>
                       <Selector
@@ -390,7 +390,7 @@ const NewPurchaseOrder = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold mb-1">
+                      <label className="block text-tt_rich_black font-semibold mb-1">
                         Tax Option
                         <span
                           onClick={() => setOpenTax(true)}
@@ -418,7 +418,7 @@ const NewPurchaseOrder = () => {
                       <Field
                         type="checkbox"
                         name="update_stock"
-                        className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                        className="w-4 h-4 cursor-pointer text-tt_rich_black checked:bg-tt_rich_black bg-gray-100 rounded-xl border-gray-300"
                       />
                       <label className="ml-2 text-sm text-gray-600 ">
                         Update Product Stock?
@@ -431,7 +431,7 @@ const NewPurchaseOrder = () => {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-1 gap-3 mt-4">
                     <div className="flex flex-col">
-                      <label className="block text-nelsa_primary font-semibold mb-1">
+                      <label className="block text-tt_rich_black font-semibold mb-1">
                         Select Ingredient
                         <span
                           onClick={() => setOpenIngredient(true)}
@@ -615,7 +615,7 @@ const NewPurchaseOrder = () => {
                   <div className="flex justify-end mt-4">
                     <div className="flex flex-col gap-3">
                       <div className="flex flex-row w-full items-center gap-3">
-                        <label className="flex justify-end w-1/2 text-nelsa_primary font-semibold">
+                        <label className="flex justify-end w-1/2 text-tt_rich_black font-semibold">
                           Shipping Charges
                         </label>
                         <div className="flex flex-col w-1/2">
@@ -637,7 +637,7 @@ const NewPurchaseOrder = () => {
                         </div>
                       </div>
                       <div className="flex flex-row w-full items-center gap-3">
-                        <label className="flex justify-end w-1/2 text-nelsa_primary font-semibold">
+                        <label className="flex justify-end w-1/2 text-tt_rich_black font-semibold">
                           Packing Charges
                         </label>
                         <div className="flex flex-col w-1/2">
@@ -659,7 +659,7 @@ const NewPurchaseOrder = () => {
                         </div>
                       </div>
                       <div className="flex flex-row w-full items-center gap-3">
-                        <h4 className="flex justify-end w-1/2 text-nelsa_primary font-semibold">
+                        <h4 className="flex justify-end w-1/2 text-tt_rich_black font-semibold">
                           Total
                         </h4>
                         <div className="flex flex-col w-1/2">
@@ -690,7 +690,7 @@ const NewPurchaseOrder = () => {
                   </div>
                   <div className="mt-4 grid grid-cols-1 md:grid-cols-1 gap-3">
                     <div className="">
-                      <label className="block text-nelsa_primary font-semibold">
+                      <label className="block text-tt_rich_black font-semibold">
                         Terms
                       </label>
 
@@ -714,7 +714,7 @@ const NewPurchaseOrder = () => {
                     {loading ? (
                       <button
                         type="submit"
-                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold  bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
+                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold  bg-tt_rich_black/60 text-[#ffffff] rounded-md flex items-center justify-center"
                         disabled={loading}
                       >
                         <span
@@ -730,7 +730,7 @@ const NewPurchaseOrder = () => {
                     ) : (
                       <button
                         type="submit"
-                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                        className="w-full md:w-[11.1em] px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                       >
                         Save
                       </button>

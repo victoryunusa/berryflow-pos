@@ -13,7 +13,7 @@ const SwitchButton = ({ label, ...props }) => {
       {/* Switch Button */}
       <div
         className={`relative w-10 h-6 ${
-          field.value ? "bg-nelsa_primary" : "bg-gray-300"
+          field.value ? "bg-tt_rich_black" : "bg-gray-300"
         } rounded-full cursor-pointer transition-colors`}
         onClick={toggleSwitch}
       >
@@ -28,7 +28,7 @@ const SwitchButton = ({ label, ...props }) => {
       {label && (
         <label
           htmlFor={props.id || props.name}
-          className="mr-3 text-xs text-nelsa_primary font-bold"
+          className="mr-3 text-xs text-tt_rich_black font-bold"
         >
           {label}
         </label>

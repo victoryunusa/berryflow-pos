@@ -14,7 +14,7 @@ const Wallet = () => {
           <div className="flex flex-col border bg-white p-5 rounded-lg w-full md:w-1/2 gap-2">
             <div className="flex flex-col gap-5">
               <p className="text-base text-neutral-400">My balance</p>
-              <h1 className="text-5xl font-bold text-nelsa_primary">
+              <h1 className="text-5xl font-bold text-tt_rich_black">
                 100,000.00
               </h1>
             </div>

@@ -62,10 +62,10 @@ const SingleOrder = () => {
               Order ID: #{order?.order_number}
             </h3>
             <span className="flex gap-3">
-              <span className="flex items-center px-2.5 h-5 rounded-lg bg-green-100 text-green-600 text-xs font-bold">
+              <span className="flex items-center px-2.5 h-5 rounded-lg bg-green-50 text-green-600 text-xs font-bold">
                 Paid
               </span>
-              <span className="flex items-center px-2.5 h-5 rounded-lg bg-green-100 text-green-600 text-xs font-bold">
+              <span className="flex items-center px-2.5 h-5 rounded-lg bg-green-50 text-green-600 text-xs font-bold">
                 Accepted
               </span>
             </span>
@@ -136,7 +136,7 @@ const SingleOrder = () => {
           <div>
             <button
               onClick={() => handleOpenPrint(order?.slug)}
-              className="flex bg-nelsa_primary text-white px-3 py-2.5 rounded-md text-sm font-semibold"
+              className="flex bg-tt_rich_black text-white px-3 py-2.5 rounded-md text-sm font-semibold"
             >
               <FaIcons.FaPrint size={15} className="mr-2" /> Print
             </button>
@@ -164,7 +164,7 @@ const SingleOrder = () => {
                       className="w-16 h-16 object-fit rounded-lg"
                       alt="food"
                     />
-                    {/* <span className="flex bg-nelsa_primary text-white font-bold h-8 w-8 rounded-full items-center justify-center relative top-4 -left-20 shadow-xl">
+                    {/* <span className="flex bg-tt_rich_black text-white font-bold h-8 w-8 rounded-full items-center justify-center relative top-4 -left-20 shadow-xl">
                     30
                   </span> */}
                   </div>

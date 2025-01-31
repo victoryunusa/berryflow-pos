@@ -145,7 +145,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                                   />
                                   <button
                                     type="button"
-                                    className="px-3 bg-nelsa_primary text-white rounded-md text-small font-medium"
+                                    className="px-3 bg-tt_rich_black text-white rounded-md text-small font-medium"
                                   >
                                     Add
                                   </button>
@@ -168,7 +168,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                           {loading ? (
                             <button
                               type="submit"
-                              className="w-full px-4 py-3 font-bold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                              className="w-full px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                               disabled={loading}
                             >
                               <span
@@ -184,7 +184,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                           ) : (
                             <button
                               type="submit"
-                              className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                              className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-lg"
                             >
                               Submit
                             </button>

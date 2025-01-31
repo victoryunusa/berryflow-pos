@@ -94,7 +94,7 @@ const AddSupplier = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-md font-bold text-nelsa_primary">
+                    <h3 className="text-md font-bold text-tt_rich_black">
                       Add Supplier
                     </h3>
                   </div>
@@ -215,7 +215,7 @@ const AddSupplier = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-3 py-3 mt-4 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

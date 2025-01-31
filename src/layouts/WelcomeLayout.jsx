@@ -23,7 +23,7 @@ const WelcomeLayout = () => {
           <div className="bg-white px-5 py-2 md:py-2 rounded-lg w-full">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="">
-                <h3 className="text-xl font-bold text-nelsa_primary">
+                <h3 className="text-xl font-bold text-tt_rich_black">
                   <img className="w-[7.5rem]" src={logo} alt="logo" />
                 </h3>
               </div>

@@ -86,7 +86,7 @@ const CloseRegister = ({ setOpen }) => {
                           <div className="max-h-[520px] overflow-scroll px-6 md:px-6">
                             <div className="flex flex-col gap-3">
                               <div className="w-full">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Total Amount
                                 </label>
                                 <Field
@@ -107,7 +107,7 @@ const CloseRegister = ({ setOpen }) => {
                                 />
                               </div>
                               <div className="w-full">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Total Card Slips
                                 </label>
                                 <Field
@@ -128,7 +128,7 @@ const CloseRegister = ({ setOpen }) => {
                                 />
                               </div>
                               <div className="w-full">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Total Cheques
                                 </label>
                                 <Field
@@ -168,7 +168,7 @@ const CloseRegister = ({ setOpen }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 font-bold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -184,7 +184,7 @@ const CloseRegister = ({ setOpen }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-lg"
                                 >
                                   Continue
                                 </button>

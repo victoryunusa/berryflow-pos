@@ -34,7 +34,14 @@ export const formatExpires = (value) => {
 
 export function prettyDate(date) {
   const newDate = new Date(date);
-  return newDate.toUTCString();
+  return newDate.toLocaleString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
 }
 
 export const removeUnderscoreAndCapitalize = (inputString) => {
@@ -101,7 +108,7 @@ export const order_status_class = (status) => {
   } else if (status == "out-for-delivery") {
     return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#008BBA] bg-[#BDEFFF]";
   } else if (status == "delivered") {
-    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-nelsa_primary bg-[#FFD7E7]";
+    return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-tt_rich_black bg-[#FFD7E7]";
   } else {
     return "py-0.5 px-2 rounded-full text-[10px] leading-4 first-letter:capitalize whitespace-nowrap text-[#FB4E4E] bg-[#FFDADA]";
   }

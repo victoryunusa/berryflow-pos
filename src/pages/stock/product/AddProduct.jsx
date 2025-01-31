@@ -409,7 +409,7 @@ const AddProduct = () => {
               {({ values, errors, touched, setFieldValue }) => (
                 <Form className="w-full">
                   <div className="mb-5">
-                    <p className="text-nelsa_primary/60 font-semibold mb-2">
+                    <p className="text-tt_rich_black/60 font-semibold mb-2">
                       Product Identifier Information (Optional)
                     </p>
                     <div>
@@ -428,7 +428,7 @@ const AddProduct = () => {
                   <div className="">
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Name
                         </label>
                         <Field
@@ -446,7 +446,7 @@ const AddProduct = () => {
                         />
                       </div>
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Product Code (SKU){"    "}
                           <span className="ml-2 text-neutral-400 font-regular text-xs">
                             * This will be automatically generated if left blank
@@ -460,7 +460,7 @@ const AddProduct = () => {
                             errors.product_code && touched.product_code
                               ? "border-red-500"
                               : ""
-                          } focus:border-nelsa_primary`}
+                          } focus:border-tt_rich_black`}
                         />
                         <ErrorMessage
                           name="product_code"
@@ -472,7 +472,7 @@ const AddProduct = () => {
 
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                        <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                           Category
                         </label>
                         <Selector
@@ -488,7 +488,7 @@ const AddProduct = () => {
                         />
                       </div>
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                        <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                           Supplier
                         </label>
                         <Selector
@@ -507,7 +507,7 @@ const AddProduct = () => {
 
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                        <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                           Tax Option
                         </label>
                         <Selector
@@ -523,7 +523,7 @@ const AddProduct = () => {
                         />
                       </div>
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                        <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                           Discount Code
                         </label>
                         <Selector
@@ -542,7 +542,7 @@ const AddProduct = () => {
 
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Purchase Price Excluding Tax
                         </label>
                         <Field
@@ -562,7 +562,7 @@ const AddProduct = () => {
                         />
                       </div>
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Sale Price Excluding Tax
                         </label>
                         <Field
@@ -584,7 +584,7 @@ const AddProduct = () => {
                     </div>
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Sale Price Including Tax
                         </label>
                         <Field
@@ -611,7 +611,7 @@ const AddProduct = () => {
 
                     <div className="mt-3 flex flex-row space-x-3">
                       <div className="w-1/2">
-                        <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold">
+                        <label className="flex flex-row items-center gap-1 text-tt_rich_black text-xs font-semibold">
                           Quantity
                         </label>
                         <Field
@@ -622,7 +622,7 @@ const AddProduct = () => {
                             errors.quantity && touched.quantity
                               ? "border-red-500"
                               : ""
-                          } focus:border-nelsa_primary`}
+                          } focus:border-tt_rich_black`}
                         />
                         <ErrorMessage
                           name="quantity"
@@ -631,7 +631,7 @@ const AddProduct = () => {
                         />
                       </div>
                       <div className="w-1/2">
-                        <label className="block text-nelsa_primary text-xs font-semibold">
+                        <label className="block text-tt_rich_black text-xs font-semibold">
                           Low Quantity Alert
                         </label>
                         <Field
@@ -653,7 +653,7 @@ const AddProduct = () => {
                     </div>
 
                     <div className="mt-3">
-                      <label className="block text-nelsa_primary text-xs font-semibold">
+                      <label className="block text-tt_rich_black text-xs font-semibold">
                         Product Images
                       </label>
 
@@ -680,7 +680,7 @@ const AddProduct = () => {
                     </div>
 
                     <div className="mt-3">
-                      <label className="block text-nelsa_primary text-xs font-semibold">
+                      <label className="block text-tt_rich_black text-xs font-semibold">
                         Description
                       </label>
 
@@ -700,13 +700,13 @@ const AddProduct = () => {
                         <hr className="mt-8" />
                         <div className="flex flex-col mt-2">
                           <div>
-                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                            <p className="text-tt_rich_black/60 font-semibold mb-2">
                               Product Variants
                             </p>
                           </div>
                           <div className=" flex flex-row space-x-3">
                             <div className="w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                 Search and Add Variant Products
                               </label>
                               <OrderSelect
@@ -718,7 +718,7 @@ const AddProduct = () => {
                           {variantItems.length >= 1 && (
                             <div>
                               <div className="mt-4">
-                                <label className="block text-nelsa_primary text-xs font-semibold">
+                                <label className="block text-tt_rich_black text-xs font-semibold">
                                   Variant Option for Current Product
                                 </label>
                                 <select
@@ -749,13 +749,13 @@ const AddProduct = () => {
                               </div>
                               <div className="mt-5">
                                 <div className="w-full flex flex-row items-start justify-start gap-3">
-                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
+                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
                                     Variant Option
                                   </label>
-                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
+                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
                                     Name & Description
                                   </label>
-                                  <label className="block w-1/3 text-nelsa_primary text-xs font-semibold">
+                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
                                     Sale Price
                                   </label>
                                 </div>
@@ -801,13 +801,13 @@ const AddProduct = () => {
                         <hr className="mt-8" />
                         <div className="flex flex-col mt-2">
                           <div>
-                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                            <p className="text-tt_rich_black/60 font-semibold mb-2">
                               Choose Add-on Groups
                             </p>
                           </div>
                           <div className=" flex flex-row space-x-3">
                             <div className="w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Add-on Groups
                               </label>
 
@@ -822,13 +822,13 @@ const AddProduct = () => {
                         <hr className="mt-8" />
                         <div className="flex flex-col mt-2">
                           <div>
-                            <p className="text-nelsa_primary/60 font-semibold mb-2">
+                            <p className="text-tt_rich_black/60 font-semibold mb-2">
                               Ingredient Information
                             </p>
                           </div>
                           <div className=" flex flex-row space-x-3">
                             <div className="w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Search and Add Ingredients
                               </label>
                               <OrderSelect
@@ -839,7 +839,7 @@ const AddProduct = () => {
                           </div>
                           <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
                             <table className="w-full text-sm text-left ">
-                              <thead className=" text-nelsa_primary border-b-2 text-xs">
+                              <thead className=" text-tt_rich_black border-b-2 text-xs">
                                 <tr className="">
                                   <th scope="col" className="py-3">
                                     Name & Description
@@ -1051,7 +1051,7 @@ const AddProduct = () => {
                       {loading ? (
                         <button
                           type="submit"
-                          className="w-full px-4 py-3 text-sm font-semibold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                          className="w-full px-4 py-3 text-sm font-semibold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                           disabled={loading}
                         >
                           <span
@@ -1067,7 +1067,7 @@ const AddProduct = () => {
                       ) : (
                         <button
                           type="submit"
-                          className="w-full px-4 py-3 text-sm font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                          className="w-full px-4 py-3 text-sm font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                         >
                           Submit
                         </button>

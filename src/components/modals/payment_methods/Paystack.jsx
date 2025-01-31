@@ -77,7 +77,7 @@ const Paystack = ({ setOpen }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-md font-bold text-nelsa_primary">
+                    <h3 className="text-md font-bold text-tt_rich_black">
                       Paystack Setup
                     </h3>
                   </div>
@@ -92,7 +92,7 @@ const Paystack = ({ setOpen }) => {
                         <Form className="w-full">
                           <div>
                             <div>
-                              <h4 className="text-xs font-semibold text-nelsa_primary">
+                              <h4 className="text-xs font-semibold text-tt_rich_black">
                                 Environment
                               </h4>
                             </div>
@@ -122,7 +122,7 @@ const Paystack = ({ setOpen }) => {
 
                           <div className="flex flex-col md:flex-row justify-between gap-3 mt-4">
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Public key
                               </label>
                               <Field
@@ -141,7 +141,7 @@ const Paystack = ({ setOpen }) => {
                               />
                             </div>
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Secret key
                               </label>
                               <Field
@@ -161,7 +161,7 @@ const Paystack = ({ setOpen }) => {
                             </div>
                           </div>
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold ">
+                            <label className="block text-tt_rich_black text-xs font-semibold ">
                               Currency (eg. USD)
                             </label>
                             <Field
@@ -180,7 +180,7 @@ const Paystack = ({ setOpen }) => {
                             />
                           </div>
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                            <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                               Status
                             </label>
                             <Selector
@@ -197,7 +197,7 @@ const Paystack = ({ setOpen }) => {
                             />
                           </div>
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                            <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                               Active on digital menu?
                             </label>
                             <Selector
@@ -225,7 +225,7 @@ const Paystack = ({ setOpen }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-nelsa_primary/60 text-[#ffffff] rounded-lg flex items-center justify-center gap-3"
+                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-tt_rich_black/60 text-[#ffffff] rounded-lg flex items-center justify-center gap-3"
                                   disabled={loading}
                                 >
                                   <span
@@ -241,7 +241,7 @@ const Paystack = ({ setOpen }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-tt_rich_black text-[#ffffff] rounded-lg"
                                 >
                                   Submit
                                 </button>

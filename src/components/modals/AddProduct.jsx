@@ -205,7 +205,7 @@ const AddProduct = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between px-6 py-2 ">
-                    <h3 className="text-md font-bold text-nelsa_primary">
+                    <h3 className="text-md font-bold text-tt_rich_black">
                       Add product
                     </h3>
                   </div>
@@ -220,7 +220,7 @@ const AddProduct = (props) => {
                         <Form className="w-full">
                           <div className="max-h-[700px] overflow-scroll px-6 md:px-6">
                             <div className="">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Name
                               </label>
                               <Field
@@ -240,7 +240,7 @@ const AddProduct = (props) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Product Code (SKU){"    "}
                                 <span className="ml-2 text-neutral-400 font-regular text-xs">
                                   * This will be automatically generated if left
@@ -264,7 +264,7 @@ const AddProduct = (props) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                 Category
                                 <span
                                   onClick={() => setOpenCategory(true)}
@@ -286,7 +286,7 @@ const AddProduct = (props) => {
                               />
                             </div>
                             <div className="flex flex-col mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                 Tax Option
                                 <span
                                   onClick={() => setOpenTax(true)}
@@ -308,7 +308,7 @@ const AddProduct = (props) => {
                               />
                             </div>
                             <div className="flex flex-col mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                 Discount Code
                                 <span
                                   onClick={() => setOpenTax(true)}
@@ -330,7 +330,7 @@ const AddProduct = (props) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Stock Product
                               </label>
                               <Selector
@@ -348,7 +348,7 @@ const AddProduct = (props) => {
                             </div>
 
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Price
                               </label>
                               <Field
@@ -369,7 +369,7 @@ const AddProduct = (props) => {
                             </div>
 
                             {/* <div className="mt-4">
-                              <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                 Selling Method
                               </label>
                               <Selector
@@ -387,7 +387,7 @@ const AddProduct = (props) => {
 
                             <div className="mt-3 flex flex-row space-x-3">
                               <div className="w-1/2">
-                                <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold mb-1">
+                                <label className="flex flex-row items-center gap-1 text-tt_rich_black text-xs font-semibold mb-1">
                                   Storage unit
                                   <span
                                     onMouseEnter={() => setIsShown(true)}
@@ -420,7 +420,7 @@ const AddProduct = (props) => {
                                 />
                               </div>
                               <div className="w-1/2">
-                                <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold mb-1">
+                                <label className="flex flex-row items-center gap-1 text-tt_rich_black text-xs font-semibold mb-1">
                                   Usage unit
                                   <span
                                     onMouseEnter={() => setIsShown(true)}
@@ -454,7 +454,7 @@ const AddProduct = (props) => {
                             </div>
                             <div className="mt-3 flex flex-row space-x-3">
                               <div className="w-1/2">
-                                <label className="flex flex-row items-center gap-1 text-nelsa_primary text-xs font-semibold">
+                                <label className="flex flex-row items-center gap-1 text-tt_rich_black text-xs font-semibold">
                                   Storage to usage conversion
                                   <span
                                     onMouseEnter={() => setIsShown(true)}
@@ -484,7 +484,7 @@ const AddProduct = (props) => {
                                 />
                               </div>
                               <div className="w-1/2">
-                                <label className="block text-nelsa_primary text-xs font-semibold">
+                                <label className="block text-tt_rich_black text-xs font-semibold">
                                   Par Level
                                 </label>
                                 <Field
@@ -508,7 +508,7 @@ const AddProduct = (props) => {
                             {values.stock_product == 0 && (
                               <div className="mt-3 flex flex-row space-x-3">
                                 <div className="w-1/2">
-                                  <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                                  <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                     Costing Method
                                   </label>
                                   <Selector
@@ -524,7 +524,7 @@ const AddProduct = (props) => {
                                   />
                                 </div>
                                 <div className="w-1/2">
-                                  <label className="block text-nelsa_primary text-xs font-semibold">
+                                  <label className="block text-tt_rich_black text-xs font-semibold">
                                     Cost
                                   </label>
                                   <Field
@@ -553,7 +553,7 @@ const AddProduct = (props) => {
                             )}
 
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Image
                               </label>
 
@@ -583,7 +583,7 @@ const AddProduct = (props) => {
                             </div>
 
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Description
                               </label>
 
@@ -612,7 +612,7 @@ const AddProduct = (props) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-sm font-semibold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 text-sm font-semibold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -628,7 +628,7 @@ const AddProduct = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-sm font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-4 py-3 text-sm font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

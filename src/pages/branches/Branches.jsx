@@ -83,7 +83,7 @@ const Branches = () => {
           </div>
           <div className="flex flex-row justify-end items-center">
             <Link to="/manage/branches/add">
-              <button className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md">
+              <button className="px-3 py-2 bg-tt_rich_black text-white text-sm rounded-md">
                 Add New
               </button>
             </Link>

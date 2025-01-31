@@ -61,7 +61,7 @@ const PaymentGateway = () => {
     <>
       <div className="flex flex-col align-center">
         <div className="flex flex-col items-center my-10">
-          <h3 className="text-2xl font-bold text-nelsa_primary">
+          <h3 className="text-2xl font-bold text-tt_rich_black">
             Payment method setup
           </h3>
           <p className="text-sm text-neutral-500 mt-2 text-center">
@@ -76,7 +76,7 @@ const PaymentGateway = () => {
               key={payment_method.slug}
             >
               <div className="flex flex-row justify-between items-center">
-                <label className="block text-nelsa_primary text-sm font-normal">
+                <label className="block text-tt_rich_black text-sm font-normal">
                   {payment_method.name}
                 </label>
                 {payment_method.status == 1 ? (
@@ -102,7 +102,7 @@ const PaymentGateway = () => {
             <button
               type="submit"
               onClick={next}
-              className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+              className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
             >
               Complete
             </button>

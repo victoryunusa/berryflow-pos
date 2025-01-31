@@ -127,7 +127,7 @@ const KYB = () => {
         <div className="bg-white p-4 md:p-10 rounded-lg w-full">
           <div className="flex flex-col md:flex-row justify-between">
             <div className="">
-              <h3 className="text-2xl font-bold text-nelsa_primary">
+              <h3 className="text-2xl font-bold text-tt_rich_black">
                 Set up your Nelsa account
               </h3>
               <p className="text-sm text-gray-500">
@@ -139,13 +139,13 @@ const KYB = () => {
                 <h4
                   className={`text-[0.9rem] md:text-[1rem] font-bold  ${
                     activeStep === 0 && FormTitle === "About"
-                      ? "text-nelsa_primary"
+                      ? "text-tt_rich_black"
                       : activeStep === 1 && FormTitle === "Business"
-                      ? "text-nelsa_primary"
+                      ? "text-tt_rich_black"
                       : activeStep === 2 && FormTitle === "Selfie"
-                      ? "text-nelsa_primary"
+                      ? "text-tt_rich_black"
                       : activeStep === 3 && FormTitle === "Review"
-                      ? "text-nelsa_primary"
+                      ? "text-tt_rich_black"
                       : "text-gray-400"
                   }`}
                   key={FormTitle}
@@ -155,7 +155,7 @@ const KYB = () => {
               ))}
               <button
                 onClick={onLogout}
-                className="py-2 px-3 text-sm font-bold bg-nelsa_primary text-white rounded-lg"
+                className="py-2 px-3 text-sm font-bold bg-tt_rich_black text-white rounded-lg"
                 type="button"
               >
                 Logout
@@ -172,7 +172,7 @@ const KYB = () => {
                   : activeStep === 2
                   ? "w-3/4"
                   : "w-4/4"
-              } bg-nelsa_primary rounded h-1.5`}
+              } bg-tt_rich_black rounded h-1.5`}
             ></div>
           </div>
           <div className="flex flex-col-reverse md:flex-row justify-between w-full mt-3 md:mt-5">
@@ -183,7 +183,7 @@ const KYB = () => {
                   such as your means of identification, utility bill etc.
                 </p>
               </div>
-              <div className="bg-nelsa_primary rounded-lg text-white p-5">
+              <div className="bg-tt_rich_black rounded-lg text-white p-5">
                 <h1 className="font-semibold text-lg">
                   Tips for uploading documents
                 </h1>
@@ -261,7 +261,7 @@ const KYB = () => {
 
                         <button
                           type="submit"
-                          className="md:w-44 w-28 mt-2 p-2.5 h-12 flex-1 text-white rounded-md bg-nelsa_primary"
+                          className="md:w-44 w-28 mt-2 p-2.5 h-12 flex-1 text-white rounded-md bg-tt_rich_black"
                         >
                           <span className="text-md font-bold">
                             {isLastStep ? "Submit" : "Next"}

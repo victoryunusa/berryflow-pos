@@ -120,7 +120,7 @@ const AddVariation = ({ product_slug, setOpen }) => {
                         <Form className="w-full">
                           <div className="max-h-[720px] overflow-scroll px-6 md:px-6">
                             <div className="">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Variant Option
                               </label>
                               <Selector
@@ -136,7 +136,7 @@ const AddVariation = ({ product_slug, setOpen }) => {
                               />
                             </div>
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Name
                               </label>
                               <Field
@@ -156,7 +156,7 @@ const AddVariation = ({ product_slug, setOpen }) => {
                             </div>
 
                             <div className="mt-3">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Addtional price
                               </label>
                               <Field
@@ -188,7 +188,7 @@ const AddVariation = ({ product_slug, setOpen }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -204,7 +204,7 @@ const AddVariation = ({ product_slug, setOpen }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

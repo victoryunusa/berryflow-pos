@@ -68,7 +68,7 @@ const Product = ({ product }) => {
                 <p className="text-xs md:text-xs font-normal text-neutral-700">
                   Code: {textEllipsis(product.product_code, 20)}
                 </p>
-                <p className="text-xs md:text-sm font-bold text-nelsa_primary">
+                <p className="text-xs md:text-sm font-bold text-tt_rich_black">
                   {textEllipsis(product.name, 25)}
                 </p>
               </div>
@@ -105,7 +105,7 @@ const Product = ({ product }) => {
           </div>
           <div className="">
             <button
-              className="px-2 py-1 flex items-center justify-center text-white font-semibold rounded bg-nelsa_primary hover:bg-nelsa_primary/80 w-full"
+              className="px-2 py-1 flex items-center justify-center text-white font-semibold rounded bg-tt_rich_black hover:bg-tt_rich_black/80 w-full"
               //onClick={() => handleAddToCart({ name: "Chicken" })}
             >
               <span className="text-xs">Add to cart</span>

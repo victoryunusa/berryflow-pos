@@ -199,7 +199,7 @@ const ConfirmOrder = ({
                           <div className="max-h-[720px] overflow-scroll px-6 md:px-6">
                             <div className="flex flex-row gap-3 mb-6">
                               <div className="flex flex-col w-full">
-                                <label className="block text-nelsa_primary text-sm font-semibold mb-3">
+                                <label className="block text-tt_rich_black text-sm font-semibold mb-3">
                                   Business Account
                                   <span className="ml-3 text-[0.73rem] text-neutral-500 font-normal">
                                     *Transaction will be saved under this
@@ -237,7 +237,7 @@ const ConfirmOrder = ({
                             </div>
                             <div className="flex flex-row gap-3 mb-10">
                               <div className="flex flex-col w-full">
-                                <label className="block text-nelsa_primary text-sm font-semibold mb-3">
+                                <label className="block text-tt_rich_black text-sm font-semibold mb-3">
                                   Payment Method
                                 </label>
                                 <div className="flex flex-row gap-3 w-full">
@@ -273,7 +273,7 @@ const ConfirmOrder = ({
                             </div>
                             <div className="flex flex-row gap-3">
                               <div className="w-1/3">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Received Amount
                                 </label>
                                 <Field
@@ -294,7 +294,7 @@ const ConfirmOrder = ({
                                 />
                               </div>
                               <div className="w-1/3">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Order Value
                                 </label>
                                 <Field
@@ -315,7 +315,7 @@ const ConfirmOrder = ({
                                 />
                               </div>
                               <div className="w-1/3">
-                                <label className="block text-nelsa_primary text-sm font-semibold">
+                                <label className="block text-tt_rich_black text-sm font-semibold">
                                   Balance Amount
                                 </label>
                                 <Field
@@ -354,7 +354,7 @@ const ConfirmOrder = ({
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -370,7 +370,7 @@ const ConfirmOrder = ({
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md flex items-center justify-center"
                                 >
                                   Submit
                                 </button>

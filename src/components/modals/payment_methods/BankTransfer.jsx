@@ -77,7 +77,7 @@ const BankTransfer = ({ setOpen }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-md font-bold text-nelsa_primary">
+                    <h3 className="text-md font-bold text-tt_rich_black">
                       Bank Transfer Setup
                     </h3>
                   </div>
@@ -91,7 +91,7 @@ const BankTransfer = ({ setOpen }) => {
                       {({ values, errors, touched, setFieldValue }) => (
                         <Form className="w-full">
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold">
+                            <label className="block text-tt_rich_black text-xs font-semibold">
                               Bank name
                             </label>
                             <Field
@@ -111,7 +111,7 @@ const BankTransfer = ({ setOpen }) => {
                           </div>
                           <div className="flex flex-col md:flex-row justify-between gap-3 mt-4">
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold">
+                              <label className="block text-tt_rich_black text-xs font-semibold">
                                 Account name
                               </label>
                               <Field
@@ -130,7 +130,7 @@ const BankTransfer = ({ setOpen }) => {
                               />
                             </div>
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold ">
+                              <label className="block text-tt_rich_black text-xs font-semibold ">
                                 Account number
                               </label>
                               <Field
@@ -152,7 +152,7 @@ const BankTransfer = ({ setOpen }) => {
                           </div>
                           <div className="flex flex-col md:flex-row justify-between gap-3 mt-4">
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold ">
+                              <label className="block text-tt_rich_black text-xs font-semibold ">
                                 Sort code
                               </label>
                               <Field
@@ -171,7 +171,7 @@ const BankTransfer = ({ setOpen }) => {
                               />
                             </div>
                             <div className="w-full md:w-1/2">
-                              <label className="block text-nelsa_primary text-xs font-semibold ">
+                              <label className="block text-tt_rich_black text-xs font-semibold ">
                                 Routing number
                               </label>
                               <Field
@@ -192,7 +192,7 @@ const BankTransfer = ({ setOpen }) => {
                             </div>
                           </div>
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                            <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                               Status
                             </label>
                             <Selector
@@ -209,7 +209,7 @@ const BankTransfer = ({ setOpen }) => {
                             />
                           </div>
                           <div className="mt-3">
-                            <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                            <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                               Active on digital menu?
                             </label>
                             <Selector
@@ -237,7 +237,7 @@ const BankTransfer = ({ setOpen }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-nelsa_primary/60 text-[#ffffff] rounded-lg flex items-center justify-center"
+                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-tt_rich_black/60 text-[#ffffff] rounded-lg flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -253,7 +253,7 @@ const BankTransfer = ({ setOpen }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-3 py-2 mt-4 text-sm font-semibold bg-tt_rich_black text-[#ffffff] rounded-lg"
                                 >
                                   Submit
                                 </button>

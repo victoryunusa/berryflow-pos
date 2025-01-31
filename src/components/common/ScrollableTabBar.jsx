@@ -10,8 +10,8 @@ const ScrollableTabBar = ({ tabs, onTabClick, activeTabIndex }) => {
             onClick={() => onTabClick(index)}
             className={`py-2 text-sm rounded-t-md ${
               activeTabIndex === index
-                ? "border-b-2 border-nelsa_primary text-nelsa_primary font-semibold"
-                : "text-neutral-500 hover:text-nelsa_primary"
+                ? "border-b-2 border-tt_rich_black text-tt_rich_black font-semibold"
+                : "text-neutral-500 hover:text-tt_rich_black"
             }`}
           >
             {tab.name}

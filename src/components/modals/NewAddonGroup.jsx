@@ -130,7 +130,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between">
-                    <h3 className="text-base font-bold text-nelsa_primary">
+                    <h3 className="text-base font-bold text-tt_rich_black">
                       New Add-on Group
                     </h3>
                   </div>
@@ -144,7 +144,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
                       {({ errors, touched }) => (
                         <Form className="w-full">
                           <div className="">
-                            <label className="block text-nelsa_primary text-xs font-bold">
+                            <label className="block text-tt_rich_black text-xs font-bold">
                               Add-on group name
                             </label>
                             <Field
@@ -165,7 +165,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
                             />
                           </div>
                           <div className="mt-4">
-                            <label className="block text-nelsa_primary text-xs font-semibold">
+                            <label className="block text-tt_rich_black text-xs font-semibold">
                               Enable multiple products
                             </label>
                             <Field
@@ -191,13 +191,13 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
 
                           <div>
                             <div>
-                              <p className="text-nelsa_primary/60 text-base font-semibold my-5">
+                              <p className="text-tt_rich_black/60 text-base font-semibold my-5">
                                 Choose Add-on Products
                               </p>
                             </div>
                             <div className=" flex flex-row space-x-3 mt-1">
                               <div className="w-full">
-                                <label className="block text-nelsa_primary text-xs font-semibold mb-1">
+                                <label className="block text-tt_rich_black text-xs font-semibold mb-1">
                                   Search and Add Products
                                 </label>
                                 <OrderSelect
@@ -259,7 +259,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 font-bold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -275,7 +275,7 @@ const NewAddonGroup = ({ setOpen, open, children }) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-md"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
                                 >
                                   Submit
                                 </button>

@@ -51,13 +51,13 @@ const Products = () => {
           </div>
           <div>
             <Link to="/menu/products/add">
-              <button className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md">
+              <button className="px-3 py-2 bg-tt_rich_black text-white text-small font-semibold rounded-md">
                 Add New
               </button>
             </Link>
             {/* <button
               onClick={() => setVisible(true)}
-              className="px-3 py-2 bg-nelsa_primary text-white text-small font-semibold rounded-md"
+              className="px-3 py-2 bg-tt_rich_black text-white text-small font-semibold rounded-md"
             >
               Add New
             </button> */}
@@ -103,7 +103,7 @@ const Products = () => {
                   </span>
                 </div>
                 <div className="flex flex-row">
-                  <span className="self-end font-bold text-base md:text-md text-nelsa_primary">
+                  <span className="self-end font-bold text-base md:text-md text-tt_rich_black">
                     ₦
                     {dollarUSLocale.format(
                       parseFloat(product.price_including_tax).toFixed(2)
@@ -111,7 +111,7 @@ const Products = () => {
                   </span>
                 </div>
                 <div className="w-full flex flex-row gap-2">
-                  <button className="p-2 flex items-center justify-center text-white rounded-md bg-nelsa_primary hover:bg-nelsa_primary/90 w-full">
+                  <button className="p-2 flex items-center justify-center text-white rounded-md bg-tt_rich_black hover:bg-tt_rich_black/90 w-full">
                     <span className="text-sm font-semibold">View</span>
                   </button>
                 </div>
@@ -130,8 +130,8 @@ const Products = () => {
                 onClick={() => getNextProduct(link.url.split("=")[1])}
                 className={`${
                   link.active
-                    ? "bg-nelsa_primary text-white"
-                    : "border text-nelsa_primary"
+                    ? "bg-tt_rich_black text-white"
+                    : "border text-tt_rich_black"
                 } px-2 py-1 rounded-md`}
                 disabled={link.url == null ? true : false}
               >

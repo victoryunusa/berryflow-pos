@@ -36,7 +36,7 @@ const About = ({ errors, touched, values }) => {
           <label
             className={`flex flex-row w-full md:w-1/3 rounded-lg border-[0.09rem] p-3.5  ${
               values.business_type === "individual"
-                ? "border-nelsa_primary text-nelsa_primary"
+                ? "border-tt_rich_black text-tt_rich_black"
                 : "text-gray-400 border-gray-400"
             }`}
           >
@@ -51,13 +51,13 @@ const About = ({ errors, touched, values }) => {
           <label
             className={`flex flex-row w-full md:w-1/3 rounded-lg border-[0.09rem] p-3.5  ${
               values.business_type === "business_name"
-                ? "border-nelsa_primary text-nelsa_primary"
+                ? "border-tt_rich_black text-tt_rich_black"
                 : "text-gray-400 border-gray-400"
             }`}
           >
             <Field
               type="radio"
-              className="text-nelsa_primary"
+              className="text-tt_rich_black"
               name="business_type"
               value="business_name"
             />
@@ -71,7 +71,7 @@ const About = ({ errors, touched, values }) => {
           <label
             className={`flex flex-row w-full md:w-1/3 rounded-lg border-[0.09rem] p-3.5  ${
               values.business_type === "incorporated"
-                ? "border-nelsa_primary text-nelsa_primary"
+                ? "border-tt_rich_black text-tt_rich_black"
                 : "text-gray-400 border-gray-400"
             }`}
           >
@@ -108,7 +108,7 @@ const About = ({ errors, touched, values }) => {
 
       <div className="flex md:flex-row flex-col md:space-x-4 mt-4">
         <div className="mt-4 md:w-1/2">
-          <label className="block text-nelsa_primary text-sm font-semibold">
+          <label className="block text-tt_rich_black text-sm font-semibold">
             BVN
           </label>
           <Field
@@ -118,7 +118,7 @@ const About = ({ errors, touched, values }) => {
             autoComplete="off"
             className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
               errors.bvn && touched.bvn ? "border-red-500" : ""
-            } focus:border-nelsa_primary `}
+            } focus:border-tt_rich_black `}
           />
           <ErrorMessage
             name="bvn"
@@ -127,7 +127,7 @@ const About = ({ errors, touched, values }) => {
           />
         </div>
         <div className="mt-4 md:w-1/2">
-          <label className="block text-nelsa_primary text-sm font-semibold">
+          <label className="block text-tt_rich_black text-sm font-semibold">
             Date of birth
           </label>
           <Field
@@ -138,7 +138,7 @@ const About = ({ errors, touched, values }) => {
               errors.date_of_birth && touched.date_of_birth
                 ? "border-red-500"
                 : ""
-            } focus:border-nelsa_primary `}
+            } focus:border-tt_rich_black `}
           />
           <ErrorMessage
             name="date_of_birth"
@@ -149,14 +149,14 @@ const About = ({ errors, touched, values }) => {
       </div>
 
       <div className="mt-4">
-        <label className="block text-nelsa_primary text-md font-semibold mb-1">
+        <label className="block text-tt_rich_black text-md font-semibold mb-1">
           Address
         </label>
         <Field
           name="address"
           className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
             errors.address && touched.address ? "border-red-500" : ""
-          } focus:border-nelsa_primary`}
+          } focus:border-tt_rich_black`}
           component={CustomInputComponent}
           placeholder="Address"
         />
@@ -168,7 +168,7 @@ const About = ({ errors, touched, values }) => {
       </div>
       <div className="flex md:flex-row flex-col md:space-x-4">
         <div className="mt-4 md:w-1/2">
-          <label className="block text-nelsa_primary text-sm font-semibold">
+          <label className="block text-tt_rich_black text-sm font-semibold">
             State
           </label>
           <Field
@@ -176,7 +176,7 @@ const About = ({ errors, touched, values }) => {
             name="state"
             className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
               errors.state && touched.state ? "border-red-500" : ""
-            } focus:border-nelsa_primary`}
+            } focus:border-tt_rich_black`}
           >
             <option value="">Select</option>
             {states.map((state) => (
@@ -192,7 +192,7 @@ const About = ({ errors, touched, values }) => {
           />
         </div>
         <div className="mt-4 md:w-1/2">
-          <label className="block text-nelsa_primary text-sm font-semibold">
+          <label className="block text-tt_rich_black text-sm font-semibold">
             LGA
           </label>
           <Field
@@ -200,7 +200,7 @@ const About = ({ errors, touched, values }) => {
             name="city"
             className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
               errors.city && touched.city ? "border-red-500" : ""
-            } focus:border-nelsa_primary`}
+            } focus:border-tt_rich_black`}
           >
             <option value="">Select</option>
             <option value="Married">Ikeja</option>

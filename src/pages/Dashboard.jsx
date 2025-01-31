@@ -31,7 +31,7 @@ const Dashboard = () => {
           </button>
         </div> */}
         <div className="flex md:flex-row flex-col gap-5 mt-2">
-          {/* <div className="md:w-2/5 w-full p-5 rounded-xl bg-nelsa_primary ">
+          {/* <div className="md:w-2/5 w-full p-5 rounded-xl bg-tt_rich_black ">
             <div className="flex flex-row justify-between items-center">
               <div className="w-full">
                 <span className="flex flex-row justify-between">
@@ -70,7 +70,7 @@ const Dashboard = () => {
           <div className="w-full md:w-1/4 p-4 rounded-lg border-[0.09rem] border-gray-200  bg-white flex flex-col gap-2 justify-between">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row items-center gap-3">
-                <span className="w-10 h-10 bg-nelsa_primary/5 text-nelsa_primary rounded-md p-3">
+                <span className="w-10 h-10 bg-tt_rich_black/5 text-tt_rich_black rounded-md p-3">
                   <HeIcons.FaWallet />
                 </span>
                 <p className="text-sm">Total Revenue</p>

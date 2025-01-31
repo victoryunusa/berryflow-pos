@@ -43,7 +43,7 @@ const BillCounters = () => {
           </div>
           <div>
             <button
-              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+              className="px-3 py-2 bg-tt_rich_black text-white text-sm rounded-md"
               onClick={() => setOpenAdd(true)}
             >
               Add New
@@ -115,8 +115,8 @@ const BillCounters = () => {
                         onClick={() => getNextProduct(link.url.slice(-7))}
                         className={`${
                           link.active
-                            ? "bg-nelsa_primary text-white"
-                            : "border text-nelsa_primary"
+                            ? "bg-tt_rich_black text-white"
+                            : "border text-tt_rich_black"
                         } px-2 py-1 rounded-md`}
                         disabled={link.url == null ? true : false}
                       >

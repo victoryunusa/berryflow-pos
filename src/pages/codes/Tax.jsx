@@ -40,7 +40,7 @@ const Tax = () => {
           </div>
           <div>
             <button
-              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+              className="px-3 py-2 bg-tt_rich_black text-white text-sm rounded-md"
               onClick={() => setOpenAdd(true)}
             >
               Add New

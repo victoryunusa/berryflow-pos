@@ -34,7 +34,7 @@ import { getAccountTypes } from "./features/master_actions/accountTypeSlice";
 import { getTransactionTypes } from "./features/master_actions/transactionTypeSlice";
 import { getCurrencies } from "./features/currencies/currenciesSlice";
 
-document.title = "Cloud based POS System - TrueTab";
+document.title = "Cloud based POS System - Truetab";
 
 store.dispatch(getCountries());
 store.dispatch(getCurrencies());

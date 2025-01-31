@@ -181,7 +181,7 @@ const MainScreen = () => {
           )}
         >
           <div className="flex px-5">
-            <div className=" bg-nelsa_primary rounded-lg">
+            <div className=" bg-tt_rich_black rounded-lg">
               <button
                 onClick={() => setOpenRunningOrders(true)}
                 className="w-full px-2 py-1  text-white text-md md:text-md font-semibold  focus-none"
@@ -219,14 +219,14 @@ const MainScreen = () => {
                       </select>
                     </div>
                     <div>
-                      <button className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white">
+                      <button className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white">
                         Digital Menu Orders
                       </button>
                     </div>
                     <div>
                       <button
                         onClick={() => setOpenRunningOrders(true)}
-                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
                       >
                         Running Orders
                       </button>
@@ -234,7 +234,7 @@ const MainScreen = () => {
                     <div>
                       <button
                         onClick={() => setOpenHoldList(true)}
-                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-nelsa_primary hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
                       >
                         Hold List
                       </button>
@@ -260,7 +260,7 @@ const MainScreen = () => {
                       className="focus-none bg-zinc-50 outline-none w-full placeholder:text-sm"
                     />
                   </div>
-                  <div className="w-1/5 bg-nelsa_primary px-3 py-2 rounded-md">
+                  <div className="w-1/5 bg-tt_rich_black px-3 py-2 rounded-md">
                     <button className="w-full  text-white text-md font-semibold  focus-none">
                       Category
                     </button>
@@ -308,14 +308,14 @@ const MainScreen = () => {
                         onClick={() => {
                           setOpenCustomerAdd(true);
                         }}
-                        className="px-4 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-nelsa_primary hover:text-white"
+                        className="px-4 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-tt_rich_black hover:text-white"
                       >
                         Add customer
                       </button>
                     </div>
                   </div>
                   <div className="flex flex-col px-5 my-4">
-                    <label className="block text-nelsa_primary text-small font-semibold mb-1">
+                    <label className="block text-tt_rich_black text-small font-semibold mb-1">
                       Order Type
                     </label>
                     <div className="flex flex-row gap-3 w-full">
@@ -429,7 +429,7 @@ const MainScreen = () => {
                       {billingType === "FINE_DINE" ? (
                         <button
                           onClick={() => setOpenConfirmOrder(true)}
-                          className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
+                          className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-tt_rich_black hover:bg-neutral-700 text-white font-semibold"
                         >
                           Send to Kitchen
                         </button>
@@ -440,7 +440,7 @@ const MainScreen = () => {
                           </button>
                           <button
                             onClick={() => setOpenConfirmOrder(true)}
-                            className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-nelsa_primary hover:bg-neutral-700 text-white font-semibold"
+                            className="px-2 py-3 md:px-4 md:py-3 w-full text-xs md:text-sm rounded-md md:rounded-lg text-center bg-tt_rich_black hover:bg-neutral-700 text-white font-semibold"
                           >
                             Complete
                           </button>

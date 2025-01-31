@@ -51,9 +51,9 @@ const Subscribe = () => {
                 key={index}
               >
                 <label
-                  className={`flex flex-row justify-between w-full gap-3 p-5 text-neutral-600 border hover:border-nelsa_primary hover:bg-orange-50 ${
+                  className={`flex flex-row justify-between w-full gap-3 p-5 text-neutral-600 border hover:border-tt_rich_black hover:bg-orange-50 ${
                     selectedPlan?.slug == plan.slug
-                      ? "border-nelsa_primary bg-orange-50"
+                      ? "border-tt_rich_black bg-orange-50"
                       : "bg-white"
                   } rounded-md hover:cursor-pointer`}
                 >
@@ -133,7 +133,7 @@ const Subscribe = () => {
                                  mt-1
                                   ${
                                     selectedPlan?.slug == plan.slug
-                                      ? "checked:bg-nelsa_primary checked:border-0 border-nelsa_primary "
+                                      ? "checked:bg-tt_rich_black checked:border-0 border-tt_rich_black "
                                       : ""
                                   }`}
                       type="radio"
@@ -202,7 +202,7 @@ const Subscribe = () => {
                                  mt-1
                                   ${
                                     selectedGateway == "Paystack"
-                                      ? "bg-nelsa_primary border-0 border-nelsa_primary "
+                                      ? "bg-tt_rich_black border-0 border-tt_rich_black "
                                       : "bg-white"
                                   }`}
                     >
@@ -232,7 +232,7 @@ const Subscribe = () => {
                 disabled={selectedGateway ? false : true}
                 className={`px-2 py-2.5 rounded-md mt-4 ${
                   selectedGateway
-                    ? "bg-nelsa_primary text-white"
+                    ? "bg-tt_rich_black text-white"
                     : "bg-neutral-200 text-neutral-400"
                 }`}
               >

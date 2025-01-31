@@ -20,13 +20,13 @@ const Billing = () => {
             <p className="text-sm text-neutral-500 font-semibold">
               Plan Details
             </p>
-            <h4 className="text-lg text-nelsa_primary font-bold">
+            <h4 className="text-lg text-tt_rich_black font-bold">
               Trial period
             </h4>
           </div>
           <div>
             <p className="text-sm text-neutral-500 font-semibold">Expires On</p>
-            <h4 className="text-base text-nelsa_primary font-semibold">
+            <h4 className="text-base text-tt_rich_black font-semibold">
               2024-09-25 21:27:20
             </h4>
           </div>
@@ -34,7 +34,7 @@ const Billing = () => {
         <div className="flex flex-col justify-end">
           <Link
             to="subscription"
-            className="px-3 py-2.5 bg-nelsa_primary hover:bg-neutral-700 text-white text-xs rounded-md font-semibold"
+            className="px-3 py-2.5 bg-tt_rich_black hover:bg-neutral-700 text-white text-xs rounded-md font-semibold"
           >
             Subscribe to plan
           </Link>
@@ -114,8 +114,8 @@ const Billing = () => {
                         onClick={() => getNextAccount(link.url.slice(-7))}
                         className={`${
                           link.active
-                            ? "bg-nelsa_primary text-white"
-                            : "border text-nelsa_primary"
+                            ? "bg-tt_rich_black text-white"
+                            : "border text-tt_rich_black"
                         } px-2 py-1 rounded-md`}
                         disabled={link.url == null ? true : false}
                       >

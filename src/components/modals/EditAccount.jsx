@@ -89,7 +89,7 @@ const EditAccount = (props) => {
               <div className="w-full">
                 <div className="flex flex-col justify-center">
                   <div className="flex justify-between border-b px-6 py-2">
-                    <h3 className="text-base font-bold text-nelsa_primary">
+                    <h3 className="text-base font-bold text-tt_rich_black">
                       Edit Business Account
                     </h3>
                   </div>
@@ -210,7 +210,7 @@ const EditAccount = (props) => {
                               {loading ? (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 font-bold bg-nelsa_primary/80 text-[#ffffff] rounded-md flex items-center justify-center"
+                                  className="w-full px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
                                   disabled={loading}
                                 >
                                   <span
@@ -226,7 +226,7 @@ const EditAccount = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-nelsa_primary text-[#ffffff] rounded-lg"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-lg"
                                 >
                                   Update
                                 </button>

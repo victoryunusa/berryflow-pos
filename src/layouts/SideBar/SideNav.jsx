@@ -90,14 +90,14 @@ const SideNav = () => {
           className="relative z-50 hidden md:block px-5 py-5 w-full"
         >
           <button
-            className="flex flex-row items-center justify-between hover:cursor-pointer rounded-lg px-2 py-2 bg-nelsa_secondary w-full"
+            className="flex flex-row items-center justify-between hover:cursor-pointer rounded-lg px-2 py-2 bg-tt_celestial_blue w-full"
             onClick={() => setIsOpenBranchSelect((prev) => !prev)}
           >
             <span className="flex flex-row items-center gap-3">
               <span className="p-2 rounded bg-white">
                 <HeIcons.FaStore
                   size={20}
-                  className="min-w-max text-nelsa_secondary"
+                  className="min-w-max text-tt_celestial_blue"
                 />
               </span>
               <span className="flex flex-col items-start">
@@ -211,7 +211,7 @@ const SideNav = () => {
             </>
           </ul>
         </div>
-        {/* <div className="flex-1 fixed bottom-0 bg-nelsa_primary w-64 h-1/2 text-sm z-50 shadow-lg  max-h-20 my-auto  whitespace-pre  font-medium  ">
+        {/* <div className="flex-1 fixed bottom-0 bg-tt_rich_black w-64 h-1/2 text-sm z-50 shadow-lg  max-h-20 my-auto  whitespace-pre  font-medium  ">
           <div className="flex p-4 border-y border-neutral-700 items-center justify-between">
             <div>
               <p className="text-ms text-white font-semibold">Spark</p>

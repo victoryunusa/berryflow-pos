@@ -75,7 +75,7 @@ const Login = () => {
         {({ errors, touched }) => (
           <Form>
             <div className="mt-4">
-              <label className="block text-nelsa_primary text-sm">Email</label>
+              <label className="block text-tt_rich_black text-sm">Email</label>
               <Field
                 type="text"
                 placeholder="Email"
@@ -83,7 +83,7 @@ const Login = () => {
                 name="email"
                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                   errors.email && touched.email ? "border-red-500" : ""
-                } focus:border-nelsa_primary`}
+                } focus:border-tt_rich_black`}
               />
               <ErrorMessage
                 name="email"
@@ -92,7 +92,7 @@ const Login = () => {
               />
             </div>
             <div className="mt-4">
-              <label className="block text-nelsa_primary text-sm">
+              <label className="block text-tt_rich_black text-sm">
                 Password
               </label>
               <Field
@@ -102,7 +102,7 @@ const Login = () => {
                 name="password"
                 className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
                   errors.password && touched.password ? "border-red-500" : ""
-                } focus:border-nelsa_primary`}
+                } focus:border-tt_rich_black`}
               />
               <ErrorMessage
                 name="password"
@@ -114,15 +114,15 @@ const Login = () => {
                   <input
                     type="checkbox"
                     value=""
-                    className="w-4 h-4 cursor-pointer text-nelsa_primary checked:bg-nelsa_primary bg-gray-100 rounded-xl border-gray-300"
+                    className="w-4 h-4 cursor-pointer text-tt_rich_black checked:bg-tt_rich_black bg-gray-100 rounded-xl border-gray-300"
                   />
-                  <label className="ml-2 text-sm text-neutral-600 hover:text-nelsa_primary">
+                  <label className="ml-2 text-sm text-neutral-600 hover:text-tt_rich_black">
                     Remember me
                   </label>
                 </div>
                 <Link
                   to="/auth/forgot-password"
-                  className="text-sm text-neutral-600 hover:text-nelsa_primary"
+                  className="text-sm text-neutral-600 hover:text-tt_rich_black"
                 >
                   Forgot your password?
                 </Link>
@@ -132,7 +132,7 @@ const Login = () => {
               {loading ? (
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary/60 text-[#ffffff] rounded-md flex items-center justify-center"
+                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black/60 text-[#ffffff] rounded-md flex items-center justify-center"
                   disabled={loading}
                 >
                   <span
@@ -148,7 +148,7 @@ const Login = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                 >
                   Login
                 </button>

@@ -116,7 +116,7 @@ const Branch = () => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-center">
-        <h3 className="text-2xl font-bold text-nelsa_primary">Create branch</h3>
+        <h3 className="text-2xl font-bold text-tt_rich_black">Create branch</h3>
         <p className="text-sm text-neutral-500 mt-2">
           Your main location details. You can add other locations later.
         </p>
@@ -130,7 +130,7 @@ const Branch = () => {
           {({ errors, touched, values, setFieldValue }) => (
             <Form>
               <div className="">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Branch name<span className="text-red-600">*</span>
                 </label>
                 <Field
@@ -150,7 +150,7 @@ const Branch = () => {
               </div>
 
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Tax id{" "}
                   <span className="text-neutral-400 text-sm">
                     {"(optional)"}
@@ -173,7 +173,7 @@ const Branch = () => {
               </div>
 
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Currency<span className="text-red-600">*</span>
                 </label>
                 <Selector
@@ -191,7 +191,7 @@ const Branch = () => {
               </div>
 
               <div className="mt-4">
-                <label className="block text-nelsa_primary text-sm font-semibold">
+                <label className="block text-tt_rich_black text-sm font-semibold">
                   Country<span className="text-red-600">*</span>
                 </label>
                 <Selector
@@ -209,7 +209,7 @@ const Branch = () => {
               </div>
               <div className="mt-4">
                 <div className="">
-                  <label className="block text-nelsa_primary font-semibold">
+                  <label className="block text-tt_rich_black font-semibold">
                     Address
                   </label>
 
@@ -231,7 +231,7 @@ const Branch = () => {
               </div>
 
               {/* <div className="mt-4">
-             <label className="block text-nelsa_primary text-sm font-semibold">
+             <label className="block text-tt_rich_black text-sm font-semibold">
                Business Email
              </label>
              <Field
@@ -270,7 +270,7 @@ const Branch = () => {
                 ) : (
                   <button
                     type="submit"
-                    className="w-full px-4 py-3 mt-4 font-bold bg-nelsa_primary text-[#ffffff] rounded-md"
+                    className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
                   >
                     Save
                   </button>

@@ -54,7 +54,7 @@ const Staff = () => {
           <div>
             <button
               onClick={() => setVisible(true)}
-              className="px-3 py-2 bg-nelsa_primary text-white text-sm rounded-md"
+              className="px-3 py-2 bg-tt_rich_black text-white text-sm rounded-md"
             >
               Add User
             </button>
