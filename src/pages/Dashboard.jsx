@@ -4,16 +4,10 @@ import * as HeIcons from "react-icons/fa6";
 const Dashboard = () => {
   const { user } = useSelector((state) => state.user);
 
-  const { countries } = useSelector((state) => state.countries);
-  const { currencies } = useSelector((state) => state.currencies);
   const { branches } = useSelector((state) => state.branches);
 
   const activeBranch = branches?.find(
     (branch) => branch.id === user?.branch_id
-  );
-
-  const currency = currencies?.find(
-    (currency) => currency.id === activeBranch?.currency_id
   );
 
   return (
@@ -83,7 +77,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-semibold text-3xl text-gray-800">
-                {currency?.symbol}0.00
+                {activeBranch?.currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>
@@ -127,7 +121,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-semibold text-3xl text-gray-800">
-                {currency?.symbol}0.00
+                {activeBranch?.currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>
@@ -150,7 +144,7 @@ const Dashboard = () => {
             </div>
             <div className="">
               <h2 className="font-semibold text-3xl text-gray-800">
-                {currency?.symbol}0.00
+                {activeBranch?.currency?.symbol}0.00
               </h2>
               <span>
                 <p className="text-xs">0% change from last month</p>

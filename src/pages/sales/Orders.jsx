@@ -1,20 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { getOrders } from "../../features/order/orderSlice";
 import { Link } from "react-router-dom";
-import { prettyDate } from "../../functions/functions";
+import { prettyDate, textEllipsis } from "../../functions/functions";
 
 const Orders = () => {
   //const [visible, setVisible] = useState(false);
+
+  const [productFilter, setProductFilter] = useState("billing_products");
+  const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { orders } = useSelector((state) => state.orders);
 
-  const getNextProduct = (url) => {
-    dispatch(getOrders(url));
+  useEffect(() => {
+    dispatch(getOrders({ page, productFilter }));
+  }, [dispatch, productFilter, page]);
+
+  const handleFilterChange = (filter) => {
+    setProductFilter(filter);
+    setPage(1); // Reset to the first page on filter change
+  };
+
+  const getNextProduct = (page) => {
+    setPage(page); // Update current page
   };
 
   const showProduct = (slug) => {
@@ -60,105 +72,88 @@ const Orders = () => {
             <option value="addon_products">Add-on Products</option>
           </select>
         </div>
-        <div className="bg-white border p-5 rounded-lg text-xs w-full">
-          <div className="flex flex-col overflow-x-auto">
-            <div className="">
-              <div className="inline-block w-full py-2 sm:px-2 lg:px-4">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
-                    <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
-                      <tr>
-                        <th className="px-2 py-3">Order number</th>
-                        <th className="px-2 py-3">Customer Name</th>
-                        <th className="px-2 py-3">Email</th>
-                        <th className="px-2 py-3">Amount</th>
-                        <th className="px-2 py-3">Order type</th>
-                        <th className="px-2 py-3">Bill type</th>
-                        <th className="px-2 py-3">Status</th>
-                        <th className="px-2 py-3">Payment status</th>
-                        <th className="px-2 py-3">Date</th>
-                        <th className="px-2 py-3">Created by</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders?.data?.map((order, index) => (
-                        <tr
-                          className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
-                          key={index}
-                          onClick={() => showProduct(order.slug)}
-                        >
-                          <td className="px-2 py-3 font-semibold">
-                            {order.order_number}
-                          </td>
-                          <td className="px-2 py-3">{order?.customer_name}</td>
-                          <td className="px-2 py-3">{order.customer_email}</td>
-                          <td className="px-2 py-3">
-                            {order.total_order_amount}
-                          </td>
-                          <td className="px-2 py-3">
-                            {order.order_type_data?.label
-                              ? order.order_type_data?.label
-                              : "--"}
-                          </td>
-                          <td className="px-2 py-3">
-                            {order.billing_type_data?.label
-                              ? order.billing_type_data?.label
-                              : "--"}
-                          </td>
-                          <td className="px-2 py-3">
-                            {order.status_data?.label}
-                          </td>
-                          <td className="px-2 py-3">
-                            {order.payment_status_data?.label}
-                          </td>
-                          <td className="px-2 py-3">
-                            {prettyDate(order.created_at)}
-                          </td>
-                          <td className="px-2 py-3">
-                            {order.created_user?.full_name}
-                          </td>
-                          <td className="">
-                            <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">
-                              View
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    <tfoot className="w-full "></tfoot>
-                  </table>
-                </div>
-
-                <div className="flex flex-row gap-2 justify-between mt-5">
-                  <div>
-                    <p>{`Showing  ${orders.from} to ${orders.to} of ${orders.total} entries`}</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 bg-zinc-100 ">
+          {orders?.data?.map((order, index) => (
+            <div
+              key={index}
+              className="flex flex-col bg-white border rounded-lg cursor-pointer p-4 gap-2 hover:shadow"
+              onClick={() => showProduct(order.slug)}
+            >
+              <div className="flex flex-col gap-1.5 rounded">
+                <div className="flex flex-row justify-between items-center gap-3">
+                  <div className="flex flex-row items-center gap-2">
+                    <span className="w-12 h-12 bg-tt_uranian_blue-800 p-2 rounded-md flex items-center justify-center">
+                      <p>T</p>
+                    </span>
+                    <span className="flex flex-col gap-1">
+                      <p className="text-sm md:text-md font-semibold text-neutral-700">
+                        {order.customer_name ? order.customer_name : "--"}
+                      </p>
+                      <p className="text-sm font-semibold text-neutral-700">
+                        #{order.order_number}
+                      </p>
+                    </span>
                   </div>
-                  <div className="flex flex-row gap-2 ">
-                    {orders?.links?.map((link, index) => (
-                      <button
-                        key={index}
-                        onClick={() => getNextProduct(link.url.split("=")[1])}
-                        className={`${
-                          link.active
-                            ? "bg-tt_rich_black text-white"
-                            : "border text-tt_rich_black"
-                        } px-2 py-1 rounded-md`}
-                        disabled={link.url == null ? true : false}
-                      >
-                        {link.label == "&laquo; Previous"
-                          ? "<"
-                          : link.label
-                          ? link.label == "Next &raquo;"
-                            ? ">"
-                            : link.label
-                          : ""}
-                      </button>
-                    ))}
+                  <div className="flex flex-col items-end gap-1">
+                    <span className="text-xs bg-green-100 text-green-800 font-semibold p-1 rounded-md">
+                      {order?.status_data.label}
+                    </span>
+                    <p className="text-xs font-semibold text-neutral-700">
+                      Order is closed
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-row justify-between items-center mb-3">
+                  <div className="flex flex-row items-center gap-1">
+                    <p className="text-xs font-normal">
+                      {prettyDate(order.created_at)}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <p className="text-sm font-semibold">{order?.order_type}</p>
                   </div>
                 </div>
               </div>
+              <div className="flex flex-row justify-between gap-1.5 border-t">
+                <div className="">
+                  <p className="text-sm md:text-lg font-bold">
+                    {order.currency_code} {order.total_order_amount}
+                  </p>
+                </div>
+                <div className="">
+                  <p className="text-sm md:text-md font-semibold ">
+                    {order.created_user.full_name}
+                  </p>
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+        <div className="flex flex-row gap-2 justify-between mt-5">
+          <div>
+            <p>{`Showing  ${orders.from} to ${orders.to} of ${orders.total} entries`}</p>
+          </div>
+          <div className="flex flex-row gap-2 ">
+            {orders?.links?.map((link, index) => (
+              <button
+                key={index}
+                onClick={() => getNextProduct(link.url.split("=")[1])}
+                className={`${
+                  link.active
+                    ? "bg-tt_rich_black text-white"
+                    : "border text-tt_rich_black"
+                } px-2 py-1 rounded-md`}
+                disabled={link.url == null ? true : false}
+              >
+                {link.label == "&laquo; Previous"
+                  ? "<"
+                  : link.label
+                  ? link.label == "Next &raquo;"
+                    ? ">"
+                    : link.label
+                  : ""}
+              </button>
+            ))}
           </div>
         </div>
       </div>

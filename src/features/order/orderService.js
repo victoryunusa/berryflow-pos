@@ -11,9 +11,12 @@ const getOrders = async ({ token, formData }) => {
     },
   };
 
-  const page = formData ? formData : "";
+  const query = new URLSearchParams({
+    page: formData.page || 1,
+    product_filter: formData.productFilter || "default_filter",
+  }).toString();
 
-  const response = await axios.get(`${BaseUrl}/orders/list${page}`, config);
+  const response = await axios.get(`${BaseUrl}/orders/list?${query}`, config);
   //   localStorage.setItem("accounts", JSON.stringify(response.data.accounts));
   return response.data.orders;
 };

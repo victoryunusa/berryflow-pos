@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import * as FaIcons from "react-icons/fa6";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -268,7 +270,7 @@ const MainScreen = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3  py-3 px-5 h-1/2">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3  py-3 px-5 h-1/2">
                 {items?.map((product, index) => (
                   <Product product={product} key={index} />
                 ))}
@@ -284,7 +286,7 @@ const MainScreen = () => {
             >
               {({ errors, touched, values, setFieldValue }) => (
                 <Form className="h-full">
-                  <div className="w-full flex flex-row gap-3 items-end mt-4 px-5">
+                  <div className="w-full flex flex-row gap-2 items-end mt-4 px-5">
                     {/* <div className="flex flex-col w-1/3">
                       <span className="text-xs">Waiter:</span>
                       <Selector
@@ -294,7 +296,7 @@ const MainScreen = () => {
                         name="customer_id"
                       />
                     </div> */}
-                    <div className="flex flex-col w-2/3">
+                    <div className="flex flex-col w-10/12">
                       <span className="text-xs">Customer:</span>
                       <Selector
                         options={newCustomers}
@@ -303,14 +305,14 @@ const MainScreen = () => {
                         name="customer_id"
                       />
                     </div>
-                    <div className="flex flex-col w-1/3">
+                    <div className="flex flex-col justify-center w-2/12">
                       <button
                         onClick={() => {
                           setOpenCustomerAdd(true);
                         }}
-                        className="px-4 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-tt_rich_black hover:text-white"
+                        className="items-center px-3 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-tt_rich_black hover:text-white"
                       >
-                        Add customer
+                        <FaIcons.FaUserPlus size={17} className="self-center" />
                       </button>
                     </div>
                   </div>
@@ -318,7 +320,7 @@ const MainScreen = () => {
                     <label className="block text-tt_rich_black text-small font-semibold mb-1">
                       Order Type
                     </label>
-                    <div className="flex flex-row gap-3 w-full">
+                    <div className="flex flex-row items-center w-full rounded-md  border">
                       {order_types?.map((order_type, index) => (
                         <button
                           type="button"
@@ -331,10 +333,16 @@ const MainScreen = () => {
                           }}
                           className={`w-1/2 text-xs ${
                             order_type.order_type_constant == orderType
-                              ? "bg-green-100  text-green-800"
-                              : "bg-neutral-100 text-neutral-500"
-                          } font-bold px-3 py-3 rounded-md text-left hover:bg-green-100  hover:text-green-800`}
+                              ? "bg-neutral-200"
+                              : "bg-neutral-50 text-neutral-500"
+                          } font-bold px-3 py-3 text-center border-r flex flex-row gap-1`}
                         >
+                          <span className="flex items-center w-4 h-4 rounded-full bg-tt_celestial_blue p-1">
+                            <FaIcons.FaCircle
+                              size={10}
+                              className="text-white"
+                            />
+                          </span>
                           {order_type.label}
                         </button>
                       ))}

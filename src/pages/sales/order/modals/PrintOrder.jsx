@@ -70,7 +70,7 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                         </p>
                       )}
                     </div>
-                    <div className="flex flex-col border-y border-dashed border-neutral-600 py-2 text-sm">
+                    <div className="flex flex-col border-y border-dashed border-neutral-600 py-2 text-sm gap-1">
                       <div>
                         <p className="font-semibold">
                           Order #{order?.order_number}
@@ -102,29 +102,28 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                         Waiter: <span className="font-bold">-</span>
                       </p>
                     </div>
-                    <div className="flex flex-row py-2 text-sm font-semibold justify-between">
-                      <div className="flex w-2/3">
+                    <div className="flex flex-row py-2 text-xs font-semibold justify-between">
+                      <div className="flex  w-4/6">
                         <p className="w-1/6">Qty</p>
                         <p>Item Description</p>
                       </div>
-                      <div className="">
+                      <div className="w-2/6 flex flex-row justify-end">
                         <p>Price</p>
                       </div>
                     </div>
-                    <div className="flex flex-col text-sm border-y border-dashed border-neutral-600 py-2">
+                    <div className="flex flex-col text-xs border-y border-dashed border-neutral-600 py-2">
                       {order?.products?.map((product, index) => (
                         <div
                           key={index}
                           className="flex flex-row justify-between my-0.5"
                         >
-                          <div className="flex w-2/3">
+                          <div className="flex w-4/6">
                             <p className="w-1/6">{product.quantity}</p>
-                            <p>{product.name}</p>
+                            <p>{product.name} </p>{" "}
+                            <p className="text-xs ml-1">{product.price}</p>
                           </div>
-                          <div className="">
-                            <p>
-                              {order.currency_code} {product.total_price}
-                            </p>
+                          <div className="w-2/6 flex flex-row justify-end">
+                            <p>{product.total_price}</p>
                           </div>
                         </div>
                       ))}
@@ -157,6 +156,9 @@ const PrintOrder = ({ setOpen, slug, open }) => {
                       </span>
                     </div>
                     <div className="flex flex-col items-center text-sm border-neutral-600 py-2">
+                      <span className="flex flex-row ">
+                        All prices in {order.currency_code}{" "}
+                      </span>
                       <span className="flex flex-row ">Thank you.</span>
                       <span className="flex flex-row ">Please come again.</span>
                     </div>

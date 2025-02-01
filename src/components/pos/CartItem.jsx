@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as FaIcons from "react-icons/fa6";
 import {
   addItemToCart,
@@ -11,6 +11,13 @@ import {
 import { textEllipsis } from "../../functions/functions";
 
 const CartItem = ({ cartItem }) => {
+  const { user } = useSelector((state) => state.user);
+
+  const { branches } = useSelector((state) => state.branches);
+
+  const activeBranch = branches?.find(
+    (branch) => branch.id === user?.branch_id
+  );
   let dollarUSLocale = Intl.NumberFormat("en-US");
 
   const dispatch = useDispatch();
@@ -109,7 +116,8 @@ const CartItem = ({ cartItem }) => {
         </div>
         <div className=" w-20 flex justify-between ml-2">
           <h1 className="font-semibold text-xs">
-            ₦ {dollarUSLocale.format(cartItem.price * cartItem.cart_quantity)}
+            {activeBranch?.currency?.symbol}
+            {dollarUSLocale.format(cartItem.price * cartItem.cart_quantity)}
           </h1>
         </div>
 

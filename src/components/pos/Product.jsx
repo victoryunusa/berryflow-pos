@@ -3,10 +3,18 @@ import React, { useState } from "react";
 import ProductModal from "./modals/ProductModal";
 import { play_beep, textEllipsis } from "../../functions/functions";
 import PopUpModal from "./modals/PopUpModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../../features/pos/cartSlice";
 
 const Product = ({ product }) => {
+  const { user } = useSelector((state) => state.user);
+
+  const { branches } = useSelector((state) => state.branches);
+
+  const activeBranch = branches?.find(
+    (branch) => branch.id === user?.branch_id
+  );
+
   const [openModal, setOpenModal] = useState(false);
 
   const dispatch = useDispatch();
@@ -59,10 +67,10 @@ const Product = ({ product }) => {
     <>
       <div
         onClick={() => handleAddToCart(product)}
-        className="flex flex-col gap-2 justify-between bg-white shadow-md border rounded-md cursor-pointer h-36 p-3"
+        className="flex flex-col justify-between bg-white shadow-md border rounded-lg cursor-pointer h-36 p-3"
       >
         <div>
-          <div className="flex flex-row justify-between items-center w-full gap-3">
+          <div className="flex flex-row justify-between items-center w-full gap-2">
             <div>
               <div className=" w-full space-y-2">
                 <p className="text-xs md:text-xs font-normal text-neutral-700">
@@ -73,14 +81,6 @@ const Product = ({ product }) => {
                 </p>
               </div>
             </div>
-            <img
-              src={
-                "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
-                product?.images[0]?.filename
-              }
-              className="w-10 h-10 rounded"
-              alt={product.name}
-            />
           </div>
 
           <div className="flex flex-row justify-between w-full gap-3 mt-2">
@@ -94,23 +94,31 @@ const Product = ({ product }) => {
           </div>
         </div>
 
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between items-end">
           <div className="flex flex-row">
             <span className="self-end font-bold text-xs md:text-lg text-neutral-700">
-              ₦
+              {activeBranch?.currency?.symbol}
               {dollarUSLocale.format(
                 parseFloat(product.price_excluding_tax).toFixed(2)
               )}
             </span>
           </div>
-          <div className="">
+          <img
+            src={
+              "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
+              product?.images[0]?.filename
+            }
+            className="w-12 h-12 rounded"
+            alt={product.name}
+          />
+          {/* <div className="">
             <button
               className="px-2 py-1 flex items-center justify-center text-white font-semibold rounded bg-tt_rich_black hover:bg-tt_rich_black/80 w-full"
               //onClick={() => handleAddToCart({ name: "Chicken" })}
             >
               <span className="text-xs">Add to cart</span>
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       {openModal && <PopUpModal setOpen={setOpenModal} product={product} />}

@@ -44,12 +44,18 @@ const Alert = () => {
       <div
         className={`${
           alert.type === "alert-success"
-            ? "bg-green-50 border-l-4 border-green-500 text-green-700"
-            : "bg-red-50 border-l-4 border-red-500 text-red-700"
-        } px-4 py-2 rounded shadow-md`}
+            ? " border-8 border-green-500 border-opacity-50 text-green-700"
+            : "border-8 border-red-500 border-opacity-50 text-red-700"
+        } rounded-2xl shadow-md`}
         role="alert"
       >
-        <div className="flex flex-col items-start">
+        <div
+          className={`flex flex-col items-start px-2 py-2 rounded-lg shadow ${
+            alert.type === "alert-success"
+              ? "bg-green-50 border-2 border-green-500 "
+              : "bg-red-50 border-2 border-red-500  "
+          }`}
+        >
           {/* Alert Content */}
           <div className="flex flex-row justify-between w-full">
             <strong className="font-bold">

@@ -153,9 +153,9 @@ const SingleOrder = () => {
           </div>
           <div className="flex flex-col gap-5 p-5">
             {order?.products?.map((product, index) => (
-              <div className="flex flex-col gap-2" key={index}>
-                <div className="flex flex-row gap-3 items-center">
-                  <div className="flex flex-row">
+              <div className="flex flex-col gap-2 w-full" key={index}>
+                <div className="flex flex-row gap-3 items-start justify-between w-full">
+                  <div className="flex flex-row gap-2 items-center">
                     <img
                       src={
                         "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
@@ -167,19 +167,23 @@ const SingleOrder = () => {
                     {/* <span className="flex bg-tt_rich_black text-white font-bold h-8 w-8 rounded-full items-center justify-center relative top-4 -left-20 shadow-xl">
                     30
                   </span> */}
-                  </div>
-                  <div className="flex flex-col">
-                    <h3 className="text-base text-neutral-700 font-bold">
-                      {product.name}
-                    </h3>
-                    {/* <p className="text-small text-neutral-500">
+                    <div className="flex flex-col items-start ">
+                      <h3 className="text-base text-neutral-700 font-bold">
+                        {product.name}
+                      </h3>
+                      {/* <p className="text-small text-neutral-500">
                       Steak Size: Large, Steak Temperature: Well
                     </p> */}
-                    <p className="text-sm text-neutral-700 font-bold">
-                      {order.currency_code} {product.total_price}
-                    </p>
+                      <p className="text-sm text-neutral-700 font-bold">
+                        {order.currency_code} {product.price}
+                      </p>
+                      x {product.quantity}
+                    </div>
                   </div>
-                  <div>x {product.quantity}</div>
+
+                  <div>
+                    {order.currency_code} {product.total_price}
+                  </div>
                 </div>
                 {/* <div className="flex flex-col w-full">
                   <span className="flex flex-row text-neutral-700 w-full text-small gap-1">

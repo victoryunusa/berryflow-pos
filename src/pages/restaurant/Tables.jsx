@@ -75,6 +75,14 @@ const Tables = () => {
             <h3 className="text-lg font-bold text-gray-700">Tables</h3>
             <p className="text-xs text-neutral-400">List of tables added</p>
           </div>
+          <div>
+            <button
+              className="px-3 py-2 bg-tt_rich_black text-white font-semibold text-sm rounded-md"
+              onClick={() => setOpenAdd(true)}
+            >
+              Add Table
+            </button>
+          </div>
         </div>
         <div className="bg-white border p-5 rounded-lg text-xs">
           {areas?.length > 0 ? (
@@ -87,42 +95,24 @@ const Tables = () => {
                     onTabClick={handleTabClick}
                   />
                 </div>
-
-                <div>
-                  <button
-                    className="px-3 py-2 bg-tt_rich_black text-white font-semibold text-sm rounded-md"
-                    onClick={() => setOpenAddArea(true)}
-                  >
-                    Add Section
-                  </button>
-                </div>
               </div>
 
-              <div>
-                <button
-                  className="px-3 py-2 bg-tt_rich_black text-white font-semibold text-sm rounded-md"
-                  onClick={() => setOpenAdd(true)}
-                >
-                  Add Table
-                </button>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-6 gap-3 py-3">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-3 py-3">
                 {filteredTables?.map((table) => (
                   <div
                     key={table.slug}
-                    className="flex flex-col bg-white border rounded-lg p-5"
+                    className="flex flex-col bg-white border rounded-lg p-3"
                   >
                     <div className="flex flex-row items-center justify-center">
                       <QRCode
                         size={5}
                         style={{
                           height: "auto",
-                          maxWidth: "50%",
-                          width: "50%",
+                          maxWidth: "70%",
+                          width: "70%",
                         }}
                         value={table.slug}
-                        viewBox={`0 0 70 70`}
+                        viewBox={`0 0 80 80`}
                       />
                     </div>
 
@@ -131,24 +121,20 @@ const Tables = () => {
                         {table.table_name} {" - "} {table.table_number}
                       </h2>
                       <h2 className="text-lg font-bold">
-                        Seats: {table.table_number}
+                        Seats: {table.no_of_occupants}
                       </h2>
                       <div className="flex flex-row gap-2 w-full">
                         <button
-                          className="flex flex-row p-1 rounded bg-blue-600 gap-1 w-1/2 items-center justify-center"
+                          className="flex flex-row px-3 py-2 rounded bg-blue-600 gap-1 w-1/2 items-center justify-center"
                           onClick={() => handleEditClick(table)}
                         >
                           <HeIcons.FaDownload
-                            size={14}
+                            size={15}
                             className="text-white"
                           />
-                          <span className="text-white font-semibold">
-                            Download
-                          </span>
                         </button>
                         <button className="flex flex-row p-1.5 rounded bg-tt_rich_black gap-1 w-1/2 items-center justify-center">
                           <HeIcons.FaEye size={14} className="text-white" />
-                          <span className="text-white font-semibold">View</span>
                         </button>
                       </div>
                     </div>
