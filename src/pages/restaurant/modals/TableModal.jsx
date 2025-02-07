@@ -133,7 +133,7 @@ const TableModal = ({ setOpenAdd, table, open }) => {
                         value={`https://${user?.vendor.url}.truetab.site`}
                         viewBox={`0 0 70 70`}
                       />
-                      <div className="flex flex-col gap-1 items-center justify-center my-5 w-full">
+                      <div className="flex flex-col gap-3 items-center justify-center my-5 w-full">
                         <p className="text-sm">Powered by: </p>
                         <img className="w-28" src={logo} alt="CaterOS" />
                       </div>

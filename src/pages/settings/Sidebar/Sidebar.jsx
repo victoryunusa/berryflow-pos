@@ -4,22 +4,23 @@ import { menusList } from "./SidebarData";
 
 const Sidebar = () => {
   const { pathname } = useLocation();
+  console.log(pathname);
+
   return (
-    <div>
-      <ul className="flex flex-col gap-1">
-        {menusList.map((menu, index) => (
+    <div className="flex flex-row overflow-x-auto whitespace-nowrap border-b">
+      {menusList.map((menu, index) => (
+        <li className="flex" key={index}>
           <NavLink
-            key={index}
             to={`${menu.path}`}
-            className={`hover:bg-gray-100 hover:text-tt_rich_black p-2.5 hover:rounded-lg w-full text-[0.9rem] ${
+            className={`hover:bg-gray-200 hover:text-tt_rich_black ${
               pathname.includes(menu.path) &&
-              "text-tt_rich_black bg-gray-100 rounded-lg"
-            } capitalize`}
+              "text-tt_rich_black border-b-2 border-tt_rich_black"
+            } capitalize p-3 text-sm`}
           >
             {menu?.name}
           </NavLink>
-        ))}
-      </ul>
+        </li>
+      ))}
     </div>
   );
 };

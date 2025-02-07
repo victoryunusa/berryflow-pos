@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import AddPaymentMethod from "../../../components/modals/AddPaymentMethod";
+import Sidebar from "../Sidebar/Sidebar";
 
 const actionBodyTemplate = (rowData) => {
   return (
@@ -33,6 +34,9 @@ const PaymentMethods = () => {
   return (
     <>
       <div className="flex flex-col space-y-5">
+        <div className="">
+          <Sidebar />
+        </div>
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">Payment Methods</h3>

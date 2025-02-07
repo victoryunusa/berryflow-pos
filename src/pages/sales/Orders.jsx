@@ -72,7 +72,7 @@ const Orders = () => {
             <option value="addon_products">Add-on Products</option>
           </select>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 bg-zinc-100 ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-zinc-100 ">
           {orders?.data?.map((order, index) => (
             <div
               key={index}
@@ -114,7 +114,7 @@ const Orders = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row justify-between gap-1.5 border-t">
+              <div className="flex flex-row justify-between gap-1.5 border-t pt-2">
                 <div className="">
                   <p className="text-sm md:text-lg font-bold">
                     {order.currency_code} {order.total_order_amount}

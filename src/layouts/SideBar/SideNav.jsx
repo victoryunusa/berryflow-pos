@@ -209,6 +209,17 @@ const SideNav = () => {
                 </div>
               ))}
             </>
+            <li>
+              <NavLink
+                to="/manage/company"
+                className={({ isActive }) =>
+                  isActive ? "activeLink" : "normalLink"
+                }
+              >
+                <HeIcons.FaGear size={20} className="min-w-max" />
+                Settings
+              </NavLink>
+            </li>
           </ul>
         </div>
         {/* <div className="flex-1 fixed bottom-0 bg-tt_rich_black w-64 h-1/2 text-sm z-50 shadow-lg  max-h-20 my-auto  whitespace-pre  font-medium  ">

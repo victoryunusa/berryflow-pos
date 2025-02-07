@@ -120,10 +120,6 @@ export const subMenusList = [
         title: "Waiter Display",
         path: "/restaurant/waiter_display",
       },
-      {
-        title: "Online Ordering",
-        path: "/restaurant/online_ordering",
-      },
     ],
   },
   // {
@@ -180,67 +176,67 @@ export const subMenusList = [
       },
     ],
   },
-  {
-    name: "Manage",
-    path: "/manage",
-    icon: <HeIcons.FaGear size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Company",
-        path: "/manage/company",
-      },
-      // {
-      //   title: "Site",
-      //   path: "/manage/site",
-      // },
-      {
-        title: "Users",
-        path: "/manage/users",
-      },
-      {
-        title: "Roles",
-        path: "/manage/roles",
-      },
-      // {
-      //   title: "Permissions",
-      //   path: "/manage/permissions",
-      // },
-      {
-        title: "Branches",
-        path: "/manage/branches",
-      },
-      {
-        title: "Discount",
-        path: "/manage/discount",
-      },
-      // {
-      //   title: "Coupon",
-      //   path: "/manage/coupon",
-      // },
-      {
-        title: "Taxes",
-        path: "/manage/tax",
-      },
-      {
-        title: "Billing Counters",
-        path: "/manage/bill_counters",
-      },
-      {
-        title: "Measurement Units",
-        path: "/manage/measurement_units",
-      },
-      {
-        title: "Payment Methods",
-        path: "/manage/payment_methods",
-      },
-      {
-        title: "Printers",
-        path: "/manage/printers",
-      },
-      {
-        title: "Kitchen Displays",
-        path: "/manage/kitchen_displays",
-      },
-    ],
-  },
+  // {
+  //   name: "Manage",
+  //   path: "/manage",
+  //   icon: <HeIcons.FaGear size={16} className="min-w-max" />,
+  //   subNav: [
+  //     {
+  //       title: "Company",
+  //       path: "/manage/company",
+  //     },
+  //     // {
+  //     //   title: "Site",
+  //     //   path: "/manage/site",
+  //     // },
+  //     {
+  //       title: "Users",
+  //       path: "/manage/users",
+  //     },
+  //     // {
+  //     //   title: "Roles",
+  //     //   path: "/manage/roles",
+  //     // },
+  //     // {
+  //     //   title: "Permissions",
+  //     //   path: "/manage/permissions",
+  //     // },
+  //     {
+  //       title: "Branches",
+  //       path: "/manage/branches",
+  //     },
+  //     {
+  //       title: "Discount",
+  //       path: "/manage/discount",
+  //     },
+  //     // {
+  //     //   title: "Coupon",
+  //     //   path: "/manage/coupon",
+  //     // },
+  //     {
+  //       title: "Taxes",
+  //       path: "/manage/tax",
+  //     },
+  //     {
+  //       title: "Billing Counters",
+  //       path: "/manage/bill_counters",
+  //     },
+  //     {
+  //       title: "Measurement Units",
+  //       path: "/manage/measurement_units",
+  //     },
+  //     {
+  //       title: "Payment Methods",
+  //       path: "/manage/payment_methods",
+  //     },
+  //     {
+  //       title: "Printers",
+  //       path: "/manage/printers",
+  //     },
+  //     {
+  //       title: "Kitchen Displays",
+  //       path: "/manage/kitchen_displays",
+  //     },
+  //   ],
+  // },
 ];

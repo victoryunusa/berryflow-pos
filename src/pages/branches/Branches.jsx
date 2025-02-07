@@ -10,6 +10,7 @@ import { Tag } from "primereact/tag";
 import { getBranches } from "../../features/branch/branchSlice";
 import { prettyDate } from "../../functions/functions";
 import { Link } from "react-router-dom";
+import Sidebar from "../settings/Sidebar/Sidebar";
 
 const Branches = () => {
   const navigate = useNavigate();
@@ -76,10 +77,12 @@ const Branches = () => {
   return (
     <>
       <div className="flex flex-col space-y-5">
+        <div className="">
+          <Sidebar />
+        </div>
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">Branches</h3>
-            <p className="text-xs text-neutral-400">Configure your branches</p>
           </div>
           <div className="flex flex-row justify-end items-center">
             <Link to="/manage/branches/add">
@@ -90,42 +93,85 @@ const Branches = () => {
           </div>
         </div>
 
-        <div className="flex flex-col space-y-5">
-          <div className="bg-white border p-5 rounded-lg text-xs">
-            <DataTable
-              value={branches}
-              stripedRows
-              paginator
-              rows={10}
-              size="small"
-              tableStyle={{ minWidth: "50rem" }}
-              className="text-sm font-manrope rounded-lg"
-            >
-              <Column field="store_code" header="Branch Code"></Column>
-              <Column field="name" header="Name"></Column>
-              <Column
-                field="created_at"
-                header="Created On"
-                body={dateBodyTemplate}
-              ></Column>
-              <Column
-                field="updated_at"
-                header="Updated On"
-                body={dateBodyTemplate}
-              ></Column>
-              <Column field="created_by" header="Created By"></Column>
-              <Column
-                field="status"
-                body={statusBodyTemplate}
-                header="Status"
-              ></Column>
-              <Column
-                body={actionBodyTemplate}
-                className="w-1/12"
-                exportable={false}
-                header="Action"
-              ></Column>
-            </DataTable>
+        <div className="bg-white border p-5 rounded-lg text-xs">
+          <div className="flex flex-col overflow-x-auto">
+            <div className="">
+              <div className="inline-block w-full py-2 sm:px-2 lg:px-4">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left rtl:text-right text-neutral-500 rounded">
+                    <thead className="text-md text-neutral-700 capitalize bg-neutral-100 border-b">
+                      <tr>
+                        <th className="px-2 py-3">Branch Code</th>
+                        <th className="px-2 py-3">Branch Name</th>
+                        <th className="px-2 py-3">Status</th>
+                        <th className="px-2 py-3">Created On</th>
+                        <th className="px-2 py-3">Created By</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {branches?.map((branch, index) => (
+                        <tr
+                          className="bg-white border-b font-normal text-small text-neutral-700 cursor-pointer hover:bg-neutral-50"
+                          key={index}
+                        >
+                          <td className="px-2 py-3 font-bold">
+                            {branch.store_code}
+                          </td>
+                          <td className="px-2 py-3">{branch.name}</td>
+                          <td className="px-2 py-3">
+                            {branch?.status ? branch?.status : "--"}
+                          </td>
+                          <td className=" whitespace-nowrap px-2 py-3">
+                            {branch.created_at}
+                          </td>
+                          <td className="px-2 py-3">
+                            {branch?.created_user
+                              ? branch?.created_user?.full_name
+                              : "--"}
+                          </td>
+
+                          <td className="">
+                            <button className="underline px-2 py-1 text-xs text-cyan-500  rounded-md">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot className="w-full "></tfoot>
+                  </table>
+                </div>
+
+                {/* <div className="flex flex-row gap-2 justify-between mt-5">
+                  <div>
+                    <p>{`Showing  ${products.from} to ${products.to} of ${products.total} entries`}</p>
+                  </div>
+                  <div className="flex flex-row gap-2 ">
+                    {products?.links?.map((link, index) => (
+                      <button
+                        key={index}
+                        onClick={() => getNextProduct(link.url.slice(-7))}
+                        className={`${
+                          link.active
+                            ? "bg-tt_rich_black text-white"
+                            : "border text-tt_rich_black"
+                        } px-2 py-1 rounded-md`}
+                        disabled={link.url == null ? true : false}
+                      >
+                        {link.label == "&laquo; Previous"
+                          ? "<"
+                          : link.label
+                          ? link.label == "Next &raquo;"
+                            ? ">"
+                            : link.label
+                          : ""}
+                      </button>
+                    ))}
+                  </div>
+                </div> */}
+              </div>
+            </div>
           </div>
         </div>
       </div>

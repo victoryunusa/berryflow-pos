@@ -124,6 +124,9 @@ const MeasurementUnits = () => {
   return (
     <>
       <div className="flex flex-col space-y-5">
+        <div className="">
+          <Sidebar />
+        </div>
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">

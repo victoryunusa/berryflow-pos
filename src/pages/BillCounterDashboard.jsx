@@ -21,7 +21,7 @@ const BillCounterDashboard = () => {
             Billing Counter Dashboard
           </h3>
           <p className="text-xs text-neutral-400">
-            Select the plan that you want to subscribe to
+            List and data of all available billing counters
           </p>
         </div>
       </div>

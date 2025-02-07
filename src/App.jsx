@@ -77,7 +77,7 @@ import InactivityLogout from "./HOC/InactivityLogout";
 import Wallet from "./pages/wallet/Wallet";
 import VerifyOTP from "./components/auth/VerifyOTP";
 import Section from "./pages/restaurant/Section";
-import OnlineOrdering from "./pages/restaurant/OnlineOrdering";
+import OnlineOrdering from "./pages/settings/Items/OnlineOrdering";
 
 function App() {
   return (
@@ -103,7 +103,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/bill_counter"
             element={
@@ -122,14 +121,22 @@ function App() {
           />
           {/* Settings related routes */}
           <Route
-            path="/manage"
+            path="/manage/company"
             element={
               <Protected>
                 <Settings />
               </Protected>
             }
           />
-
+          <Route
+            path="/manage/online_ordering"
+            element={
+              <Protected>
+                <OnlineOrdering />
+              </Protected>
+            }
+          />
+          online_ordering
           <Route
             path="manage/tax"
             element={
@@ -146,7 +153,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="manage/roles"
             element={
@@ -163,7 +169,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="manage/discount"
             element={
@@ -188,7 +193,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/branches"
             element={
@@ -197,7 +201,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/branches/add"
             element={
@@ -206,7 +209,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/company"
             element={
@@ -215,7 +217,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/site"
             element={
@@ -240,7 +241,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/payment_methods"
             element={
@@ -249,7 +249,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/manage/kitchen_displays"
             element={
@@ -258,7 +257,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/notifications"
             element={
@@ -267,7 +265,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="/finance/acounts"
             element={
@@ -324,7 +321,6 @@ function App() {
               </Protected>
             }
           />
-
           {/* Orders related routes */}
           <Route
             path="orders"
@@ -334,7 +330,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="orders/:slug"
             element={
@@ -343,7 +338,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="online_orders"
             element={
@@ -352,7 +346,6 @@ function App() {
               </Protected>
             }
           />
-
           {/*Menu Related routes */}
           <Route
             path="menu/products"
@@ -402,9 +395,7 @@ function App() {
               </Protected>
             }
           />
-
           {/* Inventory related routes */}
-
           <Route
             path="inventory/suppliers"
             element={
@@ -413,7 +404,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="inventory/items"
             element={
@@ -422,7 +412,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="inventory/purchase_orders"
             element={
@@ -439,7 +428,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="inventory/purchase_orders/:id"
             element={
@@ -448,7 +436,6 @@ function App() {
               </Protected>
             }
           />
-
           <Route
             path="inventory/transfer"
             element={
@@ -481,7 +468,6 @@ function App() {
               </Protected>
             }
           />
-
           {/* Report related routes */}
           <Route
             path="reports/download"
@@ -539,7 +525,6 @@ function App() {
               </Protected>
             }
           />
-
           {/* Restaurant related routes */}
           <Route
             path="restaurant/tables"
@@ -565,15 +550,6 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="restaurant/online_ordering"
-            element={
-              <Protected>
-                <OnlineOrdering />
-              </Protected>
-            }
-          />
-
           <Route
             path="restaurant/section"
             element={
@@ -607,9 +583,7 @@ function App() {
               </Protected>
             }
           />
-
           {/* Wallet Routes */}
-
           <Route
             path="wallet"
             element={

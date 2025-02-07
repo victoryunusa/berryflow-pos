@@ -334,10 +334,16 @@ const MainScreen = () => {
                           className={`w-1/2 text-xs ${
                             order_type.order_type_constant == orderType
                               ? "bg-neutral-200"
-                              : "bg-neutral-50 text-neutral-500"
+                              : "bg-neutral-50 text-neutral-400"
                           } font-bold px-3 py-3 text-center border-r flex flex-row gap-1`}
                         >
-                          <span className="flex items-center w-4 h-4 rounded-full bg-tt_celestial_blue p-1">
+                          <span
+                            className={`flex items-center w-4 h-4 rounded-full p-1 ${
+                              order_type.order_type_constant == orderType
+                                ? "bg-tt_celestial_blue"
+                                : "bg-neutral-300"
+                            } `}
+                          >
                             <FaIcons.FaCircle
                               size={10}
                               className="text-white"

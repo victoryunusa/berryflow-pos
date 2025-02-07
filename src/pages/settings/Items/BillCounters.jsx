@@ -6,6 +6,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import AddBillingCounter from "../../../components/modals/AddBillingCounter";
 import { getBillCounters } from "../../../features/bill_counter/billCounterSlice";
+import Sidebar from "../Sidebar/Sidebar";
 
 const actionBodyTemplate = (rowData) => {
   return (
@@ -35,6 +36,9 @@ const BillCounters = () => {
   return (
     <>
       <div className="flex flex-col space-y-5">
+        <div className="">
+          <Sidebar />
+        </div>
         <div className="flex flex-row justify-between items-center">
           <div className="">
             <h3 className="text-lg font-bold text-gray-700">
