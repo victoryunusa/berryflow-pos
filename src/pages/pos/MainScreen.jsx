@@ -327,9 +327,9 @@ const MainScreen = () => {
                           key={index}
                           onClick={() => {
                             setOrderType(order_type.order_type_constant);
-                            if (order_type.order_type_constant == "DINEIN") {
-                              setOpenSelectTable(true);
-                            }
+                            // if (order_type.order_type_constant == "DINEIN") {
+                            //   setOpenSelectTable(true);
+                            // }
                           }}
                           className={`w-1/2 text-xs ${
                             order_type.order_type_constant == orderType
@@ -354,7 +354,20 @@ const MainScreen = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="h-2/5 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
+                  <div className="flex flex-col px-5 my-4">
+                    {orderType == "DINEIN" && (
+                      <div className="flex">
+                        <button
+                          type="button"
+                          className="border rounded-md px-3 py-2 text-sm"
+                          onClick={() => setOpenSelectTable(true)}
+                        >
+                          Assign table
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="h-2/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
                   </div>
 

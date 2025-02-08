@@ -83,7 +83,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
             <div className="relative w-full max-w-3xl mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-4">
+                  <div className="flex justify-between px-6 py-4">
                     <h3 className="text-md font-bold">Tables</h3>
 
                     <div
@@ -97,57 +97,66 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                   <div className="mt-5 flex flex-col justify-center items-center">
                     <div className="w-full">
                       <div className="max-h-[520px] overflow-scroll px-6 md:px-6">
-                        <div className="grid grid-cols-2 gap-5">
+                        <div className="grid grid-cols-3 gap-3">
                           {tablesIndex.map((table, index) => (
                             <div
                               key={index}
                               className="flex flex-col w-full gap-3 bg-neutral-50 p-3 rounded-md border"
                             >
-                              <div className="flex flex-col items-center justify-center gap-3">
-                                <div>
-                                  <h3 className="text-neutral-500 text-sm font-medium">
-                                    <span className="font-bold">Name: </span>
-                                    {table.table_name}
-                                  </h3>
-                                  <h3 className="text-neutral-500  text-sm font-medium">
-                                    <span className="font-bold">
-                                      Sitting Capacity:{" "}
-                                    </span>
-                                    {table.no_of_occupants}
-                                  </h3>
-                                  <h3 className="text-neutral-500 font-medium text-sm ">
-                                    <span className="font-bold">
-                                      Available:{" "}
-                                    </span>
-                                    {table.no_of_occupants -
-                                      table.no_current_occupants}
-                                  </h3>
-                                </div>
-                                <div>
-                                  <SiIcons.SiTablecheck
-                                    size={90}
-                                    className={`${
-                                      table.no_current_occupants >= 1 &&
-                                      table.no_current_occupants <
-                                        table.no_of_occupants
-                                        ? "text-yellow-500"
-                                        : table.no_current_occupants >=
+                              <div className="flex flex-col w-full gap-3">
+                                <div className="flex flex-row items-center justify-between">
+                                  <div>
+                                    <h3 className="text-neutral-500 text-sm font-medium">
+                                      <span className="font-bold">Name: </span>
+                                      {table.table_name}
+                                    </h3>
+                                    <h3 className="text-neutral-500  text-sm font-medium">
+                                      <span className="font-bold">
+                                        Sitting Capacity:{" "}
+                                      </span>
+                                      {table.no_of_occupants}
+                                    </h3>
+                                    <h3 className="text-neutral-500 font-medium text-sm ">
+                                      <span className="font-bold">
+                                        Available:{" "}
+                                      </span>
+                                      {table.no_of_occupants -
+                                        table.no_current_occupants}
+                                    </h3>
+                                  </div>
+                                  <div>
+                                    <SiIcons.SiTablecheck
+                                      size={50}
+                                      className={`${
+                                        table.no_current_occupants >= 1 &&
+                                        table.no_current_occupants <
                                           table.no_of_occupants
-                                        ? "text-red-600"
-                                        : "text-green-600"
-                                    }`}
-                                  />
+                                          ? "text-tt_mustard"
+                                          : table.no_current_occupants >=
+                                            table.no_of_occupants
+                                          ? "text-red-500"
+                                          : "text-tt_light_green-300"
+                                      }`}
+                                    />
+                                  </div>
                                 </div>
-                                <div className="flex flex-row gap-2 mt-2">
-                                  <input
-                                    type="text"
-                                    className="px-3 py-2 border text-neutral-500 text-sm rounded-md focus:outline-none"
-                                  />
+
+                                <div className="flex flex-row items-end gap-2 mt-2 w-full">
+                                  <div className="flex flex-col w-2/6">
+                                    <label className="text-sm text-neutral-500">
+                                      Persons
+                                    </label>
+                                    <input
+                                      type="number"
+                                      className=" px-3 py-2 border text-neutral-500 text-sm rounded-md focus:outline-none"
+                                    />
+                                  </div>
+
                                   <button
                                     type="button"
-                                    className="px-3 bg-tt_rich_black text-white rounded-md text-small font-medium"
+                                    className="w-4/6 px-3 py-2.5 bg-tt_rich_black text-white rounded-md text-small font-medium"
                                   >
-                                    Add
+                                    Submit
                                   </button>
                                 </div>
                               </div>
@@ -156,8 +165,8 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                         </div>
                       </div>
 
-                      <div className="flex flex-row justify-end mt-10 p-4 md:p-5 border-t">
-                        <div className="flex items-baseline justify-between gap-3 w-1/2">
+                      <div className="flex flex-row justify-end mt-10 p-4 md:p-5">
+                        <div className="flex items-baseline justify-between gap-3 w-1/4">
                           <button
                             type="button"
                             onClick={() => setOpen(false)}
@@ -165,7 +174,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                           >
                             cancel
                           </button>
-                          {loading ? (
+                          {/* {loading ? (
                             <button
                               type="submit"
                               className="w-full px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-md flex items-center justify-center"
@@ -188,7 +197,7 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
                             >
                               Submit
                             </button>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </div>
