@@ -61,10 +61,28 @@ const addOrder = async ({ token, formData }) => {
   return response.data;
 };
 
+const getRegisterOrderAmount = async ({ token }) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  //console.log({ token, formData });
+
+  const response = await axios.get(
+    `${BaseUrl}/orders/get_register_order_amount`,
+    config
+  );
+
+  return response.data;
+};
+
 const orderService = {
   getOrders,
   getOrder,
   addOrder,
+  getRegisterOrderAmount,
 };
 
 export default orderService;

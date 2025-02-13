@@ -22,7 +22,7 @@ const Alert = () => {
     // Automatically dismiss alert after 20 seconds
     const timer = setTimeout(() => {
       dispatch(alertActions.clear());
-    }, 20000);
+    }, 7000);
 
     // Cleanup timer on component unmount
     return () => clearTimeout(timer);

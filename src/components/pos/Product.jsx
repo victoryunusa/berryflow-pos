@@ -67,7 +67,7 @@ const Product = ({ product }) => {
     <>
       <div
         onClick={() => handleAddToCart(product)}
-        className="flex flex-col justify-between bg-white shadow-md border rounded-lg cursor-pointer h-36 p-3"
+        className="flex flex-col justify-between bg-white hover:shadow border rounded-lg cursor-pointer h-36 p-3"
       >
         <div>
           <div className="flex flex-row justify-between items-center w-full gap-2">

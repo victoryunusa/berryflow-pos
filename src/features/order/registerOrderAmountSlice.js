@@ -1,25 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import subscriptionPlanService from "./subscriptionPlanService";
+import orderService from "./orderService";
 
 const initialState = {
-  subscription_plans: [],
+  register_order_total: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
 };
 
-//Get PaymentMethods
+//Get one product
 
-export const getSubscriptionPlans = createAsyncThunk(
-  "api/get_subscription_plans",
+export const getRegisterOrderAmount = createAsyncThunk(
+  "api/get_register_order_amount",
   async (formData, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.token;
-      return await subscriptionPlanService.getSubscriptionPlans({
-        token,
-        formData,
-      });
+      return await orderService.getRegisterOrderAmount({ token, formData });
     } catch (error) {
       const message =
         (error.response &&
@@ -32,30 +29,30 @@ export const getSubscriptionPlans = createAsyncThunk(
   }
 );
 
-export const subscriptionPlanSlice = createSlice({
-  name: "subscription_plans",
+export const registerOrderAmountSlice = createSlice({
+  name: "order",
   initialState,
   reducers: {
     reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getSubscriptionPlans.pending, (state) => {
+      .addCase(getRegisterOrderAmount.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getSubscriptionPlans.fulfilled, (state, action) => {
+      .addCase(getRegisterOrderAmount.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.subscription_plans = action.payload;
+        state.register_order_total = action.payload;
       })
-      .addCase(getSubscriptionPlans.rejected, (state, action) => {
+      .addCase(getRegisterOrderAmount.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.subscription_plans = [];
+        state.register_order_total = null;
       });
   },
 });
 
-export const { reset } = subscriptionPlanSlice.actions;
-export default subscriptionPlanSlice.reducer;
+export const { reset } = registerOrderAmountSlice.actions;
+export default registerOrderAmountSlice.reducer;

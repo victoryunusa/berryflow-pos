@@ -7,10 +7,8 @@ import * as SiIcons from "react-icons/si";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../../app/store";
-import { getTables } from "../../../features/table/tableSlice";
-import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
 
-const CloseRegister = ({ setOpen }) => {
+const CloseRegister = ({ setOpen, register_order_total }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -21,20 +19,19 @@ const CloseRegister = ({ setOpen }) => {
     business_account: "",
     received_value: "",
     order_value: "",
+    register_order_total: register_order_total || "",
   };
 
-  const validationSchema = Yup.object().shape({
-    business_account: Yup.string().required("Account is required!"),
-  });
+  const validationSchema = Yup.object().shape({});
 
   const handleSubmit = async (formValue) => {
-    const { name } = formValue;
+    const { register_order_total } = formValue;
 
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
-      //await dispatch(addArea({ name })).unwrap();
+      await dispatch(addArea({ register_order_total })).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
 
       dispatch(
@@ -64,7 +61,7 @@ const CloseRegister = ({ setOpen }) => {
             <div className="relative w-full max-w-lg mx-auto font-br bg-white rounded-md shadow-lg">
               <div className="w-full">
                 <div className="flex flex-col justify-center">
-                  <div className="flex justify-between border-b px-6 py-4">
+                  <div className="flex justify-between px-6 py-4">
                     <h3 className="text-md font-bold">Close Register</h3>
 
                     <div
@@ -92,16 +89,17 @@ const CloseRegister = ({ setOpen }) => {
                                 <Field
                                   type="text"
                                   placeholder="Total Amount"
-                                  name="name"
+                                  name="register_order_total"
                                   disabled
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.register_order_total &&
+                                    touched.register_order_total
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="register_order_total"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />
@@ -149,14 +147,14 @@ const CloseRegister = ({ setOpen }) => {
                                 />
                               </div>
                             </div>
-                            <div className="mt-5">
+                            <div className="mt-2">
                               <p className="text-small text-neutral-600 font-medium">
                                 Are you sure you want to close register?
                               </p>
                             </div>
                           </div>
 
-                          <div className="flex flex-row justify-end mt-5 p-4 md:p-5 border-t">
+                          <div className="flex flex-row justify-end mt-2 p-4 md:p-5 ">
                             <div className="flex items-baseline justify-between gap-3 w-1/2">
                               <button
                                 type="button"

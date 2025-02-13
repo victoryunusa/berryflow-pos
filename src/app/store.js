@@ -9,6 +9,8 @@ import currenciesReducer from "../features/currencies/currenciesSlice";
 import subscriptionPlanReducer from "../features/subscription_plan/subscriptionPlanSlice";
 import gatewaysReducer from "../features/payment_gateways/paymentGatewaySlice";
 
+import globalCurrenciesReducer from "../features/master_actions/globalCurrencySlice";
+
 import statesReducer from "../features/states/statesSlice";
 import suppliersReducer from "../features/suppliers/suppliersSlice";
 import categoriesReducer from "../features/category/categoriesSlice";
@@ -49,6 +51,7 @@ import customersReducer from "../features/customer/customerSlice";
 import permissionsReducer from "../features/permissions/permissionsSlice";
 import paymentMethodReducer from "../features/payment_method/paymentMethodSlice";
 import modulesReducer from "../features/master_actions/modulesSlice";
+import registerOrderTotalReducer from "../features/order/registerOrderAmountSlice";
 
 export * from "../features/alert/alertSlice";
 
@@ -68,6 +71,7 @@ export const store = configureStore({
     billing_counter_stats: billinCounterStatReducer,
     business_registers: businessRegisterReducer,
     invoice_print_types: invoicePrintTypesReducer,
+    global_currencies: globalCurrenciesReducer,
     countries: countriesReducer,
     currencies: currenciesReducer,
     subscription_plans: subscriptionPlanReducer,
@@ -103,5 +107,6 @@ export const store = configureStore({
     payment_methods: paymentMethodReducer,
     modules: modulesReducer,
     gateways: gatewaysReducer,
+    register_order_total: registerOrderTotalReducer,
   },
 });

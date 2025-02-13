@@ -1,29 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import * as FaIcons from "react-icons/fa6";
 import * as SiIcons from "react-icons/si";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { alertActions } from "../../../app/store";
 import { getTables } from "../../../features/table/tableSlice";
-import { getPaymentMethods } from "../../../features/payment_method/paymentMethodSlice";
 
-const SelectTable = ({ setOpen, billingType, open, children }) => {
-  const [visible, setVisible] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [selectedTable, setSelectedTable] = useState("");
-  const [orderType, setOrderType] = useState("");
-  const [account, setAccount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [waiter, setSetwaiter] = useState("");
-  const [text, setText] = useState("0012969332");
-  const copy = async () => {
-    await navigator.clipboard.writeText(text);
-  };
-
-  const navigate = useNavigate();
+const SelectTable = ({ setOpen, setSelectedTable }) => {
   const dispatch = useDispatch();
 
   const { tables, message } = useSelector((state) => state.tables);
@@ -35,44 +17,6 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
   useEffect(() => {
     dispatch(getTables());
   }, [dispatch, message]);
-
-  const initialValues = {
-    business_account: "",
-    received_value: "",
-    order_value: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    business_account: Yup.string().required("Account is required!"),
-  });
-
-  const handleSubmit = async (formValue) => {
-    const { name } = formValue;
-
-    dispatch(alertActions.clear());
-    try {
-      setLoading(true);
-
-      //await dispatch(addArea({ name })).unwrap();
-      //localStorage.setItem("email", JSON.stringify(email));
-
-      dispatch(
-        alertActions.success({
-          message: "Area successfully added.",
-          showAfterRedirect: true,
-        })
-      );
-      // navigate("/suppliers");
-      // window.location.reload(true);
-
-      setLoading(false);
-      setVisible(false);
-      setOpen(false);
-    } catch (error) {
-      dispatch(alertActions.error(error));
-      setLoading(false);
-    }
-  };
 
   if (typeof document !== "undefined") {
     return createPortal(
@@ -154,6 +98,10 @@ const SelectTable = ({ setOpen, billingType, open, children }) => {
 
                                   <button
                                     type="button"
+                                    onClick={() => {
+                                      setSelectedTable(table);
+                                      setOpen(false);
+                                    }}
                                     className="w-4/6 px-3 py-2.5 bg-tt_rich_black text-white rounded-md text-small font-medium"
                                   >
                                     Submit

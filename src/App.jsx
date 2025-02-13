@@ -306,7 +306,7 @@ function App() {
             }
           />
           <Route
-            path="finance/invoice/add"
+            path="finance/invoices/add"
             element={
               <Protected>
                 <NewInvoice />

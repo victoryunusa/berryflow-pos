@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 import * as FaIcons from "react-icons/fa6";
+import { MdOutlineTableBar } from "react-icons/md";
+import { GoGear } from "react-icons/go";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -31,6 +33,7 @@ import { useNavigate } from "react-router";
 import { getRegister } from "../../features/pos/businessRegisterSlice";
 import { getProfile } from "../../features/user/userSlice";
 import PrintOrder from "../sales/order/modals/PrintOrder";
+import { getRegisterOrderAmount } from "../../features/order/registerOrderAmountSlice";
 
 const MainScreen = () => {
   const [openPrintOrder, setOpenPrintOrder] = useState(false);
@@ -43,7 +46,7 @@ const MainScreen = () => {
   const [openSelectTable, setOpenSelectTable] = useState(false);
   const [openCloseRegister, setOpenCloseRegister] = useState(false);
   const [openHoldList, setOpenHoldList] = useState(false);
-  const [selectedTable, setSelectedTable] = useState("");
+  const [selectedTable, setSelectedTable] = useState(null);
   const [orderType, setOrderType] = useState("TAKEWAY");
 
   const scrolled = useScroll(5);
@@ -68,6 +71,16 @@ const MainScreen = () => {
   const [billingType, setBillingType] = useState(
     billing_types[1]?.billing_type_constant
   );
+
+  const { register_order_total } = useSelector(
+    (state) => state.register_order_total
+  );
+
+  console.log(register_order_total);
+
+  useEffect(() => {
+    dispatch(getRegisterOrderAmount());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getRegister());
@@ -201,7 +214,7 @@ const MainScreen = () => {
                   <div>
                     <h5 className="text-lg font-bold">New Order</h5>
                   </div>
-                  <div className="flex flex-row items-center gap-3">
+                  <div className="flex flex-col md:flex-row md:items-center gap-3">
                     <div className="">
                       <select
                         name="billing_type"
@@ -221,14 +234,14 @@ const MainScreen = () => {
                       </select>
                     </div>
                     <div>
-                      <button className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white">
+                      <button className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2.5 text-neutral-600 hover:bg-tt_rich_black hover:text-white">
                         Digital Menu Orders
                       </button>
                     </div>
                     <div>
                       <button
                         onClick={() => setOpenRunningOrders(true)}
-                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2.5 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
                       >
                         Running Orders
                       </button>
@@ -236,7 +249,7 @@ const MainScreen = () => {
                     <div>
                       <button
                         onClick={() => setOpenHoldList(true)}
-                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
+                        className="text-small font-semibold border border-neutral-500 rounded-md px-3 py-2.5 text-neutral-600 hover:bg-tt_rich_black hover:text-white"
                       >
                         Hold List
                       </button>
@@ -244,7 +257,7 @@ const MainScreen = () => {
                     <div>
                       <button
                         onClick={() => setOpenCloseRegister(true)}
-                        className="text-small font-semibold border border-red-600 bg-red-600 rounded-md px-3 py-2 text-white"
+                        className="text-small font-semibold border border-red-600 bg-red-600 rounded-md px-3 py-2.5 text-white"
                       >
                         Close Register
                       </button>
@@ -286,40 +299,7 @@ const MainScreen = () => {
             >
               {({ errors, touched, values, setFieldValue }) => (
                 <Form className="h-full">
-                  <div className="w-full flex flex-row gap-2 items-end mt-4 px-5">
-                    {/* <div className="flex flex-col w-1/3">
-                      <span className="text-xs">Waiter:</span>
-                      <Selector
-                        options={newCustomers}
-                        value={values.customer_id}
-                        setFieldValue={setFieldValue}
-                        name="customer_id"
-                      />
-                    </div> */}
-                    <div className="flex flex-col w-10/12">
-                      <span className="text-xs">Customer:</span>
-                      <Selector
-                        options={newCustomers}
-                        value={values.customer_id}
-                        setFieldValue={setFieldValue}
-                        name="customer_id"
-                      />
-                    </div>
-                    <div className="flex flex-col justify-center w-2/12">
-                      <button
-                        onClick={() => {
-                          setOpenCustomerAdd(true);
-                        }}
-                        className="items-center px-3 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-tt_rich_black hover:text-white"
-                      >
-                        <FaIcons.FaUserPlus size={17} className="self-center" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="flex flex-col px-5 my-4">
-                    <label className="block text-tt_rich_black text-small font-semibold mb-1">
-                      Order Type
-                    </label>
+                  <div className="flex flex-col px-5 mt-5">
                     <div className="flex flex-row items-center w-full rounded-md  border">
                       {order_types?.map((order_type, index) => (
                         <button
@@ -354,18 +334,62 @@ const MainScreen = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-col px-5 my-4">
-                    {orderType == "DINEIN" && (
+                  {orderType == "DINEIN" && (
+                    <div className="flex flex-col px-5 my-3">
                       <div className="flex">
-                        <button
-                          type="button"
-                          className="border rounded-md px-3 py-2 text-sm"
-                          onClick={() => setOpenSelectTable(true)}
-                        >
-                          Assign table
-                        </button>
+                        {selectedTable ? (
+                          <div className="flex flex-row items-center gap-2 px-2">
+                            <MdOutlineTableBar />
+                            {selectedTable?.table_name}
+                            <button
+                              type="button"
+                              className="px-2 py-1.5 border rounded-md"
+                              onClick={() => setOpenSelectTable(true)}
+                            >
+                              <GoGear />
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            className="border rounded-md px-3 py-2 text-sm"
+                            onClick={() => setOpenSelectTable(true)}
+                          >
+                            Assign table
+                          </button>
+                        )}
                       </div>
-                    )}
+                    </div>
+                  )}
+                  <div className="w-full flex flex-row gap-2 items-end mt-2 mb-4 px-5">
+                    {/* <div className="flex flex-col w-1/3">
+                      <span className="text-xs">Waiter:</span>
+                      <Selector
+                        options={newCustomers}
+                        value={values.customer_id}
+                        setFieldValue={setFieldValue}
+                        name="customer_id"
+                      />
+                    </div> */}
+                    <div className="flex flex-col w-10/12">
+                      <span className="text-xs">Customer:</span>
+                      <Selector
+                        options={newCustomers}
+                        value={values.customer_id}
+                        setFieldValue={setFieldValue}
+                        name="customer_id"
+                      />
+                    </div>
+                    <div className="flex flex-col justify-center w-2/12">
+                      <button
+                        onClick={() => {
+                          setOpenCustomerAdd(true);
+                        }}
+                        className="items-center px-3 py-3 rounded-md text-xs font-bold border bg-neutral-100 text-neutral-700 hover:bg-tt_rich_black hover:text-white"
+                      >
+                        <FaIcons.FaUserPlus size={17} className="self-center" />
+                      </button>
+                    </div>
                   </div>
                   <div className="h-2/6 overflow-y-scroll px-2 my-2 bg-neutral-50 border rounded-md mx-5">
                     <Cart />
@@ -500,8 +524,18 @@ const MainScreen = () => {
         <PrintOrder setOpen={closeModal} slug={processedOrder} />
       )}
       {openCustomerAdd && <AddCustomer setOpenCustomer={setOpenCustomerAdd} />}
-      {openSelectTable && <SelectTable setOpen={setOpenSelectTable} />}
-      {openCloseRegister && <CloseRegister setOpen={setOpenCloseRegister} />}
+      {openSelectTable && (
+        <SelectTable
+          setOpen={setOpenSelectTable}
+          setSelectedTable={setSelectedTable}
+        />
+      )}
+      {openCloseRegister && (
+        <CloseRegister
+          register_order_total={register_order_total}
+          setOpen={setOpenCloseRegister}
+        />
+      )}
       {openHoldList && <HoldList setOpen={setOpenHoldList} />}
       {openConfirmOrder && (
         <ConfirmOrder

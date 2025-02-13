@@ -16,6 +16,19 @@ const getBillingTypes = async () => {
   return response.data.billing_types;
 };
 
+// GET Currencies
+const getGlobalCurrencies = async () => {
+  const response = await axios.get(
+    `${BaseUrl}/master/global_currencies`,
+    headers
+  );
+  localStorage.setItem(
+    "global_currencies",
+    JSON.stringify(response.data.global_currencies)
+  );
+  return response.data.global_currencies;
+};
+
 const getOrderTypes = async () => {
   const response = await axios.get(`${BaseUrl}/master/order_types`, headers);
   localStorage.setItem(
@@ -65,6 +78,7 @@ const getModules = async () => {
 };
 
 const masterActionsService = {
+  getGlobalCurrencies,
   getBillingTypes,
   getAccountTypes,
   getTransactionTypes,
