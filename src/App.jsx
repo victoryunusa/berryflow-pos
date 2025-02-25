@@ -78,6 +78,7 @@ import Wallet from "./pages/wallet/Wallet";
 import VerifyOTP from "./components/auth/VerifyOTP";
 import Section from "./pages/restaurant/Section";
 import OnlineOrdering from "./pages/settings/Items/OnlineOrdering";
+import Menus from "./pages/menu/Menus";
 
 function App() {
   return (
@@ -347,6 +348,14 @@ function App() {
             }
           />
           {/*Menu Related routes */}
+          <Route
+            path="menu/menus"
+            element={
+              <Protected>
+                <Menus />
+              </Protected>
+            }
+          />
           <Route
             path="menu/products"
             element={

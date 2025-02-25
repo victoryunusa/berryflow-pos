@@ -79,10 +79,13 @@ export const subMenusList = [
     icon: <HeIcons.FaBowlFood size={16} className="min-w-max" />,
     subNav: [
       {
+        title: "Menus",
+        path: "/menu/menus",
+      },
+      {
         title: "Products",
         path: "/menu/products",
       },
-
       {
         title: "Categories",
         path: "/menu/categories",
