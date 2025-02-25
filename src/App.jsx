@@ -23,7 +23,6 @@ import Staff from "./pages/users/Staff";
 import Customers from "./pages/users/Customers";
 import Roles from "./pages/users/Roles";
 import Permissions from "./pages/users/Permissions";
-import Tax from "./pages/codes/Tax";
 import DiscountCodes from "./pages/codes/DiscountCodes";
 import Coupon from "./pages/codes/Coupon";
 import Products from "./pages/stock/Products";
@@ -79,6 +78,7 @@ import VerifyOTP from "./components/auth/VerifyOTP";
 import Section from "./pages/restaurant/Section";
 import OnlineOrdering from "./pages/settings/Items/OnlineOrdering";
 import Menus from "./pages/menu/Menus";
+import Tax from "./pages/settings/Items/Tax";
 
 function App() {
   return (

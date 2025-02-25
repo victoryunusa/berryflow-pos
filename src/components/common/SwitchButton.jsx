@@ -1,11 +1,15 @@
 import { useField } from "formik";
 import PropTypes from "prop-types";
 
-const SwitchButton = ({ label, ...props }) => {
+const SwitchButton = ({ label, onChange, ...props }) => {
   const [field, meta, helpers] = useField(props);
 
   const toggleSwitch = () => {
-    helpers.setValue(!field.value); // Toggle the value
+    const newValue = !field.value; // Toggle value
+    helpers.setValue(newValue); // Update Formik state
+    if (onChange) {
+      onChange(newValue); // Call external onChange handler
+    }
   };
 
   return (
@@ -46,6 +50,7 @@ SwitchButton.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func, // Allow external onChange handler
 };
 
 export default SwitchButton;

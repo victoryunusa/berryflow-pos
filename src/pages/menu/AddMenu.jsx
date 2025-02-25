@@ -79,7 +79,7 @@ const AddMenu = ({ setOpen }) => {
             {isSubmitting ? (
               <button
                 type="submit"
-                className="w-1/6 px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-lg flex items-center justify-center"
+                className=" px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-lg flex items-center justify-center"
                 disabled={isSubmitting}
               >
                 <span

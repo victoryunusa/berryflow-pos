@@ -62,6 +62,11 @@ const AddProduct = () => {
 
   const { token } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
+  const { units } = useSelector((state) => state.units);
+
+  var newArray = units.map(function (obj) {
+    return { value: obj.id, label: obj.unit_code + " - " + obj.label };
+  });
 
   const config = {
     headers: {
@@ -275,6 +280,7 @@ const AddProduct = () => {
     product_code: "",
     costing_method: "Fixed",
     storage_to_ingredient: "",
+    menu_id: "",
     purchase_price: "",
     sale_price: "",
     sale_price_including_tax: "",
@@ -282,8 +288,10 @@ const AddProduct = () => {
     stock_product: "",
     tax_option: "",
     selling_method: "",
+    preparation_time: "",
     description: "",
     images: null,
+    is_ingredient: false,
     is_addon_product: false,
     is_ingredient_price: false,
     supplier: "",
@@ -294,7 +302,7 @@ const AddProduct = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Product name is required!"),
+    name: Yup.string().required("Name is required!"),
     purchase_price: Yup.string().required("This field is required!"),
     sale_price: Yup.string().required("This field is required!"),
     category: Yup.string().required("This field is required!"),
@@ -314,6 +322,8 @@ const AddProduct = () => {
       purchase_price,
       sale_price,
       sale_price_including_tax,
+      preparation_time,
+      menu_id,
       par_level,
       stock_product,
       tax_option,
@@ -321,6 +331,7 @@ const AddProduct = () => {
       description,
       images,
       is_addon_product,
+      is_ingredient,
       is_ingredient_price,
       supplier,
       discount_code,
@@ -345,7 +356,9 @@ const AddProduct = () => {
           costing_method,
           storage_to_ingredient,
           purchase_price,
+          preparation_time,
           sale_price,
+          menu_id,
           sale_price_including_tax: sale_price,
           par_level,
           stock_product,
@@ -355,6 +368,7 @@ const AddProduct = () => {
           images,
           is_addon_product: is_addon_product == true ? "1" : "0",
           is_ingredient_price: is_ingredient_price == true ? "1" : "0",
+          is_ingredient: is_ingredient == true ? "1" : "0",
           supplier,
           discount_code,
           alert_quantity,
@@ -408,22 +422,52 @@ const AddProduct = () => {
             >
               {({ values, errors, touched, setFieldValue }) => (
                 <Form className="w-full">
-                  <div className="mb-5">
+                  <div className="flex flex-col">
                     <p className="text-tt_rich_black/60 font-semibold mb-2">
                       Product Identifier Information (Optional)
                     </p>
-                    <div>
-                      <SwitchButton
-                        name="is_addon_product"
-                        label="This is an Add-on Product"
-                      />
-                      <p className="text-neutral-400 text-xs mt-1">
-                        If this option is enabled, product will be considered as
-                        an add-on product. Add-on products can only be tagged to
-                        a billing product via add-on groups
-                      </p>
+                    <div className="flex flex-row gap-10">
+                      {/* Add-on Product Switch */}
+                      <div className="w-1/2 mb-5">
+                        <SwitchButton
+                          name="is_addon_product"
+                          label="This is an add-on product"
+                          onChange={() => {
+                            setFieldValue(
+                              "is_addon_product",
+                              !values.is_addon_product
+                            );
+                            setFieldValue("is_ingredient", false);
+                          }}
+                        />
+                        <p className="text-neutral-400 text-xs mt-1">
+                          If this option is enabled, the product will be
+                          considered as an add-on product. Add-on products can
+                          only be tagged to a billing product via add-on groups.
+                        </p>
+                      </div>
+
+                      {/* Ingredient Switch */}
+                      <div className="w-1/2 mb-5">
+                        <SwitchButton
+                          name="is_ingredient"
+                          label="This is an ingredient"
+                          onChange={() => {
+                            setFieldValue(
+                              "is_ingredient",
+                              !values.is_ingredient
+                            );
+                            setFieldValue("is_addon_product", false);
+                          }}
+                        />
+                        <p className="text-neutral-400 text-xs mt-1">
+                          If this option is enabled, the product will be added
+                          as an ingredient.
+                        </p>
+                      </div>
                     </div>
                   </div>
+
                   <hr className="my-8" />
                   <div className="">
                     <div className="flex flex-row mt-3 w-full gap-5">
@@ -469,7 +513,28 @@ const AddProduct = () => {
                         />
                       </div>
                     </div>
-
+                    {values.is_addon_product ||
+                      (values.is_ingredient === false && (
+                        <div className="flex flex-row mt-3 w-full gap-5">
+                          <div className="w-1/2">
+                            <label className="block text-tt_rich_black text-xs font-semibold mb-1">
+                              Menu
+                            </label>
+                            <Selector
+                              options={newCategories}
+                              value={values.menu}
+                              setFieldValue={setFieldValue}
+                              name="menu"
+                            />
+                            <ErrorMessage
+                              name="menu"
+                              component="div"
+                              className="text-red-500 text-xs"
+                            />
+                          </div>
+                          <div className="w-1/2"></div>
+                        </div>
+                      ))}
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
                         <label className="block text-tt_rich_black text-xs font-semibold mb-1">
@@ -542,6 +607,43 @@ const AddProduct = () => {
 
                     <div className="flex flex-row mt-3 w-full gap-5">
                       <div className="w-1/2">
+                        <label className="block text-nelsa_dark_blue text-xs font-semibold mb-1">
+                          Purchase Unit
+                        </label>
+                        <Selector
+                          options={newArray}
+                          value={values.storage_unit}
+                          setFieldValue={setFieldValue}
+                          name="storage_unit"
+                        />
+
+                        <ErrorMessage
+                          name="storage_unit"
+                          component="div"
+                          className="text-red-500 text-xs"
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <label className="block text-nelsa_dark_blue text-xs font-semibold mb-1">
+                          Consumption Unit
+                        </label>
+                        <Selector
+                          options={newArray}
+                          value={values.ingredient_unit}
+                          setFieldValue={setFieldValue}
+                          name="ingredient_unit"
+                        />
+
+                        <ErrorMessage
+                          name="ingredient_unit"
+                          component="div"
+                          className="text-red-500 text-xs"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-row mt-3 w-full gap-5">
+                      <div className="w-1/2">
                         <label className="block text-tt_rich_black text-xs font-semibold">
                           Purchase Price Excluding Tax
                         </label>
@@ -606,7 +708,29 @@ const AddProduct = () => {
                           className="text-red-500 text-xs"
                         />
                       </div>
-                      <div className="w-1/2"></div>
+                      <div className="w-1/2">
+                        <label className="flex flex-row items-center gap-1 text-tt_rich_black text-xs font-semibold">
+                          Preparation time{" "}
+                          <span className="ml-2 text-neutral-400 font-regular text-xs">
+                            * in minutes
+                          </span>
+                        </label>
+                        <Field
+                          type="number"
+                          placeholder=""
+                          name="preparation_time"
+                          className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
+                            errors.preparation_time && touched.preparation_time
+                              ? "border-red-500"
+                              : ""
+                          } focus:border-tt_rich_black`}
+                        />
+                        <ErrorMessage
+                          name="preparation_time"
+                          component="div"
+                          className="text-red-500 text-xs"
+                        />
+                      </div>
                     </div>
 
                     <div className="mt-3 flex flex-row space-x-3">
@@ -695,348 +819,352 @@ const AddProduct = () => {
                         placeholder="Description"
                       />
                     </div>
-                    {values.is_addon_product === false && (
-                      <div>
-                        <hr className="mt-8" />
-                        <div className="flex flex-col mt-2">
-                          <div>
-                            <p className="text-tt_rich_black/60 font-semibold mb-2">
-                              Product Variants
-                            </p>
-                          </div>
-                          <div className=" flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-tt_rich_black text-xs font-semibold mb-1">
-                                Search and Add Variant Products
-                              </label>
-                              <OrderSelect
-                                options={items}
-                                handleAddToCart={handleAddProductVariant}
-                              />
-                            </div>
-                          </div>
-                          {variantItems.length >= 1 && (
+                    {values.is_addon_product ||
+                      (values.is_ingredient === false && (
+                        <div>
+                          <hr className="mt-8" />
+                          <div className="flex flex-col mt-2">
                             <div>
-                              <div className="mt-4">
-                                <label className="block text-tt_rich_black text-xs font-semibold">
-                                  Variant Option for Current Product
+                              <p className="text-tt_rich_black/60 font-semibold mb-2">
+                                Product Variants
+                              </p>
+                            </div>
+                            <div className=" flex flex-row space-x-3">
+                              <div className="w-1/2">
+                                <label className="block text-tt_rich_black text-xs font-semibold mb-1">
+                                  Search and Add Variant Products
                                 </label>
-                                <select
-                                  name="billing_type"
-                                  className={`w-1/2 px-3 py-2.5 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
-                                  onChange={(e) =>
-                                    setFieldValue(
-                                      "parent_variant_option",
-                                      e.target.value
-                                    )
-                                  }
-                                  // onChange={(e) => setBillingType(e.target.value)}
-                                >
-                                  <option value="">
-                                    Select variant option
-                                  </option>
-                                  {variantOptions.map(
-                                    (variant_option, index) => (
-                                      <option
-                                        value={variant_option.slug}
-                                        key={index}
-                                      >
-                                        {variant_option.label}
-                                      </option>
-                                    )
-                                  )}
-                                </select>
+                                <OrderSelect
+                                  options={items}
+                                  handleAddToCart={handleAddProductVariant}
+                                />
                               </div>
-                              <div className="mt-5">
-                                <div className="w-full flex flex-row items-start justify-start gap-3">
-                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
-                                    Variant Option
+                            </div>
+                            {variantItems.length >= 1 && (
+                              <div>
+                                <div className="mt-4">
+                                  <label className="block text-tt_rich_black text-xs font-semibold">
+                                    Variant Option for Current Product
                                   </label>
-                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
-                                    Name & Description
-                                  </label>
-                                  <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
-                                    Sale Price
-                                  </label>
-                                </div>
-                                {variantItems?.map((variant, index) => (
-                                  <div
-                                    className="flex flex-row gap-3 mt-1"
-                                    key={variant.slug}
+                                  <select
+                                    name="billing_type"
+                                    className={`w-1/2 px-3 py-2.5 mt-1 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+                                    onChange={(e) =>
+                                      setFieldValue(
+                                        "parent_variant_option",
+                                        e.target.value
+                                      )
+                                    }
+                                    // onChange={(e) => setBillingType(e.target.value)}
                                   >
-                                    <div className="w-1/3">
-                                      <VariantSelector
-                                        variant={variant}
-                                        index={index}
-                                        variantOptions={variantOptions}
-                                        handleChangeVariantOption={
-                                          handleChangeVariantOption
-                                        }
-                                      />
-                                    </div>
-                                    <div className="flex items-center w-1/3 px-4 py-3 mt-1 border text-neutral-500 bg-neutral-100 text-xs rounded-md">
-                                      <p className="">{variant.name}</p>
-                                    </div>
-                                    <div className="flex flex-row items-center w-1/3">
-                                      <p className="w-4/5 text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
-                                        {variant.price}
-                                      </p>
-
-                                      <button
-                                        type="button"
-                                        className="flex items-center justify-center text-2xl text-red-600 p-1.5"
-                                        onClick={() =>
-                                          handleRemoveVariant(variant)
-                                        }
-                                      >
-                                        x
-                                      </button>
-                                    </div>
+                                    <option value="">
+                                      Select variant option
+                                    </option>
+                                    {variantOptions.map(
+                                      (variant_option, index) => (
+                                        <option
+                                          value={variant_option.slug}
+                                          key={index}
+                                        >
+                                          {variant_option.label}
+                                        </option>
+                                      )
+                                    )}
+                                  </select>
+                                </div>
+                                <div className="mt-5">
+                                  <div className="w-full flex flex-row items-start justify-start gap-3">
+                                    <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
+                                      Variant Option
+                                    </label>
+                                    <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
+                                      Name & Description
+                                    </label>
+                                    <label className="block w-1/3 text-tt_rich_black text-xs font-semibold">
+                                      Sale Price
+                                    </label>
                                   </div>
-                                ))}
+                                  {variantItems?.map((variant, index) => (
+                                    <div
+                                      className="flex flex-row gap-3 mt-1"
+                                      key={variant.slug}
+                                    >
+                                      <div className="w-1/3">
+                                        <VariantSelector
+                                          variant={variant}
+                                          index={index}
+                                          variantOptions={variantOptions}
+                                          handleChangeVariantOption={
+                                            handleChangeVariantOption
+                                          }
+                                        />
+                                      </div>
+                                      <div className="flex items-center w-1/3 px-4 py-3 mt-1 border text-neutral-500 bg-neutral-100 text-xs rounded-md">
+                                        <p className="">{variant.name}</p>
+                                      </div>
+                                      <div className="flex flex-row items-center w-1/3">
+                                        <p className="w-4/5 text-neutral-500 bg-neutral-100  px-4 py-3 mt-1 border text-xs rounded-md">
+                                          {variant.price}
+                                        </p>
+
+                                        <button
+                                          type="button"
+                                          className="flex items-center justify-center text-2xl text-red-600 p-1.5"
+                                          onClick={() =>
+                                            handleRemoveVariant(variant)
+                                          }
+                                        >
+                                          x
+                                        </button>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                          <hr className="mt-8" />
+                          <div className="flex flex-col mt-2">
+                            <div>
+                              <p className="text-tt_rich_black/60 font-semibold mb-2">
+                                Choose Add-on Groups
+                              </p>
+                            </div>
+                            <div className=" flex flex-row space-x-3">
+                              <div className="w-1/2">
+                                <label className="block text-tt_rich_black text-xs font-semibold">
+                                  Add-on Groups
+                                </label>
+
+                                <MultipleSelect
+                                  options={newAddonGroups}
+                                  handleSelectionChange={handleSelectionChange}
+                                  selectSlug="fruit-select"
+                                />
                               </div>
                             </div>
-                          )}
-                        </div>
-                        <hr className="mt-8" />
-                        <div className="flex flex-col mt-2">
-                          <div>
-                            <p className="text-tt_rich_black/60 font-semibold mb-2">
-                              Choose Add-on Groups
-                            </p>
                           </div>
-                          <div className=" flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-tt_rich_black text-xs font-semibold">
-                                Add-on Groups
-                              </label>
-
-                              <MultipleSelect
-                                options={newAddonGroups}
-                                handleSelectionChange={handleSelectionChange}
-                                selectSlug="fruit-select"
-                              />
+                          <hr className="mt-8" />
+                          <div className="flex flex-col mt-2">
+                            <div>
+                              <p className="text-tt_rich_black/60 font-semibold mb-2">
+                                Ingredient Information
+                              </p>
                             </div>
-                          </div>
-                        </div>
-                        <hr className="mt-8" />
-                        <div className="flex flex-col mt-2">
-                          <div>
-                            <p className="text-tt_rich_black/60 font-semibold mb-2">
-                              Ingredient Information
-                            </p>
-                          </div>
-                          <div className=" flex flex-row space-x-3">
-                            <div className="w-1/2">
-                              <label className="block text-tt_rich_black text-xs font-semibold">
-                                Search and Add Ingredients
-                              </label>
-                              <OrderSelect
-                                options={ingredients}
-                                handleAddToCart={handleAddToCart}
-                              />
+                            <div className=" flex flex-row space-x-3">
+                              <div className="w-1/2">
+                                <label className="block text-tt_rich_black text-xs font-semibold">
+                                  Search and Add Ingredients
+                                </label>
+                                <OrderSelect
+                                  options={ingredients}
+                                  handleAddToCart={handleAddToCart}
+                                />
+                              </div>
                             </div>
-                          </div>
-                          <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
-                            <table className="w-full text-sm text-left ">
-                              <thead className=" text-tt_rich_black border-b-2 text-xs">
-                                <tr className="">
-                                  <th scope="col" className="py-3">
-                                    Name & Description
-                                  </th>
-                                  <th scope="col" className="px-6 py-3">
-                                    Purchase Price of 1 Unit
-                                  </th>
-                                  <th scope="col" className="px-6 py-3">
-                                    Sale Price of 1 Unit
-                                  </th>
+                            <div className="mt-4 relative overflow-x-auto border rounded-lg p-5">
+                              <table className="w-full text-sm text-left ">
+                                <thead className=" text-tt_rich_black border-b-2 text-xs">
+                                  <tr className="">
+                                    <th scope="col" className="py-3">
+                                      Name & Description
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                      Purchase Price of 1 Unit
+                                    </th>
+                                    <th scope="col" className="px-6 py-3">
+                                      Sale Price of 1 Unit
+                                    </th>
 
-                                  <th scope="col" className="px-4 py-3">
-                                    Quantity
-                                  </th>
-                                  <th scope="col" className="px-4 py-3">
-                                    Measuring Unit
-                                  </th>
-                                  <th></th>
-                                </tr>
-                              </thead>
-                              <tbody className=" text-gray-500">
-                                {productIngredientItems.length >= 1 ? (
-                                  productIngredientItems.map(
-                                    (cartItem, index) => (
-                                      <tr key={index} className="border-t">
-                                        <td scope="col" className="">
-                                          {cartItem.name}
-                                        </td>
+                                    <th scope="col" className="px-4 py-3">
+                                      Quantity
+                                    </th>
+                                    <th scope="col" className="px-4 py-3">
+                                      Measuring Unit
+                                    </th>
+                                    <th></th>
+                                  </tr>
+                                </thead>
+                                <tbody className=" text-gray-500">
+                                  {productIngredientItems.length >= 1 ? (
+                                    productIngredientItems.map(
+                                      (cartItem, index) => (
+                                        <tr key={index} className="border-t">
+                                          <td scope="col" className="">
+                                            {cartItem.name}
+                                          </td>
 
-                                        <td scope="col" className="px-6 py-3">
-                                          <div className="flex flex-row items-center gap-2">
-                                            <input
-                                              type="number"
-                                              disabled
-                                              value={cartItem.cartPurchasePrice}
-                                              className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
-                                            />
-                                          </div>
-                                        </td>
-                                        <td scope="col" className="px-6 py-3">
-                                          <div>
-                                            <input
-                                              type="number"
-                                              disabled
-                                              value={cartItem.cartSalePrice}
-                                              className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
-                                            />
-                                          </div>
-                                        </td>
-                                        <td scope="col" className="px-4 py-3">
-                                          <div className="flex items-center">
-                                            <button
-                                              className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                                              type="button"
-                                              onClick={() => {
-                                                handleDecreaseCart(cartItem);
-                                              }}
-                                            >
-                                              <span className="sr-only">
-                                                Quantity button
-                                              </span>
-                                              <svg
-                                                className="w-3 h-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 18 2"
-                                              >
-                                                <path
-                                                  stroke="currentColor"
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  strokeWidth="2"
-                                                  d="M1 1h16"
-                                                />
-                                              </svg>
-                                            </button>
+                                          <td scope="col" className="px-6 py-3">
+                                            <div className="flex flex-row items-center gap-2">
+                                              <input
+                                                type="number"
+                                                disabled
+                                                value={
+                                                  cartItem.cartPurchasePrice
+                                                }
+                                                className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 focus:outline-none text-sm rounded block px-2.5 py-1"
+                                              />
+                                            </div>
+                                          </td>
+                                          <td scope="col" className="px-6 py-3">
                                             <div>
                                               <input
                                                 type="number"
-                                                value={cartItem.cartQuantity}
-                                                onChange={(e) =>
-                                                  handleChangeQuantity({
-                                                    slug: cartItem.slug,
-                                                    value: e.target.value,
-                                                  })
-                                                }
-                                                className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
-                                                placeholder="1"
-                                                required
+                                                disabled
+                                                value={cartItem.cartSalePrice}
+                                                className="bg-gray-50 w-32 text-left border border-gray-300 text-gray-600 text-sm rounded focus:outline-none block px-2.5 py-1"
                                               />
                                             </div>
-                                            <button
-                                              className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
-                                              type="button"
-                                              onClick={() => {
-                                                handleAddToCart(cartItem);
-                                              }}
-                                            >
-                                              <span className="sr-only">
-                                                Quantity button
-                                              </span>
-                                              <svg
-                                                className="w-3 h-3"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 18 18"
+                                          </td>
+                                          <td scope="col" className="px-4 py-3">
+                                            <div className="flex items-center">
+                                              <button
+                                                className="inline-flex items-center justify-center p-1 text-sm font-medium h-[1.85rem] w-6 text-gray-500 bg-white border border-gray-300 rounded-l focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                                type="button"
+                                                onClick={() => {
+                                                  handleDecreaseCart(cartItem);
+                                                }}
                                               >
-                                                <path
-                                                  stroke="currentColor"
-                                                  strokeLinecap="round"
-                                                  strokeLinejoin="round"
-                                                  strokeWidth="2"
-                                                  d="M9 1v16M1 9h16"
-                                                />
-                                              </svg>
-                                            </button>
-                                          </div>
-                                        </td>
-                                        <td scope="col" className="px-4 py-3">
-                                          <select
-                                            name="billing_type"
-                                            className={`w-full px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
-                                            onChange={(e) =>
-                                              handleChangeMeasurementUnit(
-                                                cartItem.slug,
-                                                e.target.value
-                                              )
-                                            }
-                                            // onChange={(e) => setBillingType(e.target.value)}
-                                          >
-                                            <option value="">Select</option>
-                                            {measurementUnits.map(
-                                              (unit, index) => (
-                                                <option
-                                                  value={unit.slug}
-                                                  key={index}
+                                                <span className="sr-only">
+                                                  Quantity button
+                                                </span>
+                                                <svg
+                                                  className="w-3 h-3"
+                                                  aria-hidden="true"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  fill="none"
+                                                  viewBox="0 0 18 2"
                                                 >
-                                                  {unit.unit_code}-{unit.label}
-                                                </option>
-                                              )
-                                            )}
-                                          </select>
-                                        </td>
-                                        <td>
-                                          <button
-                                            type="button"
-                                            className=" text-red-600 font-bold text-lg"
-                                            onClick={() =>
-                                              handleRemoveFromCart(cartItem)
-                                            }
-                                          >
-                                            x
-                                          </button>
-                                        </td>
-                                      </tr>
+                                                  <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M1 1h16"
+                                                  />
+                                                </svg>
+                                              </button>
+                                              <div>
+                                                <input
+                                                  type="number"
+                                                  value={cartItem.cartQuantity}
+                                                  onChange={(e) =>
+                                                    handleChangeQuantity({
+                                                      slug: cartItem.slug,
+                                                      value: e.target.value,
+                                                    })
+                                                  }
+                                                  className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-600 text-sm focus:outline-none block px-2.5 py-1"
+                                                  placeholder="1"
+                                                  required
+                                                />
+                                              </div>
+                                              <button
+                                                className="inline-flex items-center justify-center h-[1.85rem] w-6 p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
+                                                type="button"
+                                                onClick={() => {
+                                                  handleAddToCart(cartItem);
+                                                }}
+                                              >
+                                                <span className="sr-only">
+                                                  Quantity button
+                                                </span>
+                                                <svg
+                                                  className="w-3 h-3"
+                                                  aria-hidden="true"
+                                                  xmlns="http://www.w3.org/2000/svg"
+                                                  fill="none"
+                                                  viewBox="0 0 18 18"
+                                                >
+                                                  <path
+                                                    stroke="currentColor"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M9 1v16M1 9h16"
+                                                  />
+                                                </svg>
+                                              </button>
+                                            </div>
+                                          </td>
+                                          <td scope="col" className="px-4 py-3">
+                                            <select
+                                              name="billing_type"
+                                              className={`w-full px-3 py-2.5 border border-neutral-300 text-neutral-600 text-small rounded-md focus:outline-none`}
+                                              onChange={(e) =>
+                                                handleChangeMeasurementUnit(
+                                                  cartItem.slug,
+                                                  e.target.value
+                                                )
+                                              }
+                                              // onChange={(e) => setBillingType(e.target.value)}
+                                            >
+                                              <option value="">Select</option>
+                                              {measurementUnits.map(
+                                                (unit, index) => (
+                                                  <option
+                                                    value={unit.slug}
+                                                    key={index}
+                                                  >
+                                                    {unit.unit_code}-
+                                                    {unit.label}
+                                                  </option>
+                                                )
+                                              )}
+                                            </select>
+                                          </td>
+                                          <td>
+                                            <button
+                                              type="button"
+                                              className=" text-red-600 font-bold text-lg"
+                                              onClick={() =>
+                                                handleRemoveFromCart(cartItem)
+                                              }
+                                            >
+                                              x
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      )
                                     )
-                                  )
-                                ) : (
-                                  <div className="text-center text-sm mt-10">
-                                    <div>Please select items to add</div>
-                                  </div>
-                                )}
-                              </tbody>
-                            </table>
-                          </div>
-                          <div className="flex flex-row gap-5 my-5">
-                            <div className="flex flex-col w-1/3">
-                              <h3 className="text-sm text-neutral-500 font-semibold">
-                                Total Ingredient Purchase Price
-                              </h3>
-                              <p>{ingredientItemsTotalPurchase}</p>
+                                  ) : (
+                                    <div className="text-center text-sm mt-10">
+                                      <div>Please select items to add</div>
+                                    </div>
+                                  )}
+                                </tbody>
+                              </table>
                             </div>
-                            <div className="flex flex-col w-2/3">
-                              <h3 className="text-sm text-neutral-500 font-semibold">
-                                Total Ingredient Selling Price Excluding Tax
-                              </h3>
-                              <p>{ingredientItemsTotalSale}</p>
+                            <div className="flex flex-row gap-5 my-5">
+                              <div className="flex flex-col w-1/3">
+                                <h3 className="text-sm text-neutral-500 font-semibold">
+                                  Total Ingredient Purchase Price
+                                </h3>
+                                <p>{ingredientItemsTotalPurchase}</p>
+                              </div>
+                              <div className="flex flex-col w-2/3">
+                                <h3 className="text-sm text-neutral-500 font-semibold">
+                                  Total Ingredient Selling Price Excluding Tax
+                                </h3>
+                                <p>{ingredientItemsTotalSale}</p>
+                              </div>
                             </div>
-                          </div>
-                          <div className="mt-4">
-                            <div className="flex items-center mb-1">
-                              <SwitchButton
-                                name="is_ingredient_price"
-                                label="Set Product Price as Ingredient Cost"
-                              />
+                            <div className="mt-4">
+                              <div className="flex items-center mb-1">
+                                <SwitchButton
+                                  name="is_ingredient_price"
+                                  label="Set Product Price as Ingredient Cost"
+                                />
+                              </div>
+                              <p className="text-xs text-neutral-400 ml-6">
+                                If this option is enabled, product sale price
+                                and purchase price will be replaced with
+                                ingredient cost
+                              </p>
                             </div>
-                            <p className="text-xs text-neutral-400 ml-6">
-                              If this option is enabled, product sale price and
-                              purchase price will be replaced with ingredient
-                              cost
-                            </p>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      ))}
                   </div>
 
                   <div className="flex flex-row justify-end mt-3">

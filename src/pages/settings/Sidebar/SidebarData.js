@@ -31,4 +31,8 @@ export const menusList = [
     name: "Kitchen Displays",
     path: "/manage/kitchen_displays",
   },
+  {
+    name: "Taxes",
+    path: "/manage/tax",
+  },
 ];

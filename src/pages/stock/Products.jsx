@@ -10,7 +10,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [productFilter, setProductFilter] = useState("billing_products");
+  const [productFilter, setProductFilter] = useState("default_filter");
   const [page, setPage] = useState(1);
 
   const { products } = useSelector((state) => state.products);
@@ -73,6 +73,7 @@ const Products = () => {
             <option value="default_filter">All</option>
             <option value="billing_products">Billing Products</option>
             <option value="addon_products">Add-on Products</option>
+            <option value="ingredients">Ingredients</option>
           </select>
         </div>
 
