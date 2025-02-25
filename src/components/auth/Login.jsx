@@ -57,15 +57,15 @@ const Login = () => {
   };
 
   return (
-    <div className=" text-left">
+    <div className="text-left">
       <h3 className="text-xl font-bold text-nelsa_dark_blue mb-2">
-        Hello again 👋
+        Welcome Back
       </h3>
-      <p className="mt-1 text-sm text-gray-500 mb-8">
-        New Here?
-        <Link to="/auth/register" className="text-gray-700 hover:text-gray-900">
+      <p className="mt-1 text-sm text-neutral-500 mb-8">
+        Sign in below to manage your Truetab account and more.
+        {/* <Link to="/auth/register" className="text-gray-700 hover:text-gray-900">
           <span> Create an Account</span>
-        </Link>
+        </Link> */}
       </p>
       <Formik
         initialValues={initialValues}
@@ -109,8 +109,8 @@ const Login = () => {
                 component="div"
                 className="text-red-500 text-sm"
               />
-              <div className="flex flex-row justify-between mt-2">
-                <div className="flex items-center mb-4">
+              <div className="flex flex-row justify-between mt-3">
+                {/* <div className="flex items-center mb-4">
                   <input
                     type="checkbox"
                     value=""
@@ -119,20 +119,20 @@ const Login = () => {
                   <label className="ml-2 text-sm text-neutral-600 hover:text-tt_rich_black">
                     Remember me
                   </label>
-                </div>
+                </div> */}
                 <Link
                   to="/auth/forgot-password"
-                  className="text-sm text-neutral-600 hover:text-tt_rich_black"
+                  className="text-xs font-semibold text-neutral-800 hover:text-tt_rich_black"
                 >
                   Forgot your password?
                 </Link>
               </div>
             </div>
-            <div className="flex items-baseline justify-between text-base">
+            <div className="flex items-baseline justify-between text-base mt-2">
               {loading ? (
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black/60 text-[#ffffff] rounded-md flex items-center justify-center"
+                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black/60 text-[#ffffff] rounded-lg flex items-center justify-center"
                   disabled={loading}
                 >
                   <span
@@ -148,7 +148,7 @@ const Login = () => {
               ) : (
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-md"
+                  className="w-full px-4 py-3 mt-4 font-bold bg-tt_rich_black text-[#ffffff] rounded-lg"
                 >
                   Login
                 </button>
@@ -157,6 +157,17 @@ const Login = () => {
           </Form>
         )}
       </Formik>
+
+      <p className="mt-6 text-sm text-neutral-500 mb-8 text-center">
+        New to Truetab?
+        <Link
+          to="https://truetab.co/demo"
+          target="_blank"
+          className="text-neutral-700 hover:text-gray-900"
+        >
+          <span className="font-semibold"> Book a Demo</span>
+        </Link>
+      </p>
     </div>
   );
 };

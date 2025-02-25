@@ -13,6 +13,7 @@ import {
 import { logout } from "../../features/auth/authSlice";
 
 import logo from "../../assets/images/favicon.svg";
+import LanguageSwitcher from "../common/LanguageSwitcher";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const Header = () => {
         </div>
 
         <div className="flex flex-row justify-end items-center space-x-5">
+          <LanguageSwitcher />
           <Link
             to="/pos"
             className="flex flex-row bg-tt_uranian_blue-900 text-tt_celestial_blue border border-tt_celestial_blue items-center justify-centerr text-small font-semibold px-3 py-2 rounded-lg hover:cursor-pointer gap-2"

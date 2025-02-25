@@ -23,7 +23,7 @@ const AuthLayout = () => {
   }, [token, isError, isSuccess, message, navigate, dispatch]);
 
   return (
-    <div className="bg-gray-100 p-3 font-br antialiased text-base text-neutral-700">
+    <div className="bg-neutral-100 font-br antialiased text-base text-neutral-700">
       {/* <div className="w-1/2 flex flex-col justify-center items-center">
         <img src={logo} className="w-28" alt="logo" />
         <div className="flex items-center justify-center p-20">
@@ -31,13 +31,15 @@ const AuthLayout = () => {
         </div>
       </div> */}
       <main className="flex-1 ">
-        <div className="flex flex-col justify-center items-center space-y-5 h-screen">
-          <div className="flex items-center justify-center">
+        <div className="flex flex-col-reverse md:flex-row justify-start items-center space-y-5 h-screen gap-10">
+          <div className="flex md:w-2/3 items-center justify-center w-full bg-white h-screen">
+            <div className="">
+              <Outlet />
+            </div>
+          </div>
+          <div className="flex items-center justify-center w-full md:w-1/3 ">
             <img className="w-[10rem]" src={logo} alt="logo" />
             {/* <h4 className="text-2xl font-bold text-tt_rich_black">TrueTab</h4> */}
-          </div>
-          <div className="md:w-[28rem] w-[22rem] bg-white rounded-xl md:p-10 p-7">
-            <Outlet />
           </div>
         </div>
       </main>

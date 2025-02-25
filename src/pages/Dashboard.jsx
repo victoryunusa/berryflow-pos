@@ -1,7 +1,10 @@
 import { useSelector } from "react-redux";
 import * as HeIcons from "react-icons/fa6";
 
+import { useTranslation } from "react-i18next";
+
 const Dashboard = () => {
+  const { t } = useTranslation();
   const { user } = useSelector((state) => state.user);
 
   const { branches } = useSelector((state) => state.branches);
@@ -67,7 +70,7 @@ const Dashboard = () => {
                 <span className="w-10 h-10 bg-tt_rich_black/5 text-tt_rich_black rounded-md p-3">
                   <HeIcons.FaWallet />
                 </span>
-                <p className="text-sm">Total Revenue</p>
+                <p className="text-sm">{t("menu.dashboard")}</p>
               </div>
               <div>
                 <span>

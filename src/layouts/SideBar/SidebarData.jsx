@@ -141,41 +141,43 @@ export const subMenusList = [
   //     // },
   //   ],
   // },
-  {
-    name: "Reports",
-    path: "/reports",
-    icon: <HeIcons.FaChartPie size={16} className="min-w-max" />,
-    subNav: [
-      {
-        title: "Download Reports",
-        path: "/reports/download",
-      },
-      {
-        title: "Best Sellers",
-        path: "/reports/best_sellers",
-      },
-      {
-        title: "Day Wise Sales",
-        path: "/reports/day_wise_sales",
-      },
-      {
-        title: "Category Report",
-        path: "/reports/category",
-      },
-      {
-        title: "Product Qunatity Alert",
-        path: "/reports/product_quantity_alert",
-      },
-      {
-        title: "Ingredient Qunatity Alert",
-        path: "/reports/ingredient_quantity_alert",
-      },
-      {
-        title: "Branch Stock Chart",
-        path: "/reports/branch_stock_chart",
-      },
-    ],
-  },
+
+  // {
+  //   name: "Reports",
+  //   path: "/reports",
+  //   icon: <HeIcons.FaChartPie size={16} className="min-w-max" />,
+  //   subNav: [
+  //     {
+  //       title: "Download Reports",
+  //       path: "/reports/download",
+  //     },
+  //     {
+  //       title: "Best Sellers",
+  //       path: "/reports/best_sellers",
+  //     },
+  //     {
+  //       title: "Day Wise Sales",
+  //       path: "/reports/day_wise_sales",
+  //     },
+  //     {
+  //       title: "Category Report",
+  //       path: "/reports/category",
+  //     },
+  //     {
+  //       title: "Product Qunatity Alert",
+  //       path: "/reports/product_quantity_alert",
+  //     },
+  //     {
+  //       title: "Ingredient Qunatity Alert",
+  //       path: "/reports/ingredient_quantity_alert",
+  //     },
+  //     {
+  //       title: "Branch Stock Chart",
+  //       path: "/reports/branch_stock_chart",
+  //     },
+  //   ],
+  // },
+
   // {
   //   name: "Manage",
   //   path: "/manage",

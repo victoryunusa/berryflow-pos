@@ -179,7 +179,7 @@ const SideNav = () => {
                 Orders
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/wallet"
                 className={({ isActive }) =>
@@ -189,7 +189,7 @@ const SideNav = () => {
                 <HeIcons.FaWallet size={16} className="min-w-max" />
                 Wallet
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink
                 to="/customers"
