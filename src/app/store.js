@@ -36,6 +36,7 @@ import orderTypesReducer from "../features/master_actions/orderTypeSlice";
 import billCounterReducer from "../features/bill_counter/billCounterSlice";
 import businessRegisterReducer from "../features/business_register/businessRegisterSlice";
 import billinCounterStatReducer from "../features/business_register/billingCounterStatSlice";
+import menusReducer from "../features/menu/menuSlice";
 import invoicePrintTypesReducer from "../features/master_actions/invoicePrintTypeSlice";
 import vendorReducer from "../features/vendor/vendorSlice";
 import purchaseOrderItemsReducer from "../features/purchase/purchaseCartSlice";
@@ -79,6 +80,7 @@ export const store = configureStore({
     categories: categoriesReducer,
     units: unitsReducer,
     ingredients: ingredientsReducer,
+    menus: menusReducer,
     orders: ordersReducer,
     order: orderReducer,
     products: productsReducer,

@@ -55,18 +55,6 @@ const Tables = () => {
     setActiveTab(index);
   };
 
-  const imageBodyTemplate = (product) => {
-    const url = `https://getnelsa.com/${product.slug}`;
-    return (
-      <QRCode
-        size={5}
-        style={{ height: "auto", maxWidth: "50%", width: "50%" }}
-        value={url}
-        viewBox={`0 0 50 50`}
-      />
-    );
-  };
-
   return (
     <>
       <div className="flex flex-col space-y-5">

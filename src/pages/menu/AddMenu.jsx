@@ -1,75 +1,51 @@
-import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import AsyncSelect from "react-select/async";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { alertActions } from "../../app/store";
-
-// Validation schema using Yup
-const validationSchema = Yup.object().shape({
-  makeModel: Yup.string()
-    .required("Make and Model is required")
-    .min(2, "Must be at least 2 characters"),
-  licensePlate: Yup.string()
-    .required("License Plate is required")
-    .min(3, "Must be at least 3 characters"),
-  state: Yup.string().required("State is required"),
-});
+import { addMenu, getMenus } from "../../features/menu/menuSlice";
 
 const AddMenu = ({ setOpen }) => {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
+  // Validation schema using Yup
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Menu name is required"),
+  });
 
   const handleSubmit = async (formValue) => {
-    const {
-      account_name,
-      account_type,
-      pos_default,
-      initial_balance,
-      description,
-    } = formValue;
+    const { name } = formValue;
 
     dispatch(alertActions.clear());
     try {
-      setLoading(true);
-
-      //   await dispatch(
-      //     addAccount({
-      //       account_name,
-      //       account_type,
-      //       pos_default,
-      //       initial_balance,
-      //       description,
-      //     })
-      //   ).unwrap();
+      await dispatch(
+        addMenu({
+          name,
+        })
+      ).unwrap();
 
       dispatch(
         alertActions.success({
-          message: "Account successfully added.",
+          message: "Menu successfully added.",
           showAfterRedirect: true,
         })
       );
 
-      //   dispatch(getAccounts());
-      setLoading(false);
+      dispatch(getMenus());
+      setOpen(false);
     } catch (error) {
       dispatch(alertActions.error(error));
-      setLoading(false);
     }
   };
 
   return (
     <Formik
       initialValues={{
-        makeModel: "",
-        licensePlate: "",
-        state: "",
+        name: "",
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting, errors, touched, setFieldValue }) => (
+      {({ isSubmitting, errors, touched }) => (
         <Form className="space-y-5">
           {/* Make and Model Field with AsyncSelect */}
           <div className="">
@@ -79,15 +55,13 @@ const AddMenu = ({ setOpen }) => {
             <Field
               type="text"
               placeholder=""
-              name="account_name"
+              name="name"
               className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-xs rounded-md focus:outline-none ${
-                errors.account_name && touched.account_name
-                  ? "border-red-500"
-                  : ""
+                errors.name && touched.name ? "border-red-500" : ""
               } focus:nelsa_gray_3`}
             />
             <ErrorMessage
-              name="account_name"
+              name="name"
               component="div"
               className="text-red-500 text-xs"
             />
@@ -100,15 +74,32 @@ const AddMenu = ({ setOpen }) => {
               onClick={() => setOpen(false)}
               className="w-1/6 px-4 py-3 text-sm font-semibold bg-neutral-100 hover:bg-neutral-200 text-neutral-500 rounded-lg"
             >
-              cancel
+              Cancel
             </button>
-            <button
-              type="submit"
-              className="w-1/6 bg-tt_rich_black text-white text-sm font-semibold px-4 py-3 rounded-lg hover:bg-tt_rich_black/90 self-end"
-              disabled={isSubmitting}
-            >
-              Continue
-            </button>
+            {isSubmitting ? (
+              <button
+                type="submit"
+                className="w-1/6 px-4 py-3 font-bold bg-tt_rich_black/80 text-[#ffffff] rounded-lg flex items-center justify-center"
+                disabled={isSubmitting}
+              >
+                <span
+                  className="mr-5 inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                  role="status"
+                >
+                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                    Loading...
+                  </span>
+                </span>
+                Loading...
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-1/6 px-4 py-3 text-sm font-semibold bg-tt_rich_black hover:bg-tt_rich_black/80 text-[#ffffff] rounded-lg"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </Form>
       )}

@@ -368,9 +368,9 @@ const AddTransaction = (props) => {
                               <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-md"
+                                className="w-full px-4 py-3 text-xs font-semibold bg-neutral-100 text-neutral-500 rounded-lg"
                               >
-                                cancel
+                                Cancel
                               </button>
                               {loading ? (
                                 <button
@@ -391,7 +391,7 @@ const AddTransaction = (props) => {
                               ) : (
                                 <button
                                   type="submit"
-                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black text-[#ffffff] rounded-md"
+                                  className="w-full px-4 py-3 text-xs font-semibold bg-tt_rich_black hover:bg-tt_rich_black/80 text-[#ffffff] rounded-lg"
                                 >
                                   Submit
                                 </button>
