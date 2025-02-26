@@ -50,7 +50,7 @@ const closeRegister = async ({ token, formData }) => {
   };
 
   const response = await axios.post(
-    `${BaseUrl}/business_registers/close`,
+    `${BaseUrl}/business_registers/close_register`,
     formData,
     config
   );

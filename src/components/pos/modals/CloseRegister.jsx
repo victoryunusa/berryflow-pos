@@ -7,39 +7,54 @@ import * as SiIcons from "react-icons/si";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { alertActions } from "../../../app/store";
+import {
+  clearActiveRegister,
+  closeRegister,
+} from "../../../features/pos/businessRegisterSlice";
 
 const CloseRegister = ({ setOpen, register_order_total }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { user } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initialValues = {
-    business_account: "",
-    received_value: "",
-    order_value: "",
-    register_order_total: register_order_total || "",
+    cheques: 0,
+    credit_card_slips: 0,
+    register_order_total: register_order_total || 0,
   };
 
   const validationSchema = Yup.object().shape({});
 
   const handleSubmit = async (formValue) => {
-    const { register_order_total } = formValue;
+    const { register_order_total, cheques, credit_card_slips } = formValue;
 
     dispatch(alertActions.clear());
     try {
       setLoading(true);
 
-      await dispatch(addArea({ register_order_total })).unwrap();
+      await dispatch(
+        closeRegister({
+          closing_amount: register_order_total,
+          cheques,
+          credit_card_slips,
+          logged_user_id: user?.id,
+        })
+      ).unwrap();
       //localStorage.setItem("email", JSON.stringify(email));
 
       dispatch(
         alertActions.success({
-          message: "Area successfully added.",
+          message: "Register closed successfully added.",
           showAfterRedirect: true,
         })
       );
+
+      dispatch(clearActiveRegister());
+
       // navigate("/suppliers");
       // window.location.reload(true);
 
@@ -111,16 +126,17 @@ const CloseRegister = ({ setOpen, register_order_total }) => {
                                 <Field
                                   type="text"
                                   placeholder="Total Card Slips"
-                                  name="name"
+                                  name="credit_card_slips"
                                   disabled
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.credit_card_slips &&
+                                    touched.credit_card_slips
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="credit_card_slips"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />
@@ -132,16 +148,16 @@ const CloseRegister = ({ setOpen, register_order_total }) => {
                                 <Field
                                   type="text"
                                   placeholder="Total Cheques"
-                                  name="name"
+                                  name="cheques"
                                   disabled
                                   className={`w-full px-4 py-3 mt-1 border text-neutral-500 text-sm rounded-md focus:outline-none ${
-                                    errors.name && touched.name
+                                    errors.cheques && touched.cheques
                                       ? "border-red-500"
                                       : ""
                                   } focus:border-blue-950`}
                                 />
                                 <ErrorMessage
-                                  name="name"
+                                  name="cheques"
                                   component="div"
                                   className="text-red-500 text-sm"
                                 />
