@@ -33,6 +33,7 @@ import {
   updateQuantity,
   updateUnitPrice,
 } from "../../../features/products/productIngedientSlice";
+import { getMenus } from "../../../features/menu/menuSlice";
 
 const CustomInputComponent = ({
   field, // { name, value, onChange, onBlur }
@@ -46,6 +47,7 @@ const CustomInputComponent = ({
 
 const AddProduct = () => {
   let dollarUSLocale = Intl.NumberFormat("en-US");
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
@@ -64,6 +66,12 @@ const AddProduct = () => {
   const { user } = useSelector((state) => state.user);
   const { units } = useSelector((state) => state.units);
 
+  const { menus } = useSelector((state) => state.menus);
+
+  var newMenus = menus.map(function (obj) {
+    return { value: obj.id, label: obj.name };
+  });
+
   var newArray = units.map(function (obj) {
     return { value: obj.id, label: obj.unit_code + " - " + obj.label };
   });
@@ -73,6 +81,10 @@ const AddProduct = () => {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  useEffect(() => {
+    dispatch(getMenus());
+  }, [dispatch]);
 
   console.log(discountCodes);
 
@@ -122,8 +134,6 @@ const AddProduct = () => {
     );
     setMeasurementUnits(response.data);
   };
-
-  const dispatch = useDispatch();
 
   //const { variant_items } = useSelector((state) => state.variant_items);
   const variantItems = useSelector(getVariantOptions);
@@ -521,13 +531,13 @@ const AddProduct = () => {
                               Menu
                             </label>
                             <Selector
-                              options={newCategories}
+                              options={newMenus}
                               value={values.menu}
                               setFieldValue={setFieldValue}
-                              name="menu"
+                              name="menu_id"
                             />
                             <ErrorMessage
-                              name="menu"
+                              name="menu_id"
                               component="div"
                               className="text-red-500 text-xs"
                             />

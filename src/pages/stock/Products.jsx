@@ -81,7 +81,7 @@ const Products = () => {
           {products?.data?.map((product, index) => (
             <div
               key={index}
-              className="flex flex-col bg-white shadow-md border rounded-lg cursor-pointer p-2"
+              className="flex flex-col bg-white shadow-md border rounded-xl cursor-pointer p-2"
               onClick={() => showProduct(product.slug)}
             >
               <div className="flex w-full h-28 bg-contain">
@@ -90,7 +90,7 @@ const Products = () => {
                     "https://pub-c53156c3afbd424aa9f8f46985cf39b7.r2.dev/nelsa-app/" +
                     product?.product_images[0]?.filename
                   }
-                  className="w-full rounded-t-lg"
+                  className="w-full rounded-t-md"
                   alt={product.name}
                 />
               </div>
@@ -112,7 +112,7 @@ const Products = () => {
                   </span>
                 </div>
                 <div className="w-full flex flex-row gap-2">
-                  <button className="p-2 flex items-center justify-center text-white rounded-md bg-tt_rich_black hover:bg-tt_rich_black/90 w-full">
+                  <button className="p-2 flex items-center justify-center text-white rounded-lg bg-tt_rich_black hover:bg-tt_rich_black/90 w-full">
                     <span className="text-sm font-semibold">View</span>
                   </button>
                 </div>
