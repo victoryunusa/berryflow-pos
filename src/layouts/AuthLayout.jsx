@@ -33,7 +33,7 @@ const AuthLayout = () => {
       <main className="flex-1 ">
         <div className="flex flex-col-reverse md:flex-row justify-start items-center space-y-5 h-screen gap-10">
           <div className="flex md:w-2/3 items-center justify-center w-full bg-white h-screen">
-            <div className="">
+            <div className="p-8">
               <Outlet />
             </div>
           </div>
